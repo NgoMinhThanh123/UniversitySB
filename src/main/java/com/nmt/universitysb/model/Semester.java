@@ -1,0 +1,47 @@
+package com.nmt.universitysb.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Set;
+
+@Data
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "semester")
+public class Semester implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "id")
+    private String id;
+    @Basic(optional = false)
+    @Column(name = "name")
+    private String name;
+    @Basic(optional = false)
+    @Column(name = "school_year")
+    private int schoolYear;
+    @Basic(optional = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "from_date")
+    @Temporal(TemporalType.DATE)
+    private Date fromDate;
+    @Basic(optional = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Column(name = "to_date")
+    @Temporal(TemporalType.DATE)
+    private Date toDate;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "semesterId")
+    private Set<SubjectSemester> subjectSemesterSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "semesterId")
+    private Set<Score> scoreSet;
+}

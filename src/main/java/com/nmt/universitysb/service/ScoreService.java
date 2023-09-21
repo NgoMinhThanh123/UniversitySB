@@ -1,0 +1,27 @@
+package com.nmt.universitysb.service;
+
+import com.nmt.universitysb.model.Classes;
+import com.nmt.universitysb.model.Score;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+public interface ScoreService {
+    List<Score> findAll();
+    Optional<Score> findById(int id);
+
+    long count();
+    Score save(Score f);
+    boolean deleteScore(int id);
+//    List<Score> getScores(Map<String, String> params);
+//    int countScores();
+//    boolean addOrUpdateScore(Score u);
+//    Score getScoreById(int id);
+//    List<ScoreDto> getScoreByStudentId(String studentId, String subjectId, String semesterId);
+//    List<ScoreListDto> getListScoreStudent(String studentId, String semesterId);
+//    List<StudentScoreDTO> getStudentScores(String lecturerId, String semesterId, String subjectId);
+//    List<StudentScoreDTO> getListScoresExport(String subjectId, String semesterId);
+//    boolean deleteScore(int id);
+//    List<Score_ScoreValueDto> addScore(List<Map<String, String>> scoreParamsList);
+}
