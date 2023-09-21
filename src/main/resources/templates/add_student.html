@@ -11,7 +11,8 @@
             margin: 0;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            /* Loại bỏ min-height và thêm overflow-y */
+            overflow-y: auto;
         }
         footer {
             margin-top: auto;
@@ -25,10 +26,74 @@
         }
     </style>
 </head>
-<body>
+<body >
 <div th:replace="header"></div>
 <div class="container">
+    <h1 class="text-center text-success mt-1">THÊM SINH VIÊN</h1>
+    <form th:object="${add_student}" th:action="@{/add_student}" method="post">
+        <div class="form-floating">
+            <input type="text" class="form-control" th:field="*{id}" id="id" placeholder="ID" name="id" />
+            <label for="id">ID</label>
+            <!--            <form:errors path="id" element="div" cssClass="text-danger" />-->
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Tên sinh viên" name="name" />
+            <label for="name">Tên sinh viên</label>
+            <!--            <form:errors path="name" element="div" cssClass="text-danger" />-->
+        </div>
+        <div class="form-floating">
+            <input type="date" class="form-control" th:field="*{birthday}" id="birthday" placeholder="Ngày sinh" name="birthday" />
+            <label for="birthday">Ngày sinh</label>
+            <!--            <form:errors path="name" element="div" cssClass="text-danger" />-->
+        </div>
+        <div class="form-floating">
+            <select class="form-select" id="gender" name="gender">
+                <option value="1" selected>Nam</option>
+                <option value="0">Nữ</option>
+            </select>
+            <label for="gender">Giới tính</label>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" th:field="*{phone}" id="phone" placeholder="Số điện thoại" name="phone" />
+            <label for="phone">Số điện thoại</label>
+            <!--            <form:errors path="name" element="div" cssClass="text-danger" />-->
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" th:field="*{address}" id="address" placeholder="Địa chỉ" name="address" />
+            <label for="name">Địa chỉ</label>
+            <!--            <form:errors path="name" element="div" cssClass="text-danger" />-->
+        </div>
+        <div class="form-floating">
+            <select class="form-select" th:field="*{userId}" id="user" name="user">
+                <option th:each="f : ${user}" th:value="${f.id}" th:text="${f.id}"></option>
+            </select>
+            <label for="user" class="form-label">Mã tài khoản</label>
+        </div>
+        <div class="form-floating">
+            <select class="form-select" th:field="*{classesId}" id="classes" name="classes">
+                <option th:each="f : ${classes}" th:value="${f.id}" th:text="${f.id}"></option>
+            </select>
+            <label for="classes" class="form-label">Mã lớp</label>
+        </div>
+        <div class="form-floating">
+            <select class="form-select" th:field="*{facultyId}" id="faculty" name="faculty">
+                <option th:each="f : ${faculty}" th:value="${f.id}" th:text="${f.name}"></option>
+            </select>
+            <label for="faculty" class="form-label">Khoa</label>
+        </div>
+        <div class="form-floating">
+            <select class="form-select" th:field="*{majorId}" id="major" name="major">
+                <option th:each="f : ${major}" th:value="${f.id}" th:text="${f.name}"></option>
+            </select>
+            <label for="faculty" class="form-label">Chuyên ngành</label>
+         </div>
 
+
+
+        <div class="form-floating mb-3 mt-3">
+            <button type="submit" class="btn btn-info">Thêm giảng viên</button>
+        </div>
+    </form>
 </div>
 <div th:replace="footer"></div>
 </body>

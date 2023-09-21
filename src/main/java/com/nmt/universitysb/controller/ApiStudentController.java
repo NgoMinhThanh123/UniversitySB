@@ -1,49 +1,36 @@
-package com.nmt.universitysb.controller;///*
-// * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-// * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
-// */
-//package com.nmt.universitymanage.controller;
-//
-//import com.nmt.model.Student;
-//import com.nmt.model.Subject;
-//import com.nmt.request.MailRequest;
-//import com.nmt.request.RequestMailToStudent;
-//import com.nmt.service.MailService;
-//import com.nmt.service.StudentService;
-//import com.nmt.service.SubjectService;
-//import com.nmt.service.UserService;
-//import dto.StuScoreDto;
-//import dto.StudentDto;
-//import java.time.LocalDate;
-//import java.time.format.DateTimeFormatter;
-//import java.util.List;
-//import java.util.Map;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.HttpStatus;
-//import org.springframework.http.MediaType;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.mail.javamail.JavaMailSender;
-//import org.springframework.web.bind.annotation.CrossOrigin;
-//import org.springframework.web.bind.annotation.DeleteMapping;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestParam;
-//import org.springframework.web.bind.annotation.ResponseStatus;
-//import org.springframework.web.bind.annotation.RestController;
+package com.nmt.universitysb.controller;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Map;
+
+import com.nmt.universitysb.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 //import utils.HTMLConverter;
 //
 //
 //import static utils.Constants.YYYY_MM_DD;
-//
-//@RestController
-//@RequestMapping("/api")
-//public class ApiStudentController {
-//
-//    @Autowired
-//    private StudentService studentService;
+
+@RestController
+@RequestMapping("/api")
+public class ApiStudentController {
+
+    @Autowired
+    private StudentService studentService;
 //    @Autowired
 //    private SubjectService subjectService;
 //    @Autowired
@@ -52,12 +39,12 @@ package com.nmt.universitysb.controller;///*
 //    private MailService mailService;
 //    @Autowired
 //    private JavaMailSender mailSender;
-//
-//    @DeleteMapping("/update_student/{id}")
-//    @ResponseStatus(HttpStatus.NO_CONTENT)
-//    public void delete(@PathVariable(value = "id") String id) {
-//        this.studentService.deleteStudent(id);
-//    }
+
+    @DeleteMapping("/update_student/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable(value = "id") String id) {
+        this.studentService.deleteStudent(id);
+    }
 //
 //    @GetMapping("/students")
 //    @CrossOrigin
@@ -132,5 +119,5 @@ package com.nmt.universitysb.controller;///*
 //        });
 //        return ResponseEntity.ok("Send mail to group successfully!");
 //    }
-//
-//}
+
+}

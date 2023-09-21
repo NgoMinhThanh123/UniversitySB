@@ -1,31 +1,49 @@
-package com.nmt.universitysb.service.impl;///*
-// * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-// * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
-// */
-//package com.nmt.universitymanage.service.impl;
-//
-//import com.nmt.universitymanage.dto.ScoreDto;
-//import com.nmt.universitymanage.dto.StuScoreDto;
-//import com.nmt.universitymanage.dto.StudentDto;
-//import com.nmt.universitymanage.model.Student;
-//import com.nmt.universitymanage.repository.ScoreRepository;
-//import com.nmt.universitymanage.repository.StudentRepository;
-//import com.nmt.universitymanage.service.StudentService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.Map;
-//
-///**
-// *
-// * @author acer
-// */
-//@Service
-//public class StudentServiceImpl implements StudentService {
-//    @Autowired
-//    private StudentRepository studentRepo;
+package com.nmt.universitysb.service.impl;
+import com.nmt.universitysb.model.Student;
+import com.nmt.universitysb.repository.StudentRepository;
+import com.nmt.universitysb.service.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+/**
+ *
+ * @author acer
+ */
+@Service
+public class StudentServiceImpl implements StudentService {
+    @Autowired
+    private StudentRepository studentRepo;
+
+    @Override
+    public List<Student> findAll() {
+        return this.studentRepo.findAll();
+    }
+
+    @Override
+    public Optional<Student> findById(String id) {
+        return this.studentRepo.findById(id);
+    }
+
+    @Override
+    public long count() {
+        return this.studentRepo.count();
+    }
+
+    @Override
+    public Student save(Student f) {
+        return this.studentRepo.save(f);
+    }
+
+    @Override
+    public boolean deleteStudent(String id) {
+        this.studentRepo.deleteById(id);
+        return true;
+    }
 //    @Autowired
 //    private ScoreRepository scoreRepo;
 //
@@ -104,5 +122,5 @@ package com.nmt.universitysb.service.impl;///*
 //    public List<Student> getStudentByHomeroomTeacher(String lecturerId) {
 //        return this.studentRepo.getStudentByHomeroomTeacher(lecturerId);
 //    }
-//
-//}
+
+}

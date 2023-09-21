@@ -1,17 +1,18 @@
-package com.nmt.universitysb.service;///*
-// * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-// * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
-// */
-//package com.nmt.universitymanage.service;
-//
-//import com.nmt.universitymanage.dto.StuScoreDto;
-//import com.nmt.universitymanage.dto.StudentDto;
-//import com.nmt.universitymanage.model.Student;
-//
-//import java.util.List;
-//import java.util.Map;
-//
-//public interface StudentService {
+package com.nmt.universitysb.service;
+
+import com.nmt.universitysb.model.Lecturer;
+import com.nmt.universitysb.model.Student;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+public interface StudentService {
+    List<Student> findAll();
+    Optional<Student> findById(String id);
+    long count();
+    Student save(Student f);
+    boolean deleteStudent(String id);
 //    List<Student> getStudents(Map<String, String> params);
 //    int countStudents();
 //    boolean addStudent(Student c);
@@ -22,5 +23,5 @@ package com.nmt.universitysb.service;///*
 //    List<Student> getStudentByHomeroomTeacher(String lecturerId);
 //    List<StuScoreDto> getListStudent(String lectureId, String subjectId, String semesterId);
 //    List<String> getAllMailOfStudent(String lecturerId, String subjectId, String semesterId);
-//
-//}
+
+}
