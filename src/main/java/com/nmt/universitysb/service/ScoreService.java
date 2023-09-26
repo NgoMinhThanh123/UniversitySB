@@ -2,6 +2,9 @@ package com.nmt.universitysb.service;
 
 import com.nmt.universitysb.model.Classes;
 import com.nmt.universitysb.model.Score;
+import com.nmt.universitysb.model.ScoreValue;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Map;
@@ -9,9 +12,11 @@ import java.util.Optional;
 
 public interface ScoreService {
     List<Score> findAll();
+    Page<Score> findAll(Pageable pageable);
+
     Optional<Score> findById(int id);
 
-    long count();
+    Page<Score> findAllByIdContaining(String keyword, Pageable pageable);
     Score save(Score f);
     boolean deleteScore(int id);
 //    List<Score> getScores(Map<String, String> params);

@@ -3,6 +3,8 @@ import com.nmt.universitysb.model.Student;
 import com.nmt.universitysb.repository.StudentRepository;
 import com.nmt.universitysb.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -10,10 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- *
- * @author acer
- */
 @Service
 public class StudentServiceImpl implements StudentService {
     @Autowired
@@ -25,13 +23,18 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public Page<Student> findAll(Pageable pageable) {
+        return this.studentRepo.findAll(pageable);
+    }
+
+    @Override
     public Optional<Student> findById(String id) {
         return this.studentRepo.findById(id);
     }
 
     @Override
-    public long count() {
-        return this.studentRepo.count();
+    public Page<Student> findAllByNameContaining(String keyword, Pageable pageable) {
+        return this.studentRepo.findAllByNameContaining(keyword, pageable);
     }
 
     @Override

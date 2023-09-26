@@ -1,33 +1,47 @@
-package com.nmt.universitysb.service.impl;///*
-// * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-// * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
-// */
-//package com.nmt.universitymanage.service.impl;
-//import com.nmt.universitymanage.model.Comment;
-//import com.nmt.universitymanage.model.User;
-//import com.nmt.universitymanage.repository.CommentRepository;
-//import com.nmt.universitymanage.repository.UserRepository;
-//import com.nmt.universitymanage.service.CommentService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.Date;
-//import java.util.List;
-//import java.util.Map;
-//
-///**
-// *
-// * @author acer
-// */
-//@Service
-//public class CommentServiceImpl implements CommentService {
-//
-//    @Autowired
-//    private CommentRepository commentRepo;
-//    @Autowired
-//    private UserRepository userRepo;
+package com.nmt.universitysb.service.impl;
+import com.nmt.universitysb.model.Comment;
+import com.nmt.universitysb.repository.CommentRepository;
+import com.nmt.universitysb.repository.UserRepository;
+import com.nmt.universitysb.service.CommentService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+
+@Service
+public class CommentServiceImpl implements CommentService {
+
+    @Autowired
+    private CommentRepository commentRepo;
+    @Autowired
+    private UserRepository userRepo;
+
+    @Override
+    public List<Comment> findAll() {
+        return this.commentRepo.findAll();
+    }
+
+    @Override
+    public Optional<Comment> findById(int id) {
+        return this.commentRepo.findById(id);
+    }
+
+    @Override
+    public Comment save(Comment f) {
+        return this.commentRepo.save(f);
+    }
+
+    @Override
+    public boolean deleteUser(int id) {
+        this.commentRepo.deleteById(id);
+        return true;
+    }
 //    @Override
 //    public List<Comment> getComments(Map<String, String> params) {
 //        return this.commentRepo.getComments(params);
@@ -48,5 +62,5 @@ package com.nmt.universitysb.service.impl;///*
 //
 //        return this.commentRepo.addComment(comment);
 //    }
-//
-//}
+
+}

@@ -1,12 +1,15 @@
 package com.nmt.universitysb.controller;
 
 import com.nmt.universitysb.model.Lecturer;
+import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.service.ClassesService;
 import com.nmt.universitysb.service.FacultyService;
 import com.nmt.universitysb.service.LecturerService;
 import com.nmt.universitysb.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,15 +29,21 @@ public class LecturerController {
     private ClassesService classesService;
     @Autowired
     private UserService userService;
-    @Autowired
-    private Environment env;
 
     @GetMapping("/lecturer")
-    public String list(Model model, @RequestParam Map<String, String> params) {
-        model.addAttribute("lecturer", this.lecturerService.findAll());
-//        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
-//        int count = this.lecturerService.countLecturers();
-//        model.addAttribute("counter", Math.ceil(count * 1.0 / pageSize));
+    public String list(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
+                       @RequestParam(name = "kw", required = false) String keyword) {
+        int pageSize = 12;
+        Page<Lecturer> lecturerPage;
+
+        if (keyword != null && !keyword.isEmpty()) {
+            lecturerPage = this.lecturerService.findAllByNameContaining(keyword, PageRequest.of(page, pageSize));
+        } else {
+            lecturerPage = this.lecturerService.findAll(PageRequest.of(page, pageSize));
+        }
+
+        model.addAttribute("lecturerPage", lecturerPage);
+        model.addAttribute("keyword", keyword);
 
         return "lecturer";
     }

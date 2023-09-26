@@ -1,16 +1,17 @@
 package com.nmt.universitysb.service;
-import com.nmt.universitysb.model.Major;
 import com.nmt.universitysb.model.Subject;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public interface SubjectService {
     List<Subject> findAll();
+    Page<Subject> findAll(Pageable pageable);
     Optional<Subject> findById(String id);
 
-    long count();
+    Page<Subject> findAllByNameContaining(String keyword, Pageable pageable);
     Subject save(Subject f);
 
     boolean deleteSubject(String id);

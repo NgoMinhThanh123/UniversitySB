@@ -3,6 +3,8 @@ import com.nmt.universitysb.model.Lecturer;
 import com.nmt.universitysb.repository.LecturerRepository;
 import com.nmt.universitysb.service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,13 +28,18 @@ public class LectureServiceImpl implements LecturerService {
     }
 
     @Override
+    public Page<Lecturer> findAll(Pageable pageable) {
+        return this.lecturersRepo.findAll(pageable);
+    }
+
+    @Override
     public Optional<Lecturer> findById(String id) {
         return this.lecturersRepo.findById(id);
     }
 
     @Override
-    public long count() {
-        return this.lecturersRepo.count();
+    public Page<Lecturer> findAllByNameContaining(String keyword, Pageable pageable) {
+        return this.lecturersRepo.findAllByNameContaining(keyword, pageable);
     }
 
     @Override

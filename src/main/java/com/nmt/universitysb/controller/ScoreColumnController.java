@@ -2,9 +2,12 @@ package com.nmt.universitysb.controller;
 import java.util.Map;
 
 import com.nmt.universitysb.model.ScoreColumn;
+import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.service.ScoreColumnSevice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,15 +22,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class ScoreColumnController {
     @Autowired
     private ScoreColumnSevice scoreColumnSevice;
-    @Autowired
-    private Environment env;
-
     @GetMapping("/score_column")
-    public String list(Model model, @RequestParam Map<String, String> params) {
-        model.addAttribute("score_column", this.scoreColumnSevice.findAll());
-//        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
-//        int count = this.scoreColumnSevice.countScoreColumns();
-//        model.addAttribute("counter", Math.ceil(count * 1.0 / pageSize));
+    public String list(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
+                       @RequestParam(name = "kw", required = false) String keyword) {
+        int pageSize = 12;
+        Page<ScoreColumn> scoreColumnPage;
+
+        if (keyword != null && !keyword.isEmpty()) {
+            scoreColumnPage = this.scoreColumnSevice.findAllByNameContaining(keyword, PageRequest.of(page, pageSize));
+        } else {
+            scoreColumnPage = this.scoreColumnSevice.findAll(PageRequest.of(page, pageSize));
+        }
+
+        model.addAttribute("scoreColumnPage", scoreColumnPage);
+        model.addAttribute("keyword", keyword);
+
         return "score_column";
     }
 

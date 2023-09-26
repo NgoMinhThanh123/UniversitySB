@@ -4,6 +4,8 @@ import com.nmt.universitysb.model.Semester;
 import com.nmt.universitysb.repository.SemesterRepository;
 import com.nmt.universitysb.service.SemesterService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,13 +22,18 @@ public class SemesterServiceImpl implements SemesterService {
     }
 
     @Override
+    public Page<Semester> findAll(Pageable pageable) {
+        return this.semesRepo.findAll(pageable);
+    }
+
+    @Override
     public Optional<Semester> findById(String id) {
         return this.semesRepo.findById(id);
     }
 
     @Override
-    public long count() {
-        return this.semesRepo.count();
+    public Page<Semester> findAllBySchoolYearContaining(String keyword, Pageable pageable) {
+        return this.semesRepo.findAllBySchoolYearContaining(keyword, pageable);
     }
 
     @Override

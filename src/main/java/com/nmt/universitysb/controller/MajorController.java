@@ -1,10 +1,13 @@
 package com.nmt.universitysb.controller;
 
 import com.nmt.universitysb.model.Major;
+import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.service.FacultyService;
 import com.nmt.universitysb.service.MajorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,15 +27,22 @@ public class MajorController {
     private MajorService majorService;
     @Autowired
     private FacultyService facultyService;
-    @Autowired
-    private Environment env;
 
     @GetMapping("/major")
-    public String list(Model model, @RequestParam Map<String, String> params) {
-        model.addAttribute("major", this.majorService.findAll());
-//        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
-//        int count = this.majorService.countMajors();
-//        model.addAttribute("counter", Math.ceil(count * 1.0 / pageSize));
+    public String list(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
+                       @RequestParam(name = "kw", required = false) String keyword) {
+        int pageSize = 12;
+        Page<Major> majorPage;
+
+        if (keyword != null && !keyword.isEmpty()) {
+            majorPage = this.majorService.findAllByNameContaining(keyword, PageRequest.of(page, pageSize));
+        } else {
+            majorPage = this.majorService.findAll(PageRequest.of(page, pageSize));
+        }
+
+        model.addAttribute("majorPage", majorPage);
+        model.addAttribute("keyword", keyword);
+
         return "major";
     }
 

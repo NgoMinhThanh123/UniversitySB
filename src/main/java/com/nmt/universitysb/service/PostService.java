@@ -1,16 +1,23 @@
-package com.nmt.universitysb.service;///*
-// * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-// * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
-// */
-//package com.nmt.universitymanage.service;
-//import com.nmt.universitymanage.model.Post;
-//
-//import java.util.List;
-//import java.util.Map;
-//
-//public interface PostService {
+package com.nmt.universitysb.service;
+
+import com.nmt.universitysb.model.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface PostService {
+    List<Post> findAll();
+    Page<Post> findAll(Pageable pageable);
+    Optional<Post> findById(int id);
+
+    Page<Post> findAllByTitleContaining(String keyword, Pageable pageable);
+    Post save(Post f);
+
+    boolean deletePost(int id);
 //    List<Post> getPosts(Map<String, String> params);
 //    Post addPost(Post post);
 //    Post getPostByid(int id);
 //    Boolean deletePost(int id);
-//}
+}

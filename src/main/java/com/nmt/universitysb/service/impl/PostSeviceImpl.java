@@ -1,38 +1,57 @@
-package com.nmt.universitysb.service.impl;///*
-// * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-// * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
-// */
-//package com.nmt.universitymanage.service.impl;
-//
-//import com.nmt.model.Post;
-//import com.nmt.model.User;
-//import com.nmt.repository.PostRepository;
-//import com.nmt.repository.UserRepository;
-//import com.nmt.service.PostService;
-//import com.nmt.universitymanage.model.Post;
-//import com.nmt.universitymanage.model.User;
-//import com.nmt.universitymanage.repository.PostRepository;
-//import com.nmt.universitymanage.repository.UserRepository;
-//import com.nmt.universitymanage.service.PostService;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.core.Authentication;
-//import org.springframework.security.core.context.SecurityContextHolder;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.Date;
-//import java.util.List;
-//import java.util.Map;
-//
-///**
-// *
-// * @author acer
-// */
-//@Service
-//public class PostSeviceImpl implements PostService {
-//    @Autowired
-//    private PostRepository postRepo;
-//    @Autowired
-//    private UserRepository userRepo;
+package com.nmt.universitysb.service.impl;
+import com.nmt.universitysb.model.Post;
+import com.nmt.universitysb.repository.PostRepository;
+import com.nmt.universitysb.repository.UserRepository;
+import com.nmt.universitysb.service.PostService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+@Service
+public class PostSeviceImpl implements PostService {
+    @Autowired
+    private PostRepository postRepo;
+    @Autowired
+    private UserRepository userRepo;
+
+    @Override
+    public List<Post> findAll() {
+        return this.postRepo.findAll();
+    }
+
+    @Override
+    public Page<Post> findAll(Pageable pageable) {
+        return this.postRepo.findAll(pageable);
+    }
+
+    @Override
+    public Optional<Post> findById(int id) {
+        return this.postRepo.findById(id);
+    }
+
+    @Override
+    public Page<Post> findAllByTitleContaining(String keyword, Pageable pageable) {
+        return this.postRepo.findAllByTitleContaining(keyword, pageable);
+    }
+
+    @Override
+    public Post save(Post f) {
+        return this.postRepo.save(f);
+    }
+
+    @Override
+    public boolean deletePost(int id) {
+        this.postRepo.deleteById(id);
+        return true;
+    }
 //    @Override
 //    public List<Post> getPosts(Map<String, String> params) {
 //        return this.postRepo.getPosts(params);
@@ -57,5 +76,5 @@ package com.nmt.universitysb.service.impl;///*
 //    public Boolean deletePost(int postId) {
 //        return this.postRepo.deletePost(postId);
 //    }
-//
-//}
+
+}

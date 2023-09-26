@@ -35,31 +35,17 @@
             <a th:href="@{/add_subject}" class="btn btn-info mt-1">Thêm môn học</a>
         </div>
         <div>
-            <form class="d-flex" th:action="${action}">
-                <input class="form-control me-2" name="kw" type="text" placeholder="Nhập từ khóa...">
+            <form class="d-flex" th:action="@{/subject}">
+                <input class="form-control me-2" name="kw" type="text" placeholder="Nhập từ khóa..." th:value="${keyword}">
                 <button class="btn btn-primary" type="submit">Tìm</button>
             </form>
         </div>
     </div>
-    <!--
-    <c:if test="${counter > 1}">
-        <ul class="pagination mt-1">
-            <li class="page-item"><a class="page-link" href="<c:url value="/faculty" />">Tất cả</a></li>
-                <c:forEach begin="1" end="${counter}" var="i">
-                    <c:url value="/faculty" var="pageUrl">
-                        <c:param name="page" value="${i}"></c:param>
-                    </c:url>
-                <li class="page-item"><a class="page-link" href="${pageUrl}">${i}</a></li>
-                </c:forEach>
-        </ul>
-    </c:if>
-    -->
     <ul class="pagination mt-1">
-        <li class="page-item"><a class="page-link" href="/subject">Tất cả</a></li>
-        <!-- Replace the below with a loop in your backend code -->
-        <li class="page-item"><a class="page-link" href="/subject?page=1">1</a></li>
-        <li class="page-item"><a class="page-link" href="/subject?page=2">2</a></li>
-        <!-- End of replacement -->
+        <li class="page-item"><a class="page-link" th:href="@{/subject?page=1}">Tất cả</a></li>
+        <th:block th:each="i : ${#numbers.sequence(0, subjectPage.totalPages-1)}">
+            <li class="page-item"><a class="page-link" th:href="@{/subject(page=${i})}" th:text="${i}+1"></a></li>
+        </th:block>
     </ul>
 
     <table class="table table-hover">
@@ -74,7 +60,7 @@
         </thead>
         <tbody>
         <!-- Use a loop to generate table rows based on your data -->
-        <tr th:each="subject : ${subject}">
+        <tr th:each="subject : ${subjectPage}">
             <td th:text="${subject.id}"></td>
             <td th:text="${subject.name}"></td>
             <td th:text="${subject.credit}"></td>

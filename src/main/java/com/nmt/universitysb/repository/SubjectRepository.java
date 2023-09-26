@@ -1,6 +1,9 @@
 package com.nmt.universitysb.repository;
 import com.nmt.universitysb.model.Major;
 import com.nmt.universitysb.model.Subject;
+import com.nmt.universitysb.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,10 +12,9 @@ import java.util.Optional;
 
 @Repository
 public interface SubjectRepository extends JpaRepository<Subject, String> {
-    List<Subject> findAll();
     Optional<Subject> findById(String id);
 
-    long count();
+    Page<Subject> findAllByNameContaining(String keyword, Pageable pageable);
     Subject save(Subject f);
     void deleteById(String id);
 //    List<Subject> getSubjects(Map<String, String> params);

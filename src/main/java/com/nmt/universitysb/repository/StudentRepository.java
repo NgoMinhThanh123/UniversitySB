@@ -1,6 +1,7 @@
 package com.nmt.universitysb.repository;
-import com.nmt.universitysb.model.Lecturer;
 import com.nmt.universitysb.model.Student;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -9,10 +10,9 @@ import java.util.Optional;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, String> {
-    List<Student> findAll();
     Optional<Student> findById(String id);
 
-    long count();
+    Page<Student> findAllByNameContaining(String keyword, Pageable pageable);
     Student save(Student f);
     void deleteById(String id);
 //    List<Student> getStudents(Map<String, String> params);

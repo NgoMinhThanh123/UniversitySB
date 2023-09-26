@@ -1,9 +1,12 @@
 package com.nmt.universitysb.controller;
 
 import com.nmt.universitysb.model.Faculty;
+import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,15 +20,21 @@ public class FacultyController {
 
     @Autowired
     private FacultyService facultyService;
-    @Autowired
-    private Environment env;
 
     @GetMapping("/faculty")
-    public String list(Model model, @RequestParam Map<String, String> params) {
-        model.addAttribute("faculty", this.facultyService.findAll());
-//        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
-//        int count = this.facultyService.countFaculties();
-//        model.addAttribute("counter", Math.ceil(count * 1.0 / pageSize));
+    public String list(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
+                       @RequestParam(name = "kw", required = false) String keyword) {
+        int pageSize = 12;
+        Page<Faculty> facultyPage;
+
+        if (keyword != null && !keyword.isEmpty()) {
+            facultyPage = this.facultyService.findAllByNameContaining(keyword, PageRequest.of(page, pageSize));
+        } else {
+            facultyPage = this.facultyService.findAll(PageRequest.of(page, pageSize));
+        }
+
+        model.addAttribute("facultyPage", facultyPage);
+        model.addAttribute("keyword", keyword);
 
         return "faculty";
     }

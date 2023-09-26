@@ -3,6 +3,8 @@ import com.nmt.universitysb.model.Faculty;
 import com.nmt.universitysb.repository.FacultyRepository;
 import com.nmt.universitysb.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,13 +21,18 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
+    public Page<Faculty> findAll(Pageable pageable) {
+        return this.facultyRepo.findAll(pageable);
+    }
+
+    @Override
     public Optional<Faculty> findById(String id) {
         return this.facultyRepo.findById(id);
     }
 
     @Override
-    public long count() {
-        return this.facultyRepo.count();
+    public Page<Faculty> findAllByNameContaining(String keyword, Pageable pageable) {
+        return this.facultyRepo.findAllByNameContaining(keyword, pageable);
     }
 
     @Override

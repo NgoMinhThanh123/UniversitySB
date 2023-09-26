@@ -2,10 +2,13 @@ package com.nmt.universitysb.controller;
 import java.util.Map;
 
 import com.nmt.universitysb.model.Classes;
+import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.service.ClassesService;
 import com.nmt.universitysb.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,15 +25,21 @@ public class ClassController {
     private ClassesService classesService;
     @Autowired
     private FacultyService facultyService;
-    @Autowired
-    private Environment env;
 
     @GetMapping("/classes")
-    public String list(Model model, @RequestParam Map<String, String> params) {
-        model.addAttribute("classes", this.classesService.findAll());
-//        int pageSize = Integer.parseInt(this.env.getProperty("PAGE_SIZE"));
-//        int count = this.classesService.countClasses();
-//        model.addAttribute("counter", Math.ceil(count * 1.0 / pageSize));
+    public String list(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
+                       @RequestParam(name = "kw", required = false) String keyword) {
+        int pageSize = 12;
+        Page<Classes> classesPage;
+
+        if (keyword != null && !keyword.isEmpty()) {
+            classesPage = this.classesService.findAllByIdContaining(keyword, PageRequest.of(page, pageSize));
+        } else {
+            classesPage = this.classesService.findAll(PageRequest.of(page, pageSize));
+        }
+
+        model.addAttribute("classesPage", classesPage);
+        model.addAttribute("keyword", keyword);
 
         return "classes";
     }

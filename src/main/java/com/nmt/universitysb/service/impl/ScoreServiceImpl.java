@@ -3,6 +3,8 @@ import com.nmt.universitysb.model.Score;
 import com.nmt.universitysb.repository.*;
 import com.nmt.universitysb.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,13 +36,18 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
+    public Page<Score> findAll(Pageable pageable) {
+        return this.scoreRepo.findAll(pageable);
+    }
+
+    @Override
     public Optional<Score> findById(int id) {
         return this.scoreRepo.findById(id);
     }
 
     @Override
-    public long count() {
-        return this.scoreRepo.count();
+    public Page<Score> findAllByIdContaining(String keyword, Pageable pageable) {
+        return this.scoreRepo.findAllByIdContaining(keyword, pageable);
     }
 
     @Override

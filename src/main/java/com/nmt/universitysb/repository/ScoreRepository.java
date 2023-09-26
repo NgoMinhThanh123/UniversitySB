@@ -2,6 +2,9 @@ package com.nmt.universitysb.repository;
 
 import com.nmt.universitysb.model.Classes;
 import com.nmt.universitysb.model.Score;
+import com.nmt.universitysb.model.ScoreValue;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,9 +13,8 @@ import java.util.Optional;
 
 @Repository
 public interface ScoreRepository extends JpaRepository<Score, Integer> {
-    List<Score> findAll();
     Optional<Score> findById(int id);
-
+    Page<Score> findAllByIdContaining(String keyword, Pageable pageable);
     long count();
     Score save(Score f);
     void deleteById(int id);

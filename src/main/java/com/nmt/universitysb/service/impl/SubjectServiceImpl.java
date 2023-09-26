@@ -3,6 +3,8 @@ import com.nmt.universitysb.model.Subject;
 import com.nmt.universitysb.repository.SubjectRepository;
 import com.nmt.universitysb.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,13 +24,18 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
+    public Page<Subject> findAll(Pageable pageable) {
+        return this.subjectRepo.findAll(pageable);
+    }
+
+    @Override
     public Optional<Subject> findById(String id) {
         return this.subjectRepo.findById(id);
     }
 
     @Override
-    public long count() {
-        return this.subjectRepo.count();
+    public Page<Subject> findAllByNameContaining(String keyword, Pageable pageable) {
+        return this.subjectRepo.findAllByNameContaining(keyword, pageable);
     }
 
     @Override

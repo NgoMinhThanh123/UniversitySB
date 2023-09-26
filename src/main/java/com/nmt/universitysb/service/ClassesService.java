@@ -1,17 +1,18 @@
 package com.nmt.universitysb.service;
 
 import com.nmt.universitysb.model.Classes;
-import com.nmt.universitysb.model.Faculty;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public interface ClassesService {
     List<Classes> findAll();
+    Page<Classes> findAll(Pageable pageable);
     Optional<Classes> findById(String id);
 
-    long count();
+    Page<Classes> findAllByIdContaining(String keyword, Pageable pageable);
     Classes save(Classes f);
     boolean deleteClasse(String id);
 //    List<Classes> getClasses(Map<String, String> params);

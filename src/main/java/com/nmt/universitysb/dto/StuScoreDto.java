@@ -18,6 +18,6 @@ import java.util.List;
 public class StuScoreDto {
     private String studentId;
     private String studentName;
-    private Date studentBithday;
+    private Date studentBirthday;
     private List<ScoreDto> scoreDto;
 }

@@ -1,41 +1,45 @@
 
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">TRƯỜNG ĐẠI HỌC MỞ TP.HCM</a>
+        <a class="navbar-brand">TRƯỜNG ĐẠI HỌC MỞ TP.HCM</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="collapsibleNavbar">
-            <ul class="navbar-nav me-auto">
+            <ul class="navbar-nav me-auto" >
 <!--                <se:authorize access="hasRole('ROLE_GIAOVU')">-->
-                    <li class="nav-item">
+                    <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_GIAOVU'')')}">
                         <a class="nav-link" href="/">Trang chủ</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/faculty">Khoa</a>
+                    <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_GIAOVU'')')}">
+                        <a class="nav-link" href="/faculty" >Khoa</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_GIAOVU'')')}">
                         <a class="nav-link" href="/major">Chuyên ngành</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_GIAOVU'')')}">
                         <a class="nav-link" href="/lecturer">Giảng viên</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/student">Sinh viên</a>
-                    </li>
-                    <li class="nav-item">
+                    <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_GIAOVU'')')}">
                         <a class="nav-link" href="/user">Tài Khoản</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_GIAOVU'')')}">
                         <a class="nav-link" href="/classes">Lớp học</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/subject">Môn học</a>
-                    </li>
-                    <li class="nav-item">
+                    <li class="nav-item" th:if="${#authorization.expression('hasRole(''ROLE_GIAOVU'')')}">
                         <a class="nav-link" href="/semester">Học kỳ</a>
                     </li>
-                    <li class="nav-item dropdown">
+                <li class="nav-item dropdown" th:if="${#authorization.expression('hasRole(''ROLE_GIAOVU'')')}">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sinh Viên - Môn Học
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="/student">Sinh viên</a>
+                        <a class="dropdown-item" href="/subject"> Môn học</a>
+                        <a class="dropdown-item" href="/student_subject"> SV-MH</a>
+                    </div>
+                </li>
+                    <li class="nav-item dropdown" th:if="${#authorization.expression('hasRole(''ROLE_GIAOVU'')')}">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Quản lý điểm
                         </a>
@@ -45,45 +49,17 @@
                             <a class="dropdown-item" href="/score_column"> Cột điểm</a>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="student_subject">SV-MH</a>
-                    </li>
-<!--                </se:authorize>-->
-<!--                <c:choose>-->
-<!--                    <c:when test="${pageContext.request.userPrincipal.name != null}">-->
-<!--                        <se:authorize access="hasRole('ROLE_GIAOVU')">-->
-<!--                            <li class="nav-item">-->
-<!--                                <a style="color: blue;" class="nav-link" href="/">">Xin chào ${pageContext.request.userPrincipal.name}!</a>-->
-<!--                            </li>-->
-<!--                            <li class="nav-item">-->
-<!--                                <a class="nav-link" href="/logout" />">Đăng xuất</a>-->
-<!--                            </li>-->
-<!--                        </se:authorize>-->
-<!--                    </c:when>-->
+                <li class="nav-item">
+                    <!-- Sử dụng Thymeleaf để kiểm tra đăng nhập -->
+                    <a class="nav-link" th:if="${#authorization.expression('isAuthenticated()')}" th:href="@{/logout}">Đăng xuất</a>
 
-<!--                    <c:otherwise>-->
-<!--                        <li class="nav-item">-->
-<!--                            <a class="nav-link" href="/login">">Đăng nhập</a>-->
-<!--                        </li>-->
-<!--                    </c:otherwise>-->
-<!--                </c:choose>-->
-                <script>
-                    // Kiểm tra xem người dùng đã đăng nhập hay chưa
-                    if (test === "${pageContext.request.userPrincipal.name != null}") {
-                        // // Nếu đã đăng nhập
-                        // // Kiểm tra xem người dùng có quyền ROLE_GIAOVU hay không
-                        // if (/* Thêm điều kiện kiểm tra quyền ở đây */) {
-                            document.write('<li class="nav-item"><a style="color: blue;" class="nav-link" href="/">Xin chào ' + /* Thêm tên người dùng ở đây */ + '!</a></li>');
-                            document.write('<li class="nav-item"><a class="nav-link" href="/logout">Đăng xuất</a></li>');
-                        // } else {
-                        //     // Người dùng đã đăng nhập, nhưng không có quyền ROLE_GIAOVU
-                        //     // Thực hiện các hành động khác ở đây
-                        // }
-                    } else {
-                        // Người dùng chưa đăng nhập
-                        document.write('<li class="nav-item"><a class="nav-link" href="/login">Đăng nhập</a></li>');
-                    }
-                </script>
+                    <!-- Nếu chưa đăng nhập -->
+                    <a class="nav-link" th:unless="${#authorization.expression('isAuthenticated()')}" th:href="@{/login}">Đăng nhập</a>
+                </li>
+                <li class="nav-item">
+                    <a style="color: blue;"  class="nav-link" th:if="${#authorization.expression('isAuthenticated()')}" href="/">Xin chào <span th:text="${#authentication.name}"></span></a>
+
+                </li>
             </ul>
         </div>
     </div>

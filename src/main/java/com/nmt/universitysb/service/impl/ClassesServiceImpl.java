@@ -1,8 +1,11 @@
 package com.nmt.universitysb.service.impl;
 import com.nmt.universitysb.model.Classes;
+import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.repository.ClassesRepository;
 import com.nmt.universitysb.service.ClassesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,14 +23,20 @@ public class ClassesServiceImpl implements ClassesService {
     }
 
     @Override
+    public Page<Classes> findAll(Pageable pageable) {
+        return this.classesRepo.findAll(pageable);
+    }
+
+    @Override
     public Optional<Classes> findById(String id) {
         return this.classesRepo.findById(id);
     }
 
     @Override
-    public long count() {
-        return this.classesRepo.count();
+    public Page<Classes> findAllByIdContaining(String keyword, Pageable pageable) {
+        return this.classesRepo.findAllByIdContaining(keyword, pageable);
     }
+
 
     @Override
     public Classes save(Classes f) {

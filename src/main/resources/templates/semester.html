@@ -28,7 +28,6 @@
 <body>
 <div th:replace="header"></div>
 <div class="container">
-    <section class="container">
         <h1 class="text-center text-success mt-1">DANH SÁCH HỌC KÌ</h1>
 
         <div class="d-flex justify-content-between">
@@ -37,31 +36,17 @@
             </div>
             <div>
                 <form class="d-flex" th:action="@{/semester}">
-                    <input class="form-control me-2" name="kw" type="text" placeholder="Nhập từ khóa...">
+                    <input class="form-control me-2" name="kw" type="text" placeholder="Nhập từ khóa..." th:value="${keyword}">
                     <button class="btn btn-primary" type="submit">Tìm</button>
                 </form>
             </div>
         </div>
-        <!--
-        <c:if test="${counter > 1}">
-            <ul class="pagination mt-1">
-                <li class="page-item"><a class="page-link" href="<c:url value="/faculty" />">Tất cả</a></li>
-                    <c:forEach begin="1" end="${counter}" var="i">
-                        <c:url value="/faculty" var="pageUrl">
-                            <c:param name="page" value="${i}"></c:param>
-                        </c:url>
-                    <li class="page-item"><a class="page-link" href="${pageUrl}">${i}</a></li>
-                    </c:forEach>
-            </ul>
-        </c:if>
-        -->
-        <ul class="pagination mt-1">
-            <li class="page-item"><a class="page-link" href="/semester">Tất cả</a></li>
-            <!-- Replace the below with a loop in your backend code -->
-            <li class="page-item"><a class="page-link" href="/semester?page=1">1</a></li>
-            <li class="page-item"><a class="page-link" href="/semester?page=2">2</a></li>
-            <!-- End of replacement -->
-        </ul>
+    <ul class="pagination mt-1">
+        <li class="page-item"><a class="page-link" th:href="@{/semester?page=0}">Tất cả</a></li>
+        <th:block th:each="i : ${#numbers.sequence(0, semesterPage.totalPages-1)}">
+            <li class="page-item"><a class="page-link" th:href="@{/semester(page=${i})}" th:text="${i}+1"></a></li>
+        </th:block>
+    </ul>
 
         <table class="table table-hover">
             <thead>
@@ -75,7 +60,7 @@
             </thead>
             <tbody>
             <!-- Use a loop to generate table rows based on your data -->
-            <tr th:each="semester : ${semester}">
+            <tr th:each="semester : ${semesterPage}">
                 <td th:text="${semester.name}"></td>
                 <td th:text="${semester.schoolYear}"></td>
                 <td th:text="${semester.fromDate}"></td>
@@ -89,7 +74,6 @@
             <!-- Repeat the above row structure for each faculty -->
             </tbody>
         </table>
-    </section>
     <script th:src="@{js/main.js}"></script>
 </div>
 <div th:replace="footer"></div>
