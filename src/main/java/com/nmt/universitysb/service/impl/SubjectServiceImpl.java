@@ -1,4 +1,5 @@
 package com.nmt.universitysb.service.impl;
+import com.nmt.universitysb.dto.SubjectDto;
 import com.nmt.universitysb.model.Subject;
 import com.nmt.universitysb.repository.SubjectRepository;
 import com.nmt.universitysb.service.SubjectService;
@@ -49,49 +50,19 @@ public class SubjectServiceImpl implements SubjectService {
         return true;
     }
 
-//    @Override
-//    public List<Subject> getSubjects(Map<String, String> params) {
-//        return this.subjectRepo.getSubjects(params);
-//    }
-//
-//    @Override
-//    public boolean addSubject(Subject c) {
-//        return this.subjectRepo.addSubject(c);
-//    }
-//
-//    @Override
-//    public boolean updateSubject(Subject c) {
-//        return this.subjectRepo.updateSubject(c);
-//    }
-//
-//    @Override
-//    public Subject getSubjectById(String id) {
-//        return this.subjectRepo.getSubjectById(id);
-//    }
-//
-//    @Override
-//    public boolean deleteSubject(String id) {
-//        return this.subjectRepo.deleteSubject(id);
-//    }
-//
-//    @Override
-//    public int countSubjects() {
-//        return this.subjectRepo.countSubjects();
-//    }
-//
-//    @Override
-//    public List<Subject> getSubjectByLecturerId(String lecturerId) {
-//        return this.subjectRepo.getSubjectByLecturerId(lecturerId);
-//    }
-//
-//    @Override
-//    public List<Subject> getSubjectByStudentId(String studentId) {
-//        return this.subjectRepo.getSubjectByStudentId(studentId);
-//    }
-//
-//    @Override
-//    public List<Subject> getSubjectByStudentAndSemesterId(String studentId, String semesterId) {
-//        return this.subjectRepo.getSubjectByStudentAndSemesterId(studentId, semesterId);
-//    }
+    @Override
+    public List<SubjectDto> getSubjectByLecturerId(String lecturerId) {
+        return this.subjectRepo.getSubjectByLecturerId(lecturerId);
+    }
+
+    @Override
+    public List<SubjectDto> getSubjectByStudentId(String studentId) {
+        return this.subjectRepo.getSubjectByStudentId(studentId);
+    }
+
+    @Override
+    public List<SubjectDto> getSubjectByStudentAndSemesterId(String studentId, String semesterId) {
+        return this.subjectRepo.getSubjectByStudentAndSemesterId(studentId, semesterId);
+    }
 
 }

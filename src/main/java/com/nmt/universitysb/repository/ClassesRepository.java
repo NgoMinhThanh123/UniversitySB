@@ -15,10 +15,4 @@ public interface ClassesRepository extends JpaRepository<Classes, String> {
     Page<Classes> findAllByIdContaining(String keyword, Pageable pageable);
     Classes save(Classes f);
     void deleteById(String id);
-//    List<Classes> getClasses(Map<String, String> params);
-//    int countClasses();
-//    boolean addClass(Classes c);
-//    boolean updateClass(Classes c);
-//    Classes getClassById(String id);
-//    boolean deleteClass(String id);
 }

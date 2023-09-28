@@ -12,7 +12,6 @@ public interface CommentService {
     Comment save(Comment f);
 
     boolean deleteUser(int id);
-//    List<Comment> getComments(Map<String, String> params);
-//    List<Comment> getCommentByPostId(int postId);
-//    Comment addComment(Comment comment);
+    List<Comment> getCommentByPostId(int postId);
+    Comment addComment(Comment comment);
 }

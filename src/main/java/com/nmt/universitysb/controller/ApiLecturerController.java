@@ -1,14 +1,17 @@
 package com.nmt.universitysb.controller;
 
+import com.nmt.universitysb.dto.LecturerDto;
+import com.nmt.universitysb.model.Lecturer;
 import com.nmt.universitysb.service.LecturerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- *
- * @author acer
- */
+import java.util.List;
+
+
 @RestController
 @RequestMapping("/api")
 public class ApiLecturerController {
@@ -22,19 +25,19 @@ public class ApiLecturerController {
         this.lecturerService.deleteLecturer(id);
     }
 
-//    @GetMapping("/lecturers/")
-//    @CrossOrigin
-//    public ResponseEntity<List<Lecturer>> list(@RequestParam Map<String, String> params) {
-//        return new ResponseEntity<>(this.lecturerService.getLecturers(params), HttpStatus.OK);
-//    }
-//
-//    @GetMapping(path = "/lecturers-un/{username}/", produces = MediaType.APPLICATION_JSON_VALUE)
-//    @CrossOrigin
-//    public ResponseEntity<LecturerDto> getStudentByUsename(@PathVariable(value = "username") String username) {
-//        LecturerDto lecturerDto = lecturerService.getLecturerByUsername(username);
-//        if (lecturerDto == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(lecturerDto, HttpStatus.OK);
-//    }
+    @GetMapping("/lecturers/")
+    @CrossOrigin
+    public ResponseEntity<List<Lecturer>> list() {
+        return new ResponseEntity<>(this.lecturerService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/lecturers-un/{username}/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<LecturerDto> getStudentByUsename(@PathVariable(value = "username") String username) {
+        LecturerDto lecturerDto = lecturerService.getLecturerByUsername(username);
+        if (lecturerDto == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(lecturerDto, HttpStatus.OK);
+    }
 }

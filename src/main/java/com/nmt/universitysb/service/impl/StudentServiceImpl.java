@@ -1,5 +1,9 @@
 package com.nmt.universitysb.service.impl;
+import com.nmt.universitysb.dto.ScoreDto;
+import com.nmt.universitysb.dto.StuScoreDto;
+import com.nmt.universitysb.dto.StudentDto;
 import com.nmt.universitysb.model.Student;
+import com.nmt.universitysb.repository.ScoreRepository;
 import com.nmt.universitysb.repository.StudentRepository;
 import com.nmt.universitysb.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,8 @@ import java.util.Optional;
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepo;
+        @Autowired
+    private ScoreRepository scoreRepo;
 
     @Override
     public List<Student> findAll() {
@@ -47,83 +53,52 @@ public class StudentServiceImpl implements StudentService {
         this.studentRepo.deleteById(id);
         return true;
     }
-//    @Autowired
-//    private ScoreRepository scoreRepo;
-//
-//    @Override
-//    public List<Student> getStudents(Map<String, String> params) {
-//        return this.studentRepo.getStudents(params);
-//    }
-//
-//    @Override
-//    public boolean addStudent(Student c) {
-//        return this.studentRepo.addStudent(c);
-//    }
-//
-//    @Override
-//    public boolean updateStudent(Student c) {
-//        return this.studentRepo.updateStudent(c);
-//    }
-//
-//    @Override
-//    public Student getStudentById(String id) {
-//        return this.studentRepo.getStudentById(id);
-//    }
-//
-//    @Override
-//    public boolean deleteStudent(String id) {
-//        return this.studentRepo.deleteStudent(id);
-//    }
-//
-//    @Override
-//    public StudentDto getStudentByUsername(String username) {
-//        Student u = this.studentRepo.getStudentByUsername(username);
-//        StudentDto studentDto = new StudentDto();
-//        studentDto.setId(u.getId());
-//        studentDto.setName(u.getName());
-//        studentDto.setBirthday(u.getBirthday());
-//        studentDto.setGender(u.getGender());
-//        studentDto.setPhone(u.getPhone());
-//        studentDto.setAddress(u.getAddress());
-//        studentDto.setClassesId(u.getClassesId());
-//        studentDto.setFacultyId(u.getFacultyId());
-//        studentDto.setMajorId(u.getMajorId());
-//
-//        return studentDto;
-//    }
-//
-//    @Override
-//    public List<StuScoreDto> getListStudent(String lectureId, String subjectId, String semesterId) {
-//        List<Student> students = this.studentRepo.getListStudent(lectureId, subjectId, semesterId);
-//        List<StuScoreDto> stuScoreDtos = new ArrayList<>();
-//        for(int i = 0; i < students.size(); i++){
-//            Student student = students.get(i);
-//            StuScoreDto stuScoreDto = new StuScoreDto();
-//            List<ScoreDto> scoreDtos = this.scoreRepo.getScoreByStudentId(student.getId(), subjectId, semesterId);
-//
-//            stuScoreDto.setStudentId(student.getId());
-//            stuScoreDto.setStudentName(student.getName());
-//            stuScoreDto.setStudentBithday(student.getBirthday());
-//            stuScoreDto.setScoreDto(scoreDtos);
-//            stuScoreDtos.add(stuScoreDto);
-//        }
-//
-//        return stuScoreDtos;
-//    }
-//
-//    @Override
-//    public int countStudents() {
-//        return this.studentRepo.countStudents();
-//    }
-//
-//    @Override
-//    public List<String> getAllMailOfStudent(String lecturerId, String subjectId, String semesterId) {
-//        return this.studentRepo.getAllMailOfStudent(lecturerId, subjectId, semesterId);
-//    }
-//
-//    @Override
-//    public List<Student> getStudentByHomeroomTeacher(String lecturerId) {
-//        return this.studentRepo.getStudentByHomeroomTeacher(lecturerId);
-//    }
+
+    @Override
+    public StudentDto getStudentByUsername(String username) {
+        Student u = this.studentRepo.getStudentByUsername(username);
+        StudentDto studentDto = new StudentDto();
+        studentDto.setId(u.getId());
+        studentDto.setName(u.getName());
+        studentDto.setBirthday(u.getBirthday());
+        studentDto.setGender(u.getGender());
+        studentDto.setPhone(u.getPhone());
+        studentDto.setAddress(u.getAddress());
+        studentDto.setClassesId(u.getClassesId());
+        studentDto.setFacultyId(u.getFacultyId());
+        studentDto.setMajorId(u.getMajorId());
+
+        return studentDto;
+    }
+
+    @Override
+    public List<StuScoreDto> getListStudent(String lectureId, String subjectId, String semesterId) {
+        List<Student> students = this.studentRepo.getListStudent(lectureId, subjectId, semesterId);
+        List<StuScoreDto> stuScoreDtos = new ArrayList<>();
+        for(int i = 0; i < students.size(); i++){
+            Student student = students.get(i);
+            StuScoreDto stuScoreDto = new StuScoreDto();
+            List<ScoreDto> scoreDtos = this.scoreRepo.getScoreByStudentId(student.getId(), subjectId, semesterId);
+
+            stuScoreDto.setStudentId(student.getId());
+            stuScoreDto.setStudentName(student.getName());
+            stuScoreDto.setStudentBirthday(student.getBirthday());
+            stuScoreDto.setScoreDto(scoreDtos);
+            stuScoreDtos.add(stuScoreDto);
+        }
+
+        return stuScoreDtos;
+    }
+
+
+    @Override
+    public List<String> getAllMailOfStudent(String lecturerId, String subjectId, String semesterId) {
+        return this.studentRepo.getAllMailOfStudent(lecturerId, subjectId, semesterId);
+    }
+
+    @Override
+    public List<Student> getStudentByHomeroomTeacher(String lecturerId) {
+        return this.studentRepo.getStudentByHomeroomTeacher(lecturerId);
+    }
 
 }

@@ -1,4 +1,5 @@
 package com.nmt.universitysb.service.impl;
+import com.nmt.universitysb.dto.LecturerDto;
 import com.nmt.universitysb.model.Lecturer;
 import com.nmt.universitysb.repository.LecturerRepository;
 import com.nmt.universitysb.service.LecturerService;
@@ -84,19 +85,19 @@ public class LectureServiceImpl implements LecturerService {
 //
 //    }
 //
-//    @Override
-//    public LecturerDto getLecturerByUsername(String username) {
-//        Lecturer u = this.lecturersRepo.getLecturerByUsername(username);
-//        LecturerDto lecturerDto = new LecturerDto();
-//        lecturerDto.setId(u.getId());
-//        lecturerDto.setName(u.getName());
-//        lecturerDto.setBirthday(u.getBirthday());
-//        lecturerDto.setGender(u.getGender());
-//        lecturerDto.setPhone(u.getPhone());
-//        lecturerDto.setAddress(u.getAddress());
-//        lecturerDto.setFacultyId(u.getFacultyId());
-//
-//        return lecturerDto;
-//    }
+    @Override
+    public LecturerDto getLecturerByUsername(String username) {
+        Lecturer u = this.lecturersRepo.getLecturerByUsername(username);
+        LecturerDto lecturerDto = new LecturerDto();
+        lecturerDto.setId(u.getId());
+        lecturerDto.setName(u.getName());
+        lecturerDto.setBirthday(u.getBirthday());
+        lecturerDto.setGender(u.getGender());
+        lecturerDto.setPhone(u.getPhone());
+        lecturerDto.setAddress(u.getAddress());
+        lecturerDto.setFacultyId(u.getFacultyId());
+
+        return lecturerDto;
+    }
 
 }

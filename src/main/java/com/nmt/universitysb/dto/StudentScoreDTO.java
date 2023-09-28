@@ -7,14 +7,15 @@ package com.nmt.universitysb.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class StudentScoreDTO {
     private String subjectName;
     private String semesterName;
-    private String schoolYear;
+    private Integer schoolYear;
     private String studentId;
     private String studentName;
     private String scoreColumnName;

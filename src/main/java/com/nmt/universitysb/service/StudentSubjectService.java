@@ -1,5 +1,6 @@
 package com.nmt.universitysb.service;
 
+import com.nmt.universitysb.dto.StudentSubjectDto;
 import com.nmt.universitysb.model.StudentSubject;
 import com.nmt.universitysb.model.User;
 import org.springframework.data.domain.Page;
@@ -15,12 +16,8 @@ public interface StudentSubjectService{
     Optional<StudentSubject> findById(int id);
     Page<StudentSubject> findAllByStudentIdContaining(String keyword, Pageable pageable);
     StudentSubject save(StudentSubject f);
+    List<StudentSubjectDto> courseRegister(List<Map<String, String>> paramsList);
 
     boolean deleteStudentSubject(int id);
-//    List<StudentSubject> getStudentSubjects(Map<String, String> params);
-//    StudentSubject getStudentSubjectById(int id);
-//    boolean addOrUpdateStudentSubject(StudentSubject s);
-//    boolean deleteStudentSubject(int id);
-//    StudentSubject getStudentSubjectByStudentAndSubjectId(String studentId, String subjectId);
-//    int countStudentSubject();
+    Optional<StudentSubject> getStudentSubjectByStudentAndSubjectId(String studentId, String subjectId);
 }

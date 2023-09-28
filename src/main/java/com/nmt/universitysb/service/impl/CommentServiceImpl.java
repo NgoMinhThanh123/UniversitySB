@@ -1,5 +1,6 @@
 package com.nmt.universitysb.service.impl;
 import com.nmt.universitysb.model.Comment;
+import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.repository.CommentRepository;
 import com.nmt.universitysb.repository.UserRepository;
 import com.nmt.universitysb.service.CommentService;
@@ -42,25 +43,22 @@ public class CommentServiceImpl implements CommentService {
         this.commentRepo.deleteById(id);
         return true;
     }
-//    @Override
-//    public List<Comment> getComments(Map<String, String> params) {
-//        return this.commentRepo.getComments(params);
-//    }
-//
-//    @Override
-//    public List<Comment> getCommentByPostId(int postId) {
-//        return this.commentRepo.getCommentByPostId(postId);
-//    }
-//
-//    @Override
-//    public Comment addComment(Comment comment) {
-//        comment.setDateCreated(new Date());
-//
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User u = this.userRepo.getUserByUsername(authentication.getName());
-//        comment.setUserId(u);
-//
-//        return this.commentRepo.addComment(comment);
-//    }
+
+    @Override
+    public List<Comment> getCommentByPostId(int postId) {
+        return this.commentRepo.getCommentByPostId(postId);
+    }
+
+
+    @Override
+    public Comment addComment(Comment comment) {
+        comment.setDateCreated(new Date());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User u = this.userRepo.getUserByUsername(authentication.getName());
+        comment.setUserId(u);
+
+        return this.commentRepo.save(comment);
+    }
 
 }

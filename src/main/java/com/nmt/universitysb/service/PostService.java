@@ -16,8 +16,5 @@ public interface PostService {
     Post save(Post f);
 
     boolean deletePost(int id);
-//    List<Post> getPosts(Map<String, String> params);
-//    Post addPost(Post post);
-//    Post getPostByid(int id);
-//    Boolean deletePost(int id);
+    Post addPost(Post post);
 }

@@ -1,4 +1,5 @@
 package com.nmt.universitysb.service;
+import com.nmt.universitysb.dto.SubjectDto;
 import com.nmt.universitysb.model.Subject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,13 +16,7 @@ public interface SubjectService {
     Subject save(Subject f);
 
     boolean deleteSubject(String id);
-//    List<Subject> getSubjects(Map<String, String> params);
-//    int countSubjects();
-//    boolean addSubject(Subject c);
-//    boolean updateSubject(Subject c);
-//    Subject getSubjectById(String id);
-//    List<Subject> getSubjectByLecturerId(String lecturerId);
-//    List<Subject> getSubjectByStudentId(String studentId);
-//    List<Subject> getSubjectByStudentAndSemesterId(String studentId, String semesterId);
-//    boolean deleteSubject(String id);
+    List<SubjectDto> getSubjectByLecturerId(String lecturerId);
+    List<SubjectDto> getSubjectByStudentId(String studentId);
+    List<SubjectDto> getSubjectByStudentAndSemesterId(String studentId, String semesterId);
 }

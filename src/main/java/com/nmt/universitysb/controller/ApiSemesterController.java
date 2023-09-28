@@ -1,9 +1,13 @@
 package com.nmt.universitysb.controller;
 
+import com.nmt.universitysb.model.Semester;
 import com.nmt.universitysb.service.SemesterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -17,22 +21,22 @@ public class ApiSemesterController {
         this.semesterService.deleteSemester(id);
     }
 
-//    @GetMapping("/semesters/")
-//    @CrossOrigin
-//    public ResponseEntity<List<Semester>> list( @RequestParam String lecturerId) {
-//        List<Semester> list = this.semesterService.getSemesterByLecturerId(lecturerId);
-//        if (list.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(list, HttpStatus.OK);
-//    }
-//    @GetMapping("/semesters/student/")
-//    @CrossOrigin
-//    public ResponseEntity<List<Semester>> getListSemesterByStudentId( @RequestParam String studentId) {
-//        List<Semester> list = this.semesterService.getSemesterByStudentId(studentId);
-//        if (list.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(list, HttpStatus.OK);
-//    }
+    @GetMapping("/semesters/")
+    @CrossOrigin
+    public ResponseEntity<List<Semester>> list(@RequestParam String lecturerId) {
+        List<Semester> list = this.semesterService.getSemesterByLecturerId(lecturerId);
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    @GetMapping("/semesters/student/")
+    @CrossOrigin
+    public ResponseEntity<List<Semester>> getListSemesterByStudentId( @RequestParam String studentId) {
+        List<Semester> list = this.semesterService.getSemesterByStudentId(studentId);
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 }

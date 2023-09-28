@@ -26,7 +26,6 @@ public class ScoreColumn implements Serializable {
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "scoreColumnId")
     private Set<ScoreValue> scoreValueSet;
-
     public ScoreColumn(int id) {
         this.id = id;
     }

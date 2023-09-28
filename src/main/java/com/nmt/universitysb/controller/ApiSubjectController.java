@@ -2,6 +2,8 @@ package com.nmt.universitysb.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.nmt.universitysb.dto.SubjectDto;
+import com.nmt.universitysb.model.Subject;
 import com.nmt.universitysb.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,39 +30,39 @@ public class ApiSubjectController {
     public void delete(@PathVariable(value = "id") String id) {
         this.subjectService.deleteSubject(id);
     }
-//
-//    @GetMapping("/subjects/")
-//    public ResponseEntity<List<Subject>> list(@RequestParam Map<String, String> params) {
-//        return new ResponseEntity<>(this.subjectService.getSubjects(params), HttpStatus.OK);
-//    }
-//
-//    @GetMapping(path = "/subjects/{lecturerId}/", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<List<Subject>> getSubjectByLecturerId(@PathVariable(value = "lecturerId") String lecturerId) {
-//        List<Subject> list = subjectService.getSubjectByLecturerId(lecturerId);
-//        if (list.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(list, HttpStatus.OK);
-//    }
-//
-//    @GetMapping(path = "/subjects/studentId/", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<List<Subject>> getSubjectByStudentId(@RequestParam String studentId) {
-//        List<Subject> list = subjectService.getSubjectByStudentId(studentId);
-//        if (list.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(list, HttpStatus.OK);
-//    }
-//
-//     @GetMapping(path = "/subjects/studentId-semesterId/", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<List<Subject>> getSubjectByStudentAndSemesterId(
-//            @RequestParam String studentId,
-//            @RequestParam String semesterId) {
-//        List<Subject> list = subjectService.getSubjectByStudentAndSemesterId(studentId, semesterId);
-//        if (list.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(list, HttpStatus.OK);
-//    }
+
+    @GetMapping("/subjects/")
+    public ResponseEntity<List<Subject>> list() {
+        return new ResponseEntity<>(this.subjectService.findAll(), HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/subjects/{lecturerId}/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<SubjectDto>> getSubjectByLecturerId(@PathVariable(value = "lecturerId") String lecturerId) {
+        List<SubjectDto> list = subjectService.getSubjectByLecturerId(lecturerId);
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/subjects/studentId/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<SubjectDto>> getSubjectByStudentId(@RequestParam String studentId) {
+        List<SubjectDto> list = subjectService.getSubjectByStudentId(studentId);
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+     @GetMapping(path = "/subjects/studentId-semesterId/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<SubjectDto>> getSubjectByStudentAndSemesterId(
+            @RequestParam String studentId,
+            @RequestParam String semesterId) {
+        List<SubjectDto> list = subjectService.getSubjectByStudentAndSemesterId(studentId, semesterId);
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 
 }

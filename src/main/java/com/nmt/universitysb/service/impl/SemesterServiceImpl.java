@@ -46,4 +46,13 @@ public class SemesterServiceImpl implements SemesterService {
         this.semesRepo.deleteById(id);
         return true;
     }
+    @Override
+    public List<Semester> getSemesterByLecturerId(String lecturerId) {
+        return this.semesRepo.getSemesterByLecturerId(lecturerId);
+    }
+
+    @Override
+    public List<Semester> getSemesterByStudentId(String studentId) {
+        return this.semesRepo.getSemesterByStudentId(studentId);
+    }
 }

@@ -17,11 +17,4 @@ public interface MajorRepository extends JpaRepository<Major, String> {
     Page<Major> findAllByNameContaining(String keyword, Pageable pageable);
     Major save(Major f);
     void deleteById(String id);
-//    List<Major> getMajors(Map<String, String> params);
-//    int countMajors();
-//    boolean addMajor(Major m);
-//    boolean updateMajor(Major m);
-//    Major getMajorById(String id);
-//    boolean deleteMajor(String id);
-
 }

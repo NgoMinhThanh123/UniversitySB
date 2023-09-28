@@ -2,6 +2,7 @@ package com.nmt.universitysb.controller;
 import java.util.List;
 import java.util.Map;
 
+import com.nmt.universitysb.model.Classes;
 import com.nmt.universitysb.service.ClassesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,10 +32,10 @@ public class ApiClassController {
         this.classesService.deleteClasse(id);
     }
 
-//    @GetMapping("/classes/")
-//    @CrossOrigin
-//    public ResponseEntity<List<Classes>> list(@RequestParam Map<String, String> params) {
-//        return new ResponseEntity<>(this.classesService.getClasses(params), HttpStatus.OK);
-//    }
+    @GetMapping("/classes/")
+    @CrossOrigin
+    public ResponseEntity<List<Classes>> list() {
+        return new ResponseEntity<>(this.classesService.findAll(), HttpStatus.OK);
+    }
 
 }

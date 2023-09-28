@@ -16,8 +16,4 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     Page<Post> findAllByTitleContaining(String keyword, Pageable pageable);
     Post save(Post f);
     void deleteById(int id);
-//    List<Post> getPosts(Map<String, String> params);
-//    Post addPost(Post post);
-//    Post getPostByid(int id);
-//    Boolean deletePost(int id);
 }

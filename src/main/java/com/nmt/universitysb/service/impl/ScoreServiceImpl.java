@@ -1,5 +1,6 @@
 package com.nmt.universitysb.service.impl;
-import com.nmt.universitysb.model.Score;
+import com.nmt.universitysb.dto.*;
+import com.nmt.universitysb.model.*;
 import com.nmt.universitysb.repository.*;
 import com.nmt.universitysb.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,67 +62,92 @@ public class ScoreServiceImpl implements ScoreService {
         return true;
     }
 
-//    @Override
-//    public List<Score> getScores(Map<String, String> params) {
-//        return this.scoreRepo.getScores(params);
-//    }
-//
-//    @Override
-//    public boolean addOrUpdateScore(Score u) {
-//        return this.scoreRepo.addOrUpdateScore(u);
-//    }
-//
-//    @Override
-//    public Score getScoreById(int id) {
-//        return this.scoreRepo.getScoreById(id);
-//    }
-//
-//    @Override
-//    public boolean deleteScore(int id) {
-//        return this.scoreRepo.deleteScore(id);
-//    }
-//
-//    @Override
-//    public int countScores() {
-//        return this.scoreRepo.countScores();
-//    }
-//
-//    @Override
-//    public List<StudentScoreDTO> getStudentScores(String lecturerId, String semesterId, String subjectId) {
-//        return this.scoreRepo.getStudentScores(lecturerId, semesterId, subjectId);
-//    }
-//
+    @Override
+    public List<StudentScoreDTO> getStudentScores(String lecturerId, String semesterId, String subjectId) {
+        return this.scoreRepo.getStudentScores(lecturerId, semesterId, subjectId);
+    }
+
 //    @Override
 //    public List<StudentScoreDTO> getListScoresExport(String subjectId, String semesterId) {
 //        return this.scoreRepo.getListScoresExport(semesterId, subjectId);
 //    }
 //
-//    @Override
-//    public List<ScoreDto> getScoreByStudentId(String studentId, String subjectId, String semesterId) {
-//        return this.scoreRepo.getScoreByStudentId(studentId, subjectId, semesterId);
-//    }
-//
-//    @Override
-//    public List<ScoreListDto> getListScoreStudent(String studentId, String semesterId) {
-//        List<ScoreListDto> scoreListDtos = new ArrayList<>();
-//        List<Subject> subjects = this.subjectRepository.getSubjectByStudentAndSemesterId(studentId, semesterId);
-//        Semester semesters = this.semesterRepository.getSemesterById(semesterId);
-//        for (int i = 0; i < subjects.size(); i++) {
-//            Subject subject = subjects.get(i);
-//            List<ScoreDto> scoreDtos = this.scoreRepo.getScoreByStudentId(studentId, subject.getId(), semesterId);
-//            ScoreListDto scoreListDto = new ScoreListDto();
-//            scoreListDto.setScoreDto(scoreDtos);
-//            scoreListDto.setSubjectId(subject.getId());
-//            scoreListDto.setSubjectName(subject.getName());
-//            scoreListDto.setCredit(subject.getCredit());
-//            scoreListDto.setSemesterName(semesters.getName());
-//            scoreListDto.setSchoolYear(String.valueOf(semesters.getSchoolYear()));
-//            scoreListDtos.add(scoreListDto);
-//        }
-//
-//        return scoreListDtos;
-//    }
-//
+    @Override
+    public List<ScoreDto> getScoreByStudentId(String studentId, String subjectId, String semesterId) {
+        return this.scoreRepo.getScoreByStudentId(studentId, subjectId, semesterId);
+    }
+
+    @Override
+    public List<ScoreListDto> getListScoreStudent(String studentId, String semesterId) {
+        List<ScoreListDto> scoreListDtos = new ArrayList<>();
+        List<SubjectDto> subjects = this.subjectRepository.getSubjectByStudentAndSemesterId(studentId, semesterId);
+        Optional<Semester> semesters = this.semesterRepository.findById(semesterId);
+        if (semesters.isPresent()) {
+            Semester semester = semesters.get();
+            String semesterName = semester.getName();
+            int schoolYear = semester.getSchoolYear();
+
+            for (int i = 0; i < subjects.size(); i++) {
+                SubjectDto subject = subjects.get(i);
+                List<ScoreDto> scoreDtos = this.scoreRepo.getScoreByStudentId(studentId, subject.getId(), semesterId);
+                ScoreListDto scoreListDto = new ScoreListDto();
+                scoreListDto.setScoreDto(scoreDtos);
+                scoreListDto.setSubjectId(subject.getId());
+                scoreListDto.setSubjectName(subject.getName());
+                scoreListDto.setCredit(subject.getCredit());
+                scoreListDto.setSemesterName(semesterName);
+                scoreListDto.setSchoolYear(String.valueOf(schoolYear));
+                scoreListDtos.add(scoreListDto);
+            }
+        }
+
+        return scoreListDtos;
+    }
+
+    @Override
+    public List<Score_ScoreValueDto> addScore(List<Map<String, String>> scoreParamsList) {
+        List<Score_ScoreValueDto> scoreValueDtoList = new ArrayList<>();
+
+        for (Map<String, String> params : scoreParamsList) {
+            Optional<Subject> subject = this.subjectRepository.findById(params.get("subjectId"));
+            Optional<Semester> semester = this.semesterRepository.findById(params.get("semesterId"));
+            Optional<Student> student = this.studetnRepository.findById(params.get("studentId"));
+            Optional<ScoreColumn> scoreColumn = this.scoreColumnRepository.findById(Integer.parseInt(params.get("scoreColumnId")));
+            Optional<StudentSubject> studentSubject = this.studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.get().getId(), subject.get().getId());
+
+            Score score = new Score();
+            score.setStudentSubjectId(studentSubject.get());
+            score.setSemesterId(semester.get());
+
+            Score score1 = this.scoreRepo.save(score);
+
+            ScoreValue scoreValue = new ScoreValue();
+            String scoreValueStr = params.get("scoreValue");
+            if (scoreValueStr != null) {
+                scoreValue.setValue(Double.parseDouble(scoreValueStr));
+            } else {
+                scoreValue.setValue(0.0);
+            }
+            scoreValue.setScoreColumnId(scoreColumn.get());
+            scoreValue.setScoreId(score1);
+
+            ScoreValue scoreValue1 = this.scoreValueRepository.save(scoreValue);
+
+            Score_ScoreValueDto scoreValueDto = new Score_ScoreValueDto();
+
+            scoreValueDto.setSubjectId(score1.getStudentSubjectId().getSubjectId().getId());
+            scoreValueDto.setSemesterId(score1.getSemesterId().getId());
+            scoreValueDto.setStudentId(score1.getStudentSubjectId().getStudentId().getId());
+            scoreValueDto.setColumnId(scoreValue1.getScoreColumnId().getId());
+            scoreValueDto.setValue(Double.parseDouble(String.valueOf(scoreValue1.getValue())));
+
+            scoreValueDtoList.add(scoreValueDto);
+        }
+
+        return scoreValueDtoList;
+    }
+
+
 ////    @Override
 ////    public Score_ScoreValueDto addScore(Map<String, String> params) {
 ////        Subject subject = this.subjectRepository.getSubjectById(params.get("subjectId"));
@@ -159,47 +185,6 @@ public class ScoreServiceImpl implements ScoreService {
 ////        return scoreValueDto;
 ////    }
 //
-//    @Override
-//    public List<Score_ScoreValueDto> addScore(List<Map<String, String>> scoreParamsList) {
-//        List<Score_ScoreValueDto> scoreValueDtoList = new ArrayList<>();
-//
-//        for (Map<String, String> params : scoreParamsList) {
-//            Subject subject = this.subjectRepository.getSubjectById(params.get("subjectId"));
-//            Semester semester = this.semesterRepository.getSemesterById(params.get("semesterId"));
-//            Student student = this.studetnRepository.getStudentById(params.get("studentId"));
-//            ScoreColumn scoreColumn = this.scoreColumnRepository.getScoreColumnById(Integer.parseInt(params.get("scoreColumnId")));
-//            StudentSubject studentSubject = this.studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.getId(), subject.getId());
-//
-//            Score score = new Score();
-//            score.setStudentSubjectId(studentSubject);
-//            score.setSemesterId(semester);
-//
-//            Score score1 = this.scoreRepo.addScore(score);
-//
-//            ScoreValue scoreValue = new ScoreValue();
-//            String scoreValueStr = params.get("scoreValue");
-//            if (scoreValueStr != null) {
-//                scoreValue.setValue(Double.parseDouble(scoreValueStr));
-//            } else {
-//                scoreValue.setValue(0.0);
-//            }
-//            scoreValue.setScoreColumnId(scoreColumn);
-//            scoreValue.setScoreId(score1);
-//
-//            ScoreValue scoreValue1 = this.scoreValueRepository.addScoreValue(scoreValue);
-//
-//            Score_ScoreValueDto scoreValueDto = new Score_ScoreValueDto();
-//
-//            scoreValueDto.setSubjectId(score1.getStudentSubjectId().getSubjectId().toString());
-//            scoreValueDto.setSemesterId(score1.getSemesterId().toString());
-//            scoreValueDto.setStudentId(score1.getStudentSubjectId().getStudentId().toString());
-//            scoreValueDto.setColumnId(scoreValue1.getScoreColumnId().getId());
-//            scoreValueDto.setValue(Double.parseDouble(String.valueOf(scoreValue1.getValue())));
-//
-//            scoreValueDtoList.add(scoreValueDto);
-//        }
-//
-//        return scoreValueDtoList;
-//    }
+
 
 }

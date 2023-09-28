@@ -1,9 +1,13 @@
 package com.nmt.universitysb.controller;
 
+import com.nmt.universitysb.model.Faculty;
 import com.nmt.universitysb.service.FacultyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -18,10 +22,10 @@ public class ApiFacultyController {
         this.facultyService.deleteFaculty(id);
     }
 
-//    @GetMapping("/faculties/")
-//    @CrossOrigin
-//    public ResponseEntity<List<Faculty>> list(@RequestParam Map<String, String> params) {
-//        return new ResponseEntity<>(this.facultyService.getFaculties(params), HttpStatus.OK);
-//    }
+    @GetMapping("/faculties/")
+    @CrossOrigin
+    public ResponseEntity<List<Faculty>> list() {
+        return new ResponseEntity<>(this.facultyService.findAll(), HttpStatus.OK);
+    }
 
 }

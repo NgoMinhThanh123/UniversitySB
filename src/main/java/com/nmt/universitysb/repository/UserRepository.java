@@ -23,7 +23,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Page<User> findAllByUsernameContaining(String keyword, Pageable pageable);
 
     @Query("select a from User a where a.email = :email")
-    User getUserByEmail(String email);
+    User getUserByEmail(@Param("email") String email);
 //    boolean authUser(String username, String password);
 
 }

@@ -2,6 +2,8 @@ package com.nmt.universitysb.repository;
 import com.nmt.universitysb.model.Comment;
 import com.nmt.universitysb.model.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +14,7 @@ public interface CommentRepository extends JpaRepository<Comment, Integer> {
     Optional<Comment> findById(int id);
     Comment save(Comment f);
     void deleteById(int id);
-//    List<Comment> getComments(Map<String, String> params);
-//    List<Comment> getCommentByPostId(int postId);
+    @Query("select a from Comment a where a.postId.id = :postId")
+    List<Comment> getCommentByPostId(@Param("postId") int postId);
 //    Comment addComment(Comment comment);
 }

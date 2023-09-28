@@ -20,7 +20,7 @@ public interface SemesterService {
 //    boolean addSemester(Semester m);
 //    boolean updateSemester(Semester m);
 //    Semester getSemesterById(String id);
-//    List<Semester> getSemesterByLecturerId(String lecturerId);
-//    List<Semester> getSemesterByStudentId(String studentId);
+    List<Semester> getSemesterByLecturerId(String lecturerId);
+    List<Semester> getSemesterByStudentId(String studentId);
 //    boolean deleteSemester(String id);
 }

@@ -1,5 +1,6 @@
 package com.nmt.universitysb.service.impl;
 import com.nmt.universitysb.model.Post;
+import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.repository.PostRepository;
 import com.nmt.universitysb.repository.UserRepository;
 import com.nmt.universitysb.service.PostService;
@@ -52,29 +53,15 @@ public class PostSeviceImpl implements PostService {
         this.postRepo.deleteById(id);
         return true;
     }
-//    @Override
-//    public List<Post> getPosts(Map<String, String> params) {
-//        return this.postRepo.getPosts(params);
-//    }
-//
-//    @Override
-//    public Post addPost(Post post) {
-//        post.setPostTime(new Date());
-//
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        User u = this.userRepo.getUserByUsername(authentication.getName());
-//        post.setUserId(u);
-//        return this.postRepo.addPost(post);
-//    }
-//
-//    @Override
-//    public Post getPostByid(int postId) {
-//        return this.postRepo.getPostByid(postId);
-//    }
-//
-//    @Override
-//    public Boolean deletePost(int postId) {
-//        return this.postRepo.deletePost(postId);
-//    }
+
+    @Override
+    public Post addPost(Post post) {
+        post.setPostTime(new Date());
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User u = this.userRepo.getUserByUsername(authentication.getName());
+        post.setUserId(u);
+        return this.postRepo.save(post);
+    }
 
 }

@@ -1,5 +1,6 @@
 package com.nmt.universitysb.service;
 
+import com.nmt.universitysb.dto.LecturerDto;
 import com.nmt.universitysb.model.Lecturer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,5 +21,5 @@ public interface LecturerService {
 //    Lecturer getLecturerById(String id);
 //    int countLecturers();
 //    boolean deleteLecturer(String id);
-//    LecturerDto getLecturerByUsername(String username);
+    LecturerDto getLecturerByUsername(String username);
 }
