@@ -24,7 +24,6 @@ public class SecurityConfig{
 
     private final JwtAuthenticationEntryPoint authenticationEntryPoint;
     private final JwtAuthenticationFilter authenticationFilter;
-    private final CustomOauth2UserService customOauth2UserService;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -39,7 +38,9 @@ public class SecurityConfig{
                                     .requestMatchers("/login").permitAll()
                                     .requestMatchers("/api/login/").permitAll()
                                     .requestMatchers("/api/users/").permitAll()
-                                    .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
+                                    .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("GIAOVU", "GIANGVIEN", "SINHVIEN")
+                                    .requestMatchers(HttpMethod.POST, "/api/**").hasAnyRole("GIAOVU", "GIANGVIEN", "SINHVIEN")
+                                    .requestMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole("GIAOVU")
                                     .anyRequest().authenticated()
                     )
                     .formLogin(form -> form

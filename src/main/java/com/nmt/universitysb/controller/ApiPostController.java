@@ -3,6 +3,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.nmt.universitysb.dto.PostDto;
+import com.nmt.universitysb.dto.PostUpdateDto;
 import com.nmt.universitysb.model.Comment;
 import com.nmt.universitysb.model.Post;
 import com.nmt.universitysb.service.CommentService;
@@ -57,6 +59,16 @@ public class ApiPostController {
         return new ResponseEntity<>(post.get(), HttpStatus.OK);
     }
 
+    @GetMapping(path = "/post-user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<List<PostDto>> getPostByUserId(@PathVariable(value = "userId") int userId) {
+        List<PostDto> post = postService.findByUserId(userId);
+        if (post.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(post, HttpStatus.OK);
+    }
+
     @GetMapping(path = "/posts/{postId}/comments/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
     public ResponseEntity<List<Comment>> getCommentByPostId(@PathVariable(value = "postId") int postId) {
@@ -73,6 +85,19 @@ public class ApiPostController {
         Post p = this.postService.addPost(post);
 
         return new ResponseEntity<>(p, HttpStatus.CREATED);
+    }
+
+    @PutMapping(path = "/post-update/{postId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<String> updatePostContent(
+            @PathVariable(value = "postId") int postId,
+            @RequestBody PostUpdateDto post) {
+        try {
+            postService.updatePostContent(postId, post.getContent());
+            return new ResponseEntity<>("Bài đăng đã được cập nhật.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Lỗi khi cập nhật bài đăng.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping(path="/comments/", produces = MediaType.APPLICATION_JSON_VALUE)

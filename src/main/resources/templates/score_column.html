@@ -64,7 +64,7 @@
             <td>
 
                 <a th:href="@{/update_score_column/{id}(id=${score_column.id})}" class="btn btn-info">Cập nhật</a>
-                <button class="btn btn-danger" th:attr="data-score_column-id=${score_column.id}" onclick="deleteScoreColumn('/api/delete_score_column/' + this.getAttribute('data-score_column-id'))">Xóa</button>
+                <button class="btn btn-danger" th:attr="data-score_column-id=${score_column.id}" onclick="deleteFaculty('/api/delete_score_column/' + this.getAttribute('data-score_column-id'))">Xóa</button>
             </td>
         </tr>
         <!-- Repeat the above row structure for each faculty -->

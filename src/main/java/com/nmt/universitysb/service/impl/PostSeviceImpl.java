@@ -1,4 +1,5 @@
 package com.nmt.universitysb.service.impl;
+import com.nmt.universitysb.dto.PostDto;
 import com.nmt.universitysb.model.Post;
 import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.repository.PostRepository;
@@ -29,6 +30,11 @@ public class PostSeviceImpl implements PostService {
     }
 
     @Override
+    public List<PostDto> findByUserId(int id) {
+        return this.postRepo.getPostByUserId(id);
+    }
+
+    @Override
     public Page<Post> findAll(Pageable pageable) {
         return this.postRepo.findAll(pageable);
     }
@@ -46,6 +52,16 @@ public class PostSeviceImpl implements PostService {
     @Override
     public Post save(Post f) {
         return this.postRepo.save(f);
+    }
+
+    @Override
+    public void updatePostContent(int postId, String newContent) {
+        Optional<Post> optionalPost = this.postRepo.findById(postId);
+        if (optionalPost.isPresent()) {
+            Post post = optionalPost.get();
+            post.setContent(newContent);
+            this.postRepo.save(post);
+        }
     }
 
     @Override

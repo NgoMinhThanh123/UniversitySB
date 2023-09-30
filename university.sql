@@ -85,8 +85,8 @@ CREATE TABLE `comment` (
   PRIMARY KEY (`id`),
   KEY `post_id_idx` (`post_id`),
   KEY `user6_id_idx` (`user_id`),
-  CONSTRAINT `post_id` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`),
-  CONSTRAINT `user6_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `post_id` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `user6_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -98,32 +98,6 @@ LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
 INSERT INTO `comment` VALUES (3,'Làm điều có ích','2023-08-08',83,6),(4,'Học ','2023-08-08',84,7),(5,'Làm gì đi','2023-08-08',84,6),(6,'Nội dung bình luận của bạn','2023-09-04',82,6),(7,'Phải học thôi','2023-09-04',82,7),(8,'sss','2023-09-06',81,12),(9,'alo','2023-09-06',81,12),(10,'Báo Hiếu','2023-09-06',81,12),(11,'test1','2023-09-06',81,12),(12,'a','2023-09-08',82,14),(13,'Hahaa','2023-09-14',81,6),(14,'Ai mà biết','2023-09-28',82,6);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `databasechangeloglock`
---
-
-DROP TABLE IF EXISTS `databasechangeloglock`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `databasechangeloglock` (
-  `ID` int NOT NULL,
-  `LOCKED` bit(1) NOT NULL,
-  `LOCKGRANTED` datetime DEFAULT NULL,
-  `LOCKEDBY` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `databasechangeloglock`
---
-
-LOCK TABLES `databasechangeloglock` WRITE;
-/*!40000 ALTER TABLE `databasechangeloglock` DISABLE KEYS */;
-INSERT INTO `databasechangeloglock` VALUES (1,_binary '\0',NULL,NULL);
-/*!40000 ALTER TABLE `databasechangeloglock` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -172,7 +146,7 @@ CREATE TABLE `lecturer` (
   KEY `faculty_id_idx` (`faculty_id`),
   KEY `user_id_idx` (`user_id`),
   KEY `classes1_id_idx` (`classes_id`),
-  CONSTRAINT `classes1_id` FOREIGN KEY (`classes_id`) REFERENCES `classes` (`id`),
+  CONSTRAINT `classes1_id` FOREIGN KEY (`classes_id`) REFERENCES `classes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `faculty_id` FOREIGN KEY (`faculty_id`) REFERENCES `faculty` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -184,7 +158,7 @@ CREATE TABLE `lecturer` (
 
 LOCK TABLES `lecturer` WRITE;
 /*!40000 ALTER TABLE `lecturer` DISABLE KEYS */;
-INSERT INTO `lecturer` VALUES ('GV2','Phương','2023-08-01',1,'0353894917','Nguyễn Kiệm','ngominhthanh8522@gmail.com','CNTT',23,NULL),('GV3','Dương Hữu Thành','2023-08-01',1,'0353894917','Nguyễn Kiệm','ngominhthanh8522@gmail.com','CNTT',82,'DH20IT02'),('test','test1','2023-09-15',1,'0353894917','test','ngominhthanh852@gmail.com','CNSH',104,NULL);
+INSERT INTO `lecturer` VALUES ('GV2','Phương','2023-08-01',1,'0353894917','Nguyễn Kiệm','ngominhthanh8522@gmail.com','CNTT',23,NULL),('GV3','Dương Hữu Thành','2023-08-01',1,'0353894917','Nguyễn Kiệm','ngominhthanh8522@gmail.com','CNTT',82,'DH20IT02');
 /*!40000 ALTER TABLE `lecturer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -259,7 +233,7 @@ CREATE TABLE `post` (
   `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user5_id_idx` (`user_id`),
-  CONSTRAINT `user7_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `user7_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -269,7 +243,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
-INSERT INTO `post` VALUES (6,'Cách làm những điều có ích','Bước 1, bước 2','2022-12-01',81),(7,'Làm sao để được điểm cao','Học ','2022-12-01',82),(9,'Lỗi 400','Em bị lỗi 400, cho em hỏi bị lỗi gì ạ','2023-09-04',82),(10,'Lỗi 401','Em bị lỗi 401, cho em hỏi bị lỗi gì ạ','2023-09-04',82),(11,'sss','ssssssssssssss','2023-09-04',82),(12,'sss','ssssssssssssss','2023-09-04',82),(13,'Lỗi 401','Em bị lỗi 401, cho em hỏi bị lỗi gì ạ','2023-09-04',82),(14,'test1','test1','2023-09-04',82),(15,'test2','test thôi','2023-09-09',82),(16,'Lỗi 404','Em bị lỗi 404, cho em hỏi bị lỗi gì ạ','2023-09-14',81),(17,'Lỗi 100','Em bị lỗi 100','2023-09-28',82),(18,'Lỗi 100','Em bị lỗi 100','2023-09-28',82);
+INSERT INTO `post` VALUES (6,'Cách làm những điều có ích','Bước 1, bước 2','2022-12-01',81),(7,'Làm sao để được điểm cao','Học ','2022-12-01',82),(9,'Lỗi 400','Em bị lỗi 400, cho em hỏi bị lỗi gì ạ','2023-09-04',82),(10,'Lỗi 401','Em bị lỗi 401, cho em hỏi bị lỗi gì ạ','2023-09-04',82),(11,'sss','ssssssssssssss','2023-09-04',82),(12,'sss','ssssssssssssss','2023-09-04',82),(13,'Lỗi 401','Em bị lỗi 401, cho em hỏi bị lỗi gì ạ','2023-09-04',82),(14,'test1','test1','2023-09-04',82),(15,'test2','test thôi','2023-09-09',82),(16,'Lỗi 404','Xong','2023-09-14',81),(17,'Lỗi 100','Em bị lỗi 100','2023-09-28',82),(18,'Lỗi 100','Em bị lỗi 100','2023-09-28',82);
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -287,9 +261,9 @@ CREATE TABLE `score` (
   PRIMARY KEY (`id`),
   KEY `semester_id_idx` (`semester_id`),
   KEY `student_subject_id_idx` (`student_subject_id`),
-  CONSTRAINT `semester_id` FOREIGN KEY (`semester_id`) REFERENCES `semester` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `student_subject_id` FOREIGN KEY (`student_subject_id`) REFERENCES `student_subject` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=174 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `semester_id` FOREIGN KEY (`semester_id`) REFERENCES `semester` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `student_subject_id` FOREIGN KEY (`student_subject_id`) REFERENCES `student_subject` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=177 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -298,7 +272,7 @@ CREATE TABLE `score` (
 
 LOCK TABLES `score` WRITE;
 /*!40000 ALTER TABLE `score` DISABLE KEYS */;
-INSERT INTO `score` VALUES (155,'12023',12),(156,'12023',14),(157,'12023',18),(158,'12023',19),(159,'32023',12),(161,'22023',13),(165,'32023',16),(166,'32023',17),(167,'32023',17),(168,'32023',16),(169,'32023',17),(170,'32023',16),(171,'32023',17),(172,'32023',16),(173,'32023',17);
+INSERT INTO `score` VALUES (155,'12023',12),(156,'12023',14),(157,'12023',18),(158,'12023',19),(159,'32023',12),(161,'22023',13),(165,'32023',16),(166,'32023',17),(167,'32023',17),(168,'32023',16),(169,'32023',17),(170,'32023',16),(171,'32023',17),(172,'32023',16),(173,'32023',17),(174,'32023',16),(175,'32023',17),(176,'12023',23);
 /*!40000 ALTER TABLE `score` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -341,9 +315,9 @@ CREATE TABLE `score_value` (
   PRIMARY KEY (`id`),
   KEY `score_id_idx` (`score_id`),
   KEY `score_column_id_idx` (`score_column_id`),
-  CONSTRAINT `score_column_id` FOREIGN KEY (`score_column_id`) REFERENCES `score_column` (`id`),
+  CONSTRAINT `score_column_id` FOREIGN KEY (`score_column_id`) REFERENCES `score_column` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `score_id` FOREIGN KEY (`score_id`) REFERENCES `score` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=168 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -352,7 +326,7 @@ CREATE TABLE `score_value` (
 
 LOCK TABLES `score_value` WRITE;
 /*!40000 ALTER TABLE `score_value` DISABLE KEYS */;
-INSERT INTO `score_value` VALUES (158,9,161,1),(159,8.5,165,1),(160,9,166,1),(161,2,155,1),(162,8.5,168,1),(163,9,169,1),(164,8.5,170,1),(165,9,171,1),(166,8.5,172,1),(167,9,173,1);
+INSERT INTO `score_value` VALUES (158,9,161,1),(159,8.5,165,1),(160,9,166,1),(161,2,155,1),(162,8.5,168,1),(163,9,169,1),(164,8.5,170,1),(165,9,171,1),(166,8.5,172,1),(167,9,173,1),(168,8.5,174,1),(169,9,175,1),(170,1,155,1);
 /*!40000 ALTER TABLE `score_value` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -439,7 +413,7 @@ CREATE TABLE `student_subject` (
   KEY `subject3_id_idx` (`subject_id`),
   CONSTRAINT `student1_id` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `subject3_id` FOREIGN KEY (`subject_id`) REFERENCES `subject` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -535,7 +509,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (21,'giaovu','$2a$10$2y/TneiRaG5AsFMQ4hHhyeIrJ2TZ61ES3XQAFnY1JfVh8sX3flvj2','giaovu@gmail.com','ROLE_GIAOVU','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692353332/qtrxjqvonf8cdry6rias.png'),(22,'giangvien','$2a$10$JeqC18iX8DqIL.KnMj8/Teh4hFOYLF3QuRtsTWn//4y.fFgsr4muW','giangvien@gmail.com','ROLE_GIANGVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692353357/xtpgvpwtjzv5rrjptasy.webp'),(23,'sinhvien','$2a$10$pduSyoXrLVmJyw65FihmTOZsRutMwuXUOtLHj3OMUay/owJ/FNccq','sinhvien1@gmail.com','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692353374/xqbfwsr94fwwidoqj05u.webp'),(63,'ngominhthanh','$2a$10$kvh5HjPvCpy04YJESdYnZ.rSDM9F870VCHo20Zd0wSfgNM273mYK2','ngominhthanh@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692781983/iznsrggmbhiypitzbkca.webp'),(64,'tranphuong','$2a$10$kvh5HjPvCpy04YJESdYnZ.rSDM9F870VCHo20Zd0wSfgNM273mYK2','tranphuong@ou.edu.vn','ROLE_GIANGVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692781983/iznsrggmbhiypitzbkca.webp'),(65,'thanhdh','$2a$10$kvh5HjPvCpy04YJESdYnZ.rSDM9F870VCHo20Zd0wSfgNM273mYK2','dhthanh@ou.edu.vn','ROLE_GIANGVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692781983/iznsrggmbhiypitzbkca.webp'),(66,'nguyentuyet','$2a$10$kvh5HjPvCpy04YJESdYnZ.rSDM9F870VCHo20Zd0wSfgNM273mYK2','nguyentuyet@ou.edu.vn','ROLE_GIANGVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692781983/iznsrggmbhiypitzbkca.webp'),(67,'ngominhthanh1','$2a$10$GZ0wnZL6GpMHituEMI3jPenvUjijWdbOWe1AVNUkUkkF0iolFxqzq','ngominhthanh1@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692793584/gspcfzjvudoo6r2i4swv.webp'),(68,'ngominhthanh2','$2a$10$FyOy2JZOSNm/5h4DTIZI6.stDWmc5.uquh8jG6hNA9KAITscLseAe','ngominhthanh2@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692793620/wpc8arekbdzegqrjvtx8.webp'),(69,'doangiahuy','$2a$10$3bhoV6PiF8j7kschaeeGgu0BWg.wkNwas3cAgz/.5WnEe.m8bwYQq','doangiahuy@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692803480/i6nwzifgkwlm1usfll3j.png'),(70,'doangiahuy1','$2a$10$idS8yzD/o9I9cVjrMCYhNeHFyVlLHsF9OqZSvctYJ5paxZnTgEdLS','doangiahuy1@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692803575/osnaavywjzyyu9ibxwlh.webp'),(72,'thanh12345','$2a$10$ID6r0OYk9epfxwg105fKe.lYq8Tat2JOw6tx04W.seS0Qd.EDXnvi','thanh12345@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692803730/a880ececjvh5ealsxnhi.png'),(73,'thanh12346','$2a$10$oxoq8maoIzrSvAAPrdyWJOfAxkkGYVyc7hbkIt/d/THkJ/16OShuy','thanh12346@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692804290/cdk63jldrjmvobkxxvik.png'),(74,'thanhtest1','$2a$10$R1x9vM5pUwQXPwjZrwuhS.t3bwgwWf/j45MuNXbcjTjoLekWbNrbC','thanhtest1@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692805332/nxffaegjstnntuus9dqr.jpg'),(75,'thanhtest2','$2a$10$v8NgzixclCgjrlT2K8MoIu3aauUlBtFiVgcLZiQEJ9K1fAVFe7cbi','thanhtest2@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692805350/nom4manieznssshk9prx.webp'),(76,'thanhtest3','$2a$10$VUlBFnm6YDmdQChWEA/2hO2dmFR7AzVaYT73clWuj4.zpLSNRl2FS','thanhtest3@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692807671/ay987xt6ga0rgmylurdz.png'),(77,'thanhtest4','$2a$10$2aVhjmXu4Sk.UGb.BDQ1iOgoykIzYWzjY6l9Qg7kYnMyeReDoKrbC','thanhtest4@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692807691/jcrgf61wpaxl8xplbosm.png'),(79,'thanhtest7','$2a$10$QbNhMh8Ki1BOJxc9E8rYY.ff6.5mOSG78D7jt.xKI4wSGV8YMBBuK','thanhtest7@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692808023/zdaugg4yu2syya5x8car.png'),(80,'thanhtest8','$2a$10$jEByWuy6hNwYkaLvzJ30Yeki.PSCaUxyhTbqZWHfXPtdbsr7lyC.y','thanhtest8@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692808172/aunz22vpfrxailoroiel.webp'),(81,'thanhtest9','$2a$10$x3gebTmFeoN9yTTy/iB5euMOlCF.SHwWJQzaVCYa./TTswRWUOsgW','thanhtest9@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692808191/bopqxmoarbfsmtmzf5k7.webp'),(82,'thanhtest10','$2a$10$crB.459SYgZKnlNJnyQdi.WgoSHfWEUo1etXBK/OUShQ1B1ICsCs.','thanhtest10@ou.edu.vn','ROLE_GIANGVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692817532/pyz3yranhyvejeuvrb0c.webp'),(83,'tktest1','$2a$10$BXKOdSyDWtJjcNN3r2FOXekWmPXwFv2k1ARkLf.Fzk9YjYumFXBSy','tktest1@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692870679/jdlqaxapmjwbiamltni2.jpg'),(84,'tktest2','$2a$10$mMpS.lMVug3cLB0r3fiU7ORalVQxGQMgO4XAinG3.6z/BUTobc0NG','tktest2@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692870697/dxq9ra983a4sc0g5edf5.jpg'),(85,'tktest3','$2a$10$ZRp8SJ6gfrATRwxB.DajneMwHJwDLhjzyxONKmK7VeXADrwnkETvy','tktest3@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692871086/byjv1xb86bzcfprqjpm0.png'),(86,'tktest4','$2a$10$aU3PBb9PvhTIUc7jRRY.3.fiIh.H/w7DLRz1vtG1AjW.mTiQGyuXK','tktest4@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692873949/hczocdwhxajmugfwjtte.webp'),(87,'tktest5','$2a$10$6FXe0wtpKw20w/xNQodFo.j0ffT/rU1lmbBTBbjd7fOx4fHwgbe3a','tktest5@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692873975/dsqhpwxnesn3eh2wbpbv.webp'),(98,'thanhtest12','$2a$10$l6w5UkvK4bExXJw.836Y7uiU9h0xniE6Ts5wqFmrDSpAKuOwyme.S','thanhtest12@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1693138745/jusbkv548v1gpr55fxpf.png'),(99,'thanhtest44','$2a$10$i9YxhwpNuUNegQ2kEULxMO1s5ToqQhViLSvudc/2jqmG2wCCCT6XS','thanhtest44@ou.edu.vn','ROLE_GIANGVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1693138887/sav7j4cf2twidhfpcckv.webp'),(103,'thanhthanhthanh','$2a$10$i2kbHah0qn5ndc4JjV4lweAI.7.CUS468jEYH0ChZnvc5wISvKUQu','ngominhthanh22@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1694622302/vba8viz0qrq8inxpry8u.jpg'),(104,'xxx','$2a$10$jhIwKEMTEdc2QEAXLxN37e2fMzGC4IuuXrcbNURTmP3PU2lWzfKYm','ngominhthanh874@gmail.com','ROLE_GIANGVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1695321924/tlnewcp56vf5hwvmeui9.png'),(105,'tkdetestthoi','$2a$10$K79mqHrbE5bO50Q1Jb9dyucVAZW/AtWxaVtQ79rlatjrTGdzSpbmC','tkdetestthoi@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1695664917/dvxecnnve5672gxlf1mw.png'),(106,'tkdetestthoi1','$2a$10$iAvRvUTna3EIWc27bALD5uwb3v5qGJAVTf.yYGAZfprHbosy.fEv.','tkdetestthoi1@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1695664987/nafqeuedotqtuwkynbbz.png');
+INSERT INTO `user` VALUES (21,'giaovu','$2a$10$2y/TneiRaG5AsFMQ4hHhyeIrJ2TZ61ES3XQAFnY1JfVh8sX3flvj2','giaovu@gmail.com','ROLE_GIAOVU','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692353332/qtrxjqvonf8cdry6rias.png'),(22,'giangvien','$2a$10$JeqC18iX8DqIL.KnMj8/Teh4hFOYLF3QuRtsTWn//4y.fFgsr4muW','giangvien@gmail.com','ROLE_GIANGVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692353357/xtpgvpwtjzv5rrjptasy.webp'),(23,'sinhvien','$2a$10$pduSyoXrLVmJyw65FihmTOZsRutMwuXUOtLHj3OMUay/owJ/FNccq','sinhvien1@gmail.com','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692353374/xqbfwsr94fwwidoqj05u.webp'),(63,'ngominhthanh','$2a$10$kvh5HjPvCpy04YJESdYnZ.rSDM9F870VCHo20Zd0wSfgNM273mYK2','ngominhthanh@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692781983/iznsrggmbhiypitzbkca.webp'),(64,'tranphuong','$2a$10$kvh5HjPvCpy04YJESdYnZ.rSDM9F870VCHo20Zd0wSfgNM273mYK2','tranphuong@ou.edu.vn','ROLE_GIANGVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692781983/iznsrggmbhiypitzbkca.webp'),(65,'thanhdh','$2a$10$kvh5HjPvCpy04YJESdYnZ.rSDM9F870VCHo20Zd0wSfgNM273mYK2','dhthanh@ou.edu.vn','ROLE_GIANGVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692781983/iznsrggmbhiypitzbkca.webp'),(66,'nguyentuyet','$2a$10$kvh5HjPvCpy04YJESdYnZ.rSDM9F870VCHo20Zd0wSfgNM273mYK2','nguyentuyet@ou.edu.vn','ROLE_GIANGVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692781983/iznsrggmbhiypitzbkca.webp'),(67,'ngominhthanh1','$2a$10$GZ0wnZL6GpMHituEMI3jPenvUjijWdbOWe1AVNUkUkkF0iolFxqzq','ngominhthanh1@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692793584/gspcfzjvudoo6r2i4swv.webp'),(68,'ngominhthanh2','$2a$10$FyOy2JZOSNm/5h4DTIZI6.stDWmc5.uquh8jG6hNA9KAITscLseAe','ngominhthanh2@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692793620/wpc8arekbdzegqrjvtx8.webp'),(69,'doangiahuy','$2a$10$3bhoV6PiF8j7kschaeeGgu0BWg.wkNwas3cAgz/.5WnEe.m8bwYQq','doangiahuy@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692803480/i6nwzifgkwlm1usfll3j.png'),(70,'doangiahuy1','$2a$10$idS8yzD/o9I9cVjrMCYhNeHFyVlLHsF9OqZSvctYJ5paxZnTgEdLS','doangiahuy1@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692803575/osnaavywjzyyu9ibxwlh.webp'),(72,'thanh12345','$2a$10$ID6r0OYk9epfxwg105fKe.lYq8Tat2JOw6tx04W.seS0Qd.EDXnvi','thanh12345@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692803730/a880ececjvh5ealsxnhi.png'),(73,'thanh12346','$2a$10$oxoq8maoIzrSvAAPrdyWJOfAxkkGYVyc7hbkIt/d/THkJ/16OShuy','thanh12346@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692804290/cdk63jldrjmvobkxxvik.png'),(74,'thanhtest1','$2a$10$R1x9vM5pUwQXPwjZrwuhS.t3bwgwWf/j45MuNXbcjTjoLekWbNrbC','thanhtest1@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692805332/nxffaegjstnntuus9dqr.jpg'),(75,'thanhtest2','$2a$10$v8NgzixclCgjrlT2K8MoIu3aauUlBtFiVgcLZiQEJ9K1fAVFe7cbi','thanhtest2@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692805350/nom4manieznssshk9prx.webp'),(76,'thanhtest3','$2a$10$VUlBFnm6YDmdQChWEA/2hO2dmFR7AzVaYT73clWuj4.zpLSNRl2FS','thanhtest3@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692807671/ay987xt6ga0rgmylurdz.png'),(77,'thanhtest4','$2a$10$2aVhjmXu4Sk.UGb.BDQ1iOgoykIzYWzjY6l9Qg7kYnMyeReDoKrbC','thanhtest4@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692807691/jcrgf61wpaxl8xplbosm.png'),(79,'thanhtest7','$2a$10$QbNhMh8Ki1BOJxc9E8rYY.ff6.5mOSG78D7jt.xKI4wSGV8YMBBuK','thanhtest7@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692808023/zdaugg4yu2syya5x8car.png'),(80,'thanhtest8','$2a$10$jEByWuy6hNwYkaLvzJ30Yeki.PSCaUxyhTbqZWHfXPtdbsr7lyC.y','thanhtest8@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692808172/aunz22vpfrxailoroiel.webp'),(81,'thanhtest9','$2a$10$x3gebTmFeoN9yTTy/iB5euMOlCF.SHwWJQzaVCYa./TTswRWUOsgW','thanhtest9@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692808191/bopqxmoarbfsmtmzf5k7.webp'),(82,'thanhtest10','$2a$10$crB.459SYgZKnlNJnyQdi.WgoSHfWEUo1etXBK/OUShQ1B1ICsCs.','thanhtest10@ou.edu.vn','ROLE_GIANGVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692817532/pyz3yranhyvejeuvrb0c.webp'),(83,'tktest1','$2a$10$BXKOdSyDWtJjcNN3r2FOXekWmPXwFv2k1ARkLf.Fzk9YjYumFXBSy','tktest1@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692870679/jdlqaxapmjwbiamltni2.jpg'),(84,'tktest2','$2a$10$mMpS.lMVug3cLB0r3fiU7ORalVQxGQMgO4XAinG3.6z/BUTobc0NG','tktest2@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692870697/dxq9ra983a4sc0g5edf5.jpg'),(85,'tktest3','$2a$10$ZRp8SJ6gfrATRwxB.DajneMwHJwDLhjzyxONKmK7VeXADrwnkETvy','tktest3@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692871086/byjv1xb86bzcfprqjpm0.png'),(86,'tktest4','$2a$10$aU3PBb9PvhTIUc7jRRY.3.fiIh.H/w7DLRz1vtG1AjW.mTiQGyuXK','tktest4@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692873949/hczocdwhxajmugfwjtte.webp'),(87,'tktest5','$2a$10$6FXe0wtpKw20w/xNQodFo.j0ffT/rU1lmbBTBbjd7fOx4fHwgbe3a','tktest5@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1692873975/dsqhpwxnesn3eh2wbpbv.webp'),(98,'thanhtest12','$2a$10$l6w5UkvK4bExXJw.836Y7uiU9h0xniE6Ts5wqFmrDSpAKuOwyme.S','thanhtest12@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1693138745/jusbkv548v1gpr55fxpf.png'),(99,'thanhtest44','$2a$10$i9YxhwpNuUNegQ2kEULxMO1s5ToqQhViLSvudc/2jqmG2wCCCT6XS','thanhtest44@ou.edu.vn','ROLE_GIANGVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1693138887/sav7j4cf2twidhfpcckv.webp'),(103,'thanhthanhthanh','$2a$10$i2kbHah0qn5ndc4JjV4lweAI.7.CUS468jEYH0ChZnvc5wISvKUQu','ngominhthanh22@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1694622302/vba8viz0qrq8inxpry8u.jpg'),(104,'xxx','$2a$10$jhIwKEMTEdc2QEAXLxN37e2fMzGC4IuuXrcbNURTmP3PU2lWzfKYm','ngominhthanh874@gmail.com','ROLE_GIANGVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1695321924/tlnewcp56vf5hwvmeui9.png'),(105,'tkdetestthoi','$2a$10$K79mqHrbE5bO50Q1Jb9dyucVAZW/AtWxaVtQ79rlatjrTGdzSpbmC','tkdetestthoi@ou.edu.vn','ROLE_SINHVIEN','https://res.cloudinary.com/dp1am0vsj/image/upload/v1695664917/dvxecnnve5672gxlf1mw.png');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -548,4 +522,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-09-28 23:39:31
+-- Dump completed on 2023-09-30 23:33:19
