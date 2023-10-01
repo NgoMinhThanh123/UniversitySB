@@ -43,6 +43,7 @@ public class Student implements Serializable {
     private String address;
     @JoinColumn(name = "classes_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Classes classesId;
     @JoinColumn(name = "faculty_id", referencedColumnName = "id")
     @ManyToOne(optional = false)

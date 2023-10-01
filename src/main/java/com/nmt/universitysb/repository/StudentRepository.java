@@ -1,4 +1,5 @@
 package com.nmt.universitysb.repository;
+import com.nmt.universitysb.dto.StudentDto;
 import com.nmt.universitysb.model.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,12 +20,13 @@ public interface StudentRepository extends JpaRepository<Student, String> {
     void deleteById(String id);
     @Query("select a from Student a where a.userId.username = :username")
     Student getStudentByUsername(String username);
-    @Query(value ="SELECT student.* \n"
-            + "FROM student\n"
-            + "join classes on student.classes_id = classes.id\n"
-            + "join lecturer on classes.id = lecturer.classes_id\n"
-            + "where lecturer.id = :lecturerId",nativeQuery = true)
-    List<Student> getStudentByHomeroomTeacher(@Param("lecturerId") String lecturerId);
+
+    @Query("select new com.nmt.universitysb.dto.StudentDto(a.id, a.name, a.birthday, a.gender, a.phone, a.address, a.classesId, a.facultyId, a.majorId ) " +
+            "from Student a " +
+            "join Classes ls on a.classesId = ls.id " +
+            "join Lecturer l on ls.id = l.classesId " +
+            "where l.id = :lecturerId")
+    List<StudentDto> getStudentByHomeroomTeacher(@Param("lecturerId") String lecturerId);
     @Query(value ="SELECT distinct student.* \n"
             + "FROM score\n"
             + "join student_subject on score.student_subject_id = student_subject.id\n"

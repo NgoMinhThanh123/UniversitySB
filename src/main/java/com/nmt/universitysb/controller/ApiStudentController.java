@@ -78,8 +78,8 @@ public class ApiStudentController {
 
     @GetMapping(path = "/students-lecturer/{lecturerId}/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public ResponseEntity<List<Student>> getStudentByHomeroomTeacher(@PathVariable(value = "lecturerId") String lecturerId) {
-        List<Student> students = studentService.getStudentByHomeroomTeacher(lecturerId);
+    public ResponseEntity<List<StudentDto>> getStudentByHomeroomTeacher(@PathVariable(value = "lecturerId") String lecturerId) {
+        List<StudentDto> students = studentService.getStudentByHomeroomTeacher(lecturerId);
         if (students.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -97,7 +97,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getStudentByHomeroomTeacher(String lecturerId) {
+    public List<StudentDto> getStudentByHomeroomTeacher(String lecturerId) {
         return this.studentRepo.getStudentByHomeroomTeacher(lecturerId);
     }
 
