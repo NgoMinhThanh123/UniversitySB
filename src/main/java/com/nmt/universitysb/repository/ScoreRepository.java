@@ -2,9 +2,7 @@ package com.nmt.universitysb.repository;
 
 import com.nmt.universitysb.dto.ScoreDto;
 import com.nmt.universitysb.dto.StudentScoreDTO;
-import com.nmt.universitysb.model.Classes;
-import com.nmt.universitysb.model.Score;
-import com.nmt.universitysb.model.ScoreValue;
+import com.nmt.universitysb.model.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,6 +17,9 @@ import java.util.Optional;
 public interface ScoreRepository extends JpaRepository<Score, Integer> {
     Optional<Score> findById(int id);
     Page<Score> findAllByIdContaining(String keyword, Pageable pageable);
+@Query("select a" +
+        " from Score a where a.studentSubjectId.id = :studentSubjectId AND a.semesterId.id = :semesterId")
+Optional<Score> findByStudentSubjectIdAndSemesterId(@Param("studentSubjectId") int studentSubjectId, @Param("semesterId") String semesterId);
     long count();
     Score save(Score f);
     void deleteById(int id);
