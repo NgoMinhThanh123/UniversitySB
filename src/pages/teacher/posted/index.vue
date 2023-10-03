@@ -23,6 +23,7 @@
           <tr>
             <th>Tên bài post</th>
             <th>Thời gian đăng</th>
+            <th>Thời gian đăng</th>
           </tr>
         </thead>
         <tbody>
