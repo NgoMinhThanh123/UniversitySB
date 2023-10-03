@@ -32,6 +32,10 @@ export const endpoints = {
     "add-post": `${SERVER_CONTEXT}/api/add-post/`,
     "send-mail": `${SERVER_CONTEXT}/api/students/mails/`,
     "get-list-post-by-userId": `${SERVER_CONTEXT}/api/post-user/{userId}`,
+    "update-post": `${SERVER_CONTEXT}/api/post-update/{postId}`,
+    "delete-post": `${SERVER_CONTEXT}/api/posts-delete/{postId}`,
+    "update-comment": `${SERVER_CONTEXT}/api/comment-update/{commentId}`,
+    "delete-comment": `${SERVER_CONTEXT}/api/comments/{commentId}`,
 }
 
 export const authApi = () => {

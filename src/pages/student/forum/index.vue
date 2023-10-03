@@ -50,6 +50,9 @@
         <Button class="btn-title btn btn-primary" @click="handleEdit"
           >Đăng bài viết</Button
         >
+         <Button class="btn-title btn btn-primary" 
+          ><router-link class="post-link" to="/student/posted/">Bài viết đã đăng</router-link></Button
+        >
       </div>
       <table class="table" v-if="post.length > 0">
         <thead>

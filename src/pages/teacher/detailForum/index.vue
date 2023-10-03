@@ -39,6 +39,30 @@
             >
           </p>
           <p>Nội dung: {{ p.content }}</p>
+          <div v-if="isEditMode && editedPost && editedPost.id === p.id && post.userId.id === p.userId.id">
+            <textarea
+              class="form-control"
+              rows="2"
+              id="comment"
+              name="text"
+              :placeholder="p.content"
+              v-model="content_comment"
+            ></textarea>
+            <div class="post-update-and-delete">
+              <ul>
+                <li @click="updateComment(p.id)">Lưu</li>
+                <li @click="exitHandleEdit">Thoát</li>
+              </ul>
+            </div>
+          </div>
+          <div v-else >
+            <div class="post-update-and-delete" v-if="post.userId.id === p.userId.id">
+              <ul>
+                <li @click="handleEdit(p)">Chỉnh sửa</li>
+                <li @click="confirmDelete(p.id)">Xóa</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -56,6 +80,9 @@ export default {
       post: "",
       comment: null,
       content: "",
+      content_comment: "",
+      isEditMode: false,
+      editedPost: null,
     };
   },
   mounted() {
@@ -65,6 +92,20 @@ export default {
     this.loadComment();
   },
   methods: {
+    handleEdit(post) {
+      if (!this.isEditMode) {
+        this.isEditMode = true;
+        this.content_comment = post.content;
+        this.editedPost = post;
+      } else {
+        this.isEditMode = false;
+        this.editedPost = null;
+      }
+    },
+    exitHandleEdit() {
+      this.isEditMode = false;
+      this.editedPost = null;
+    },
     async loadProduct() {
       const { data } = await authApi().get(endpoints.details(this.postId));
       this.post = data;
@@ -83,7 +124,7 @@ export default {
       console.log("this.usernameHost", this.usernameHost);
     },
     async loadComment() {
-      const {data} = await authApi().get(
+      const { data } = await authApi().get(
         endpoints.comments.replace("{id}", this.postId)
       );
       this.comment = data;
@@ -96,6 +137,40 @@ export default {
       this.comment.push(data);
       this.content = "";
     },
+    async updateComment(commentId) {
+      try {
+        const response = await authApi().put(
+          endpoints["update-comment"].replace("{commentId}", commentId),
+          {
+            content: this.content_comment,
+          }
+        );
+      
+        this.content = "";
+        this.isEditMode = false;
+        this.loadComment();
+      } catch (error) {
+        console.error("Error submitting post:", error);
+      }
+    },
+    async deleteComment(commentId) {
+      try {
+        const response = await authApi().delete(
+          endpoints["delete-comment"].replace("{commentId}", commentId)
+        );
+      
+        this.isEditMode = false;
+        this.loadComment();
+      } catch (error) {
+        console.error("Error submitting post:", error);
+      }
+    },
+    async confirmDelete(commentId) {
+    const confirmDelete = window.confirm('Bạn có chắc chắn muốn xóa bình luận này không?');
+    if (confirmDelete) {
+      await this.deleteComment(commentId);
+    }
+  },
     formatDate(date) {
       if (!date) return ""; // Tránh xử lý ngày null hoặc undefined
 

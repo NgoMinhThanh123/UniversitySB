@@ -404,3 +404,25 @@ label {
   margin-left: 20px;
 }
 /* End detail forum */
+
+/* Posted */
+.post-update-and-delete {
+  margin: 5px;
+  font-size: 15px;
+}
+
+.post-update-and-delete ul{
+  list-style: none;
+  display: flex;
+  padding: 0;
+}
+
+.post-update-and-delete ul li {
+  margin-left: 10px;
+}
+
+.post-update-and-delete ul li:hover {
+  cursor: pointer;
+  color: #4a94f5;
+}
+/* End posted */
