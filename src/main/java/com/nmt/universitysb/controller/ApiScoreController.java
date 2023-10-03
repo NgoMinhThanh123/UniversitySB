@@ -9,6 +9,7 @@ import com.nmt.universitysb.dto.ScoreListDto;
 import com.nmt.universitysb.dto.Score_ScoreValueDto;
 import com.nmt.universitysb.dto.StudentScoreDTO;
 import com.nmt.universitysb.service.ScoreService;
+import com.nmt.universitysb.utils.CSVUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -30,8 +31,8 @@ public class ApiScoreController {
 
     @Autowired
     private ScoreService scoreService;
-//    @Autowired
-//    private CSVUtils csvExporter;
+    @Autowired
+    private CSVUtils csvExporter;
 
     @DeleteMapping("/add_score/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

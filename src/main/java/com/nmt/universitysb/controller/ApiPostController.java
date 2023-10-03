@@ -94,10 +94,21 @@ public class ApiPostController {
             @PathVariable(value = "postId") int postId,
             @RequestBody PostUpdateDto post) {
         try {
-            postService.updatePostContent(postId, post.getContent());
+            this.postService.updatePostContent(postId, post.getContent());
             return new ResponseEntity<>("Bài đăng đã được cập nhật.", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>("Lỗi khi cập nhật bài đăng.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping(path ="/posts-delete/{postId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<String> deletePost(@PathVariable(value = "postId") int postId) {
+        try {
+            this.postService.deletePost(postId);
+            return new ResponseEntity<>("Xóa Post thành công.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Lỗi khi xóa Post.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
