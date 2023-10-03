@@ -3,7 +3,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title th:text="${title}">Default Title</title>
-    <!-- Thêm các thẻ link và script cần thiết -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <style>
@@ -11,18 +10,11 @@
             margin: 0;
             display: flex;
             flex-direction: column;
-            /* Loại bỏ min-height và thêm overflow-y */
             overflow-y: auto;
         }
         footer {
             margin-top: auto;
             text-align: center;
-        }
-        .center-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 60vh;
         }
     </style>
 </head>
@@ -31,19 +23,16 @@
 <div class="container">
     <form th:object="${add_lecturer}" th:action="@{/add_lecturer}" method="post">
         <div class="form-floating">
-            <input type="text" class="form-control" th:field="*{id}" id="id" placeholder="ID" name="id" />
+            <input required type="text" class="form-control" th:field="*{id}" id="id" placeholder="ID" name="id" />
             <label for="id">ID</label>
-            <!--            <form:errors path="id" element="div" cssClass="text-danger" />-->
         </div>
         <div class="form-floating">
-            <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Tên giảng viên" name="name" />
+            <input required type="text" class="form-control" th:field="*{name}" id="name" placeholder="Tên giảng viên" name="name" />
             <label for="name">Tên giảng viên</label>
-            <!--            <form:errors path="name" element="div" cssClass="text-danger" />-->
         </div>
         <div class="form-floating">
             <input type="date" class="form-control" th:field="*{birthday}" id="birthday" placeholder="Ngày sinh" name="birthday" />
             <label for="birthday">Ngày sinh</label>
-            <!--            <form:errors path="name" element="div" cssClass="text-danger" />-->
         </div>
         <div class="form-floating">
             <select class="form-select" id="gender" name="gender">
@@ -53,17 +42,15 @@
             <label for="gender">Giới tính</label>
         </div>
         <div class="form-floating">
-            <input type="text" class="form-control" th:field="*{phone}" id="phone" placeholder="Số điện thoại" name="phone" />
+            <input required type="text" class="form-control" th:field="*{phone}" id="phone" placeholder="Số điện thoại" name="phone" />
             <label for="phone">Số điện thoại</label>
-            <!--            <form:errors path="name" element="div" cssClass="text-danger" />-->
         </div>
         <div class="form-floating">
-            <input type="text" class="form-control" th:field="*{email}" id="email" placeholder="Email" name="email" />
+            <input required type="text" class="form-control" th:field="*{email}" id="email" placeholder="Email" name="email" />
             <label for="email">Email</label>
-            <!--            <form:errors path="name" element="div" cssClass="text-danger" />-->
         </div>
         <div class="form-floating">
-            <input type="text" class="form-control" th:field="*{address}" id="address" placeholder="Địa chỉ" name="address" />
+            <input required type="text" class="form-control" th:field="*{address}" id="address" placeholder="Địa chỉ" name="address" />
             <label for="name">Địa chỉ</label>
             <!--            <form:errors path="name" element="div" cssClass="text-danger" />-->
         </div>

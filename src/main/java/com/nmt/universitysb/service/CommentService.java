@@ -10,8 +10,8 @@ public interface CommentService {
     List<Comment> findAll();
     Optional<Comment> findById(int id);
     Comment save(Comment f);
-
-    boolean deleteUser(int id);
+    void updateCommentContent(int commentId, String newContent);
+    boolean deleteComment(int id);
     List<Comment> getCommentByPostId(int postId);
     Comment addComment(Comment comment);
 }

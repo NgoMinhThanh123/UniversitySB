@@ -1,5 +1,6 @@
 package com.nmt.universitysb.service.impl;
 import com.nmt.universitysb.model.Comment;
+import com.nmt.universitysb.model.Post;
 import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.repository.CommentRepository;
 import com.nmt.universitysb.repository.UserRepository;
@@ -39,7 +40,17 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public boolean deleteUser(int id) {
+    public void updateCommentContent(int commentId, String newContent) {
+        Optional<Comment> optionalComment = this.commentRepo.findById(commentId);
+        if (optionalComment.isPresent()) {
+            Comment comment = optionalComment.get();
+            comment.setContent(newContent);
+            this.commentRepo.save(comment);
+        }
+    }
+
+    @Override
+    public boolean deleteComment(int id) {
         this.commentRepo.deleteById(id);
         return true;
     }

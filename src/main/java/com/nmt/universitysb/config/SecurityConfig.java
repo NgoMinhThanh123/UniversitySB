@@ -40,7 +40,8 @@ public class SecurityConfig{
                                     .requestMatchers("/api/users/").permitAll()
                                     .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("GIAOVU", "GIANGVIEN", "SINHVIEN")
                                     .requestMatchers(HttpMethod.POST, "/api/**").hasAnyRole("GIAOVU", "GIANGVIEN", "SINHVIEN")
-                                    .requestMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole("GIAOVU")
+//                                    .requestMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole("GIAOVU")
+                                    .requestMatchers(HttpMethod.DELETE, "/api/comments/{commentId}").permitAll()
                                     .anyRequest().authenticated()
                     )
                     .formLogin(form -> form

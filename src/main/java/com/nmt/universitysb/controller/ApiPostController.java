@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.nmt.universitysb.dto.CommentDto;
 import com.nmt.universitysb.dto.PostDto;
 import com.nmt.universitysb.dto.PostUpdateDto;
 import com.nmt.universitysb.model.Comment;
@@ -107,4 +108,29 @@ public class ApiPostController {
 
         return new ResponseEntity<>(c, HttpStatus.CREATED);
     }
+
+    @PutMapping(path = "/comment-update/{commentId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<String> updateCommentContent(
+            @PathVariable(value = "commentId") int commentId,
+            @RequestBody CommentDto commentDto) {
+        try {
+            commentService.updateCommentContent(commentId, commentDto.getContent());
+            return new ResponseEntity<>("Bình luận đã được cập nhật.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Lỗi khi cập nhật bình luận.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping(path ="/comments/{commentId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<String> deleteComment(@PathVariable(value = "commentId") int commentId) {
+        try {
+            this.commentService.deleteComment(commentId);
+            return new ResponseEntity<>("Xóa Comment thành công.", HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Lỗi khi xóa Comment.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
