@@ -3,6 +3,7 @@ package com.nmt.universitysb.config;
 import com.nmt.universitysb.security.JwtAuthenticationEntryPoint;
 import com.nmt.universitysb.security.JwtAuthenticationFilter;
 import com.nmt.universitysb.security.oauth2.CustomOauth2UserService;
+import com.nmt.universitysb.utils.CSVUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -62,26 +63,9 @@ public class SecurityConfig{
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-//    @Bean
-//    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-//        http.cors().and().csrf().disable()
-//                .authorizeHttpRequests(authorize ->
-//                        authorize.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
-//                                .requestMatchers("/api/register").permitAll()
-//                                .requestMatchers("/api/login").permitAll()
-//                                .requestMatchers("/oauth-login").permitAll()
-////                                .requestMatchers("/swagger-ui/**").permitAll()
-////                                .requestMatchers("/v3/api-docs/**").permitAll()
-////                                .requestMatchers("/api/v1/users/forgot-password").permitAll()
-////                                .requestMatchers("/api/v1/users/change-password").permitAll()
-////                                .requestMatchers("/api/v1/users/reset-password").permitAll()
-//                                .anyRequest().authenticated()
-//                ).exceptionHandling(e ->
-//                        e.authenticationEntryPoint(authenticationEntryPoint)
-//                );
-//
-//        http.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
-//
-//        return http.build();
-//    }
+
+    @Bean
+    public CSVUtils csvExporter() {
+        return new CSVUtils();
+    }
 }

@@ -78,26 +78,26 @@ public class ApiScoreController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-//    @GetMapping("/scores/export-csv/")
-//    @CrossOrigin
-//    public void exportCSV(
-//            @RequestParam String lecturerId,
-//            @RequestParam String semesterId,
-//            @RequestParam String subjectId,
-//            HttpServletResponse response) {
-//        try {
-//            List<StudentScoreDTO> list = scoreService.getStudentScores(lecturerId, semesterId, subjectId);
-//
-//            String csvFileName = "student_scores.csv";
-//            response.setContentType("text/csv");
-//            response.setHeader("Content-Disposition", "attachment; filename=" + csvFileName);
-//
-//            csvExporter.exportToCSV(list, response.getWriter());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            // Handle the exception
-//        }
-//    }
+    @GetMapping("/scores/export-csv/")
+    @CrossOrigin
+    public void exportCSV(
+            @RequestParam String lecturerId,
+            @RequestParam String semesterId,
+            @RequestParam String subjectId,
+            HttpServletResponse response) {
+        try {
+            List<StudentScoreDTO> list = scoreService.getStudentScores(lecturerId, semesterId, subjectId);
+
+            String csvFileName = "student_scores.csv";
+            response.setContentType("text/csv");
+            response.setHeader("Content-Disposition", "attachment; filename=" + csvFileName);
+
+            csvExporter.exportToCSV(list, response.getWriter());
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception
+        }
+    }
 
     @PostMapping(path="/add-score/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
@@ -109,13 +109,4 @@ public class ApiScoreController {
         return new ResponseEntity<>(scoreValueDtos, HttpStatus.CREATED);
     }
 
-//    @PostMapping(path="/add-score/", produces = MediaType.APPLICATION_JSON_VALUE)
-//    @CrossOrigin
-//    public ResponseEntity<Score_ScoreValueDto> addScore(@RequestParam Map<String, String> params) {
-//        Score_ScoreValueDto scoreValueDto = this.scoreService.addScore(params);
-//        if (scoreValueDto == null) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(scoreValueDto, HttpStatus.CREATED);
-//    }
 }
