@@ -1,9 +1,12 @@
 <template>
- 
   <div class="studentHome">
     <form @submit.prevent="handleSubmit">
-      <div class="select">
-        <div class="form-group" :class="{ 'has-error': !selectedSubject }">
+      <div class="select d-flex">
+        <div
+          class="form-group"
+          :class="{ 'has-error': !selectedSubject }"
+          style="margin-right: 10px"
+        >
           <label for="subjectSelect">Chọn môn học:</label>
           <select
             class="form-control"
@@ -21,82 +24,40 @@
             </option>
           </select>
         </div>
-        <div class="semester">
-          <div class="form-group" :class="{ 'has-error': !selectedSemester }">
-            <label for="semesterSelect">Chọn học kì:</label>
-            <select
-              class="form-control"
-              id="semesterSelect"
-              v-model="selectedSemester"
-              @change="handleSemesterChange"
-            >
-              <option value="">Chọn học kì</option>
-              <option
-                v-for="(semester, index) in semesterList"
-                :key="index"
-                :value="semester.id"
-              >
-                {{ `${semester.name} - ${semester.schoolYear}` }}
-              </option>
-            </select>
-          </div>
-        </div>
-        <button class="btn btn-primary btnSubmit" type="submit">
-          Tìm kiếm
-        </button>
-      </div>
-      <!-- <div class="btnFile">
-        <button
-          class="btn btn-success btnExport"
-          type="button"
-          @click="handleExportCSV"
-        >
-          Xuất file
-        </button>
-        <button class="btn btn-info btnImport" type="button">
-          <label for="csvFile" class="whiteColor" style="margin: 0"
-            >Đọc file</label
+
+        <div class="form-group" :class="{ 'has-error': !selectedSemester }">
+          <label for="semesterSelect">Chọn học kì:</label>
+          <select
+            class="form-control"
+            id="semesterSelect"
+            v-model="selectedSemester"
+            @change="handleSemesterChange"
           >
-          <input
-            id="csvFile"
-            type="file"
-            accept=".csv"
-            style="display: none"
-            @change="handleFileChange"
-          />
-        </button>
-        <button class="btn btn-danger btnExportPDF" @click="exportToPDF">
-          Xuất PDF
-        </button>
-      </div> -->
-    </form>
-    <!-- <div v-if="csvData.length > 0">
-      <h3>Dữ liệu từ tệp CSV</h3>
-      <table class="table table-striped table-bordered table-hover">
-        <thead>
-          <tr>
-            <th
-              class="text-center"
-              v-for="(column, index) in Object.keys(csvData[0])"
+            <option value="">Chọn học kì</option>
+            <option
+              v-for="(semester, index) in semesterList"
               :key="index"
+              :value="semester.id"
             >
-              {{ column }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(row, rowIndex) in csvData" :key="rowIndex">
-            <td
-              class="text-center"
-              v-for="(value, valueIndex) in Object.values(row)"
-              :key="valueIndex"
-            >
-              {{ value }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div> -->
+              {{ `${semester.name} - ${semester.schoolYear}` }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="d-flex">
+        <div style="margin-right: 10px;">
+          <button class="btn btn-primary btnSubmit" type="submit">
+            Tìm kiếm
+          </button>
+        </div>
+        <div>
+          <button class="btn btn-danger btnExportPDF" @click="exportToPDF">
+            Xuất PDF
+          </button>
+        </div>
+      </div>
+    </form>
+
     <div v-if="studentList.length > 0">
       <table class="table table-striped table-bordered table-hover">
         <thead>
@@ -134,6 +95,8 @@
 import { authApi, endpoints } from "@/configs/Apis.js";
 import { mapGetters } from "vuex";
 import { useMenu } from "../../../stores/use-menu.js";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
 export default {
   setup() {
@@ -152,7 +115,7 @@ export default {
       studentList: [],
       semesterList: [],
       selectedSemester: "",
-    //   csvData: [],
+      //   csvData: [],
       studentScores: {},
       scoreColumns: [],
     };
@@ -160,15 +123,14 @@ export default {
   created() {
     this.fetchLecturerInfo();
     // this.fetchData();
-    
-    this.fetchLecturerInfo().then((lecturerInfo) => {
-    if (lecturerInfo && lecturerInfo.id) {
-      const lecturerId = lecturerInfo.id;
-      console.log("lecturerId", lecturerId);
-      this.fetchSubjectsByLecturerId(lecturerId);
 
-    }
-  });
+    this.fetchLecturerInfo().then((lecturerInfo) => {
+      if (lecturerInfo && lecturerInfo.id) {
+        const lecturerId = lecturerInfo.id;
+        console.log("lecturerId", lecturerId);
+        this.fetchSubjectsByLecturerId(lecturerId);
+      }
+    });
   },
   methods: {
     handleEdit() {
@@ -177,7 +139,7 @@ export default {
     exitHandleEdit() {
       this.isEditMode = false;
     },
-    
+
     async fetchLecturerInfo() {
       try {
         const lecturerUsername = this.getUser.username;
@@ -187,7 +149,7 @@ export default {
             lecturerUsername
           )
         );
-        console.log("get-lecturer-by-username",response.data);
+        console.log("get-lecturer-by-username", response.data);
         this.selectedLecturer = response.data;
 
         console.log("this.selectedLecturer", this.selectedLecturer);
@@ -205,7 +167,7 @@ export default {
             lecturerId
           )
         );
-        console.log("get-subject-by-lecturerId",response.data);
+        console.log("get-subject-by-lecturerId", response.data);
         this.subjectList = response.data;
 
         const endpoint = endpoints["semester"] + `?lecturerId=${lecturerId}`;
@@ -250,43 +212,67 @@ export default {
         console.error(error);
       }
     },
+    async exportToPDF() {
+      const doc = new jsPDF();
+      doc.text("Bảng điểm sinh viên", 10, 10);
+
+      const header = ["Mã số sinh viên", "Tên sinh viên", ...this.scoreColumns];
+
+      const data = Object.values(this.studentScores).map((student) => [
+        student.studentId,
+        student.studentName,
+        ...this.scoreColumns.map((column) => {
+          const score = student.scores.find((s) => s.column === column);
+          return score ? score.value : "";
+        }),
+      ]);
+
+      doc.autoTable({
+        head: [header],
+        body: data,
+      });
+
+      // Lưu PDF hoặc hiển thị trong một cửa sổ mới
+      // Đây là một ví dụ lưu PDF với tên 'student_scores.pdf':
+      doc.save("student_scores.pdf");
+    },
   },
   watch: {
-      studentList: {
-        handler: function (newVal) {
-          // Process the student list and update studentScores and scoreColumns
-          const studentScores = {};
-          const scoreColumns = [];
+    studentList: {
+      handler: function (newVal) {
+        // Process the student list and update studentScores and scoreColumns
+        const studentScores = {};
+        const scoreColumns = [];
 
-          newVal.forEach((student) => {
-            const { studentId, studentName, scoreColumnName, scoreValue } =
-              student;
+        newVal.forEach((student) => {
+          const { studentId, studentName, scoreColumnName, scoreValue } =
+            student;
 
-            if (!studentScores[studentId]) {
-              studentScores[studentId] = {
-                studentId,
-                studentName,
-                scores: [{ column: scoreColumnName, value: scoreValue }],
-              };
-            } else {
-              studentScores[studentId].scores.push({
-                column: scoreColumnName,
-                value: scoreValue,
-              });
-            }
+          if (!studentScores[studentId]) {
+            studentScores[studentId] = {
+              studentId,
+              studentName,
+              scores: [{ column: scoreColumnName, value: scoreValue }],
+            };
+          } else {
+            studentScores[studentId].scores.push({
+              column: scoreColumnName,
+              value: scoreValue,
+            });
+          }
 
-            if (!scoreColumns.includes(scoreColumnName)) {
-              scoreColumns.push(scoreColumnName);
-            }
-          });
+          if (!scoreColumns.includes(scoreColumnName)) {
+            scoreColumns.push(scoreColumnName);
+          }
+        });
 
-          this.studentScores = studentScores;
-          console.log(studentScores);
-          this.scoreColumns = scoreColumns;
-          console.log(studentScores);
-        },
-        deep: true,
+        this.studentScores = studentScores;
+        console.log(studentScores);
+        this.scoreColumns = scoreColumns;
+        console.log(studentScores);
       },
+      deep: true,
     },
+  },
 };
 </script>

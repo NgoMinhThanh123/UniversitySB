@@ -1,23 +1,6 @@
 <template>
   <div class="container-fluid" style="padding-bottom: 50px">
-    <div class="row">
-      <div class="col-12 d-flex justify-content-end">
-        <form class="d-flex">
-          <input
-            class="form-control me-2"
-            type="search"
-            placeholder="Search"
-            v-model="searchKeyword"
-          />
-          <button
-            class="btn btn-primary"
-            style="width: 150px"
-            @click="handleSearch"
-          >
-            Tìm kiếm
-          </button>
-        </form>
-      </div>
+    <div class="row"> 
       <table class="table">
         <thead>
           <tr>
@@ -36,7 +19,7 @@
                 >
                   {{ p.title }}
                 </router-link>
-              <div v-if="isEditMode && editedPost && editedPost.id === p.id">
+              <div v-if="isEditMode && editedPost && editedPost.id === p.id" style="margin: 10px">
                 <textarea
                   class="form-control"
                   rows="2"

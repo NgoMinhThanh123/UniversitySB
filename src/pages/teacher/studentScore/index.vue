@@ -51,7 +51,7 @@
               >
                 Thoát
               </button>
-              <button class="btn btn-primary" style="margin-right: 10px">
+              <button class="btn btn-primary" style="margin-right: 10px" @click="handleSendMail">
                 Gửi mail
               </button>
               <button class="btn btn-primary">Đọc file</button>
@@ -348,8 +348,8 @@ export default {
         const subjectId = this.selectedSubject;
         const semesterId = this.selectedSemester;
         const columnScores = {}; // Đối tượng lưu điểm của tất cả sinh viên trong cột tương ứng
- const requests = [];
- 
+        const requests = [];
+
         let scoreColumnId = 0;
         if (this.selectedColumn === "1") {
           scoreColumnId = this.studentColumnIds["Quá trình"];
@@ -388,14 +388,15 @@ export default {
         // Lưu điểm cho tất cả sinh viên
         const promises = this.studentList.map(async (student) => {
           const studentId = student.studentId;
-          const requestData = [{
-            subjectId: subjectId,
-            semesterId: semesterId,
-            studentId: studentId,
-            scoreColumnId: scoreColumnId,
-            scoreValue: columnScores[studentId],
-          }];
-
+          const requestData = [
+            {
+              subjectId: subjectId,
+              semesterId: semesterId,
+              studentId: studentId,
+              scoreColumnId: scoreColumnId,
+              scoreValue: columnScores[studentId],
+            },
+          ];
 
           try {
             const response = await authApi().post(
@@ -409,15 +410,10 @@ export default {
             );
 
             if (response.status !== 201) {
-              console.error(
-                `Lưu điểm của sinh viên thất bại!!!`
-              );
+              console.error(`Lưu điểm của sinh viên thất bại!!!`);
             }
           } catch (error) {
-            console.error(
-              `Lỗi khi lưu điểm của sinh viên có `,
-              error
-            );
+            console.error(`Lỗi khi lưu điểm của sinh viên có `, error);
           }
         });
 
@@ -426,6 +422,28 @@ export default {
 
         // Hiển thị thông báo sau khi đã lưu điểm cho tất cả sinh viên
         alert("Lưu điểm của tất cả sinh viên thành công!");
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
+    async handleSendMail() {
+      try {
+        const subjectId = this.selectedSubject;
+        const semesterId = this.selectedSemester;
+        const lecturerId = this.selectedLecturer.id;
+
+        const endpoint =
+          endpoints["send-mail"] +
+          `?lecturerId=${lecturerId}&subjectId=${subjectId}&semesterId=${semesterId}`;
+
+        const response = await authApi().post(endpoint);
+        console.log("response: " + response);
+        if (response.status === 200) {
+          alert("Gửi mail thành công");
+        } else {
+          alert("Đã có lỗi xảy ra, vui lòng thử lại sau!");
+        }
       } catch (error) {
         console.error(error);
       }

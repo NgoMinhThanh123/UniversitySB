@@ -1,5 +1,5 @@
 <template>
-    <div id="header" class="containter-fluid header">
+    <div id="header" class=" header">
         <div class="row text-white" style="background-color: #070758; padding: 1rem 5rem;">
             <div class="col-6 col-sm-6 d-flex justify-content-sm-start align-items-center">
                 <div class="home">

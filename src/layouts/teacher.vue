@@ -1,6 +1,6 @@
 <template>
   <TheHeader />
-  <div class="container-fluid mt-3">
+  <div class="container-fluid mt-3" style="height: 100%">
     <div class="row">
       <div class="col-sm-3 d-none d-sm-flex">
         <a-list bordered style="width: 100%">
@@ -20,14 +20,14 @@
 </template>
 
 <script>
-  import TheHeader from '../components/TheHeader.vue'
-  import TheFooter from '../components/TheFooter.vue'
-  import TheMenu from '../components/TheMenu.vue'
-  export default {
-    components: {
-      TheHeader,
-      TheFooter,
-      TheMenu,
-    },
-  };
+import TheHeader from "../components/TheHeader.vue";
+import TheFooter from "../components/TheFooter.vue";
+import TheMenu from "../components/TheMenu.vue";
+export default {
+  components: {
+    TheHeader,
+    TheFooter,
+    TheMenu,
+  },
+};
 </script>

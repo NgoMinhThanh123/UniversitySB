@@ -2,10 +2,10 @@ import axios from "axios";
 import VueCookies from "vue-cookies";
 
 const SERVER_CONTEXT = "";
-const SERVER = "http://localhost:8081";
+const SERVER = "http://localhost:8082";
 
 export const endpoints = {
-    // "subjects": `${SERVER_CONTEXT}/api/subjects/`,
+    "subjects": `${SERVER_CONTEXT}/api/subjects/`,
     // "faculties": `${SERVER_CONTEXT}/api/faculties/`,
     "login": `${SERVER_CONTEXT}/api/login/`,
     "register": `${SERVER_CONTEXT}/api/users/`,

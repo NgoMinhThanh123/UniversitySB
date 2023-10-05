@@ -41,40 +41,63 @@
         <Button class="btn-title btn btn-primary" @click="handlePostSubmit"
           >Đăng</Button
         >
-        <Button class="btn-title btn btn-primary">Hủy</Button>
         <Button class="btn-title btn btn-primary" @click="exitHandleEdit"
           >Thoát</Button
         >
       </div>
-      <div class="col-3 post-container" v-else>
+      <div class="col-12 post-container d-flex" v-else>
         <Button class="btn-title btn btn-primary" @click="handleEdit"
           >Đăng bài viết</Button
         >
-        <Button class="btn-title btn btn-primary" 
-          ><router-link class="post-link" to="/teacher/posted/">Bài viết đã đăng</router-link></Button
+        <Button class="btn-title btn btn-primary"
+          ><router-link
+            class="post-link"
+            to="/teacher/posted/"
+            style="color: #fff"
+            >Bài viết đã đăng</router-link
+          ></Button
         >
       </div>
-      
-      <table class="table" v-if="post.length > 0">
-        <thead>
-          <tr>
-            <th>Tên bài post</th>
-            <th>Người đăng</th>
-            <th>Thời gian đăng</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="p in currentPosts" :key="p.id">
-            <td>
-              <router-link :to="'/teacher/detailForum/' + p.id" class="post-link">
-                {{ p.title }}
-              </router-link>
-            </td>
-            <td>{{ p.userId.username }}</td>
-            <td>{{ formatDate(p.postTime) }}</td>
-          </tr>
-        </tbody>
-      </table>
+
+      <div class="foroum">
+        <table class="table table-responsive-xl" v-if="post.length > 0">
+          <thead>
+            <tr>
+              <th>Tên bài post</th>
+              <th>Người đăng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="p in currentPosts" :key="p.id">
+              <td style="width: 60%">
+                <router-link
+                  :to="'/teacher/detailForum/' + p.id"
+                  class="post-link"
+                >
+                  {{ p.title }}
+                </router-link>
+              </td>
+              <td class="d-flex align-items-center">
+                <div
+                  class="img"
+                  :style="{
+                    'background-image': `url('${p.userId.avatar}')`,
+                    'background-size': 'cover',
+                    'background-repeat': 'no-repeat',
+                  }"
+                ></div>
+
+                <div class="email">
+                  <span>
+                    {{ p.userId.username }}
+                  </span>
+                  <span>Thời gian: {{ formatDate(p.postTime) }}</span>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <ul class="pagination">
         <li class="page-item">
           <a
@@ -115,7 +138,7 @@
 <script>
 import Apis, { authApi, endpoints } from "@/configs/Apis.js";
 import { useMenu } from "../../../stores/use-menu.js";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 export default {
   setup() {
     useMenu().onSelectedKeys(["teacher-forum"]);
@@ -174,7 +197,6 @@ export default {
     },
     async loadPost() {
       try {
-        
         const response = await authApi().get(endpoints["posts"], {
           params: { kw: this.searchKeyword },
         });
