@@ -35,12 +35,10 @@ public interface SubjectRepository extends JpaRepository<Subject, String> {
             "where s.id = :studentId")
     List<SubjectDto> getSubjectByStudentId(@Param("studentId") String studentId);
 
-//    @Query(value ="SELECT distinct subject.id, subject.name, subject.credit, subject.faculty_id\n"
-//            + "FROM subject join student_subject on student_subject.subject_id = subject.id\n"
-//            + "join student on student.id = student_subject.student_id\n"
-//            + "join score on score.student_subject_id = student_subject.id\n"
-//            + "join semester on score.semester_id = semester.id\n"
-//            + "where student.id = :studentId and semester.id = :semesterId",nativeQuery = true)
+    @Query("select new com.nmt.universitysb.dto.SubjectDto(a.id, a.name, a.credit, a.facultyId ) " +
+            "from Subject a " +
+            "where a.facultyId.id = :facultyId")
+    List<SubjectDto> getSubjectByFacultyId(@Param("facultyId") String facultyId);
 
     @Query("select new com.nmt.universitysb.dto.SubjectDto(a.id, a.name, a.credit, a.facultyId ) \n" +
             "from Subject a \n" +
