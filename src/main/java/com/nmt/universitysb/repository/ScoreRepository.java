@@ -42,13 +42,11 @@ Optional<Score> findByStudentSubjectIdAndSemesterId(@Param("studentSubjectId") i
             "join StudentSubject ss on s.studentSubjectId = ss.id\n" +
             "join Student st on ss.studentId= st.id\n " +
             "join Subject su on ss.subjectId= su.id\n" +
-            "join Semester se on s.semesterId = se.id\n"
-            + "join LecturerSubject lb on lb.subjectId = su.id\n"
-            + "join Lecturer l on lb.lecturerId = l.id\n"
-            + "join ScoreValue sv on sv.scoreId = s.id\n"
-            + "join ScoreColumn sc on sv.scoreColumnId = sc.id\n"
-            + "where l.id = :lecturerId and se.id = :semesterId and su.id = :subjectId")
+            "join Semester se on s.semesterId = se.id\n" +
+            "join LecturerSubject lb on lb.subjectId = su.id\n" +
+            "join Lecturer l on lb.lecturerId = l.id\n"+
+            "join ScoreValue sv on sv.scoreId = s.id\n" +
+            "join ScoreColumn sc on sv.scoreColumnId = sc.id\n" +
+            "where l.id = :lecturerId and se.id = :semesterId and su.id = :subjectId")
     List<StudentScoreDTO> getStudentScores(@Param("lecturerId") String lecturerId, @Param("semesterId") String semesterId, @Param("subjectId") String subjectId);
-//    List<StudentScoreDTO> getListScoresExport(String subjectId, String semesterId);
-//    Score addScore(Score score);
 }

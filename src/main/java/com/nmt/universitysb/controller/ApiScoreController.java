@@ -1,15 +1,18 @@
 package com.nmt.universitysb.controller;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletResponse;
 
 import com.nmt.universitysb.dto.ScoreDto;
 import com.nmt.universitysb.dto.ScoreListDto;
 import com.nmt.universitysb.dto.Score_ScoreValueDto;
 import com.nmt.universitysb.dto.StudentScoreDTO;
 import com.nmt.universitysb.service.ScoreService;
-import com.nmt.universitysb.utils.CSVUtils;
+import com.nmt.universitysb.utils.ExcelUtils;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -31,8 +34,8 @@ public class ApiScoreController {
 
     @Autowired
     private ScoreService scoreService;
-    @Autowired
-    private CSVUtils csvExporter;
+//    @Autowired
+//    private ExcelUtils excelExporter;
 
     @DeleteMapping("/add_score/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -78,9 +81,9 @@ public class ApiScoreController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @GetMapping("/scores/export-csv/")
+    @GetMapping("/scores/export-excel/")
     @CrossOrigin
-    public void exportCSV(
+    public void exportExcel(
             @RequestParam String lecturerId,
             @RequestParam String semesterId,
             @RequestParam String subjectId,
@@ -88,14 +91,30 @@ public class ApiScoreController {
         try {
             List<StudentScoreDTO> list = scoreService.getStudentScores(lecturerId, semesterId, subjectId);
 
-            String csvFileName = "student_scores.csv";
-            response.setContentType("text/csv");
-            response.setHeader("Content-Disposition", "attachment; filename=" + csvFileName);
+            String templatePath = "D:/template.xlsx"; // Đường dẫn đến tệp mẫu Excel tùy chỉnh
+            String outputFilePath = "D:/student_scores_custom.xlsx"; // Đường dẫn đến tệp Excel đầu ra sau khi điền dữ liệu
 
-            csvExporter.exportToCSV(list, response.getWriter());
+            ExcelUtils excelExporter = new ExcelUtils();
+            excelExporter.exportToCustomExcel(list, outputFilePath);
+
+            // Đọc tệp Excel đầu ra và trả về cho người dùng để tải xuống
+            File excelFile = new File(outputFilePath);
+            try (FileInputStream fileInputStream = new FileInputStream(excelFile)) {
+                response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+                response.setHeader("Content-Disposition", "attachment; filename=student_scores_custom.xlsx");
+                OutputStream outputStream = response.getOutputStream();
+
+                byte[] buffer = new byte[1024];
+                int bytesRead;
+                while ((bytesRead = fileInputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+
+                outputStream.flush();
+            }
         } catch (IOException e) {
             e.printStackTrace();
-            // Handle the exception
+            // Xử lý ngoại lệ
         }
     }
 

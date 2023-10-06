@@ -176,44 +176,4 @@ public class ScoreServiceImpl implements ScoreService {
         return scoreValueDtoList;
     }
 
-
-////    @Override
-////    public Score_ScoreValueDto addScore(Map<String, String> params) {
-////        Subject subject = this.subjectRepository.getSubjectById(params.get("subjectId"));
-////        Semester semester = this.semesterRepository.getSemesterById(params.get("semesterId"));
-////        Student student = this.studetnRepository.getStudentById(params.get("studentId"));
-////        ScoreColumn scoreColumn = this.scoreColumnRepository.getScoreColumnById(Integer.parseInt(params.get("scoreColumnId")));
-////        StudentSubject studentSubject = this.studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(params.get("studentId"), params.get("subjectId"));
-////
-////        Score score = new Score();
-////        score.setStudentSubjectId(studentSubject);
-////        score.setSemesterId(semester);
-////
-////        Score score1 = this.scoreRepo.addScore(score);
-////
-////        ScoreValue scoreValue = new ScoreValue();
-////        String scoreValueStr = params.get("scoreValue");
-////        if (scoreValueStr != null) {
-////            scoreValue.setValue(Double.parseDouble(scoreValueStr));
-////        } else {
-////            scoreValue.setValue(0.0);
-////        }
-////        scoreValue.setScoreColumnId(scoreColumn);
-////        scoreValue.setScoreId(score1);
-////
-////        ScoreValue scoreValue1 = this.scoreValueRepository.addScoreValue(scoreValue);
-////
-////        Score_ScoreValueDto scoreValueDto = new Score_ScoreValueDto();
-////
-////        scoreValueDto.setSubjectId(score1.getStudentSubjectId().getSubjectId().toString());
-////        scoreValueDto.setSemesterId(score1.getSemesterId().toString());
-////        scoreValueDto.setStudentId(score1.getStudentSubjectId().getStudentId().toString());
-////        scoreValueDto.setColumnId(scoreValue1.getScoreColumnId().getId());
-////        scoreValueDto.setValue(Double.parseDouble(String.valueOf(scoreValue1.getValue())));
-////
-////        return scoreValueDto;
-////    }
-//
-
-
 }
