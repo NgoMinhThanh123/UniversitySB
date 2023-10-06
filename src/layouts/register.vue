@@ -1,5 +1,5 @@
 <template>
-  <div style="margin: 3rem;">
+  <div style="margin: 3rem">
     <div class="container">
       <div class="row">
         <div class="col-md-6">
@@ -18,68 +18,64 @@
                   {{ errorMessage }}
                 </div>
               </div>
-              <form
-                action="#"
-                method="post"
-                @submit.prevent="handleRegister"
-              >
+              <form action="#" method="post" @submit.prevent="handleRegister">
                 <div class="form-group first">
                   <label>Tài khoản</label>
-          <input
-            required
-            v-model="user.username"
-            @input="change($event, 'username')"
-            type="text"
-            class="form-control mt-1"
-            placeholder="Nhập tài khoản"
-          />
+                  <input
+                    required
+                    v-model="user.username"
+                    @input="change($event, 'username')"
+                    type="text"
+                    class="form-control mt-1"
+                    placeholder="Nhập tài khoản"
+                  />
                 </div>
                 <div class="form-group last mb-4">
                   <label>Mật khẩu</label>
-          <input
-            required
-            v-model="user.password"
-            @input="change($event, 'password')"
-            type="password"
-            class="form-control mt-1"
-            placeholder="Nhập mật khẩu"
-          />
+                  <input
+                    required
+                    v-model="user.password"
+                    @input="change($event, 'password')"
+                    type="password"
+                    class="form-control mt-1"
+                    placeholder="Nhập mật khẩu"
+                  />
                 </div>
                 <div class="form-group last mb-4">
                   <label>Xác nhận Mật khẩu</label>
-          <input
-            required
-            v-model="user.confirmPass"
-            @input="change($event, 'confirmPass')"
-            type="password"
-            class="form-control mt-1"
-            placeholder="Xác nhận mật khẩu"
-          />
+                  <input
+                    required
+                    v-model="user.confirmPass"
+                    @input="change($event, 'confirmPass')"
+                    type="password"
+                    class="form-control mt-1"
+                    placeholder="Xác nhận mật khẩu"
+                  />
                 </div>
                 <div class="form-group last mb-4">
-                 <label>Email</label>
-          <input
-            required
-            v-model="user.email"
-            @input="change($event, 'email')"
-            type="email"
-            class="form-control mt-1"
-            placeholder="Email"
-          />
+                  <label>Email</label>
+                  <input
+                    required
+                    v-model="user.email"
+                    @input="change($event, 'email')"
+                    type="email"
+                    class="form-control mt-1"
+                    placeholder="Email"
+                  />
                 </div>
                 <div class="form-group last mb-4">
-                 <label>Avatar</label>
-          <input
-            required
-            type="file"
-            @change="handleAvatarChange"
-            accept="image/*"
-            class="form-control mt-1"
-            placeholder="Avatar"
-          />
-          <label for="file">
-            <span>Add an avatar</span>
-          </label>
+                  <label>Avatar</label>
+                  <input
+                    required
+                    type="file"
+                    @change="handleAvatarChange"
+                    accept="image/*"
+                    class="form-control mt-1"
+                    placeholder="Avatar"
+                  />
+                  <label for="file">
+                    <span>Add an avatar</span>
+                  </label>
                 </div>
 
                 <input
@@ -113,7 +109,10 @@
 </template>
 
 <script>
-import Apis, { endpoints } from '@/configs/Apis';
+import Apis, { endpoints } from "@/configs/Apis";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
+import { auth, db } from "../service/firebase";
 export default {
   name: "Register",
   data() {
@@ -135,9 +134,13 @@ export default {
     },
     handleAvatarChange(event) {
       this.user.avatar = event.target.files[0];
+      this.avatar = URL.createObjectURL(this.user.avatar);
     },
     async handleRegister() {
       try {
+        const name = this.user.username;
+        const email = this.user.email;
+        const password = this.user.password;
         this.loading = true;
 
         if (this.user.password !== this.user.confirmPass) {
@@ -151,13 +154,45 @@ export default {
         formData.append("password", this.user.password);
         formData.append("email", this.user.email);
         formData.append("avatar", this.user.avatar);
-        const response = await Apis.post(endpoints['register'], formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data', // Important: set content type for file upload
-                },
-            });
+        const response = await Apis.post(endpoints["register"], formData, {
+          headers: {
+            "Content-Type": "multipart/form-data", // Important: set content type for file upload
+          },
+        });
 
-            this.$router.push("/login");
+        try {
+          const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+          const user = userCredential.user;
+          console.log(user);
+          // Add user data to Firestore
+          const userRef = await addDoc(collection(db, "users"), {
+            name,
+            id: user.uid,
+            email,
+            password,
+            URL: this.avatar,
+            description: "",
+          });
+
+          localStorage.setItem("id", user.uid);
+          localStorage.setItem("name", name);
+          localStorage.setItem("email", email);
+          localStorage.setItem("password", password);
+          localStorage.setItem("photoURL", this.avatar);
+          localStorage.setItem("description", "");
+          localStorage.setItem("FirebaseDocumentId", userRef.id);
+          this.name = "";
+          this.email = "";
+          this.password = "";
+        } catch (e) {
+          this.errorMessage = error.response?.data || error.message;
+        }
+
+        this.$router.push("/login");
 
         // Your registration and Firebase code here...
       } catch (error) {

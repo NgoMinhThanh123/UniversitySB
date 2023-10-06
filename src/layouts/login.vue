@@ -71,11 +71,12 @@
 
 
 <script>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
 import Apis, { endpoints, authApi } from "../configs/Apis.js";
 import VueCookies from "vue-cookies";
 import { mapState } from "vuex";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getFirestore, query, where, getDocs, collection } from "firebase/firestore";
+import firebase from "../service/firebase";
 
 export default {
   name: "Login",
@@ -91,7 +92,18 @@ export default {
       errorMessage: "",
     };
   },
+
   methods: {
+    async getUserByUsername(username) {
+      try {
+        const res = await authApi().get(
+          endpoints["get-user"].replace("{username}", username)
+        );
+        return res.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async login() {
       try {
         const res = await Apis.post(`${endpoints["login"]}`, {
@@ -111,6 +123,62 @@ export default {
 
           await this.$store.dispatch("login", data);
 
+          try {
+            const u = await this.getUserByUsername(this.user.username);
+            console.log("get-user", u);
+            if (u) {
+              const studentUsername = u.username;
+            //   const studentInfo = await authApi().get(
+            //     endpoints["get-student-by-username"].replace(
+            //       "{username}",
+            //       studentUsername
+            //     )
+            //   );
+
+              const userEmail = u.email;
+
+              const auth = getAuth(firebase); // Sử dụng auth từ Firebase Modular SDK
+              const res = await signInWithEmailAndPassword(
+                auth,
+                userEmail,
+                this.user.password
+              );
+              console.log("res.user",res.user);
+              const user = res.user;
+
+              if (user) {
+                // Kiểm tra nếu người dùng đã đăng nhập thành công
+                const db = getFirestore(firebase); // Sử dụng db từ Firebase Modular SDK
+                const q = query(
+                  collection(db, "users"),
+                  where("id", "==", user.uid)
+                );
+                console.log("user.uid",user.uid);
+
+                const querySnapshot = await getDocs(q);
+
+                console.log("querySnapshot",querySnapshot);
+
+                if (!querySnapshot.empty) {
+                  querySnapshot.forEach((doc) => {
+                    const userData = doc.data();
+                    localStorage.setItem("id", userData.id);
+                    localStorage.setItem("name", userData.name);
+                    localStorage.setItem("email", userData.email);
+                    localStorage.setItem("password", userData.password);
+                    localStorage.setItem("photoURL", userData.URL);
+                    localStorage.setItem("description", userData.description);
+                    localStorage.setItem("FirebaseDocumentId", doc.id);
+                  });
+                } else {
+                  this.errorMessage = "User data not found.";
+                }
+              }
+            }
+          } catch (error) {
+            console.log(error);
+          }
+
           if (data.role == "ROLE_GIANGVIEN") {
             this.$router.push("/teacher");
           } else if (data.role == "ROLE_SINHVIEN") {
@@ -125,6 +193,9 @@ export default {
         }
       }
     },
+  },
+  created() {
+    if (localStorage.getItem("id")) this.$router.push("/student");
   },
   watch: {
     errorMessage: function (newErrorMessage, oldErrorMessage) {
