@@ -6,7 +6,8 @@ const SERVER = "http://localhost:8082";
 
 export const endpoints = {
     "subjects": `${SERVER_CONTEXT}/api/subjects/`,
-    // "faculties": `${SERVER_CONTEXT}/api/faculties/`,
+    "faculties": `${SERVER_CONTEXT}/api/faculties/`,
+    "get-subject-by-facultyId": `${SERVER_CONTEXT}/api/subjects/facultyId/`,
     "login": `${SERVER_CONTEXT}/api/login/`,
     "register": `${SERVER_CONTEXT}/api/users/`,
     "semester": `${SERVER_CONTEXT}/api/semesters/`,
@@ -36,6 +37,7 @@ export const endpoints = {
     "delete-post": `${SERVER_CONTEXT}/api/posts-delete/{postId}`,
     "update-comment": `${SERVER_CONTEXT}/api/comment-update/{commentId}`,
     "delete-comment": `${SERVER_CONTEXT}/api/comments/{commentId}`,
+    "course-register": `${SERVER_CONTEXT}/api/course-register/`,
 }
 
 export const authApi = () => {

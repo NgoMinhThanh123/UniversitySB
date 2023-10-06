@@ -61,6 +61,7 @@ div.home i {
 
 .sider {
   padding-left: 10px;
+  font-size: 18px;
 }
 
 /* End menu */
@@ -179,7 +180,7 @@ mark {
 
 /* Login and register */
 .content {
-  padding: 3rem 0;
+  padding: 5rem 0;
 }
 
 .content .container {
@@ -250,6 +251,10 @@ label {
   text-align: center;
 }
 
+.registerHover:hover {
+  cursor: pointer;
+  color: blue;
+}
 /* End login and register */
 
 
@@ -455,6 +460,7 @@ label {
 
 /* End posted */
 
+/* Table forum */
 .foroum .table {
   width: 100%;
   -webkit-box-shadow: 0px 5px 12px -12px rgba(0, 0, 0, 0.29);
@@ -550,4 +556,4 @@ label {
   font-size: 12px;
   color: #dc3545;
 }
-
+/* End Table forum */

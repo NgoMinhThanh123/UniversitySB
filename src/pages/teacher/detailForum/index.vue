@@ -39,7 +39,7 @@
             >
           </p>
           <p>Nội dung: {{ p.content }}</p>
-          <div v-if="isEditMode && editedPost && editedPost.id === p.id && post.userId.id === p.userId.id">
+          <div v-if="isEditMode && editedPost && editedPost.id === p.id && getUser.id === p.userId.id">
             <textarea
               class="form-control"
               rows="2"
@@ -56,7 +56,7 @@
             </div>
           </div>
           <div v-else >
-            <div class="post-update-and-delete" v-if="post.userId.id === p.userId.id">
+            <div class="post-update-and-delete" v-if="getUser.id === p.userId.id">
               <ul>
                 <li @click="handleEdit(p)">Chỉnh sửa</li>
                 <li @click="confirmDelete(p.id)">Xóa</li>
@@ -71,7 +71,11 @@
 
 <script>
 import Apis, { authApi, endpoints } from "@/configs/Apis";
+import { mapGetters } from 'vuex';
 export default {
+   computed: {
+    ...mapGetters(["isAuth", "getUser"]),
+  },
   data() {
     return {
       user: null,

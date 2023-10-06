@@ -4,6 +4,7 @@ import teacher from './teacher.js';
 import student from './student.js';
 import login from './login.js';
 import store from '@/stores/myStore';
+import register from './register';
 
 const routes = [
     {
@@ -25,7 +26,8 @@ const routes = [
     },
     ...teacher,
     ...student,
-    ...login
+    ...login,
+    ...register
 ]
 
 const router = createRouter({

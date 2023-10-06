@@ -286,10 +286,8 @@ export default {
             lecturerUsername
           )
         );
-        console.log(response.data);
         this.selectedLecturer = response.data;
 
-        console.log("this.selectedLecturer", this.selectedLecturer);
         return response.data;
       } catch (error) {
         console.error(err);
@@ -348,7 +346,6 @@ export default {
         const subjectId = this.selectedSubject;
         const semesterId = this.selectedSemester;
         const columnScores = {}; // Đối tượng lưu điểm của tất cả sinh viên trong cột tương ứng
-        const requests = [];
 
         let scoreColumnId = 0;
         if (this.selectedColumn === "1") {

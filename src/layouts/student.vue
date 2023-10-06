@@ -6,12 +6,12 @@
         <a-list bordered style="width: 100%">
           <TheMenuStudent />
           <template #header>
-            <div>BẢNG ĐIỀU KHIỂN</div>
+            <div style="font-size: 20px;">BẢNG ĐIỀU KHIỂN</div>
           </template>
         </a-list>
       </div>
 
-      <div class="col-12 col-sm-9">
+      <div class="col-12 col-sm-9" style="margin-bottom: 150px">
         <router-view></router-view>
       </div>
     </div>

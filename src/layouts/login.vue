@@ -14,24 +14,30 @@
             <div class="col-md-8">
               <div class="mb-4">
                 <h3>Đăng nhập</h3>
-                <div v-if="err" class="alert alert-danger">
-                    Tên người dùng hoặc mật khẩu không chính xác. Vui lòng thử lại.
+                <div v-if="errorMessage" class="alert alert-danger">
+                  {{ errorMessage }}
                 </div>
               </div>
               <form action="#" method="post" @submit.prevent="login">
                 <div class="form-group first">
                   <label for="username">Username</label>
-                  <input type="text" class="form-control" id="username"  required v-model="user.username"/>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="username"
+                    required
+                    v-model="user.username"
+                  />
                 </div>
                 <div class="form-group last mb-4">
                   <label for="password">Password</label>
-                  <input type="password" class="form-control" id="password" required v-model="user.password"/>
-                </div>
-
-                <div class="d-flex mb-5 align-items-center">
-                  <span class="ml-auto"
-                    ><a href="#" class="forgot-pass">Forgot Password</a></span
-                  >
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="password"
+                    required
+                    v-model="user.password"
+                  />
                 </div>
 
                 <input
@@ -39,6 +45,21 @@
                   value="Đăng nhập"
                   class="btn btn-block btn-primary"
                 />
+                <div
+                  class="d-flex mt-3 align-items-center"
+                  style="justify-content: center"
+                >
+                  <span class="registerHover" style="margin-right: 10px">
+                    <router-link to="/" class="nav-link">
+                      Trang chủ
+                    </router-link>
+                  </span>
+                  <span class="registerHover">
+                    <router-link to="/register" class="nav-link">
+                      Đăng ký
+                    </router-link>
+                  </span>
+                </div>
               </form>
             </div>
           </div>
@@ -46,39 +67,6 @@
       </div>
     </div>
   </div>
-  <!-- <div>
-        <form @submit.prevent="login" class="Auth-form-container">
-            <div class="Auth-form">
-                <div v-if="err" class="alert alert-danger">
-                    Tên người dùng hoặc mật khẩu không chính xác. Vui lòng thử lại.
-                </div>
-                <div class="Auth-form-content">
-                    <h3 class="Auth-form-title">Đăng nhập</h3>
-                    <div class="form-group mt-3">
-                        <label>Tài khoản</label>
-                        <input required v-model="user.username" id="username" type="text" class="form-control mt-1"
-                            placeholder="Nhập tài khoản" />
-                    </div>
-                    <div class="form-group mt-3">
-                        <label>Mật khẩu</label>
-                        <input required v-model="user.password" id="password" type="password" class="form-control mt-1"
-                            placeholder="Nhập mật khẩu" />
-                    </div>
-                    <div class="d-grid gap-2 mt-3">
-                        <button type="submit" class="btn btn-primary">Đăng nhập</button>
-                    </div>
-                    <div class="login text-right mt-2">
-                        <div class="forgot-password">
-                            Quên <router-link to="#">mật khẩu?</router-link>
-                        </div>
-                        <div class="register-link">
-                            <router-link to="/register">Đăng ký</router-link>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div> -->
 </template>
 
 
@@ -110,7 +98,8 @@ export default {
           username: this.user.username,
           password: this.user.password,
         });
-        if (res.data === "error") {
+        console.log(res.status);
+        if (res.status === 400) {
           this.errorMessage = "Tài khoản hoặc mật khẩu của bạn không đúng!!";
         } else {
           console.log(res.data);
@@ -129,7 +118,11 @@ export default {
           }
         }
       } catch (error) {
-        throw error;
+        if (error.response && error.response.status === 400) {
+          this.errorMessage = "Tài khoản hoặc mật khẩu của bạn không đúng!!";
+        } else {
+          throw error;
+        }
       }
     },
   },

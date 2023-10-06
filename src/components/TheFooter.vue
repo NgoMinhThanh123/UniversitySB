@@ -16,13 +16,13 @@
 
 <style>
     .footer {
-        position: relative;
+        position: fixed;
         left: 0;
         bottom: 0;
         width: 100%;
         background-color: #0c713d;
         color: white;
         text-align: center;
-        margin-top: 100px;
+        margin-top: 50px;
     }
 </style>
