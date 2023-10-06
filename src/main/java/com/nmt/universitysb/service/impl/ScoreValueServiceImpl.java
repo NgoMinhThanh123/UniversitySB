@@ -47,35 +47,4 @@ public class ScoreValueServiceImpl implements ScoreValueService {
         this.scoreValueRepo.deleteById(id);
         return true;
     }
-
-//    @Override
-//    public List<ScoreValue> getScoreValues(Map<String, String> params) {
-//        return this.scoreValueRepo.getScoreValues(params);
-//    }
-//
-//    @Override
-//    public boolean addOrUpdateScoreValue(ScoreValue u) {
-//        return this.scoreValueRepo.addOrUpdateScoreValue(u);
-//    }
-//
-//    @Override
-//    public ScoreValue getScoreValueById(int id) {
-//        return this.scoreValueRepo.getScoreValueById(id);
-//    }
-//
-//    @Override
-//    public boolean deleteScoreValue(int id) {
-//        return this.scoreValueRepo.deleteScoreValue(id);
-//    }
-//
-//    @Override
-//    public int countScoreValues() {
-//        return this.scoreValueRepo.countScoreValues();
-//    }
-//
-//    @Override
-//    public ScoreValue addScoreValue(ScoreValue u) {
-//        return this.scoreValueRepo.addScoreValue(u);
-//    }
-
 }

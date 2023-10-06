@@ -45,35 +45,4 @@ public class FacultyServiceImpl implements FacultyService {
         this.facultyRepo.deleteById(id);
         return true;
     }
-
-
-//    @Override
-//    public List<Faculty> getFaculties(Map<String, String> params) {
-//        return this.facultyRepo.getFaculties(params);
-//    }
-
-//    @Override
-//    public Faculty getFacultyById(String id) {
-//        return this.facultyRepo.getFacultyById(id);
-//    }
-//
-//    @Override
-//    public boolean addFaculty(Faculty f) {
-//        return this.facultyRepo.addFaculty(f);
-//    }
-//
-//    @Override
-//    public boolean updateFaculty(Faculty f) {
-//        return this.facultyRepo.updateFaculty(f);
-//    }
-//
-//    @Override
-//    public boolean deleteFaculty(String id) {
-//        return this.facultyRepo.deleteFaculty(id);
-//    }
-//
-//    @Override
-//    public int countFaculties() {
-//        return this.facultyRepo.countFaculties();
-//    }
 }

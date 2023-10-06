@@ -118,31 +118,6 @@ public class UserServiceImpl implements UserService {
                 u.getUsername(), u.getPassword(), authorities);
     }
 
-
-
-//    @Override
-//    public boolean authUser(String username, String password) {
-//        return this.userRepo.authUser(username, password);
-//    }
-//
-//    @Override
-//    public UserDto getUByUn(String username) {
-//        User u = this.userRepo.getUserByUsername(username);
-//        UserDto userDto = new UserDto();
-//        userDto.setUsername(u.getUsername());
-//        userDto.setPassword(u.getPassword());
-//        userDto.setEmail(u.getEmail());
-//        userDto.setRole(u.getRole());
-//
-//        return userDto;
-//
-//    }
-//
-//    @Override
-//    public User getUserByUn(String username) {
-//        return this.userRepo.getUserByUsername(username);
-//    }
-//
     @Override
     public User addUser(Map<String, String> params, MultipartFile avatar) {
         if(this.getUserByUsername(params.get("username")) != null){

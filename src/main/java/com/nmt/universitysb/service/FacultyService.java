@@ -10,7 +10,6 @@ public interface FacultyService {
     List<Faculty> findAll();
     Page<Faculty> findAll(Pageable pageable);
     Optional<Faculty> findById(String id);
-
     Page<Faculty> findAllByNameContaining(String keyword, Pageable pageable);
     Faculty save(Faculty f);
     boolean deleteFaculty(String id);

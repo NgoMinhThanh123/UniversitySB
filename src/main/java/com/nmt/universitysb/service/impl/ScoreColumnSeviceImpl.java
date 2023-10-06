@@ -46,34 +46,4 @@ public class ScoreColumnSeviceImpl implements ScoreColumnSevice {
         this.scoreColumnRepo.deleteById(id);
         return true;
     }
-//    @Override
-//    public List<ScoreColumn> getScoreColumns(Map<String, String> params) {
-//        return this.scoreColumnRepo.getScoreColumns(params);
-//    }
-//
-//    @Override
-//    public boolean addOrUpdateScoreColumn(ScoreColumn u) {
-//        return this.scoreColumnRepo.addOrUpdateScoreColumn(u);
-//    }
-//
-//    @Override
-//    public ScoreColumn getScoreColumnById(int id) {
-//        return this.scoreColumnRepo.getScoreColumnById(id);
-//    }
-//
-//    @Override
-//    public boolean deleteScoreColumn(int id) {
-//        return this.scoreColumnRepo.deleteScoreColumn(id);
-//    }
-//
-//    @Override
-//    public int countScoreColumns() {
-//        return this.scoreColumnRepo.countScoreColumns();
-//    }
-//
-//    @Override
-//    public boolean addScoreColumn(ScoreColumn u) {
-//        return this.scoreColumnRepo.addScoreColumn(u);
-//    }
-
 }

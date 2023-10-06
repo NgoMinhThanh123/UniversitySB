@@ -27,6 +27,5 @@ public interface ScoreService {
     List<ScoreDto> getScoreByStudentId(String studentId, String subjectId, String semesterId);
     List<ScoreListDto> getListScoreStudent(String studentId, String semesterId);
     List<StudentScoreDTO> getStudentScores(String lecturerId, String semesterId, String subjectId);
-//    List<StudentScoreDTO> getListScoresExport(String subjectId, String semesterId);
     List<Score_ScoreValueDto> addScore(List<Map<String, String>> scoreParamsList);
 }

@@ -15,12 +15,6 @@ public interface SemesterService {
     Page<Semester> findAllBySchoolYearContaining(String keyword, Pageable pageable);
     Semester save(Semester f);
     boolean deleteSemester(String id);
-//    List<Semester> getSemesters(Map<String, String> params);
-//    int countSemesters();
-//    boolean addSemester(Semester m);
-//    boolean updateSemester(Semester m);
-//    Semester getSemesterById(String id);
     List<Semester> getSemesterByLecturerId(String lecturerId);
     List<Semester> getSemesterByStudentId(String studentId);
-//    boolean deleteSemester(String id);
 }

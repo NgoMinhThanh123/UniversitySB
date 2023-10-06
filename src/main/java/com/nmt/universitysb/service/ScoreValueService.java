@@ -16,10 +16,4 @@ public interface ScoreValueService {
     Page<ScoreValue> findAllByIdContaining(String keyword, Pageable pageable);
     ScoreValue save(ScoreValue f);
     boolean deleteScoreValue(int id);
-//    List<ScoreValue> getScoreValues(Map<String, String> params);
-//    int countScoreValues();
-//    boolean addOrUpdateScoreValue(ScoreValue u);
-//    ScoreValue addScoreValue(ScoreValue u);
-//    ScoreValue getScoreValueById(int id);
-//    boolean deleteScoreValue(int id);
 }

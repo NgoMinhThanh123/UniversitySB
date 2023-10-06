@@ -12,10 +12,8 @@ public interface SubjectService {
     List<Subject> findAll();
     Page<Subject> findAll(Pageable pageable);
     Optional<Subject> findById(String id);
-
     Page<Subject> findAllByNameContaining(String keyword, Pageable pageable);
     Subject save(Subject f);
-
     boolean deleteSubject(String id);
     List<SubjectDto> getSubjectByLecturerId(String lecturerId);
     List<SubjectDto> getSubjectByStudentId(String studentId);

@@ -17,20 +17,10 @@ public interface UserService extends UserDetailsService{
     Page<User> findAll(Pageable pageable);
     Optional<User> findById(int id);
     UserDto findByUsername(String username);
-
     User save(User f);
-
     boolean deleteUser(int id);
     User getUserByUsername(String username);
     Page<User> findAllByUsernameContaining(String keyword, Pageable pageable);
-
     User addUser(Map<String, String> params, MultipartFile avatar);
-//    boolean addOrUpdateUser(User u);
-//    User getUserById(int id);
-//    boolean deleteUser(int id);
-//    boolean authUser(String username, String password);
-//    UserDto getUByUn(String username);
-//    User getUserByUn(String username);
-//    User getUserByEmail(String email);
     boolean isValidSchoolEmail(String email);
 }

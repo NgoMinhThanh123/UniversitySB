@@ -67,11 +67,6 @@ public class ScoreServiceImpl implements ScoreService {
         return this.scoreRepo.getStudentScores(lecturerId, semesterId, subjectId);
     }
 
-//    @Override
-//    public List<StudentScoreDTO> getListScoresExport(String subjectId, String semesterId) {
-//        return this.scoreRepo.getListScoresExport(semesterId, subjectId);
-//    }
-//
     @Override
     public List<ScoreDto> getScoreByStudentId(String studentId, String subjectId, String semesterId) {
         return this.scoreRepo.getScoreByStudentId(studentId, subjectId, semesterId);

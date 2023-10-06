@@ -11,12 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-/**
- *
- * @author acer
- */
-
-
 @Service
 public class LectureServiceImpl implements LecturerService {
 
@@ -54,37 +48,6 @@ public class LectureServiceImpl implements LecturerService {
         return true;
     }
 
-//    @Override
-//    public List<Lecturer> getLecturers(Map<String, String> params) {
-//        return this.lecturersRepo.getLecturers(params);
-//    }
-//
-//    @Override
-//    public int countLecturers() {
-//        return this.lecturersRepo.countLecturers();
-//    }
-//
-//    @Override
-//    public boolean addLeturer(Lecturer l) {
-//        return this.lecturersRepo.addLeturer(l);
-//    }
-//
-//    @Override
-//    public boolean updateLeturer(Lecturer l) {
-//        return this.lecturersRepo.updateLeturer(l);
-//    }
-//
-//    @Override
-//    public Lecturer getLecturerById(String id) {
-//        return this.lecturersRepo.getLecturerById(id);
-//    }
-//
-//    @Override
-//    public boolean deleteLecturer(String id) {
-//        return this.lecturersRepo.deleteLecturer(id);
-//
-//    }
-//
     @Override
     public LecturerDto getLecturerByUsername(String username) {
         Lecturer u = this.lecturersRepo.getLecturerByUsername(username);

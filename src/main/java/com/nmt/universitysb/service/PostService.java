@@ -13,7 +13,6 @@ public interface PostService {
     List<PostDto> findByUserId(int id);
     Page<Post> findAll(Pageable pageable);
     Optional<Post> findById(int id);
-
     Page<Post> findAllByTitleContaining(String keyword, Pageable pageable);
     Post save(Post f);
     void updatePostContent(int postId, String newContent);
