@@ -52,7 +52,7 @@
         <Button class="btn-title btn btn-primary"
           ><router-link
             class="post-link"
-            to="/teacher/posted/"
+            to="/student/posted/"
             style="color: #fff"
             >Bài viết đã đăng</router-link
           ></Button

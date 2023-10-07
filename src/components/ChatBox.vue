@@ -14,7 +14,7 @@
         </div>
       </div>
     </header>
-    <div style="background: #efe9e2; flex: 1; overflow-y: auto">
+    <div style="background: #eff2f5; flex: 1; overflow-y: auto">
       <h2 class="welcome">Welcome to Chatbox</h2>
       <div class="text-outer">
         <div

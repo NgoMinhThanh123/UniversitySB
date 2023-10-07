@@ -77,7 +77,7 @@
     </nav>
 
     <!-- Page Content  -->
-    <div id="content" v-if="currentPeerUser === null">
+    <div id="content" v-if="currentPeerUser === null" style="border: 1px solid #000; background: #eff2f5;">
       <div class="my-4">
         <img :src="photoURL" width="200px" class="br-50" />
       </div>

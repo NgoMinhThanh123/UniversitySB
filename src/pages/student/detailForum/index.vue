@@ -2,12 +2,12 @@
   <div class="container-fluid" style="padding: 0 0 100px 0">
     <div class="row">
       <div className="container">
-        <p class="postDetail">Tiêu đề: {{ post.title }}</p>
         <p class="userDetail">
-          Đăng bởi: {{ usernameHost }} - Thời gian:
-          {{ formatDate(post.postTime) }}
+          <span style="font-size: 15px; display: block;"> Đăng bởi: {{ usernameHost }} </span>
+          <span style="font-size: 15px; display: block;"> Thời gian: {{ formatDate(post.postTime) }} </span>
         </p>
-        <p>Nội dung: {{ post.content }}</p>
+        <p class="postDetail">Tiêu đề: {{ post.title }}</p>
+        <p style="font-size: 18px">Nội dung: {{ post.content }}</p>
       </div>
       <hr />
       <div class="post-container">
@@ -39,7 +39,14 @@
             >
           </p>
           <p>Nội dung: {{ p.content }}</p>
-          <div v-if="isEditMode && editedPost && editedPost.id === p.id && getUser.id === p.userId.id">
+          <div
+            v-if="
+              isEditMode &&
+              editedPost &&
+              editedPost.id === p.id &&
+              getUser.id === p.userId.id
+            "
+          >
             <textarea
               class="form-control"
               rows="2"
@@ -55,8 +62,11 @@
               </ul>
             </div>
           </div>
-          <div v-else >
-            <div class="post-update-and-delete" v-if="getUser.id === p.userId.id">
+          <div v-else>
+            <div
+              class="post-update-and-delete"
+              v-if="getUser.id === p.userId.id"
+            >
               <ul>
                 <li @click="handleEdit(p)">Chỉnh sửa</li>
                 <li @click="confirmDelete(p.id)">Xóa</li>
@@ -71,7 +81,7 @@
 
 <script>
 import Apis, { authApi, endpoints } from "@/configs/Apis";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 export default {
   computed: {
     ...mapGetters(["isAuth", "getUser"]),
@@ -149,7 +159,7 @@ export default {
             content: this.content_comment,
           }
         );
-      
+
         this.content = "";
         this.isEditMode = false;
         this.loadComment();
@@ -162,7 +172,7 @@ export default {
         const response = await authApi().delete(
           endpoints["delete-comment"].replace("{commentId}", commentId)
         );
-      
+
         this.isEditMode = false;
         this.loadComment();
       } catch (error) {
@@ -170,11 +180,13 @@ export default {
       }
     },
     async confirmDelete(commentId) {
-    const confirmDelete = window.confirm('Bạn có chắc chắn muốn xóa bình luận này không?');
-    if (confirmDelete) {
-      await this.deleteComment(commentId);
-    }
-  },
+      const confirmDelete = window.confirm(
+        "Bạn có chắc chắn muốn xóa bình luận này không?"
+      );
+      if (confirmDelete) {
+        await this.deleteComment(commentId);
+      }
+    },
     formatDate(date) {
       if (!date) return ""; // Tránh xử lý ngày null hoặc undefined
 

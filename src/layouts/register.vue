@@ -161,6 +161,9 @@ export default {
         });
 
         try {
+          const avatarURL = response.data.avatar;
+          console.log("avatarURL",avatarURL);
+          console.log("this.avatar",avatarURL);
           const userCredential = await createUserWithEmailAndPassword(
             auth,
             email,
@@ -174,7 +177,7 @@ export default {
             id: user.uid,
             email,
             password,
-            URL: this.avatar,
+            URL: avatarURL,
             description: "",
           });
 
@@ -182,7 +185,7 @@ export default {
           localStorage.setItem("name", name);
           localStorage.setItem("email", email);
           localStorage.setItem("password", password);
-          localStorage.setItem("photoURL", this.avatar);
+          localStorage.setItem("photoURL", avatarURL);
           localStorage.setItem("description", "");
           localStorage.setItem("FirebaseDocumentId", userRef.id);
           this.name = "";

@@ -38,6 +38,8 @@ export const endpoints = {
     "update-comment": `${SERVER_CONTEXT}/api/comment-update/{commentId}`,
     "delete-comment": `${SERVER_CONTEXT}/api/comments/{commentId}`,
     "course-register": `${SERVER_CONTEXT}/api/course-register/`,
+    "get-semesters":  `${SERVER_CONTEXT}/api/get-semesters/`,
+   
 }
 
 export const authApi = () => {

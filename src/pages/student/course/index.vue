@@ -1,27 +1,53 @@
 <template>
   <section>
-    <div style="width: 50%; margin-bottom: 20px">
-      <div
-        class="form-group"
-        :class="{ 'has-error': !selecetFacuties }"
-        style="margin-right: 10px"
-      >
-        <label for="selecetFacuties">Đăng ký môn học</label>
-        <select
-          class="form-control"
-          id="selecetFacuties"
-          v-model="selecetFacuties"
-          @change="getSubject"
+    <div class="d-flex">
+     
+      <div style="width: 30%; margin-bottom: 20px">
+        <div
+          class="form-group"
+          :class="{ 'has-error': !selectSemester }"
+          style="margin-right: 10px"
         >
-          <option value="">-- Chọn Khoa --</option>
-          <option
-            v-for="(facutly, index) in faculties"
-            :key="index"
-            :value="facutly.id"
+          <label for="selectSemester">Học kì</label>
+          <select
+            class="form-control"
+            id="selectSemester"
+            v-model="selectSemester"
           >
-            {{ facutly.name }}
-          </option>
-        </select>
+            <option value="">-- Chọn học kì --</option>
+            <option
+              v-for="(semester, index) in semesters"
+              :key="index"
+              :value="semester.id"
+            >
+              {{ semester.name }} - Năm học: {{ semester.schoolYear }}
+            </option>
+          </select>
+        </div>
+      </div>
+       <div style="width: 50%; margin-bottom: 20px">
+        <div
+          class="form-group"
+          :class="{ 'has-error': !selecetFacuties }"
+          style="margin-right: 10px"
+        >
+          <label for="selecetFacuties">Đăng ký môn học</label>
+          <select
+            class="form-control"
+            id="selecetFacuties"
+            v-model="selecetFacuties"
+            @change="getSubject"
+          >
+            <option value="">-- Chọn Khoa --</option>
+            <option
+              v-for="(facutly, index) in faculties"
+              :key="index"
+              :value="facutly.id"
+            >
+              {{ facutly.name }}
+            </option>
+          </select>
+        </div>
       </div>
     </div>
     <div v-if="courses.length > 0">
@@ -123,7 +149,9 @@
         </tbody>
       </table>
       <div class="btn-save">
-        <button class="btn btn-primary" @click="submitCourses()">Đăng ký</button>
+        <button class="btn btn-primary" @click="submitCourses()">
+          Đăng ký
+        </button>
       </div>
     </div>
   </section>
@@ -140,8 +168,10 @@ export default {
     return {
       courses: [],
       faculties: [],
+      semesters: [],
       selecetFacuties: "",
-      selectedCourses: [], // Mảng để lưu trữ các môn học đã chọn
+      selectSemester: "",
+      selectedCourses: [],
       maxQuantity: 0,
       quantity: 80,
     };
@@ -174,13 +204,15 @@ export default {
 
     async getSubject() {
       try {
-        if (this.selecetFacuties) {
+        if (this.selecetFacuties ) {
           // Check if a selection has been made
           const facultyId = this.selecetFacuties; // Use the selected value as facultyId
+          const semesterId = this.selectSemester;
           console.log("facultyId", facultyId);
+          console.log("semesterId", semesterId);
 
           const response = await authApi().get(
-            endpoints["get-subject-by-facultyId"] + `?facultyId=${facultyId}`
+            endpoints["get-subject-by-facultyId"] + `?facultyId=${facultyId}&semesterId=${semesterId}`
           );
           console.log("Subject", response.data);
           this.courses = response.data;
@@ -208,6 +240,15 @@ export default {
         console.log(error);
       }
     },
+    async getListSemester() {
+      try {
+        const res = await authApi().get(endpoints["get-semesters"]);
+        console.log(res.data);
+        this.semesters = res.data;
+      } catch (error) {
+        console.log(error);
+      }
+    },
     async submitCourses() {
       try {
         const username = this.getUser.username;
@@ -221,10 +262,12 @@ export default {
         try {
           const promises = this.selectedCourses.map(async (score) => {
             const subjectId = score.id;
+            const semesterId  = this.selectSemester;
             const requestData = [
               {
                 studentId: studentId,
                 subjectId: subjectId,
+                semesterId: semesterId,
               },
             ];
             const response = await authApi().post(
@@ -255,6 +298,7 @@ export default {
   created() {
     this.getFacutly();
     this.getSubject();
+    this.getListSemester();
     if (this.faculties.length > 0) {
       this.getSubject();
       // Tính toán giá trị `maxQuantity` dựa trên dữ liệu ban đầu

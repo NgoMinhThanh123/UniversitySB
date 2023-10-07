@@ -28,7 +28,7 @@
         <tbody>
           <tr v-for="p in listPost" :key="p.id">
             <td>
-              <router-link :to="'/teacher/detailForum/' + p.id" class="post-link">
+              <router-link :to="'/student/detailForum/' + p.id" class="post-link">
                 {{ p.title }}
               </router-link>
             </td>

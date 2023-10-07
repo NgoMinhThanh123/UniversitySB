@@ -125,7 +125,7 @@ export default {
 
           try {
             const u = await this.getUserByUsername(this.user.username);
-            console.log("get-user", u);
+            
             if (u) {
               const studentUsername = u.username;
             //   const studentInfo = await authApi().get(
