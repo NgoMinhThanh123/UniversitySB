@@ -180,9 +180,9 @@ export default {
           }
 
           if (data.role == "ROLE_GIANGVIEN") {
-            this.$router.push("/teacher");
+            this.$router.push("/teacher/studentScore");
           } else if (data.role == "ROLE_SINHVIEN") {
-            this.$router.push("/student");
+            this.$router.push("/student/score");
           }
         }
       } catch (error) {

@@ -1,5 +1,5 @@
 <template>
-  <div>Lớp: {{ extractedId }}</div>
+  <div><strong style="font-size: 20px; padding: 10px">Lớp: {{ extractedId }} </strong></div>
   <div class="table col-12">
     <div class="table">
       <template v-if="studentList.length > 0">

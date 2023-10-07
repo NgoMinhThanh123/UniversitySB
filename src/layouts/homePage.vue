@@ -1,13 +1,12 @@
 <template>
     <TheHeader />
 
-    <div style="width: 100%;">
+    <!-- <div style="width: 100%;">
         <img src="../assets/khungTruong.png" style="width: 100%; height: 250px;" />
-    </div>
+    </div> -->
 
     <div class="container-fluid mt-3 container">
         <div class="row">     
-            <h2 class="welcome">Chào mừng đến với Đại Học Mở TP.HCM</h2>
 
            <Carousel />
 
