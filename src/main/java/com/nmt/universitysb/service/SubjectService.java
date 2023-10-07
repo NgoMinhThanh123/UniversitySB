@@ -18,6 +18,6 @@ public interface SubjectService {
     List<SubjectDto> getSubjectByLecturerId(String lecturerId);
     List<SubjectDto> getSubjectBySemesterId(String semesterId);
     List<SubjectDto> getSubjectByStudentId(String studentId);
-    List<SubjectDto> getSubjectByFacultyId(String facultyId);
+    List<SubjectDto> getSubjectByFacultyId(String facultyId, String semesterId);
     List<SubjectDto> getSubjectByStudentAndSemesterId(String studentId, String semesterId);
 }

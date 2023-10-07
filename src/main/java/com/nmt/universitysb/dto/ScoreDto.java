@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ScoreDto {
     private String scoreColumnName;
-    private double scoreValue;
+    private Double scoreValue;
 }

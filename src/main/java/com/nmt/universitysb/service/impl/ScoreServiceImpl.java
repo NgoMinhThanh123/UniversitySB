@@ -110,16 +110,12 @@ public class ScoreServiceImpl implements ScoreService {
             Optional<ScoreColumn> scoreColumn = this.scoreColumnRepository.findById(Integer.parseInt(params.get("scoreColumnId")));
             Optional<StudentSubject> studentSubject = this.studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.get().getId(), subject.get().getId());
 
-            Score score = new Score();
-            score.setStudentSubjectId(studentSubject.get());
-            score.setSemesterId(semester.get());
 
             Optional<Score> existingScore = scoreRepo.findByStudentSubjectIdAndSemesterId(
                     studentSubject.get().getId(),
                     semester.get().getId()
             );
 
-            if (existingScore.isPresent()) {
                 ScoreValue scoreValue = new ScoreValue();
                 String scoreValueStr = params.get("scoreValue");
                 if (scoreValueStr != null) {
@@ -141,30 +137,6 @@ public class ScoreServiceImpl implements ScoreService {
                 scoreValueDto.setValue(Double.parseDouble(String.valueOf(scoreValue1.getValue())));
 
                 scoreValueDtoList.add(scoreValueDto);
-            } else {
-                Score score1 = this.scoreRepo.save(score);
-                ScoreValue scoreValue = new ScoreValue();
-                String scoreValueStr = params.get("scoreValue");
-                if (scoreValueStr != null) {
-                    scoreValue.setValue(Double.parseDouble(scoreValueStr));
-                } else {
-                    scoreValue.setValue(0.0);
-                }
-                scoreValue.setScoreColumnId(scoreColumn.get());
-                scoreValue.setScoreId(score1);
-
-                ScoreValue scoreValue1 = this.scoreValueRepository.save(scoreValue);
-
-                Score_ScoreValueDto scoreValueDto = new Score_ScoreValueDto();
-
-                scoreValueDto.setSubjectId(score1.getStudentSubjectId().getSubjectId().getId());
-                scoreValueDto.setSemesterId(score1.getSemesterId().getId());
-                scoreValueDto.setStudentId(score1.getStudentSubjectId().getStudentId().getId());
-                scoreValueDto.setColumnId(scoreValue1.getScoreColumnId().getId());
-                scoreValueDto.setValue(Double.parseDouble(String.valueOf(scoreValue1.getValue())));
-
-                scoreValueDtoList.add(scoreValueDto);
-            }
 
         }
 

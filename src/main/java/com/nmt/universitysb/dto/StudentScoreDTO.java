@@ -22,5 +22,5 @@ public class StudentScoreDTO {
     private String studentId;
     private String studentName;
     private String scoreColumnName;
-    private double scoreValue;
+    private Double scoreValue;
 }
