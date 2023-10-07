@@ -21,6 +21,17 @@ public class ApiSemesterController {
         this.semesterService.deleteSemester(id);
     }
 
+
+    @GetMapping("/get-semesters/")
+    @CrossOrigin
+    public ResponseEntity<List<Semester>> getList() {
+        List<Semester> list = this.semesterService.findAll();
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @GetMapping("/semesters/")
     @CrossOrigin
     public ResponseEntity<List<Semester>> list(@RequestParam String lecturerId) {

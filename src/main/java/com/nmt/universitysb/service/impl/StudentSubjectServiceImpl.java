@@ -1,12 +1,9 @@
 package com.nmt.universitysb.service.impl;
+
+import com.nmt.universitysb.dto.Score_ScoreValueDto;
 import com.nmt.universitysb.dto.StudentSubjectDto;
-import com.nmt.universitysb.model.Student;
-import com.nmt.universitysb.model.StudentSubject;
-import com.nmt.universitysb.model.Subject;
-import com.nmt.universitysb.model.User;
-import com.nmt.universitysb.repository.StudentRepository;
-import com.nmt.universitysb.repository.StudentSubjectRepository;
-import com.nmt.universitysb.repository.SubjectRepository;
+import com.nmt.universitysb.model.*;
+import com.nmt.universitysb.repository.*;
 import com.nmt.universitysb.service.StudentSubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -26,6 +23,10 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
     private StudentRepository studentRepo;
     @Autowired
     private SubjectRepository subjectRepo;
+    @Autowired
+    private SemesterRepository semesterRepo;
+    @Autowired
+    private ScoreRepository scoreRepo;
 
     @Override
     public List<StudentSubject> findAll() {
@@ -58,19 +59,36 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
         for (Map<String, String> params : paramsList) {
             Optional<Student> student = this.studentRepo.findById(params.get("studentId"));
             Optional<Subject> subject = this.subjectRepo.findById(params.get("subjectId"));
+            Optional<Semester> semester = this.semesterRepo.findById(params.get("semesterId"));
 
             StudentSubject studentSubject = new StudentSubject();
             studentSubject.setStudentId(student.get());
             studentSubject.setSubjectId(subject.get());
 
-            StudentSubject studentSubject1 = this.studentSubjectRepository.save(studentSubject);
+            Optional<StudentSubject> existingStudentSubject = studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.get().getId(), subject.get().getId());
+            if (!existingStudentSubject.isPresent()) {
+                StudentSubject studentSubject1 = this.studentSubjectRepository.save(studentSubject);
 
-            StudentSubjectDto studentSubjectDto = new StudentSubjectDto();
-            studentSubjectDto.setStudentId(student.get().getId());
-            studentSubjectDto.setSubjectId(subject.get().getId());
+                Score score = new Score();
+                score.setStudentSubjectId(studentSubject1);
+                score.setSemesterId(semester.get());
 
-            studentSubjects.add(studentSubjectDto);
+                Optional<Score> existingScore = scoreRepo.findByStudentSubjectIdAndSemesterId(
+                        studentSubject1.getId(),
+                        semester.get().getId()
+                );
 
+                if (!existingScore.isPresent()) {
+                    Score score1 = this.scoreRepo.save(score);
+
+                    StudentSubjectDto studentSubjectDto = new StudentSubjectDto();
+                    studentSubjectDto.setStudentId(student.get().getId());
+                    studentSubjectDto.setSubjectId(subject.get().getId());
+
+                    studentSubjects.add(studentSubjectDto);
+
+                }
+            }
         }
 
 
@@ -82,6 +100,7 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
         this.studentSubjectRepository.deleteById(id);
         return true;
     }
+
     @Override
     public Optional<StudentSubject> getStudentSubjectByStudentAndSubjectId(String studentId, String subjectId) {
         return this.studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(studentId, subjectId);

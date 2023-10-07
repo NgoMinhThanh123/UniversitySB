@@ -16,6 +16,7 @@ public interface SubjectService {
     Subject save(Subject f);
     boolean deleteSubject(String id);
     List<SubjectDto> getSubjectByLecturerId(String lecturerId);
+    List<SubjectDto> getSubjectBySemesterId(String semesterId);
     List<SubjectDto> getSubjectByStudentId(String studentId);
     List<SubjectDto> getSubjectByFacultyId(String facultyId);
     List<SubjectDto> getSubjectByStudentAndSemesterId(String studentId, String semesterId);
