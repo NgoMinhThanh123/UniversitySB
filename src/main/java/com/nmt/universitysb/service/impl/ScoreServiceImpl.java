@@ -91,6 +91,8 @@ public class ScoreServiceImpl implements ScoreService {
                 scoreListDto.setSubjectName(subject.getName());
                 scoreListDto.setCredit(subject.getCredit());
                 scoreListDto.setSemesterName(semesterName);
+                scoreListDto.setFromDate(semester.getFromDate());
+                scoreListDto.setToDate(semester.getToDate());
                 scoreListDto.setSchoolYear(String.valueOf(schoolYear));
                 scoreListDtos.add(scoreListDto);
             }

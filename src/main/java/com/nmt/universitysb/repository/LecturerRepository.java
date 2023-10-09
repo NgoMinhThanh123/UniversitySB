@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,6 +18,9 @@ public interface LecturerRepository extends JpaRepository<Lecturer, String> {
     Page<Lecturer> findAllByNameContaining(String keyword, Pageable pageable);
     Lecturer save(Lecturer f);
     void deleteById(String id);
-    @Query("select a from Lecturer a where a.userId.username = :username")
-    Lecturer getLecturerByUsername(String username);
+    @Query("select distinct a \n" +
+            "from Lecturer a \n" +
+            "join User u on a.userId.id = u.id \n" +
+            "where u.username = :username")
+    Lecturer getLecturerByUsername(@Param("username") String username);
 }
