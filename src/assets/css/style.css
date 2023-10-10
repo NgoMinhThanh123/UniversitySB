@@ -411,8 +411,8 @@ label {
 
 /* Forum */
 .post-container {
-  margin-top: 30px;
-  margin-bottom: 40px;
+  position: relative;
+  margin-bottom: 60px;
 }
 
 .post-container-detail {
@@ -425,6 +425,12 @@ label {
 .btn-title {
   margin: 30px 0px 0 10px;
   vertical-align: middle;
+}
+
+.btn-submit-comment {
+  position: absolute;
+  right: 30px;
+  bottom: -50px;
 }
 
 /* End forum */
@@ -678,6 +684,13 @@ a.article:hover {
 
 #sidebarCollapse span {
   display: none;
+}
+
+.content-chatbox {
+  border: 1px solid #d9d9d9; 
+  background: #eff2f5; 
+  margin-right: 10px;
+  border-radius: 10px;
 }
 
 

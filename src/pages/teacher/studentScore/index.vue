@@ -54,7 +54,6 @@
               <button class="btn btn-primary" style="margin-right: 10px" @click="handleSendMail">
                 Gửi mail
               </button>
-              <button class="btn btn-primary">Đọc file</button>
             </div>
           </div>
           <div v-else>
@@ -66,6 +65,9 @@
           </div>
         </div>
       </form>
+      <div v-if="hasError">
+      <p style="font-size: 20px; padding: 20px">{{ err }}</p>
+    </div>
       <div v-if="isEditMode" class="form-input-score">
         <div class="table-studentScore">
           <table class="table table-hover">
@@ -209,6 +211,8 @@ export default {
   data() {
     return {
       isEditMode: false,
+      err: "",
+      hasError: false,
       selectedColumn: "option1",
       subjectList: [],
       selectedSubject: "",
@@ -321,6 +325,13 @@ export default {
       event.preventDefault();
 
       try {
+
+        if (!this.selectedSubject || !this.selectedSemester) {
+          this.hasError = true;
+          this.err = "Vui lòng chọn môn và học kì.";
+          return;
+        }
+
         const subjectId = this.selectedSubject;
         const lecturerId = this.selectedLecturer.id;
         const semesterId = this.selectedSemester;
@@ -336,6 +347,7 @@ export default {
           console.log("get-list-student", response.data);
           this.studentList = response.data;
           console.log("student birthday", this.studentList[0].studentBithday);
+          this.hasError = false;
         }
       } catch (error) {
         console.error(error);

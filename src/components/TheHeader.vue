@@ -1,6 +1,6 @@
 <template>
     <div id="header" class=" header">
-        <div class="row text-white" style="background-color: #070758; padding: 1rem 5rem;">
+        <div class="text-white" style="background-color: #070758; padding: 1rem 5rem; display: flex; flex-wrap: wrap;">
             <div class="col-6 col-sm-6 d-flex justify-content-sm-start align-items-center">
                 <div class="home">
                     <router-link to="/" class="router-link-hover">
@@ -37,7 +37,7 @@
                     <div style="padding-right: 30px;" class="d-flex align-items-center">
                         <!-- <img :src="getUser.avatar" class="rounded-circle"style="width: 150px;" alt="Avatar" /> -->
                         <div style="margin-right: 10px;">
-                            <img :src="getUser.avatar" class="rounded-circle" style="width: 20px;" alt="Avatar" />
+                            <img :src="getUser.avatar" class="rounded-circle" style="width: 30px; height: 30px;" alt="Avatar" />
                         </div>
                         <a class="nav-link" href="#" id="navbarDropdown2" role="button" aria-expanded="false">
                             Chào, {{getUser.username}}

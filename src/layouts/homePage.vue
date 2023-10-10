@@ -52,7 +52,7 @@
                     srcSet="https://ou.edu.vn/wp-content/uploads/2022/09/Sumang-TNOU2022.png 2109w, https://ou.edu.vn/wp-content/uploads/2022/09/Sumang-TNOU2022-175x300.png 175w, https://ou.edu.vn/wp-content/uploads/2022/09/Sumang-TNOU2022-598x1024.png 598w, https://ou.edu.vn/wp-content/uploads/2022/09/Sumang-TNOU2022-768x1315.png 768w, https://ou.edu.vn/wp-content/uploads/2022/09/Sumang-TNOU2022-897x1536.png 897w, https://ou.edu.vn/wp-content/uploads/2022/09/Sumang-TNOU2022-1196x2048.png 1196w"
                     sizes="(max-width: 2109px) 100vw, 2109px" />
             </div>
-            <div class="contain">
+            <div class="contain" style="margin-bottom: 50px;">
                 <div class="logo">
                     <div>
                         <img class="alignnone size-full wp-image-47"
@@ -71,8 +71,6 @@
                     </div>
                 </div>
                 <hr class="seperate" />
-
-
             </div>
 
 

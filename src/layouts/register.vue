@@ -84,6 +84,15 @@
                   :disabled="loading"
                   class="btn btn-block btn-primary"
                 />
+                <div style="text-align: center; margin: 10px 0;">
+                  <div
+                    v-if="loading"
+                    class="spinner-border text-primary"
+                    role="status"
+                  >
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
                 <div
                   class="d-flex mt-3 align-items-center"
                   style="justify-content: center"

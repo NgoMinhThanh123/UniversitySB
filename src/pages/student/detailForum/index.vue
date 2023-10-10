@@ -1,16 +1,31 @@
 <template>
   <div class="container-fluid" style="padding: 0 0 100px 0">
     <div class="row">
-      <div className="container">
-        <p class="userDetail">
-          <span style="font-size: 15px; display: block;"> Đăng bởi: {{ usernameHost }} </span>
-          <span style="font-size: 15px; display: block;"> Thời gian: {{ formatDate(post.postTime) }} </span>
-        </p>
-        <p class="postDetail">Tiêu đề: {{ post.title }}</p>
-        <p style="font-size: 18px">Nội dung: {{ post.content }}</p>
+      <div
+        className="container"
+        style="border: 1px solid #dee2e6; border-radius: 10px; padding: 10px"
+      >
+        <div class="row" style="padding: 20px 10px">
+          <div class="col-8">
+            <p class="postDetail">
+              <strong>Tiêu đề: {{ post.title }}</strong>
+            </p>
+            <p style="font-size: 18px">Nội dung: {{ post.content }}</p>
+          </div>
+          <div class="col-4" style="display: flex; justify-content: center">
+            <p class="userDetail">
+              <span style="font-size: 15px; display: block">
+                Đăng bởi: {{ usernameHost }}
+              </span>
+              <span style="font-size: 15px; display: block">
+                Thời gian: {{ formatDate(post.postTime) }}
+              </span>
+            </p>
+          </div>
+        </div>
       </div>
-      <hr />
-      <div class="post-container">
+
+      <div class="post-container" style="margin-top: 30px">
         <label for="comment">Bình luận:</label>
         <textarea
           class="form-control"
@@ -20,7 +35,9 @@
           placeholder="Nhập bình luận"
           v-model="content"
         ></textarea>
-        <Button class="btn-title btn btn-primary" @click="addComment"
+        <Button
+          class="btn-title btn btn-primary btn-submit-comment"
+          @click="addComment"
           >Gửi</Button
         >
       </div>
@@ -99,6 +116,9 @@ export default {
       editedPost: null,
     };
   },
+  created() {
+    this.loadUser();
+  },
   mounted() {
     this.postId = this.$route.params.id;
 
@@ -123,19 +143,21 @@ export default {
     async loadProduct() {
       const { data } = await authApi().get(endpoints.details(this.postId));
       this.post = data;
-      console.log(this.post);
-      console.log("this.post.title", this.post.title);
+      // console.log(this.post);
+      // console.log("this.post.title", this.post.title);
 
-      console.log("this.post.userId.id", this.post.userId.id);
+      // console.log("this.post.userId.id", this.post.userId.id);
 
       this.loadUser();
     },
     async loadUser() {
-      const userInfo = await authApi().get(
-        endpoints["user-id"].replace("{id}", this.post.userId.id)
-      );
-      this.usernameHost = userInfo.data.username;
-      console.log("this.usernameHost", this.usernameHost);
+      if (this.post && this.post.userId && this.post.userId.id) {
+        const userInfo = await authApi().get(
+          endpoints["user-id"].replace("{id}", this.post.userId.id)
+        );
+        this.usernameHost = userInfo.data.username;
+        console.log("this.usernameHost", this.usernameHost);
+      }
     },
     async loadComment() {
       const { data } = await authApi().get(

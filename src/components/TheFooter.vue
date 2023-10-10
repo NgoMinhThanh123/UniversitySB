@@ -1,7 +1,7 @@
 <template>
     <div class="footer">
         <div class="containter-fluid">
-            <div class="row text-white" style="background-color: #070758; padding: 1rem 5rem;">
+            <div class="text-white" style="background-color: #070758; padding: 1rem 5rem;">
                 <div class="d-flex justify-content-center align-items-center">
                     <span>
                         Copyright

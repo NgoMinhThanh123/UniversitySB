@@ -55,7 +55,9 @@
         </table>
       </div>
     </div>
-    <div style="padding: 20px;"><span style="font-size: 25px;">Sinh viên chưa có điểm</span></div>
+    <div v-else style="padding: 20px">
+      <span style="font-size: 25px">Sinh viên chưa có điểm</span>
+    </div>
   </div>
 </template>
 
@@ -88,15 +90,18 @@ export default {
             studentUsername
           )
         );
-        console.log("get-student-by-username", response.data);
+        // console.log("get-student-by-username", response.data);
         const studentId = response.data.id;
         const semesterResponse = await authApi().get(
           endpoints["semester-student"] + `?studentId=${studentId}`
         );
+        console.log("semester-student", semesterResponse.data);
 
         // Lưu thông tin về semesters vào state
-        this.semesters = semesterResponse.data;
-        console.log("semesters", this.semesters);
+        this.semesters = semesterResponse.data
+          .sort((a, b) => {
+            return  new Date(b.fromDate) - new Date(a.fromDate);
+          });
 
         const scoreListsValue = [];
 
@@ -107,7 +112,7 @@ export default {
             endpoints["score-list"] +
             `?studentId=${studentId}&semesterId=${semesterId}`;
           const scoreResponse = await authApi().get(scoreEndpoint);
-          console.log("scoreResponse", scoreResponse.data);
+          // console.log("scoreResponse", scoreResponse.data);
 
           // Lưu thông tin về điểm số của từng học kỳ vào mảng scoreLists
           scoreListsValue.push(scoreResponse.data);
@@ -115,7 +120,7 @@ export default {
 
         // Lưu mảng scoreLists vào state
         this.scoreLists = scoreListsValue;
-        console.log("scoreListsValue", scoreListsValue);
+        // console.log("scoreListsValue", scoreListsValue);
       } catch (err) {
         err.value = true;
       }

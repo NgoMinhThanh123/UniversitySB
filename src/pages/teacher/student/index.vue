@@ -45,7 +45,7 @@
         </div>
       </div>
       <div class="d-flex">
-        <div style="margin-right: 10px;">
+        <div style="margin-right: 10px">
           <button class="btn btn-primary btnSubmit" type="submit">
             Tìm kiếm
           </button>
@@ -57,36 +57,40 @@
         </div>
       </div>
     </form>
-
-    <div v-if="studentList.length > 0">
-      <table class="table table-striped table-bordered table-hover">
-        <thead>
-          <tr>
-            <th class="text-center">Mã số sinh viên</th>
-            <th class="text-center">Tên sinh viên</th>
-            <th
-              class="text-center"
-              v-for="(scoreColumn, index) in scoreColumns"
-              :key="index"
-            >
-              {{ scoreColumn }}
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(student, index) in studentScores" :key="index">
-            <td class="text-center">{{ student.studentId }}</td>
-            <td class="text-center">{{ student.studentName }}</td>
-            <td
-              class="text-center"
-              v-for="(score, scoreIndex) in student.scores"
-              :key="scoreIndex"
-            >
-              {{ score.value }}
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <div v-if="hasError">
+      <p style="font-size: 20px; padding: 20px">{{ err }}</p>
+    </div>
+    <div v-else>
+      <div v-if="studentList.length > 0">
+        <table class="table table-striped table-bordered table-hover">
+          <thead>
+            <tr>
+              <th class="text-center">Mã số sinh viên</th>
+              <th class="text-center">Tên sinh viên</th>
+              <th
+                class="text-center"
+                v-for="(scoreColumn, index) in scoreColumns"
+                :key="index"
+              >
+                {{ scoreColumn }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(student, index) in studentScores" :key="index">
+              <td class="text-center">{{ student.studentId }}</td>
+              <td class="text-center">{{ student.studentName }}</td>
+              <td
+                class="text-center"
+                v-for="(score, scoreIndex) in student.scores"
+                :key="scoreIndex"
+              >
+                {{ score.value }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </template>
@@ -118,6 +122,8 @@ export default {
       //   csvData: [],
       studentScores: {},
       scoreColumns: [],
+      err: "",
+      hasError: false,
     };
   },
   created() {
@@ -193,6 +199,11 @@ export default {
       event.preventDefault();
 
       try {
+        if (!this.selectedSubject || !this.selectedSemester) {
+          this.hasError = true;
+          this.err = "Vui lòng chọn môn và học kì.";
+          return;
+        }
         const subjectId = this.selectedSubject;
         const lecturerId = this.selectedLecturer.id;
         const semesterId = this.selectedSemester;
@@ -203,13 +214,19 @@ export default {
           `?lecturerId=${lecturerId}&semesterId=${semesterId}&subjectId=${subjectId}`;
 
         const response = await authApi().get(endpoint);
+        console.log("response", response.status);
 
         if (response.data) {
           console.log(response.data);
           this.studentList = response.data;
+          this.err = "";
+          this.hasError = false;
         }
       } catch (error) {
         console.error(error);
+        console.log("Status code:", error.response.status);
+        this.err = "Không có dữ liệu";
+        this.hasError = true;
       }
     },
     async exportToPDF() {

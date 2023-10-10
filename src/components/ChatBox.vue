@@ -1,13 +1,13 @@
 <template>
-  <div style="display: flex; flex-direction: column; height: 80vh">
+  <div style="display: flex; flex-direction: column; height: 80vh;">
     <header>
       <div style="height: 60px; background: lightgrey">
         <img
           :src="currentPeerUser.URL"
-          width="40px"
+         style="width: 40px; height: 40px; margin-left: 20px"
           class="br-50 header-image"
         />
-        <div class="header-image" style="padding: 0 40px">
+        <div class="header-image" style="padding: 0 10px">
           <h6 class="mt-2" style="font-weight: 600">
             {{ currentPeerUser.name }}
           </h6>

@@ -1,12 +1,12 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper" >
     <!-- Sidebar  -->
     <nav style="color: white" id="sidebar">
       <div class="sidebar-header d-flex justify-content-around">
         <div
           class="d-flex pointer"
           style="margin-right: 25px; width: 160px"
-          @click="onProfileClick"
+          
         >
           <img
             :src="photoURL"
@@ -26,7 +26,7 @@
               justify-content: space-between;
             "
           >
-            <p style="line-height: 2; font-weight: 600; margin-left: 10px">
+            <p style="line-height: 2; font-weight: 600; margin-left: 10px" @click="onProfileClick">
               {{ currentUserName }}
             </p>
           </div>
@@ -77,16 +77,16 @@
     </nav>
 
     <!-- Page Content  -->
-    <div id="content" v-if="currentPeerUser === null" style="border: 1px solid #000; background: #eff2f5;">
-      <div class="my-4">
-        <img :src="photoURL" width="200px" class="br-50" />
+    <div id="content" class="content-chatbox" v-if="currentPeerUser === null  && !showProfile">
+      <div class="my-4 d-flex" style="justify-content: center">
+        <img :src="photoURL" class="br-50" style="width: 100px; height: 100px"/>
       </div>
-      <div>
-        <h2>Welcome {{ currentUserName }},</h2>
-        <h3>Let's spread love</h3>
+      <div >
+        <h2 style="text-align: center">Chào {{ currentUserName }},</h2>
+        <h3 style="text-align: center">Hãy chùng mọi người trao đổi những thắc mắc nhé.</h3>
       </div>
     </div>
-    <div v-else class="header-width">
+    <div v-else class="header-width" style="margin-right: 10px;  ">
       <ChatBox :currentPeerUser="currentPeerUser" />
     </div>
   </div>
@@ -97,6 +97,7 @@ import { getAuth, signOut } from "firebase/auth";
 import { getFirestore, collection, getDocs } from "firebase/firestore"; // Sử dụng db từ Firebase Modular SDK
 import ChatBox from "../../../components/ChatBox.vue";
 import { db } from "../../../service/firebase";
+import { authApi, endpoints } from '@/configs/Apis';
 
 export default {
   name: "Chat",
@@ -111,9 +112,16 @@ export default {
       currentUserPhoto: localStorage.getItem("photoURL"),
       searchUsers: [],
       photoURL: localStorage.getItem("photoURL"),
+      listStudents: [],
+      showProfile: false,
     };
   },
   methods: {
+    async onProfileClick() {
+      // Toggle the showProfile flag when clicking on the <p> element
+      this.showProfile = false;
+      this.currentPeerUser = null;
+    },
     async logout() {
       const auth = getAuth();
       await signOut(auth);
@@ -122,6 +130,7 @@ export default {
     },
     letsChat(item) {
       this.currentPeerUser = item;
+      this.showProfile = true;
     },
     async getUserList() {
       const usersCollection = collection(db, "users"); // Tạo một bộ sưu tập Firestore
@@ -139,6 +148,8 @@ export default {
         }
       });
     },
+    
+    
   },
   created() {
     if (!localStorage.hasOwnProperty("id")) this.$router.push("/");

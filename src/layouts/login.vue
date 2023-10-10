@@ -44,7 +44,17 @@
                   type="submit"
                   value="Đăng nhập"
                   class="btn btn-block btn-primary"
+                  :disabled="loading"
                 />
+                <div style="text-align: center; margin: 10px 0;">
+                  <div
+                    v-if="loading"
+                    class="spinner-border text-primary"
+                    role="status"
+                  >
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
                 <div
                   class="d-flex mt-3 align-items-center"
                   style="justify-content: center"
@@ -75,7 +85,13 @@ import Apis, { endpoints, authApi } from "../configs/Apis.js";
 import VueCookies from "vue-cookies";
 import { mapState } from "vuex";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, query, where, getDocs, collection } from "firebase/firestore";
+import {
+  getFirestore,
+  query,
+  where,
+  getDocs,
+  collection,
+} from "firebase/firestore";
 import firebase from "../service/firebase";
 
 export default {
@@ -90,6 +106,7 @@ export default {
         password: "",
       },
       errorMessage: "",
+      loading: false,
     };
   },
 
@@ -106,6 +123,7 @@ export default {
     },
     async login() {
       try {
+        this.loading = true;
         const res = await Apis.post(`${endpoints["login"]}`, {
           username: this.user.username,
           password: this.user.password,
@@ -113,6 +131,7 @@ export default {
         console.log(res.status);
         if (res.status === 400) {
           this.errorMessage = "Tài khoản hoặc mật khẩu của bạn không đúng!!";
+           this.loading = false;
         } else {
           console.log(res.data);
           this.errorMessage = "";
@@ -125,15 +144,15 @@ export default {
 
           try {
             const u = await this.getUserByUsername(this.user.username);
-            
+
             if (u) {
               const studentUsername = u.username;
-            //   const studentInfo = await authApi().get(
-            //     endpoints["get-student-by-username"].replace(
-            //       "{username}",
-            //       studentUsername
-            //     )
-            //   );
+              //   const studentInfo = await authApi().get(
+              //     endpoints["get-student-by-username"].replace(
+              //       "{username}",
+              //       studentUsername
+              //     )
+              //   );
 
               const userEmail = u.email;
 
@@ -143,7 +162,7 @@ export default {
                 userEmail,
                 this.user.password
               );
-              console.log("res.user",res.user);
+              console.log("res.user", res.user);
               const user = res.user;
 
               if (user) {
@@ -153,11 +172,11 @@ export default {
                   collection(db, "users"),
                   where("id", "==", user.uid)
                 );
-                console.log("user.uid",user.uid);
+                console.log("user.uid", user.uid);
 
                 const querySnapshot = await getDocs(q);
 
-                console.log("querySnapshot",querySnapshot);
+                console.log("querySnapshot", querySnapshot);
 
                 if (!querySnapshot.empty) {
                   querySnapshot.forEach((doc) => {
@@ -175,8 +194,10 @@ export default {
                 }
               }
             }
+            
           } catch (error) {
             console.log(error);
+            this.loading = false;
           }
 
           if (data.role == "ROLE_GIANGVIEN") {
@@ -185,12 +206,14 @@ export default {
             this.$router.push("/student/score");
           }
         }
+        this.loading = false;
       } catch (error) {
         if (error.response && error.response.status === 400) {
           this.errorMessage = "Tài khoản hoặc mật khẩu của bạn không đúng!!";
         } else {
           throw error;
         }
+        this.loading = false;
       }
     },
   },
