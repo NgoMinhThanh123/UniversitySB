@@ -1,16 +1,31 @@
 <template>
   <div class="container-fluid" style="padding: 0 0 100px 0">
     <div class="row">
-      <div className="container">
-        <p class="postDetail">Tiêu đề: {{ post.title }}</p>
-        <p class="userDetail">
-          Đăng bởi: {{ usernameHost }} - Thời gian:
-          {{ formatDate(post.postTime) }}
-        </p>
-        <p>Nội dung: {{ post.content }}</p>
+      <div
+        className="container"
+        style="border: 1px solid #dee2e6; border-radius: 10px; padding: 10px"
+      >
+        <div class="row" style="padding: 20px 10px">
+          <div class="col-8">
+            <p class="postDetail">
+              <strong>Tiêu đề: {{ post.title }}</strong>
+            </p>
+            <p style="font-size: 18px">Nội dung: {{ post.content }}</p>
+          </div>
+          <div class="col-4" style="display: flex; justify-content: center">
+            <p class="userDetail">
+              <span style="font-size: 15px; display: block">
+                Đăng bởi: {{ usernameHost }}
+              </span>
+              <span style="font-size: 15px; display: block">
+                Thời gian: {{ formatDate(post.postTime) }}
+              </span>
+            </p>
+          </div>
+        </div>
       </div>
-      <hr />
-      <div class="post-container">
+
+      <div class="post-container" style="margin-top: 30px">
         <label for="comment">Bình luận:</label>
         <textarea
           class="form-control"
@@ -20,7 +35,9 @@
           placeholder="Nhập bình luận"
           v-model="content"
         ></textarea>
-        <Button class="btn-title btn btn-primary" @click="addComment"
+        <Button
+          class="btn-title btn btn-primary btn-submit-comment"
+          @click="addComment"
           >Gửi</Button
         >
       </div>
@@ -39,7 +56,14 @@
             >
           </p>
           <p>Nội dung: {{ p.content }}</p>
-          <div v-if="isEditMode && editedPost && editedPost.id === p.id && getUser.id === p.userId.id">
+          <div
+            v-if="
+              isEditMode &&
+              editedPost &&
+              editedPost.id === p.id &&
+              getUser.id === p.userId.id
+            "
+          >
             <textarea
               class="form-control"
               rows="2"
@@ -55,8 +79,11 @@
               </ul>
             </div>
           </div>
-          <div v-else >
-            <div class="post-update-and-delete" v-if="getUser.id === p.userId.id">
+          <div v-else>
+            <div
+              class="post-update-and-delete"
+              v-if="getUser.id === p.userId.id"
+            >
               <ul>
                 <li @click="handleEdit(p)">Chỉnh sửa</li>
                 <li @click="confirmDelete(p.id)">Xóa</li>
@@ -71,9 +98,9 @@
 
 <script>
 import Apis, { authApi, endpoints } from "@/configs/Apis";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 export default {
-   computed: {
+  computed: {
     ...mapGetters(["isAuth", "getUser"]),
   },
   data() {
@@ -88,6 +115,9 @@ export default {
       isEditMode: false,
       editedPost: null,
     };
+  },
+  created() {
+    this.loadUser();
   },
   mounted() {
     this.postId = this.$route.params.id;
@@ -113,19 +143,21 @@ export default {
     async loadProduct() {
       const { data } = await authApi().get(endpoints.details(this.postId));
       this.post = data;
-      console.log(this.post);
-      console.log("this.post.title", this.post.title);
+      // console.log(this.post);
+      // console.log("this.post.title", this.post.title);
 
-      console.log("this.post.userId.id", this.post.userId.id);
+      // console.log("this.post.userId.id", this.post.userId.id);
 
       this.loadUser();
     },
     async loadUser() {
-      const userInfo = await authApi().get(
-        endpoints["user-id"].replace("{id}", this.post.userId.id)
-      );
-      this.usernameHost = userInfo.data.username;
-      console.log("this.usernameHost", this.usernameHost);
+      if (this.post && this.post.userId && this.post.userId.id) {
+        const userInfo = await authApi().get(
+          endpoints["user-id"].replace("{id}", this.post.userId.id)
+        );
+        this.usernameHost = userInfo.data.username;
+        console.log("this.usernameHost", this.usernameHost);
+      }
     },
     async loadComment() {
       const { data } = await authApi().get(
@@ -149,7 +181,7 @@ export default {
             content: this.content_comment,
           }
         );
-      
+
         this.content = "";
         this.isEditMode = false;
         this.loadComment();
@@ -162,7 +194,7 @@ export default {
         const response = await authApi().delete(
           endpoints["delete-comment"].replace("{commentId}", commentId)
         );
-      
+
         this.isEditMode = false;
         this.loadComment();
       } catch (error) {
@@ -170,11 +202,13 @@ export default {
       }
     },
     async confirmDelete(commentId) {
-    const confirmDelete = window.confirm('Bạn có chắc chắn muốn xóa bình luận này không?');
-    if (confirmDelete) {
-      await this.deleteComment(commentId);
-    }
-  },
+      const confirmDelete = window.confirm(
+        "Bạn có chắc chắn muốn xóa bình luận này không?"
+      );
+      if (confirmDelete) {
+        await this.deleteComment(commentId);
+      }
+    },
     formatDate(date) {
       if (!date) return ""; // Tránh xử lý ngày null hoặc undefined
 
