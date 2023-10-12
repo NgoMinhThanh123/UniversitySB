@@ -66,7 +66,7 @@
             <td>
 
                 <a th:href="@{/update_score/{id}(id=${score.id})}" class="btn btn-info">Cập nhật</a>
-                <button class="btn btn-danger" th:attr="data-score-id=${score.id}" onclick="deleteFaculty('/api/update_score/' + this.getAttribute('data-score-id'))">Xóa</button>
+                <button class="btn btn-danger" th:attr="data-score-id=${score.id}" onclick="deleteFaculty('/api/add_score/' + this.getAttribute('data-score-id'))">Xóa</button>
             </td>
         </tr>
         </tbody>

@@ -21,7 +21,7 @@
 <body>
 <div th:replace="header"></div>
 <div class="container">
-    <h1 class="text-center text-info mt-1">THÊM ĐIỂM</h1>
+    <h1 class="text-center text-info mt-1">CẬP NHẬT ĐIỂM</h1>
     <form th:object="${update_score}" th:action="@{/update_score}" method="post">
         <input type="hidden" th:field="*{id}" />
         <div class="form-floating">

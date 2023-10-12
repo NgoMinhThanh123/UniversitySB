@@ -1,6 +1,9 @@
 package com.nmt.universitysb.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +22,7 @@ import java.util.Set;
 public class Classes implements Serializable {
 
     @Id
+    @NotBlank
     @Column(name = "id")
     private String id;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "classesId")

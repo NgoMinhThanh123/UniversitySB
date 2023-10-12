@@ -3,6 +3,7 @@ package com.nmt.universitysb.controller;
 import com.nmt.universitysb.model.Major;
 import com.nmt.universitysb.service.MajorService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+@Tag(name = "Major Controller")
 @RestController
 @RequestMapping("/api")
 public class ApiMajorController {

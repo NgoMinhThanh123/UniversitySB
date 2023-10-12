@@ -10,6 +10,7 @@ import com.nmt.universitysb.model.Comment;
 import com.nmt.universitysb.model.Post;
 import com.nmt.universitysb.service.CommentService;
 import com.nmt.universitysb.service.PostService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,10 +19,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-/**
- *
- * @author acer
- */
+@Tag(name = "Post Controller")
 @RestController
 @RequestMapping("/api")
 public class ApiPostController {

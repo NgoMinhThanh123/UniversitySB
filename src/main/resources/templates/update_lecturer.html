@@ -27,9 +27,11 @@
 <body >
 <div th:replace="header"></div>
 <div class="container">
+    <h1 class="text-center text-info mt-1">CẬP NHẬT GIẢNG VIÊN</h1>
     <form th:object="${update_lecturer}" th:action="@{/update_lecturer}" method="post">
+        <input type="hidden" th:field="*{id}" />
         <div class="form-floating">
-            <input type="text" class="form-control" th:field="*{id}" id="id" placeholder="ID" name="id" />
+            <input disabled type="text" class="form-control" th:field="*{id}" id="id" placeholder="ID" name="id" />
             <label for="id">ID</label>
         </div>
         <div class="form-floating">
@@ -73,7 +75,6 @@
         </div>
         <div class="form-floating">
             <select class="form-select" th:field="*{class}" id="classes" name="class">
-                <option th:if="${not #lists.isEmpty(class)}" value="">-- Chọn mã lớp --</option>
                 <option th:each="f : ${class}" th:value="${f.id}" th:text="${f.id}"></option>
             </select>
             <label for="user" class="form-label">Mã lớp</label>

@@ -3,6 +3,7 @@ import com.nmt.universitysb.dto.StudentSubjectDto;
 import com.nmt.universitysb.model.Comment;
 import com.nmt.universitysb.model.StudentSubject;
 import com.nmt.universitysb.service.StudentSubjectService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Tag(name = "StudentSubject Controller")
 @RestController
 @RequestMapping("/api")
 public class ApiStudentSubjectController {

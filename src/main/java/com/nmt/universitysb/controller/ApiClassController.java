@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.nmt.universitysb.model.Classes;
 import com.nmt.universitysb.service.ClassesService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- *
- * @author acer
- */
+@Tag(name = "Class Controller")
 @RestController
 @RequestMapping("/api")
 public class ApiClassController {

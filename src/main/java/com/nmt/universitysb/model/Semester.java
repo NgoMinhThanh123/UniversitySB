@@ -2,6 +2,7 @@ package com.nmt.universitysb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,10 +20,9 @@ import java.util.Set;
 @Entity
 @Table(name = "semester")
 public class Semester implements Serializable {
-
-    private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
+    @NotBlank
     @Column(name = "id")
     private String id;
     @Basic(optional = false)

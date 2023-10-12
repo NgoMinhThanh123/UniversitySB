@@ -12,6 +12,7 @@ import com.nmt.universitysb.dto.Score_ScoreValueDto;
 import com.nmt.universitysb.dto.StudentScoreDTO;
 import com.nmt.universitysb.service.ScoreService;
 import com.nmt.universitysb.utils.ExcelUtils;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,14 +29,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+@Tag(name = "Score Controller")
 @RestController
 @RequestMapping("/api")
 public class ApiScoreController {
 
     @Autowired
     private ScoreService scoreService;
-//    @Autowired
-//    private ExcelUtils excelExporter;
 
     @DeleteMapping("/add_score/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

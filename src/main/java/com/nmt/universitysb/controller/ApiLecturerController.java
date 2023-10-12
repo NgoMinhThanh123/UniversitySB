@@ -3,6 +3,7 @@ package com.nmt.universitysb.controller;
 import com.nmt.universitysb.dto.LecturerDto;
 import com.nmt.universitysb.model.Lecturer;
 import com.nmt.universitysb.service.LecturerService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
+@Tag(name = "Lecturer Controller")
 @RestController
 @RequestMapping("/api")
 public class ApiLecturerController {
