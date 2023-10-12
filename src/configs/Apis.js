@@ -2,8 +2,8 @@ import axios from "axios";
 import VueCookies from "vue-cookies";
 
 const SERVER_CONTEXT = "";
-const SERVER = "http://localhost:8082";
-// const SERVER = "http://3.25.121.109:8082";
+// const SERVER = "http://localhost:8082";
+const SERVER = "http://3.25.121.109:8082";
 
 export const endpoints = {
     "subjects": `${SERVER_CONTEXT}/api/subjects/`,
