@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid" style="padding-bottom: 50px">
-    <div class="row"> 
+    <div class="row">
       <table class="table">
         <thead>
           <tr>
@@ -14,12 +14,15 @@
           <tr v-for="p in listPost" :key="p.id">
             <td>
               <router-link
-                  :to="'/teacher/detailForum/' + p.id"
-                  class="post-link"
-                >
-                  {{ p.title }}
-                </router-link>
-              <div v-if="isEditMode && editedPost && editedPost.id === p.id" style="margin: 10px">
+                :to="'/teacher/detailForum/' + p.id"
+                class="post-link"
+              >
+                {{ p.title }}
+              </router-link>
+              <div
+                v-if="isEditMode && editedPost && editedPost.id === p.id"
+                style="margin: 10px"
+              >
                 <textarea
                   class="form-control"
                   rows="2"
@@ -44,7 +47,7 @@
                 </div>
               </div>
             </td>
-            <td>{{p.content}}</td>
+            <td>{{ p.content }}</td>
             <td>{{ formatDate(p.postTime) }}</td>
           </tr>
         </tbody>
@@ -72,6 +75,7 @@ export default {
   },
   created() {
     this.getListPostByUser();
+    this.deletePost();
   },
 
   methods: {
@@ -92,12 +96,10 @@ export default {
     async getListPostByUser() {
       try {
         const userId = this.getUser.id;
-        console.log("userId", userId);
         const response = await authApi().get(
           endpoints["get-list-post-by-userId"].replace("{userId}", userId)
         );
         this.listPost = response.data;
-        console.log("get-list-post-by-userId", this.listPost);
       } catch (error) {
         console.error(error);
       }
@@ -105,18 +107,23 @@ export default {
 
     async updatePosted(postId) {
       try {
-        const response = await authApi().put(endpoints["update-post"].replace("{postId}", postId), {
-          content: this.content,
-        });
-         const updatedPostIndex = this.listPost.findIndex((post) => post.id === postId);
+        const response = await authApi().put(
+          endpoints["update-post"].replace("{postId}", postId),
+          {
+            content: this.content,
+          }
+        );
+        const updatedPostIndex = this.listPost.findIndex(
+          (post) => post.id === postId
+        );
 
-    // Nếu tìm thấy bài viết, cập nhật nội dung của nó
-    if (updatedPostIndex !== -1) {
-      this.listPost[updatedPostIndex].content = response.data.content;
-    }
+        // Nếu tìm thấy bài viết, cập nhật nội dung của nó
+        if (updatedPostIndex !== -1) {
+          this.listPost[updatedPostIndex].content = response.data.content;
+        }
         this.content = "";
         this.isEditMode = false;
-         this.getListPostByUser();
+        this.getListPostByUser();
       } catch (error) {
         console.error("Error submitting post:", error);
       }
@@ -126,7 +133,7 @@ export default {
         const response = await authApi().delete(
           endpoints["delete-post"].replace("{postId}", postId)
         );
-      
+
         this.isEditMode = false;
         this.getListPostByUser();
       } catch (error) {
@@ -134,24 +141,23 @@ export default {
       }
     },
     async confirmDelete(postId) {
-    const confirmDelete = window.confirm('Bạn có chắc chắn muốn xóa bài đăng này không?');
-    if (confirmDelete) {
-      await this.deletePost(postId);
-    }
-  },
+      const confirmDelete = window.confirm(
+        "Bạn có chắc chắn muốn xóa bài đăng này không?"
+      );
+      if (confirmDelete) {
+        await this.deletePost(postId);
+      }
+    },
 
     formatDate(date) {
-      if (!date) return ""; // Tránh xử lý ngày null hoặc undefined
+      if (!date) return "";
 
-      // Chuyển đối đối tượng ngày sang ngày
       const formattedDate = new Date(date);
 
-      // Lấy thông tin về ngày, tháng và năm
       const day = formattedDate.getDate();
-      const month = formattedDate.getMonth() + 1; // Lưu ý: Tháng bắt đầu từ 0
+      const month = formattedDate.getMonth() + 1;
       const year = formattedDate.getFullYear();
 
-      // Định dạng thành chuỗi "ngày/tháng/năm"
       return `${day}/${month}/${year}`;
     },
   },

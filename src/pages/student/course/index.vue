@@ -1,7 +1,6 @@
 <template>
   <section>
     <div class="d-flex">
-     
       <div style="width: 30%; margin-bottom: 20px">
         <div
           class="form-group"
@@ -25,7 +24,7 @@
           </select>
         </div>
       </div>
-       <div style="width: 50%; margin-bottom: 20px">
+      <div style="width: 50%; margin-bottom: 20px">
         <div
           class="form-group"
           :class="{ 'has-error': !selecetFacuties }"
@@ -204,17 +203,15 @@ export default {
 
     async getSubject() {
       try {
-        if (this.selecetFacuties ) {
+        if (this.selecetFacuties) {
           // Check if a selection has been made
           const facultyId = this.selecetFacuties; // Use the selected value as facultyId
           const semesterId = this.selectSemester;
-          console.log("facultyId", facultyId);
-          console.log("semesterId", semesterId);
 
           const response = await authApi().get(
-            endpoints["get-subject-by-facultyId"] + `?facultyId=${facultyId}&semesterId=${semesterId}`
+            endpoints["get-subject-by-facultyId"] +
+              `?facultyId=${facultyId}&semesterId=${semesterId}`
           );
-          console.log("Subject", response.data);
           this.courses = response.data;
         } else {
           // Handle the case when no selection is made, e.g., show an error message
@@ -234,7 +231,6 @@ export default {
     async getFacutly() {
       try {
         const response = await authApi().get(endpoints["faculties"]);
-        console.log("faculties", response.data);
         this.faculties = response.data;
       } catch (error) {
         console.log(error);
@@ -243,7 +239,6 @@ export default {
     async getListSemester() {
       try {
         const res = await authApi().get(endpoints["get-semesters"]);
-        console.log(res.data);
         this.semesters = res.data;
       } catch (error) {
         console.log(error);
@@ -255,14 +250,12 @@ export default {
         const resStudentId = await authApi().get(
           endpoints["get-student-by-username"].replace("{username}", username)
         );
-        console.log("Student", resStudentId.data);
         const studentId = resStudentId.data.id;
-        console.log("StudentId", studentId);
 
         try {
           const promises = this.selectedCourses.map(async (score) => {
             const subjectId = score.id;
-            const semesterId  = this.selectSemester;
+            const semesterId = this.selectSemester;
             const requestData = [
               {
                 studentId: studentId,
@@ -285,7 +278,6 @@ export default {
           });
           await Promise.all(promises);
 
-          // Hiển thị thông báo sau khi đã lưu điểm cho tất cả sinh viên
           alert("Đăng ký môn học thành công!");
         } catch (error) {
           console.log(error);

@@ -1,5 +1,9 @@
 <template>
-  <div><strong style="font-size: 20px; padding: 10px">Lớp: {{ extractedId }} </strong></div>
+  <div>
+    <strong style="font-size: 20px; padding: 10px"
+      >Lớp: {{ extractedId }}
+    </strong>
+  </div>
   <div class="table col-12">
     <div class="table">
       <template v-if="studentList.length > 0">
@@ -68,8 +72,7 @@ export default {
           lecturerUsername
         )
       );
-      console.log("response.data.id", response.data.id);
-      console.log("response.data.id", response.data);
+
       const lecturerId = response.data.id;
       const listStudent = await authApi().get(
         endpoints["student-home-room-teacher"].replace(
@@ -80,22 +83,17 @@ export default {
       console.log("listStudent.data", listStudent.data);
       if (listStudent.data) {
         this.studentList = listStudent.data;
-        console.log("studentList", this.studentList);
-        console.log("studentList,length", this.studentList.length);
       }
     },
     formatDate(date) {
-      if (!date) return ""; // Tránh xử lý ngày null hoặc undefined
+      if (!date) return "";
 
-      // Chuyển đối đối tượng ngày sang ngày
       const formattedDate = new Date(date);
 
-      // Lấy thông tin về ngày, tháng và năm
       const day = formattedDate.getDate();
-      const month = formattedDate.getMonth() + 1; // Lưu ý: Tháng bắt đầu từ 0
+      const month = formattedDate.getMonth() + 1;
       const year = formattedDate.getFullYear();
 
-      // Định dạng thành chuỗi "ngày/tháng/năm"
       return `${day}/${month}/${year}`;
     },
   },

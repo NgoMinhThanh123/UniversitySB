@@ -143,11 +143,6 @@ export default {
     async loadProduct() {
       const { data } = await authApi().get(endpoints.details(this.postId));
       this.post = data;
-      // console.log(this.post);
-      // console.log("this.post.title", this.post.title);
-
-      // console.log("this.post.userId.id", this.post.userId.id);
-
       this.loadUser();
     },
     async loadUser() {
@@ -156,7 +151,6 @@ export default {
           endpoints["user-id"].replace("{id}", this.post.userId.id)
         );
         this.usernameHost = userInfo.data.username;
-        console.log("this.usernameHost", this.usernameHost);
       }
     },
     async loadComment() {
@@ -210,25 +204,19 @@ export default {
       }
     },
     formatDate(date) {
-      if (!date) return ""; // Tránh xử lý ngày null hoặc undefined
+      if (!date) return "";
 
-      // Chuyển đối đối tượng ngày sang ngày
       const formattedDate = new Date(date);
 
-      // Lấy thông tin về ngày, tháng và năm
       const day = formattedDate.getDate();
-      const month = formattedDate.getMonth() + 1; // Lưu ý: Tháng bắt đầu từ 0
+      const month = formattedDate.getMonth() + 1;
       const year = formattedDate.getFullYear();
 
-      // Định dạng thành chuỗi "ngày/tháng/năm"
       return `${day}/${month}/${year}`;
     },
   },
 };
 </script>
 
-<style scoped>
-/* Add your CSS styles here */
-</style>
 
 

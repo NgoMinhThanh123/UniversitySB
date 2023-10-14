@@ -143,10 +143,6 @@ export default {
     async loadProduct() {
       const { data } = await authApi().get(endpoints.details(this.postId));
       this.post = data;
-      // console.log(this.post);
-      // console.log("this.post.title", this.post.title);
-
-      // console.log("this.post.userId.id", this.post.userId.id);
 
       this.loadUser();
     },
