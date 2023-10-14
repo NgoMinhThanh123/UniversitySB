@@ -92,12 +92,10 @@ export default {
     async getListPostByUser() {
       try {
         const userId = this.getUser.id;
-        console.log("userId", userId);
         const response = await authApi().get(
           endpoints["get-list-post-by-userId"].replace("{userId}", userId)
         );
         this.listPost = response.data;
-        console.log("get-list-post-by-userId", this.listPost);
       } catch (error) {
         console.error(error);
       }

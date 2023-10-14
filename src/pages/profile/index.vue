@@ -82,18 +82,14 @@
             async fetchUserInfo() {
                 let endpoint = "";
                 const userRole = this.getUser.role;
-                console.log("userRole",userRole);
-                console.log("email",this.getUser.email);
                 if (userRole === "ROLE_SINHVIEN") {
                     endpoint = endpoints['get-student-by-username'];
                 } else if (userRole === "ROLE_GIANGVIEN") {
                     endpoint = endpoints['get-lecturer-by-username'];
                 }
-                console.log("username",this.getUser.username);
 
                 const response = await authApi().get(endpoint.replace("{username}", this.getUser.username));
                 this.userInfo = response.data;
-                console.log(response.data);
 
                 if (response.data.birthday) {
                     const birthdayTimestamp = response.data.birthday;

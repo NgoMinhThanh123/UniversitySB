@@ -197,13 +197,11 @@ export default {
           params: { kw: this.searchKeyword },
         });
         this.post = response.data;
-        console.log(response.data);
       } catch (error) {
         console.error("Error loading posts:", error);
       }
     },
     handleSearch() {
-      console.log("searchKeyword:", this.searchKeyword);
       this.loadPost();
     },
     async handlePostSubmit() {

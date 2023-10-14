@@ -152,7 +152,6 @@ export default {
           endpoints["user-id"].replace("{id}", this.post.userId.id)
         );
         this.usernameHost = userInfo.data.username;
-        console.log("this.usernameHost", this.usernameHost);
       }
     },
     async loadComment() {
