@@ -2,8 +2,8 @@ import axios from "axios";
 import VueCookies from "vue-cookies";
 
 const SERVER_CONTEXT = "";
-// const SERVER = "http://localhost:8082";
-const SERVER = "https://universitysb-env.eba-nnscwuyq.ap-southeast-2.elasticbeanstalk.com";
+const SERVER = "http://localhost:8082";
+// const SERVER = "http://universitysb-env.eba-nnscwuyq.ap-southeast-2.elasticbeanstalk.com";
 
 export const endpoints = {
     "subjects": `${SERVER_CONTEXT}/api/subjects/`,
