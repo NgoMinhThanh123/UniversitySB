@@ -1,4 +1,5 @@
 package com.nmt.universitysb.controller;
+import com.nmt.universitysb.dto.AccountDto;
 import com.nmt.universitysb.dto.JwtResponse;
 import com.nmt.universitysb.dto.UserDto;
 import com.nmt.universitysb.exception.GoodNewsApiException;
@@ -89,9 +90,9 @@ public class ApiUserController {
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @CrossOrigin
-    public ResponseEntity<Object> addUser(@RequestParam Map<String, String> params, @RequestPart MultipartFile avatar) {
+    public ResponseEntity<Object> addUser(AccountDto accountDto, @RequestPart MultipartFile avatar) {
          try {
-            User user = this.userService.addUser(params, avatar);
+            User user = this.userService.addUser(accountDto, avatar);
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         } catch (GoodNewsApiException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());

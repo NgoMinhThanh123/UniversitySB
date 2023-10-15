@@ -2,6 +2,7 @@ package com.nmt.universitysb.service.impl;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import com.nmt.universitysb.dto.AccountDto;
 import com.nmt.universitysb.dto.UserDto;
 import com.nmt.universitysb.exception.GoodNewsApiException;
 import com.nmt.universitysb.model.Faculty;
@@ -119,20 +120,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User addUser(Map<String, String> params, MultipartFile avatar) {
-        if(this.getUserByUsername(params.get("username")) != null){
+    public User addUser(AccountDto accountDto, MultipartFile avatar) {
+        if(this.getUserByUsername(accountDto.getUsername()) != null){
             throw new GoodNewsApiException(HttpStatus.BAD_REQUEST, "Tên tài khoản đã tồn tại");
         }
-        if(this.userRepo.getUserByEmail(params.get("email")) != null){
+        if(this.userRepo.getUserByEmail(accountDto.getEmail()) != null){
             throw new GoodNewsApiException(HttpStatus.BAD_REQUEST, "Email đã tồn tại");
         }
-        if(!this.isValidSchoolEmail(params.get("email"))){
+        if(!this.isValidSchoolEmail(accountDto.getEmail())){
             throw new GoodNewsApiException(HttpStatus.BAD_REQUEST, "Email không đúng định dạng");
         }
         User u = new User();
-        u.setEmail(params.get("email"));
-        u.setUsername(params.get("username"));
-        u.setPassword(this.encoder.encode(params.get("password")));
+        u.setEmail(accountDto.getEmail());
+        u.setUsername(accountDto.getUsername());
+        u.setPassword(this.encoder.encode(accountDto.getPassword()));
         u.setRole("ROLE_SINHVIEN");
         if (!avatar.isEmpty()) {
             try {

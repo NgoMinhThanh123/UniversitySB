@@ -1,5 +1,6 @@
 package com.nmt.universitysb.service;
 
+import com.nmt.universitysb.dto.AccountDto;
 import com.nmt.universitysb.dto.UserDto;
 import com.nmt.universitysb.model.Faculty;
 import com.nmt.universitysb.model.User;
@@ -21,6 +22,6 @@ public interface UserService extends UserDetailsService{
     boolean deleteUser(int id);
     User getUserByUsername(String username);
     Page<User> findAllByUsernameContaining(String keyword, Pageable pageable);
-    User addUser(Map<String, String> params, MultipartFile avatar);
+    User addUser(AccountDto accountDto, MultipartFile avatar);
     boolean isValidSchoolEmail(String email);
 }
