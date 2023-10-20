@@ -158,11 +158,18 @@ export default {
           return;
         }
 
+
         const formData = new FormData();
-        formData.append("username", this.user.username);
-        formData.append("password", this.user.password);
-        formData.append("email", this.user.email);
+       formData.append(
+          "registerRequest",
+          JSON.stringify({
+            username: this.user.username,
+            password: this.user.password,
+            email: this.user.email,
+          })
+        );
         formData.append("avatar", this.user.avatar);
+        console.log("register", formData);
         const response = await Apis.post(endpoints["register"], formData, {
           headers: {
             "Content-Type": "multipart/form-data", // Important: set content type for file upload
