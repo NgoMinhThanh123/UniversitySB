@@ -3,6 +3,7 @@ package com.nmt.universitysb.controller;
 import com.nmt.universitysb.model.Faculty;
 import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.service.FacultyService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -47,7 +48,7 @@ public class FacultyController {
     }
 
     @PostMapping(value = "/add_faculty")
-    public String add(@ModelAttribute(value = "add_faculty") Faculty f,
+    public String add(@ModelAttribute(value = "add_faculty") @Valid Faculty f,
                       BindingResult rs) {
         if (!rs.hasErrors()) {
             this.facultyService.save(f);
@@ -70,7 +71,7 @@ public class FacultyController {
     }
 
     @PostMapping("/update_faculty")
-    public String update(@ModelAttribute(value = "update_faculty") Faculty f,
+    public String update(@ModelAttribute(value = "update_faculty") @Valid Faculty f,
             BindingResult rs) {
         if(!rs.hasErrors()){
             this.facultyService.save(f);

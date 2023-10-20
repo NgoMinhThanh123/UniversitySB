@@ -24,7 +24,7 @@
     <h1 class="text-center text-info mt-1">THÊM LỚP</h1>
     <form th:object="${add_class}" th:action="@{/add_class}" method="post">
         <div class="form-floating mb-3 mt-3">
-            <input required type="text" class="form-control"  th:field="*{id}" id="id" placeholder="ID" name="id" />
+            <input type="text" class="form-control"  th:field="*{id}" id="id" placeholder="ID" name="id" />
             <label for="id">ID</label>
             <div th:if="${#fields.hasErrors('id')}" class="text-danger">Lỗi: <span th:errors="*{id}"></span></div>
         </div>

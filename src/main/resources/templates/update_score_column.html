@@ -24,9 +24,10 @@
     <h1 class="text-center text-info mt-1">CẬP NHẬT CỘT ĐIỂM</h1>
     <form th:object="${update_score_column}" th:action="@{/update_score_column}" method="post">
         <input type="hidden" th:field="*{id}" />
-        <div class="form-floating mb-3 mt-3">f
+        <div class="form-floating mb-3 mt-3">
             <input type="text" class="form-control"  th:field="*{name}" id="name" placeholder="Tên cột điểm" name="name" />
             <label for="name">Tên cột điểm</label>
+            <div th:if="${#fields.hasErrors('name')}" class="text-danger">Lỗi: <span th:errors="*{name}"></span></div>
         </div>
         <div class="form-floating mb-3 mt-3">
             <button type="submit" class="btn btn-info">

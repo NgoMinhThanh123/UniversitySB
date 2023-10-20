@@ -21,20 +21,22 @@
 <body>
 <div th:replace="header"></div>
 <div class="container">
-    <h1 class="text-center text-info mt-1">CẬP NHẬT MÔN HỌC</h1>
+    <h1 class="text-center text-info mt-1">THÊM MÔN HỌC</h1>
     <form th:object="${update_subject}" th:action="@{/update_subject}" method="post">
-        <input type="hidden" th:field="*{id}" />
         <div class="form-floating mb-3 mt-3">
-            <input disabled type="text" class="form-control" th:field="*{id}" id="id" placeholder="ID" name="id" />
+            <input required type="text" class="form-control" th:field="*{id}" id="id" placeholder="ID" name="id" />
             <label for="id">ID</label>
+            <div th:if="${#fields.hasErrors('id')}" class="text-danger">Lỗi: <span th:errors="*{id}"></span></div>
         </div>
         <div class="form-floating mb-3 mt-3">
             <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Tên môn học" name="name" />
             <label for="name">Tên môn học</label>
+            <div th:if="${#fields.hasErrors('name')}" class="text-danger">Lỗi: <span th:errors="*{name}"></span></div>
         </div>
         <div class="form-floating mb-3 mt-3">
             <input type="text" class="form-control" th:field="*{credit}" id="credit" placeholder="Số tín chỉ" name="credit" />
             <label for="name">Số tín chỉ</label>
+            <div th:if="${#fields.hasErrors('credit')}" class="text-danger">Lỗi: <span th:errors="*{credit}"></span></div>
         </div>
         <div class="form-floating">
             <select class="form-select" th:field="*{facultyId}" id="faculty" name="faculty">

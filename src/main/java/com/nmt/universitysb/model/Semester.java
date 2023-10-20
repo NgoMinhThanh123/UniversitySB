@@ -3,6 +3,8 @@ package com.nmt.universitysb.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,21 +24,19 @@ import java.util.Set;
 public class Semester implements Serializable {
     @Id
     @Basic(optional = false)
-    @NotBlank
+    @NotBlank(message = "Id không được để trống")
     @Column(name = "id")
     private String id;
-    @Basic(optional = false)
+    @NotEmpty(message = "Tên không được để trống")
     @Column(name = "name")
     private String name;
-    @Basic(optional = false)
+    @NotBlank(message = "Năm học không được để trống")
     @Column(name = "school_year")
     private int schoolYear;
-    @Basic(optional = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "from_date")
     @Temporal(TemporalType.DATE)
     private Date fromDate;
-    @Basic(optional = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "to_date")
     @Temporal(TemporalType.DATE)

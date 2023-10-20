@@ -33,14 +33,17 @@
         <div class="form-floating">
             <input disabled type="text" class="form-control" th:field="*{id}" id="id" placeholder="ID" name="id" />
             <label for="id">ID</label>
+            <div th:if="${#fields.hasErrors('id')}" class="text-danger">Lỗi: <span th:errors="*{id}"></span></div>
         </div>
         <div class="form-floating">
             <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Tên giảng viên" name="name" />
             <label for="name">Tên giảng viên</label>
+            <div th:if="${#fields.hasErrors('name')}" class="text-danger">Lỗi: <span th:errors="*{name}"></span></div>
         </div>
         <div class="form-floating">
             <input type="date" class="form-control" th:field="*{birthday}" id="birthday" placeholder="Ngày sinh" name="birthday" />
             <label for="birthday">Ngày sinh</label>
+            <div th:if="${#fields.hasErrors('birthday')}" class="text-danger">Lỗi: <span th:errors="*{birthday}"></span></div>
         </div>
         <div class="form-floating">
             <select class="form-select" id="gender" name="gender">
@@ -52,14 +55,17 @@
         <div class="form-floating">
             <input type="text" class="form-control" th:field="*{phone}" id="phone" placeholder="Số điện thoại" name="phone" />
             <label for="phone">Số điện thoại</label>
+            <div th:if="${#fields.hasErrors('phone')}" class="text-danger">Lỗi: <span th:errors="*{phone}"></span></div>
         </div>
         <div class="form-floating">
             <input type="text" class="form-control" th:field="*{email}" id="email" placeholder="Email" name="email" />
             <label for="email">Email</label>
+            <div th:if="${#fields.hasErrors('email')}" class="text-danger">Lỗi: <span th:errors="*{email}"></span></div>
         </div>
         <div class="form-floating">
             <input type="text" class="form-control" th:field="*{address}" id="address" placeholder="Địa chỉ" name="address" />
             <label for="name">Địa chỉ</label>
+            <div th:if="${#fields.hasErrors('address')}" class="text-danger">Lỗi: <span th:errors="*{address}"></span></div>
         </div>
         <div class="form-floating">
             <select class="form-select" th:field="*{facultyId}" id="faculty" name="faculty">

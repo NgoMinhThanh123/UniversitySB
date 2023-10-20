@@ -20,8 +20,6 @@ public class StudentSubjectController {
     @Autowired
     private StudentSubjectService studentSubjectService;
     @Autowired
-    private Environment env;
-    @Autowired
     private SubjectService subjectService;
     @Autowired
     private StudentService studentService;

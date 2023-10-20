@@ -2,6 +2,8 @@ package com.nmt.universitysb.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,17 +21,14 @@ import java.util.Set;
 public class Post implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
+    @NotEmpty(message = "Title không được để trống")
     @Column(name = "title")
     private String title;
-    @Basic(optional = false)
-    @Lob
+    @NotEmpty(message = "Content không được để trống")
     @Column(name = "content")
     private String content;
-    @Basic(optional = false)
     @Column(name = "post_time")
     @Temporal(TemporalType.DATE)
     private Date postTime;

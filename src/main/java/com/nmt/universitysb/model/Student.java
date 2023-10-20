@@ -2,6 +2,8 @@ package com.nmt.universitysb.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,25 +23,23 @@ import java.util.Set;
 @Table(name = "student")
 public class Student implements Serializable {
     @Id
-    @NotBlank
+    @NotBlank(message = "Id không được để trống")
     @Column(name = "id")
     private String id;
-    @Basic(optional = false)
+    @NotEmpty(message = "Tên không được để trống")
     @Column(name = "name")
     private String name;
-    @Basic(optional = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "birthday")
     @Temporal(TemporalType.DATE)
     private Date birthday;
-    @Basic(optional = false)
     @Column(name = "gender")
     private short gender;
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
-    @Basic(optional = false)
+    @NotBlank(message = "Số điện thoại không được để trống")
     @Column(name = "phone")
     private String phone;
-    @Basic(optional = false)
+    @NotEmpty(message = "Địa chỉ không được để trống")
     @Column(name = "address")
     private String address;
     @JoinColumn(name = "classes_id", referencedColumnName = "id")

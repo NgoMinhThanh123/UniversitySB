@@ -19,7 +19,6 @@ import java.util.Set;
 public class Score implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
     @JoinColumn(name = "semester_id", referencedColumnName = "id")

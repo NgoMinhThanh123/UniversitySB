@@ -4,6 +4,7 @@ import java.util.Map;
 import com.nmt.universitysb.model.Student;
 import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.service.*;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -71,7 +72,7 @@ public class StudentController {
     }
 
     @PostMapping(value = "/add_student")
-    public String add(@ModelAttribute(value = "add_student") Student s,
+    public String add(@ModelAttribute(value = "add_student") @Valid Student s,
             BindingResult rs) {
         if (!rs.hasErrors()) {
             this.studentService.save(s);
@@ -83,7 +84,7 @@ public class StudentController {
     }
 
     @PostMapping("/update_student")
-    public String update(@ModelAttribute(value = "update_student")Student s,
+    public String update(@ModelAttribute(value = "update_student") @Valid Student s,
             BindingResult rs) {
         if (!rs.hasErrors()) {
             this.studentService.save(s);

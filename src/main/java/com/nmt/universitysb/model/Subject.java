@@ -3,6 +3,8 @@ package com.nmt.universitysb.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,14 +21,12 @@ import java.util.Set;
 @Table(name = "subject")
 public class Subject implements Serializable {
     @Id
-    @Basic(optional = false)
-    @NotBlank
+    @NotBlank(message = "Id không được để trống")
     @Column(name = "id")
     private String id;
-    @Basic(optional = false)
+    @NotEmpty(message = "Tên không được để trống")
     @Column(name = "name")
     private String name;
-    @Basic(optional = false)
     @Column(name = "credit")
     private int credit;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId")

@@ -2,6 +2,9 @@ package com.nmt.universitysb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,23 +24,20 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
+    @NotEmpty(message = "Username không được để trống")
     @Column(name = "username")
     private String username;
-    @Basic(optional = false)
+    @NotEmpty(message = "Password không được để trống")
     @Column(name = "password")
     private String password;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
-    @Basic(optional = false)
+    @NotEmpty(message = "Email không được để trống")
     @Column(name = "email")
     private String email;
-    @Basic(optional = false)
     @Column(name = "role")
     private String role;
-    @Basic(optional = false)
     @Column(name = "avatar")
     private String avatar;
     @Transient

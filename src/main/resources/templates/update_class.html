@@ -27,6 +27,7 @@
         <div class="form-floating mb-3 mt-3">
             <input disabled type="text" class="form-control"  th:field="*{id}" id="id" placeholder="ID" name="id" />
             <label for="id">ID</label>
+            <div th:if="${#fields.hasErrors('id')}" class="text-danger">Lỗi: <span th:errors="*{id}"></span></div>
         </div>
         <div class="form-floating">
             <select class="form-select" th:field="*{facultyId}" id="faculty" name="faculty">

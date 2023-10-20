@@ -24,24 +24,29 @@
     <h1 class="text-center text-info mt-1">THÊM HỌC KÌ</h1>
     <form th:object="${add_semester}" th:action="${action}" method="post">
         <div class="form-floating mb-3 mt-3">
-            <input required type="text" class="form-control"  th:field="*{id}" id="id" placeholder="ID" name="id" />
+            <input type="text" class="form-control"  th:field="*{id}" id="id" placeholder="ID" name="id" />
             <label for="id">ID</label>
+            <div th:if="${#fields.hasErrors('id')}" class="text-danger">Lỗi: <span th:errors="*{id}"></span></div>
         </div>
         <div class="form-floating mb-3 mt-3">
-            <input required type="text" class="form-control"  th:field="*{name}" id="name" placeholder="Học kì" name="name" />
+            <input type="text" class="form-control"  th:field="*{name}" id="name" placeholder="Học kì" name="name" />
             <label for="name">Học kì</label>
+            <div th:if="${#fields.hasErrors('name')}" class="text-danger">Lỗi: <span th:errors="*{name}"></span></div>
         </div>
         <div class="form-floating mb-3 mt-3">
-            <input required type="text" class="form-control"  th:field="*{schoolYear}" id="schoolYear" placeholder="Năm học" name="schoolYear" />
+            <input type="text" class="form-control"  th:field="*{schoolYear}" id="schoolYear" placeholder="Năm học" name="schoolYear" />
             <label for="schoolYear">Năm học</label>
+            <div th:if="${#fields.hasErrors('schoolYear')}" class="text-danger">Lỗi: <span th:errors="*{schoolYear}"></span></div>
         </div>
         <div class="form-floating mb-3 mt-3">
-            <input required type="date" class="form-control"  th:field="*{fromDate}" id="fromDate" name="fromDate" />
+            <input type="date" class="form-control"  th:field="*{fromDate}" id="fromDate" name="fromDate" />
             <label for="fromDate">Thời gian bắt đầu</label>
+            <div th:if="${#fields.hasErrors('fromDate')}" class="text-danger">Lỗi: <span th:errors="*{fromDate}"></span></div>
         </div>
         <div class="form-floating mb-3 mt-3">
-            <input required type="date" class="form-control"  th:field="*{toDate}" id="toDate" name="toDate" />
+            <input type="date" class="form-control"  th:field="*{toDate}" id="toDate" name="toDate" />
             <label for="toDate">Thời gian kết thúc</label>
+            <div th:if="${#fields.hasErrors('toDate')}" class="text-danger">Lỗi: <span th:errors="*{toDate}"></span></div>
         </div>
         <div class="form-floating mb-3 mt-3">
             <button type="submit" class="btn btn-info">

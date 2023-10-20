@@ -6,6 +6,7 @@ import com.nmt.universitysb.service.ClassesService;
 import com.nmt.universitysb.service.FacultyService;
 import com.nmt.universitysb.service.LecturerService;
 import com.nmt.universitysb.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -59,7 +60,7 @@ public class LecturerController {
     }
 
     @PostMapping(value = "/add_lecturer")
-    public String add(@ModelAttribute(value = "add_lecturer") Lecturer l,
+    public String add(@ModelAttribute(value = "add_lecturer") @Valid Lecturer l,
             BindingResult rs) {
         if (!rs.hasErrors()) {
             this.lecturerService.save(l);
@@ -79,7 +80,7 @@ public class LecturerController {
     }
 
     @PostMapping("/update_lecturer")
-    public String update(@ModelAttribute(value = "update_lecturer") Lecturer l,
+    public String update(@ModelAttribute(value = "update_lecturer") @Valid Lecturer l,
             BindingResult rs) {
         if (!rs.hasErrors()) {
             this.lecturerService.save(l);

@@ -4,6 +4,7 @@ import com.nmt.universitysb.model.Major;
 import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.service.FacultyService;
 import com.nmt.universitysb.service.MajorService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -67,7 +68,7 @@ public class MajorController {
     }
 
     @PostMapping(value = "/add_major")
-    public String add(@ModelAttribute(value = "add_major") Major m,
+    public String add(@ModelAttribute(value = "add_major") @Valid Major m,
             BindingResult rs) {
         if(!rs.hasErrors()){
             this.majorService.save(m);
@@ -79,14 +80,12 @@ public class MajorController {
     }
 
     @PostMapping("/update_major")
-    public String update(@ModelAttribute(value = "update_major") Major m, BindingResult rs) {
-
+    public String update(@ModelAttribute(value = "update_major") @Valid Major m, BindingResult rs) {
         if(!rs.hasErrors()){
             this.majorService.save(m);
             return "redirect:/major";
 
         }
-
         return "update_major";
     }
 

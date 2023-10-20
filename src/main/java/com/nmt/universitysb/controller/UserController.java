@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -55,7 +56,7 @@ public class UserController {
     }
 
     @PostMapping("/add_user")
-    public String add(@ModelAttribute(value = "add_user")User u,
+    public String add(@ModelAttribute(value = "add_user") @Valid User u,
             BindingResult rs) {
         if(!rs.hasErrors()){
             this.userService.save(u);
@@ -65,7 +66,7 @@ public class UserController {
         return "add_user";
     }
     @PostMapping("/update_user")
-    public String update(@ModelAttribute(value = "update_user")User u,
+    public String update(@ModelAttribute(value = "update_user") @Valid User u,
                       BindingResult rs) {
         if(!rs.hasErrors()){
             this.userService.save(u);

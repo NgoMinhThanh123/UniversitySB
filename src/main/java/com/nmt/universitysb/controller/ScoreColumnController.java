@@ -4,6 +4,7 @@ import java.util.Map;
 import com.nmt.universitysb.model.ScoreColumn;
 import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.service.ScoreColumnSevice;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -54,7 +55,7 @@ public class ScoreColumnController {
     }
 
     @PostMapping("/add_score_column")
-    public String add(@ModelAttribute(value = "add_score_column") ScoreColumn u,
+    public String add(@ModelAttribute(value = "add_score_column") @Valid ScoreColumn u,
             BindingResult rs) {
         if(!rs.hasErrors()){
             this.scoreColumnSevice.save(u);
@@ -64,7 +65,7 @@ public class ScoreColumnController {
         return "add_score_column";
     }
     @PostMapping("/update_score_column")
-    public String update(@ModelAttribute(value = "update_score_column") ScoreColumn u,
+    public String update(@ModelAttribute(value = "update_score_column") @Valid ScoreColumn u,
                       BindingResult rs) {
         if(!rs.hasErrors()){
             this.scoreColumnSevice.save(u);

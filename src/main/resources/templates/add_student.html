@@ -24,16 +24,19 @@
     <h1 class="text-center text-success mt-1">THÊM SINH VIÊN</h1>
     <form th:object="${add_student}" th:action="@{/add_student}" method="post">
         <div class="form-floating">
-            <input required type="text" class="form-control" th:field="*{id}" id="id" placeholder="ID" name="id" />
+            <input type="text" class="form-control" th:field="*{id}" id="id" placeholder="ID" name="id" />
             <label for="id">ID</label>
+            <div th:if="${#fields.hasErrors('id')}" class="text-danger">Lỗi: <span th:errors="*{id}"></span></div>
         </div>
         <div class="form-floating">
-            <input required type="text" class="form-control" th:field="*{name}" id="name" placeholder="Tên sinh viên" name="name" />
+            <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Tên sinh viên" name="name" />
             <label for="name">Tên sinh viên</label>
+            <div th:if="${#fields.hasErrors('name')}" class="text-danger">Lỗi: <span th:errors="*{name}"></span></div>
         </div>
         <div class="form-floating">
-            <input required type="date" class="form-control" th:field="*{birthday}" id="birthday" placeholder="Ngày sinh" name="birthday" />
+            <input type="date" class="form-control" th:field="*{birthday}" id="birthday" placeholder="Ngày sinh" name="birthday" />
             <label for="birthday">Ngày sinh</label>
+            <div th:if="${#fields.hasErrors('birthday')}" class="text-danger">Lỗi: <span th:errors="*{birthday}"></span></div>
         </div>
         <div class="form-floating">
             <select class="form-select" id="gender" name="gender">
@@ -43,13 +46,14 @@
             <label for="gender">Giới tính</label>
         </div>
         <div class="form-floating">
-            <input required type="text" class="form-control" th:field="*{phone}" id="phone" placeholder="Số điện thoại" name="phone" />
+            <input type="text" class="form-control" th:field="*{phone}" id="phone" placeholder="Số điện thoại" name="phone" />
             <label for="phone">Số điện thoại</label>
+            <div th:if="${#fields.hasErrors('phone')}" class="text-danger">Lỗi: <span th:errors="*{phone}"></span></div>
         </div>
         <div class="form-floating">
-            <input required type="text" class="form-control" th:field="*{address}" id="address" placeholder="Địa chỉ" name="address" />
+            <input type="text" class="form-control" th:field="*{address}" id="address" placeholder="Địa chỉ" name="address" />
             <label for="name">Địa chỉ</label>
-            <!--            <form:errors path="name" element="div" cssClass="text-danger" />-->
+            <div th:if="${#fields.hasErrors('address')}" class="text-danger">Lỗi: <span th:errors="*{address}"></span></div>
         </div>
         <div class="form-floating">
             <select class="form-select" th:field="*{userId}" id="user" name="user">
@@ -76,10 +80,8 @@
             <label for="faculty" class="form-label">Chuyên ngành</label>
          </div>
 
-
-
         <div class="form-floating mb-3 mt-3">
-            <button type="submit" class="btn btn-info">Thêm giảng viên</button>
+            <button type="submit" class="btn btn-info">Thêm sinh viên</button>
         </div>
     </form>
 </div>

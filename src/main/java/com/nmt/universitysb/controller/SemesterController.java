@@ -3,6 +3,7 @@ package com.nmt.universitysb.controller;
 import com.nmt.universitysb.model.Semester;
 import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.service.SemesterService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -53,7 +54,7 @@ public class SemesterController {
     }
 
     @PostMapping(value = "/add_semester")
-    public String add(@ModelAttribute(value = "add_semester") Semester m,
+    public String add(@ModelAttribute(value = "add_semester") @Valid Semester m,
             BindingResult rs) {
         if(!rs.hasErrors()){
             this.semesterService.save(m);
@@ -65,7 +66,7 @@ public class SemesterController {
     }
 
     @PostMapping("/update_semester")
-    public String update(@ModelAttribute(value = "update_semester") Semester m,
+    public String update(@ModelAttribute(value = "update_semester") @Valid Semester m,
             BindingResult rs) {
 
         if(!rs.hasErrors()){

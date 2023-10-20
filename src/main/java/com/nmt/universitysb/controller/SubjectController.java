@@ -5,6 +5,7 @@ import com.nmt.universitysb.model.Subject;
 import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.service.FacultyService;
 import com.nmt.universitysb.service.SubjectService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
@@ -54,7 +55,7 @@ public class SubjectController {
     }
 
     @PostMapping(value = "/add_subject")
-    public String add(@ModelAttribute(value = "add_lecturer") Subject s,
+    public String add(@ModelAttribute(value = "add_subject") @Valid Subject s,
             BindingResult rs) {
         if(!rs.hasErrors()){
             this.subjectService.save(s);
@@ -72,7 +73,7 @@ public class SubjectController {
     }
 
     @PostMapping("/update_subject")
-    public String update(@ModelAttribute(value = "update_subject") Subject s,
+    public String update(@ModelAttribute(value = "update_subject") @Valid Subject s,
             BindingResult rs) {
         if(!rs.hasErrors()) {
             this.subjectService.save(s);
