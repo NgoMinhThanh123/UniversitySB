@@ -81,6 +81,7 @@
         </div>
         <div class="form-floating">
             <select class="form-select" th:field="*{class}" id="classes" name="class">
+                <option th:if="${not #lists.isEmpty(class)}" value="">-- Chọn mã lớp --</option>
                 <option th:each="f : ${class}" th:value="${f.id}" th:text="${f.id}"></option>
             </select>
             <label for="user" class="form-label">Mã lớp</label>
