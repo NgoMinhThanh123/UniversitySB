@@ -1,4 +1,6 @@
 package com.nmt.universitysb.controller;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nmt.universitysb.dto.AccountDto;
 import com.nmt.universitysb.dto.JwtResponse;
 import com.nmt.universitysb.dto.UserDto;
@@ -90,15 +92,33 @@ public class ApiUserController {
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
     @CrossOrigin
-    public ResponseEntity<Object> addUser(AccountDto accountDto, @RequestPart MultipartFile avatar) {
-         try {
-            User user = this.userService.addUser(accountDto, avatar);
+    public ResponseEntity<Object> addUser(@RequestParam("registerRequest") final String registerRequest, @RequestPart("avatar") final MultipartFile avatar) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            AccountDto req = objectMapper.readValue(registerRequest, AccountDto.class);
+            User user = this.userService.addUser(req, avatar);
             return new ResponseEntity<>(user, HttpStatus.CREATED);
-        } catch (GoodNewsApiException ex) {
+        } catch (GoodNewsApiException | JsonProcessingException ex) {
             return ResponseEntity.badRequest().body(ex.getMessage());
         }
    }
 
+//    @PostMapping(path = "/register/",
+//            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+//            produces = {MediaType.APPLICATION_JSON_VALUE})
+//    @CrossOrigin
+//    public ResponseEntity<User> addUser( @RequestParam("registerRequest") final String registerRequest,
+//                                         @RequestPart("avatar") final MultipartFile avatar){
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        try {
+//            RegisterRequest req = objectMapper.readValue(registerRequest, RegisterRequest.class);
+//            User user = this.authService.userRegister(req, avatar);
+//            return new ResponseEntity<>(user, HttpStatus.CREATED);
+//        } catch (JsonProcessingException e) {
+//            return ResponseEntity.badRequest().build();
+//        }
+//
+//    }
     @GetMapping(path = "/users-id/{id}/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
     public ResponseEntity<User> getUserById(@PathVariable(value = "id")int id) {
