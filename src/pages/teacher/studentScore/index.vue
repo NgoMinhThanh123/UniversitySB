@@ -51,23 +51,41 @@
               >
                 Thoát
               </button>
-              <button class="btn btn-primary" style="margin-right: 10px" @click="handleSendMail">
-                Gửi mail
-              </button>
             </div>
           </div>
           <div v-else>
-            <div class="input-studentScore">
+            <div class="input-studentScore d-flex">
               <button @click="handleEdit" class="btn btn-primary">
                 Nhập điểm
               </button>
+              <button
+                class="btn btn-primary"
+                style="margin-left: 10px"
+                @click="handleSendMail"
+                :disabled="loading"
+              >
+                Gửi mail
+              </button>
+              <div style="text-align: center; margin: 0 10px">
+                <div
+                  v-if="loading"
+                  class="spinner-border text-primary"
+                  role="status"
+                >
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
+              <div
+                class="d-flex mt-3 align-items-center"
+                style="justify-content: center"
+              ></div>
             </div>
           </div>
         </div>
       </form>
       <div v-if="hasError">
-      <p style="font-size: 20px; padding: 20px">{{ err }}</p>
-    </div>
+        <p style="font-size: 20px; padding: 20px">{{ err }}</p>
+      </div>
       <div v-if="isEditMode" class="form-input-score">
         <div class="table-studentScore">
           <table class="table table-hover">
@@ -222,6 +240,7 @@ export default {
       selectedSemester: "",
       studentScores: {},
       scoreColumnNames: [],
+      loading: false,
 
       quatrinh: {},
       giuaki: {},
@@ -242,7 +261,6 @@ export default {
     this.fetchLecturerInfo().then((lecturerInfo) => {
       if (lecturerInfo && lecturerInfo.id) {
         const lecturerId = lecturerInfo.id;
-        console.log("lecturerId", lecturerId);
         this.fetchSubjectsByLecturerId(lecturerId);
       }
     });
@@ -306,7 +324,6 @@ export default {
             lecturerId
           )
         );
-        console.log(response.data);
         this.subjectList = response.data;
 
         const endpoint = endpoints["semester"] + `?lecturerId=${lecturerId}`;
@@ -314,10 +331,8 @@ export default {
         const semesterResponse = await authApi().get(endpoint);
         this.semesterList = semesterResponse.data;
 
-        console.log("Semester info:", semesterResponse.data);
       } catch (error) {
         console.error(error);
-        console.log(error);
         return null;
       }
     },
@@ -325,7 +340,6 @@ export default {
       event.preventDefault();
 
       try {
-
         if (!this.selectedSubject || !this.selectedSemester) {
           this.hasError = true;
           this.err = "Vui lòng chọn môn và học kì.";
@@ -335,7 +349,6 @@ export default {
         const subjectId = this.selectedSubject;
         const lecturerId = this.selectedLecturer.id;
         const semesterId = this.selectedSemester;
-        console.log("semesterId", semesterId);
 
         const endpoint =
           endpoints["get-list-student"] +
@@ -344,9 +357,7 @@ export default {
         const response = await authApi().get(endpoint);
 
         if (response.data) {
-          console.log("get-list-student", response.data);
           this.studentList = response.data;
-          console.log("student birthday", this.studentList[0].studentBithday);
           this.hasError = false;
         }
       } catch (error) {
@@ -371,7 +382,6 @@ export default {
           console.error("Selected column is not valid");
           return;
         }
-        console.log("scoreColumnId", scoreColumnId);
 
         // Lặp qua danh sách sinh viên và lấy điểm của từng sinh viên trong cột tương ứng
         for (const student of this.studentList) {
@@ -438,22 +448,30 @@ export default {
 
     async handleSendMail() {
       try {
+        this.loading = true;
         const subjectId = this.selectedSubject;
         const semesterId = this.selectedSemester;
         const lecturerId = this.selectedLecturer.id;
+
+        if (!subjectId || !semesterId || !lecturerId) {
+          alert("Không thể gửi mail khi chưa có danh sách!");
+        }
 
         const endpoint =
           endpoints["send-mail"] +
           `?lecturerId=${lecturerId}&subjectId=${subjectId}&semesterId=${semesterId}`;
 
         const response = await authApi().post(endpoint);
-        console.log("response: " + response);
         if (response.status === 200) {
+          this.loading = false;
           alert("Gửi mail thành công");
         } else {
+          this.loading = false;
           alert("Đã có lỗi xảy ra, vui lòng thử lại sau!");
         }
       } catch (error) {
+        this.loading = false;
+        alert("Đã có lỗi xảy ra, vui lòng thử lại sau!");
         console.error(error);
       }
     },

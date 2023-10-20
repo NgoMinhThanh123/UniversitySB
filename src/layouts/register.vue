@@ -84,7 +84,7 @@
                   :disabled="loading"
                   class="btn btn-block btn-primary"
                 />
-                <div style="text-align: center; margin: 10px 0;">
+                <div style="text-align: center; margin: 10px 0">
                   <div
                     v-if="loading"
                     class="spinner-border text-primary"
@@ -158,9 +158,8 @@ export default {
           return;
         }
 
-
         const formData = new FormData();
-       formData.append(
+        formData.append(
           "registerRequest",
           JSON.stringify({
             username: this.user.username,
@@ -169,7 +168,6 @@ export default {
           })
         );
         formData.append("avatar", this.user.avatar);
-        console.log("register", formData);
         const response = await Apis.post(endpoints["register"], formData, {
           headers: {
             "Content-Type": "multipart/form-data", // Important: set content type for file upload
@@ -178,8 +176,8 @@ export default {
 
         try {
           const avatarURL = response.data.avatar;
-          console.log("avatarURL",avatarURL);
-          console.log("this.avatar",avatarURL);
+          console.log("avatarURL", avatarURL);
+          console.log("this.avatar", avatarURL);
           const userCredential = await createUserWithEmailAndPassword(
             auth,
             email,
@@ -208,14 +206,14 @@ export default {
           this.email = "";
           this.password = "";
         } catch (e) {
-          this.errorMessage = error.response?.data || error.message;
+          this.errorMessage = error.response?.data || "Lỗi server" || error.message;
         }
-
+       
         this.$router.push("/login");
 
         // Your registration and Firebase code here...
       } catch (error) {
-        this.errorMessage = error.response?.data || error.message;
+        this.errorMessage = error.response?.data || "Lỗi server" || error.message;
       } finally {
         this.loading = false;
       }
