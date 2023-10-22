@@ -1,18 +1,33 @@
 import { initializeApp } from "firebase/app";
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { getFirestore, collection, addDoc } from 'firebase/firestore';
-import Vue from 'vue';
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import Apis, { endpoints } from "@/configs/Apis";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyDII6euuvJWeVKm7M4Fr7H0l0jy1wBeQt0",
-    authDomain: "chatapp-955d5.firebaseapp.com",
-    projectId: "chatapp-955d5",
-    storageBucket: "chatapp-955d5.appspot.com",
-    messagingSenderId: "468610058153",
-    appId: "1:468610058153:web:2b3561c5d0119bf77166b8"
-  };
+async function fetchFirebaseConfig() {
+  try {
+      const response = await Apis.get(endpoints["get-firebase-config"]);
+      const data = response.data;
+      const firebaseConfig = {
+          apiKey: data.apiKey,
+          authDomain: data.authDomain,
+          projectId: data.projectId,
+          storageBucket: data.storageBucket,
+          messagingSenderId: data.messagingSenderId,
+          appId: data.appId,
+        };
+    
+      return firebaseConfig;
+  } catch (error) {
+      console.error('Lỗi khi gọi API máy chủ:', error);
+      throw error;
+  }
+}
 
-// Initialize Firebase
+const firebaseConfig = await fetchFirebaseConfig();
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+
+ 
+
+

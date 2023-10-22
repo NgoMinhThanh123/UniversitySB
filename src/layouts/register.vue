@@ -118,7 +118,7 @@
 </template>
 
 <script>
-import Apis, { endpoints } from "@/configs/Apis";
+import Apis, { authApi, endpoints } from "@/configs/Apis";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
 import { auth, db } from "../service/firebase";
@@ -137,6 +137,7 @@ export default {
       loading: false,
     };
   },
+  
   methods: {
     change(event, field) {
       this.user[field] = event.target.value;

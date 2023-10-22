@@ -40,6 +40,7 @@ export const endpoints = {
     "delete-comment": `${SERVER_CONTEXT}/api/comments/{commentId}`,
     "course-register": `${SERVER_CONTEXT}/api/course-register/`,
     "get-semesters":  `${SERVER_CONTEXT}/api/get-semesters/`,
+    "get-firebase-config": `${SERVER_CONTEXT}/api/firebase/config`,
    
 }
 
