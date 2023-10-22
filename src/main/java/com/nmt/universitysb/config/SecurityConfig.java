@@ -63,6 +63,7 @@ public class SecurityConfig{
                                     .requestMatchers("/login").permitAll()
                                     .requestMatchers("/api/login/").permitAll()
                                     .requestMatchers("/api/users/").permitAll()
+                                    .requestMatchers("/api/firebase/config").permitAll()
                                     .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("GIAOVU", "GIANGVIEN", "SINHVIEN")
                                     .requestMatchers(HttpMethod.POST, "/api/**").hasAnyRole("GIAOVU", "GIANGVIEN", "SINHVIEN")
 //                                    .requestMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole("GIAOVU")
