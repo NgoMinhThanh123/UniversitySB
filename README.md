@@ -14,8 +14,10 @@
 ```
 -Nhấn Start Import
 ```
-## Bước 4. Mở project UniversitySB bằng IntelliJ, chọn src -> main -> java -> com.nmt.universitysb -> chuột phải vào 
-## UniversitySbApplicaiton -> Run UniversitySbApplicaiton
+## Bước 4. Mở project UniversitySB bằng IntelliJ
+```
+chọn src -> main -> java -> com.nmt.universitysb -> chuột phải vào UniversitySbApplicaiton -> Run UniversitySbApplicaiton
+```
 ## Bước 5. Mở trình duyệt và gõ đường dẫn "http://localhost:8082"
 ## Bước 6. Đăng nhập với thông tin sau để test các chức năng
 ```
