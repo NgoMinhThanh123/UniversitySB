@@ -72,8 +72,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<StuScoreDto> getListStudent(String lectureId, String subjectId, String semesterId) {
-        List<Student> students = this.studentRepo.getListStudent(lectureId, subjectId, semesterId);
+    public List<StuScoreDto> getListStudent(String lectureId, String classId, String subjectId, String semesterId) {
+        List<Student> students = this.studentRepo.getListStudent(lectureId, classId, subjectId, semesterId);
         List<StuScoreDto> stuScoreDtos = new ArrayList<>();
         for(int i = 0; i < students.size(); i++){
             Student student = students.get(i);

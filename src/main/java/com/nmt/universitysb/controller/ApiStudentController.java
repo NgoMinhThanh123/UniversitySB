@@ -93,9 +93,10 @@ public class ApiStudentController {
     @CrossOrigin
     public ResponseEntity<List<StuScoreDto>> getListStudent(
             @RequestParam String lecturerId,
+            @RequestParam String classId,
             @RequestParam String subjectId,
             @RequestParam String semesterId) {
-        List<StuScoreDto> list = studentService.getListStudent(lecturerId, subjectId, semesterId);
+        List<StuScoreDto> list = studentService.getListStudent(lecturerId, classId, subjectId, semesterId);
         if (list.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

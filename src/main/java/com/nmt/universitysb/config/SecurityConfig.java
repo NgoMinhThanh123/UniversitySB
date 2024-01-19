@@ -1,5 +1,6 @@
 package com.nmt.universitysb.config;
 
+import com.nmt.universitysb.dto.StatisticsDto;
 import com.nmt.universitysb.security.JwtAuthenticationEntryPoint;
 import com.nmt.universitysb.security.JwtAuthenticationFilter;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
