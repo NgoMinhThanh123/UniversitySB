@@ -14,7 +14,6 @@ import java.util.Optional;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, String> {
     Optional<Student> findById(String id);
-
     Page<Student> findAllByNameContaining(String keyword, Pageable pageable);
     Student save(Student f);
     void deleteById(String id);
@@ -40,6 +39,11 @@ public interface StudentRepository extends JpaRepository<Student, String> {
             + "LEFT JOIN score_column ON score_value.score_column_id = score_column.id\n"
             + "WHERE lecturer.id = :lecturerId AND classes.id = :classId AND subject.id = :subjectId AND semester.id = :semesterId",nativeQuery = true)
     List<Student> getListStudent(@Param("lecturerId") String lecturerId, @Param("classId") String classId, @Param("subjectId") String subjectId, @Param("semesterId") String semesterId);
+
+    @Query(value ="SELECT s.* \n"
+            + "FROM student s join classes cl on s.classes_id = cl.id\n"
+            + "WHERE s.id = :studentId and s.name = :studentName and s.birthday = :studentBirthday and cl.id = :classId and s.identification = :studentIdentification",nativeQuery = true)
+    Student getListStudentForParents(@Param("studentId") String studentId, @Param("studentName") String studentName, @Param("studentBirthday") String studentBirthday, @Param("classId") String classId, @Param("studentIdentification") String studentIdentification);
 
     @Query(value ="SELECT user.email \n"
             + "FROM student \n"

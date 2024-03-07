@@ -13,5 +13,6 @@ public interface ClassesService {
     Optional<Classes> findById(String id);
     Page<Classes> findAllByIdContaining(String keyword, Pageable pageable);
     Classes save(Classes f);
+    long count();
     boolean deleteClasse(String id);
 }

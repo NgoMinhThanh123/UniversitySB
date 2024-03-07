@@ -12,6 +12,7 @@ public interface FacultyService {
     Optional<Faculty> findById(String id);
     Page<Faculty> findAllByNameContaining(String keyword, Pageable pageable);
     Faculty save(Faculty f);
+    long count();
     boolean deleteFaculty(String id);
 
 }

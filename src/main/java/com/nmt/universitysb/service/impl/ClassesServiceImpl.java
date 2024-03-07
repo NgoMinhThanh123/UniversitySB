@@ -37,10 +37,14 @@ public class ClassesServiceImpl implements ClassesService {
         return this.classesRepo.findAllByIdContaining(keyword, pageable);
     }
 
-
     @Override
     public Classes save(Classes f) {
         return this.classesRepo.save(f);
+    }
+
+    @Override
+    public long count() {
+        return this.classesRepo.count();
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.nmt.universitysb.dto.StudentDto;
 import com.nmt.universitysb.model.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,8 +16,10 @@ public interface StudentService {
     Optional<Student> findById(String id);
     Page<Student> findAllByNameContaining(String keyword, Pageable pageable);
     Student save(Student f);
+    long count();
     boolean deleteStudent(String id);
     StudentDto getStudentByUsername(String username);
+    Student getListStudentForParents(String studentId, String studentName, String studentBirthday, String classId, String studentIdentification);
     List<StudentDto> getStudentByHomeroomTeacher(String lecturerId);
     List<StuScoreDto> getListStudent(String lectureId, String classId, String subjectId, String semesterId);
     List<String> getAllMailOfStudent(String lecturerId, String subjectId, String semesterId);

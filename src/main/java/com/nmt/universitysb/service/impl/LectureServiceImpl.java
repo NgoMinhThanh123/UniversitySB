@@ -43,6 +43,11 @@ public class LectureServiceImpl implements LecturerService {
     }
 
     @Override
+    public long count() {
+        return this.lecturersRepo.count();
+    }
+
+    @Override
     public boolean deleteLecturer(String id) {
         this.lecturersRepo.deleteById(id);
         return true;

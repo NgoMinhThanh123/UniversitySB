@@ -103,6 +103,21 @@ public class ApiStudentController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/get-student-parents/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<Student> getListStudentForParents(
+            @RequestParam String studentId,
+            @RequestParam String studentName,
+            @RequestParam String studentBirthday,
+            @RequestParam String classId,
+            @RequestParam String studentIdentification) {
+        Student s = studentService.getListStudentForParents(studentId, studentName, studentBirthday, classId, studentIdentification);
+        if (s == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(s, HttpStatus.OK);
+    }
+
     @PostMapping("/students/mails/")
     @CrossOrigin
     public ResponseEntity<?> sendMailToStudent(

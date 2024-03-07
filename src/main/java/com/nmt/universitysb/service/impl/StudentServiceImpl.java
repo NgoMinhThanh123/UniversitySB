@@ -49,6 +49,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public long count() {
+        return this.studentRepo.count();
+    }
+
+    @Override
     public boolean deleteStudent(String id) {
         this.studentRepo.deleteById(id);
         return true;
@@ -69,6 +74,11 @@ public class StudentServiceImpl implements StudentService {
         studentDto.setMajorId(u.getMajorId());
 
         return studentDto;
+    }
+
+    @Override
+    public Student getListStudentForParents(String studentId, String studentName, String studentBirthday, String classId, String studentIdentification) {
+        return this.studentRepo.getListStudentForParents(studentId, studentName, studentBirthday, classId, studentIdentification);
     }
 
     @Override
