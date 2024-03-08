@@ -31,19 +31,19 @@
     <form th:object="${update_student_subject}" th:action="@{/update_student_subject}" method="post">
         <input type="hidden" th:field="*{id}" />
         <div class="form-floating">
-            <select class="form-select" th:field="*{studentId}" id="student" name="student">
+            <select class="form-select" th:name="studentId" id="student" name="student">
                 <option th:each="f : ${student}" th:value="${f.id}" th:text="${f.name}"></option>
             </select>
             <label for="student" class="form-label">Sinh viên</label>
         </div>
         <div class="form-floating">
-            <select class="form-select" th:field="*{subjectId}" id="subject" name="subject">
+            <select class="form-select" th:name="subjectId" id="subject" name="subject">
                 <option th:each="f : ${subject}" th:value="${f.id}" th:text="${f.name}"></option>
             </select>
             <label for="subject" class="form-label">Môn học</label>
         </div>
         <div class="form-floating mb-3 mt-3">
-            <button type="submit" class="btn btn-info">Thêm SV-MH</button>
+            <button type="submit" class="btn btn-info">Cập nhật SV-MH</button>
         </div>
     </form>
 </div>

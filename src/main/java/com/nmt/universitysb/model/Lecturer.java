@@ -48,16 +48,18 @@ public class Lecturer implements Serializable {
     @Column(name = "email")
     private String email;
     @JoinColumn(name = "faculty_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnore
     private Faculty facultyId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnore
     private User userId;
     @JoinColumn(name = "classes_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Classes classesId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lecturerId")
+    @JsonIgnore
     private Set<LecturerSubject> lecturerSubjectSet;
 }

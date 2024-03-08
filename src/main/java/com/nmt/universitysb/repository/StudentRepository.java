@@ -20,7 +20,7 @@ public interface StudentRepository extends JpaRepository<Student, String> {
     @Query("select a from Student a where a.userId.username = :username")
     Student getStudentByUsername(String username);
 
-    @Query("select new com.nmt.universitysb.dto.StudentDto(a.id, a.name, a.birthday, a.gender, a.phone, a.address, a.classesId, a.facultyId, a.majorId ) " +
+    @Query("select new com.nmt.universitysb.dto.StudentDto(a.id, a.name, a.birthday, a.gender, a.identification, a.phone, a.address, a.classesId, a.facultyId, a.majorId ) " +
             "from Student a " +
             "join Classes ls on a.classesId = ls.id " +
             "join Lecturer l on ls.id = l.classesId " +

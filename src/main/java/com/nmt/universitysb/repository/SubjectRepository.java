@@ -21,35 +21,35 @@ public interface SubjectRepository extends JpaRepository<Subject, String> {
     Subject save(Subject f);
     void deleteById(String id);
 
-    @Query("select new com.nmt.universitysb.dto.SubjectDto(a.id, a.name, a.credit, a.facultyId ) " +
+    @Query("select new com.nmt.universitysb.dto.SubjectDto(a.id, a.name, a.credit, a.majorId ) " +
             "from Subject a " +
             "join LecturerSubject ls on a.id = ls.subjectId " +
             "join Lecturer l on l.id = ls.lecturerId " +
             "where l.id = :lecturerId")
     List<SubjectDto> getSubjectByLecturerId(@Param("lecturerId") String lecturerId);
 
-    @Query("select new com.nmt.universitysb.dto.SubjectDto(s.id, s.name, s.credit, s.facultyId ) " +
+    @Query("select new com.nmt.universitysb.dto.SubjectDto(s.id, s.name, s.credit, s.majorId ) " +
             "from Subject s " +
             "join SubjectSemester ss on s.id = ss.subjectId " +
             "join Semester se on se.id = ss.semesterId " +
             "where se.id = :semesterId")
     List<SubjectDto> getSubjectBySemesterId(@Param("semesterId") String semesterId);
 
-    @Query("select new com.nmt.universitysb.dto.SubjectDto(a.id, a.name, a.credit, a.facultyId ) " +
+    @Query("select new com.nmt.universitysb.dto.SubjectDto(a.id, a.name, a.credit, a.majorId ) " +
             "from Subject a " +
             "join StudentSubject sb on a.id = sb.subjectId " +
             "join Student s on s.id = sb.studentId " +
             "where s.id = :studentId")
     List<SubjectDto> getSubjectByStudentId(@Param("studentId") String studentId);
 
-    @Query("select new com.nmt.universitysb.dto.SubjectDto(a.id, a.name, a.credit, a.facultyId ) " +
+    @Query("select new com.nmt.universitysb.dto.SubjectDto(a.id, a.name, a.credit, a.majorId ) " +
             "from Subject a " +
             "join SubjectSemester ss on a.id = ss.subjectId " +
             "join Semester s on s.id = ss.semesterId " +
-            "where a.facultyId.id = :facultyId and s.id = :semesterId")
-    List<SubjectDto> getSubjectByFacultyId(@Param("facultyId") String facultyId, @Param("semesterId") String semesterId);
+            "where a.majorId.id = :majorId and s.id = :semesterId")
+    List<SubjectDto> getSubjectByMajorId(@Param("majorId") String majorId, @Param("semesterId") String semesterId);
 
-    @Query("select new com.nmt.universitysb.dto.SubjectDto(a.id, a.name, a.credit, a.facultyId ) \n" +
+    @Query("select new com.nmt.universitysb.dto.SubjectDto(a.id, a.name, a.credit, a.majorId ) \n" +
             "from Subject a \n" +
             "join StudentSubject sb on a.id = sb.subjectId \n" +
             "join Student s on s.id = sb.studentId \n " +

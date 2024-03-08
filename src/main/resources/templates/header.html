@@ -36,6 +36,8 @@
                         <a class="dropdown-item" href="/student">Sinh viên</a>
                         <a class="dropdown-item" href="/subject"> Môn học</a>
                         <a class="dropdown-item" href="/student_subject"> SV-MH</a>
+                        <a class="dropdown-item" href="/credit_price"> Giá tín chỉ</a>
+                        <a class="dropdown-item" href="/tuition_fee"> Học phí</a>
                     </div>
                 </li>
                     <li class="nav-item dropdown" th:if="${#authorization.expression('hasRole(''ROLE_GIAOVU'')')}">
@@ -46,6 +48,7 @@
                             <a class="dropdown-item" href="/score">Điểm</a>
                             <a class="dropdown-item" href="/score_value"> Chi tiết điểm</a>
                             <a class="dropdown-item" href="/score_column"> Cột điểm</a>
+                            <a class="dropdown-item" href="/score_percent"> Tỉ lệ điểm</a>
                         </div>
                     </li>
                 <li class="nav-item">

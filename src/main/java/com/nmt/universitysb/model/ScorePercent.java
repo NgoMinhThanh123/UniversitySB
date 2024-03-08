@@ -1,10 +1,11 @@
 package com.nmt.universitysb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
-import java.io.Serializable;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -12,17 +13,17 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "subject_semester")
-public class SubjectSemester implements Serializable {
+public class ScorePercent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "semester_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Semester semesterId;
+    @Column(name = "percentCK")
+    private Double percentCK;
+    @Column(name = "percentGK")
+    private Double percentGK;
     @JoinColumn(name = "subject_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Subject subjectId;
 }

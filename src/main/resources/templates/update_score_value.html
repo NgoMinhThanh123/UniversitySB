@@ -35,19 +35,19 @@
             <label for="value">Điểm số</label>
         </div>
         <div class="form-floating">
-            <select class="form-select" th:field="*{scoreId}" id="score" name="score">
+            <select class="form-select" th:name="scoreId" id="score" name="score">
                 <option th:each="f : ${score}" th:value="${f.id}" th:text="${f.id}"></option>
             </select>
             <label for="score" class="form-label">Mã điểm</label>
         </div>
         <div class="form-floating">
-            <select class="form-select" th:field="*{scoreColumnId}" id="score_column" name="score_column">
+            <select class="form-select" th:name="scoreColumnId" id="score_column" name="score_column">
                 <option th:each="f : ${score_column}" th:value="${f.id}" th:text="${f.name}"></option>
             </select>
             <label for="score_column" class="form-label">Cột điểm</label>
         </div>
         <div class="form-floating mb-3 mt-3">
-            <button type="submit" class="btn btn-info">Thêm điểm số</button>
+            <button type="submit" class="btn btn-info">Cập nhật điểm số</button>
         </div>
     </form>
 </div>

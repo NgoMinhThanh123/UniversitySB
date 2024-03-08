@@ -73,11 +73,11 @@
             <label for="user" class="form-label">Mã tài khoản</label>
         </div>
         <div class="form-floating">
-            <select class="form-select" th:field="*{class}" id="classes" name="class">
-                <option th:if="${not #lists.isEmpty(class)}" value="">-- Chọn mã lớp --</option>
-                <option th:each="f : ${class}" th:value="${f.id}" th:text="${f.id}"></option>
+            <select class="form-select" th:field="*{classesId}" id="classes" name="classes">
+                <option value="">-- Chọn mã lớp --</option>
+                <option th:each="f : ${classes}" th:value="${f.id}" th:text="${f.id}"></option>
             </select>
-            <label for="user" class="form-label">Mã lớp</label>
+            <label for="classes" class="form-label">Mã lớp</label>
         </div>
         <div class="form-floating mb-3 mt-3">
             <button type="submit" class="btn btn-info">Thêm giảng viên</button>

@@ -79,7 +79,6 @@ public class StudentController {
             return "redirect:/student";
 
         }
-
         return "add_student";
     }
 

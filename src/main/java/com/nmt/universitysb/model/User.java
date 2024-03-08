@@ -52,6 +52,6 @@ public class User implements Serializable {
 //    private Set<Comment> commentSet;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
-    private Set<Student> studentSet;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Student student;
 }

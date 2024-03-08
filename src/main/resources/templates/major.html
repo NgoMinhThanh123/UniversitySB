@@ -57,7 +57,7 @@
             <tr>
                 <th>Id</th>
                 <th>Tên chuyên ngành</th>
-                <th>Khoa</th>
+<!--                <th>Khoa</th>-->
                 <th></th>
             </tr>
             </thead>
@@ -65,7 +65,7 @@
             <tr th:each="major : ${majorPage}">
                 <td th:text="${major.id}"></td>
                 <td th:text="${major.name}"></td>
-                <td th:text="${major.facultyId.name}"></td>
+<!--                <td th:text="${major.facultyId.name}"></td>-->
                 <td>
 
                     <a th:href="@{/update_major/{id}(id=${major.id})}" class="btn btn-info">Cập nhật</a>

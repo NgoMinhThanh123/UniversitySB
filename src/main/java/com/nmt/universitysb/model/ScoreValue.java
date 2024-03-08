@@ -1,5 +1,6 @@
 package com.nmt.universitysb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -25,8 +26,10 @@ public class ScoreValue implements Serializable {
     private double value;
     @JoinColumn(name = "score_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Score scoreId;
     @JoinColumn(name = "score_column_id", referencedColumnName = "id")
+    @JsonIgnore
     @ManyToOne(optional = false)
     private ScoreColumn scoreColumnId;
 }

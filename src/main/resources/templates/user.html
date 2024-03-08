@@ -47,6 +47,7 @@
             <tr>
                 <th>ID</th>
                 <th></th>
+                <th>Tên tài khoản</th>
                 <th>Email</th>
                 <th>Chức vụ</th>
                 <th></th>
@@ -58,6 +59,7 @@
                 <td>
                     <img th:src="${user.avatar}" alt="Avatar" width="100" />
                 </td>
+                <td th:text="${user.username}"></td>
                 <td th:text="${user.email}"></td>
                 <td>
                     <a th:href="@{/update_user/{id}(id=${user.id})}" class="btn btn-info">Cập nhật</a>

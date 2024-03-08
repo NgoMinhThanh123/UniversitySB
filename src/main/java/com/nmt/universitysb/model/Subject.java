@@ -5,15 +5,13 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,19 +27,20 @@ public class Subject implements Serializable {
     private String name;
     @Column(name = "credit")
     private int credit;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId")
+    @JoinColumn(name = "major_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Major majorId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<SubjectSemester> subjectSemesterSet;
-    @JoinColumn(name = "faculty_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Faculty facultyId;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<LecturerSubject> lecturerSubjectSet;
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId", fetch = FetchType.LAZY)
     private Set<StudentSubject> studentSubjectSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<ClassesSubject> classesSubjectSet;
+    private Set<ScorePercent> scorePercentSet;
 }

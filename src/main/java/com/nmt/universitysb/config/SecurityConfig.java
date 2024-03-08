@@ -69,7 +69,7 @@ public class SecurityConfig{
                                     .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
 //                                    .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("GIAOVU", "GIANGVIEN", "SINHVIEN")
                                     .requestMatchers(HttpMethod.POST, "/api/**").hasAnyRole("GIAOVU", "GIANGVIEN", "SINHVIEN")
-//                                    .requestMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole("GIAOVU")
+                                    .requestMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole("GIAOVU")
                                     .requestMatchers(HttpMethod.DELETE, "/api/comments/{commentId}").permitAll()
                                     .requestMatchers(HttpMethod.DELETE, "/api/posts-delete/{commentId}").permitAll()
                                     .anyRequest().authenticated()

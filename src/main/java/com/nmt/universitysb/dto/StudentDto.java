@@ -20,6 +20,7 @@ public class StudentDto {
     private Date birthday;
 
     private short gender;
+    private String identification;
 
     private String phone;
 

@@ -1,7 +1,7 @@
 package com.nmt.universitysb.model;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,25 +9,24 @@ import lombok.ToString;
 
 import java.io.Serializable;
 
-
 @Data
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "classes_subject")
-public class ClassesSubject implements Serializable {
+@Table(name = "tuition_fee")
+public class TuitionFee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @JoinColumn(name = "class_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @Column(name = "tuition_fee")
+    private Integer tuitionFee;
+    @JoinColumn(name = "semester_id", referencedColumnName = "id")
+    @OneToOne(optional = false)
+    private Semester semesterId;
+    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JsonIgnore
-    private Classes classId;
-    @JoinColumn(name = "subject_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    @JsonIgnore
-    private Subject subjectId;
+    private Student studentId;
 }

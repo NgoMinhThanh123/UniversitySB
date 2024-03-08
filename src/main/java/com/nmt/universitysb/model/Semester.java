@@ -5,17 +5,15 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,7 +28,6 @@ public class Semester implements Serializable {
     @NotEmpty(message = "Tên không được để trống")
     @Column(name = "name")
     private String name;
-    @NotBlank(message = "Năm học không được để trống")
     @Column(name = "school_year")
     private int schoolYear;
     @DateTimeFormat(pattern = "yyyy-MM-dd")

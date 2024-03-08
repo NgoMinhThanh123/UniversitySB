@@ -39,13 +39,13 @@
             <div th:if="${#fields.hasErrors('credit')}" class="text-danger">Lỗi: <span th:errors="*{credit}"></span></div>
         </div>
         <div class="form-floating">
-            <select class="form-select" th:field="*{facultyId}" id="faculty" name="faculty">
-                <option th:each="f : ${faculty}" th:value="${f.id}" th:text="${f.name}"></option>
+            <select class="form-select" th:name="majorId" id="faculty" name="faculty">
+                <option th:each="f : ${major}" th:value="${f.id}" th:text="${f.name}"></option>
             </select>
-            <label for="faculty" class="form-label">Khoa</label>
+            <label for="faculty" class="form-label">Chuyên ngành</label>
         </div>
         <div class="form-floating mb-3 mt-3">
-            <button type="submit" class="btn btn-info">Thêm môn học</button>
+            <button type="submit" class="btn btn-info">Cập nhật môn học</button>
         </div>
     </form>
 </div>

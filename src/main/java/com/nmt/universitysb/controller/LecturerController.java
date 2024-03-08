@@ -54,7 +54,7 @@ public class LecturerController {
         model.addAttribute("add_lecturer", new Lecturer());
         model.addAttribute("faculty", this.facultyService.findAll());
         model.addAttribute("user", this.userService.findAll());
-        model.addAttribute("class", this.classesService.findAll());
+        model.addAttribute("classes", this.classesService.findAll());
 
         return "add_lecturer";
     }
@@ -75,7 +75,7 @@ public class LecturerController {
         model.addAttribute("update_lecturer", this.lecturerService.findById(id));
         model.addAttribute("faculty", this.facultyService.findAll());
         model.addAttribute("user", this.userService.findAll());
-        model.addAttribute("class", this.classesService.findAll());
+        model.addAttribute("classes", this.classesService.findAll());
         return "update_lecturer";
     }
 

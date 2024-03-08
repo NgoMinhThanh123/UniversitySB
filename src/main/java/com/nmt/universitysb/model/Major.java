@@ -13,7 +13,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Data
-@ToString
+@ToString(exclude = {"subjectSet", "studentSet", "subjectPriceSet"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -27,10 +27,16 @@ public class Major implements Serializable {
     @Column(name = "name")
     private String name;
     @JoinColumn(name = "faculty_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Faculty facultyId;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "majorId", fetch = FetchType.LAZY)
+    private Set<Subject> subjectSet;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "majorId", fetch = FetchType.LAZY)
     private Set<Student> studentSet;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "majorId", fetch = FetchType.LAZY)
+    private Set<CreditPrice> creditPriceSet;
 }

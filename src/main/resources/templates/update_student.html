@@ -47,6 +47,11 @@
       <label for="gender">Giới tính</label>
     </div>
     <div class="form-floating">
+      <input type="text" class="form-control" th:field="*{identification}" id="identification" placeholder="Căn cước công dân" name="identification" />
+      <label for="identification">Căn cước công dân</label>
+      <div th:if="${#fields.hasErrors('identification')}" class="text-danger">Lỗi: <span th:errors="*{identification}"></span></div>
+    </div>
+    <div class="form-floating">
       <input type="text" class="form-control" th:field="*{phone}" id="phone" placeholder="Số điện thoại" name="phone" />
       <label for="phone">Số điện thoại</label>
       <div th:if="${#fields.hasErrors('phone')}" class="text-danger">Lỗi: <span th:errors="*{phone}"></span></div>
@@ -57,32 +62,32 @@
       <div th:if="${#fields.hasErrors('address')}" class="text-danger">Lỗi: <span th:errors="*{address}"></span></div>
     </div>
     <div class="form-floating">
-      <select class="form-select" th:field="*{userId}" id="user" name="user">
+      <select class="form-select" th:name="userId" id="user" name="user">
         <option th:each="f : ${user}" th:value="${f.id}" th:text="${f.id}"></option>
       </select>
       <label for="user" class="form-label">Mã tài khoản</label>
     </div>
     <div class="form-floating">
-      <select class="form-select" th:field="*{classesId}" id="classes" name="classes">
+      <select class="form-select" th:name="classesId" id="classes" name="classes">
         <option th:each="f : ${classes}" th:value="${f.id}" th:text="${f.id}"></option>
       </select>
       <label for="classes" class="form-label">Mã lớp</label>
     </div>
     <div class="form-floating">
-      <select class="form-select" th:field="*{facultyId}" id="faculty" name="faculty">
+      <select class="form-select" th:name="facultyId" id="faculty" name="faculty">
         <option th:each="f : ${faculty}" th:value="${f.id}" th:text="${f.name}"></option>
       </select>
       <label for="faculty" class="form-label">Khoa</label>
     </div>
     <div class="form-floating">
-      <select class="form-select" th:field="*{majorId}" id="major" name="major">
+      <select class="form-select" th:name="majorId" id="major" name="major">
         <option th:each="f : ${major}" th:value="${f.id}" th:text="${f.name}"></option>
       </select>
       <label for="faculty" class="form-label">Chuyên ngành</label>
     </div>
 
     <div class="form-floating mb-3 mt-3">
-      <button type="submit" class="btn btn-info">Thêm giảng viên</button>
+      <button type="submit" class="btn btn-info">Cập nhật sinh viên</button>
     </div>
   </form>
 </div>

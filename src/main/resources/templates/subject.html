@@ -47,7 +47,7 @@
             <th>Id</th>
             <th>Tên môn học</th>
             <th>Số tín chỉ</th>
-            <th>Khoa</th>
+            <th>Chuyên ngành</th>
             <th></th>
         </tr>
         </thead>
@@ -57,7 +57,7 @@
             <td th:text="${subject.id}"></td>
             <td th:text="${subject.name}"></td>
             <td th:text="${subject.credit}"></td>
-            <td th:text="${subject.facultyId.name}"></td>
+            <td th:text="${subject.majorId.name}"></td>
             <td>
 
                 <a th:href="@{/update_subject/{id}(id=${subject.id})}" class="btn btn-info">Cập nhật</a>

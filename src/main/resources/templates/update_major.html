@@ -41,13 +41,13 @@
             <div th:if="${#fields.hasErrors('name')}" class="text-danger">Lỗi: <span th:errors="*{name}"></span></div>
         </div>
         <div class="form-floating">
-            <select class="form-select" th:field="*{facultyId}" id="faculty" name="faculty">
+            <select class="form-select" th:name="facultyId" id="faculty" name="faculty">
                 <option th:each="f : ${faculty}" th:value="${f.id}" th:text="${f.name}"></option>
             </select>
             <label for="faculty" class="form-label">Khoa</label>
         </div>
         <div class="form-floating mb-3 mt-3">
-            <button type="submit" class="btn btn-info">Thêm chuyên ngành</button>
+            <button type="submit" class="btn btn-info">Cập nhật chuyên ngành</button>
         </div>
     </form>
 </div>

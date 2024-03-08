@@ -4,10 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -15,7 +12,8 @@ import java.util.Date;
 import java.util.Set;
 
 
-@Data
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -46,23 +44,49 @@ public class Student implements Serializable {
     @Column(name = "address")
     private String address;
     @JoinColumn(name = "classes_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Classes classesId;
     @JoinColumn(name = "faculty_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
     @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     private Faculty facultyId;
     @JoinColumn(name = "major_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JsonIgnore
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Major majorId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @OneToOne(optional = false)
-    @JsonIgnore
     private User userId;
-    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "studentId", fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<StudentSubject> studentSubjectSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "studentId", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<TuitionFee> tuitionFeesSet;
+
+    @Override
+    public int hashCode() {
+        // Bạn có thể tạm thời tắt phương thức hashCode để kiểm tra xem lỗi có tiếp tục hay không.
+        // return Objects.hash(id, name, birthday, gender, identification, phone, address);
+        return super.hashCode();
+    }
+
+//    @Override
+//    public String toString() {
+//        return "Student{" +
+//                "id='" + id + '\'' +
+//                ", name='" + name + '\'' +
+//                ", birthday=" + birthday +
+//                ", gender=" + gender +
+//                ", identification='" + identification + '\'' +
+//                ", phone='" + phone + '\'' +
+//                ", address='" + address + '\'' +
+//                ", classes='" + classesId + '\'' +
+//                ", faculty='" + facultyId + '\'' +
+//                ", major='" + majorId + '\'' +
+//                ", user='" + userId + '\'' +
+//                '}';
+//    }
 
 }

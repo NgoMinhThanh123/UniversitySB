@@ -4,6 +4,7 @@ import java.util.Map;
 import com.nmt.universitysb.model.Subject;
 import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.service.FacultyService;
+import com.nmt.universitysb.service.MajorService;
 import com.nmt.universitysb.service.SubjectService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,7 @@ public class SubjectController {
     @Autowired
     private SubjectService subjectService;
     @Autowired
-    private FacultyService facultyService;
+    private MajorService majorService;
     @Autowired
     private Environment env;
 
@@ -49,7 +50,7 @@ public class SubjectController {
     @GetMapping("/add_subject")
     public String addList(Model model, @RequestParam Map<String, String> params) {
         model.addAttribute("add_subject", new Subject());
-        model.addAttribute("faculty", this.facultyService.findAll());
+        model.addAttribute("major", this.majorService.findAll());
 
         return "add_subject";
     }
@@ -68,7 +69,7 @@ public class SubjectController {
     @GetMapping("/update_subject/{id}")
     public String update(Model model, @PathVariable(value = "id") String id, @RequestParam Map<String, String> params) {
         model.addAttribute("update_subject", this.subjectService.findById(id));
-        model.addAttribute("faculty", this.facultyService.findAll());
+        model.addAttribute("major", this.majorService.findAll());
         return "update_subject";
     }
 

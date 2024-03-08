@@ -31,7 +31,7 @@
       <div th:if="${#fields.hasErrors('username')}" class="text-danger">Lỗi: <span th:errors="*{username}"></span></div>
     </div>
     <div class="form-floating mb-3 mt-3">
-      <input type="password" class="form-control"  th:field="*{password}" id="password" placeholder="Mật khẩu" name="password" />
+      <input type="text" class="form-control"  th:field="*{password}" id="password" placeholder="Mật khẩu" name="password" />
       <label for="password">Mật khẩu</label>
       <div th:if="${#fields.hasErrors('password')}" class="text-danger">Lỗi: <span th:errors="*{password}"></span></div>
     </div>

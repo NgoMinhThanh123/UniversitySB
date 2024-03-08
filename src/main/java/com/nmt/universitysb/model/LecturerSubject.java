@@ -22,11 +22,11 @@ public class LecturerSubject implements Serializable {
     @Column(name = "id")
     private Integer id;
     @JoinColumn(name = "lecturer_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnore
     private Lecturer lecturerId;
     @JoinColumn(name = "subject_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnore
     private Subject subjectId;
 }
