@@ -44,4 +44,7 @@ public class Semester implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "semesterId")
     @JsonIgnore
     private Set<Score> scoreSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "semesterId")
+    @JsonIgnore
+    private Set<TuitionFee> tuitionFeeSet;
 }

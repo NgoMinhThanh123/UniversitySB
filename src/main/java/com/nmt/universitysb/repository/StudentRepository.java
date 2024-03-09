@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,11 +41,12 @@ public interface StudentRepository extends JpaRepository<Student, String> {
             + "WHERE lecturer.id = :lecturerId AND classes.id = :classId AND subject.id = :subjectId AND semester.id = :semesterId",nativeQuery = true)
     List<Student> getListStudent(@Param("lecturerId") String lecturerId, @Param("classId") String classId, @Param("subjectId") String subjectId, @Param("semesterId") String semesterId);
 
-    @Query(value ="SELECT s.* \n"
-            + "FROM student s join classes cl on s.classes_id = cl.id\n"
-            + "WHERE s.id = :studentId and s.name = :studentName and s.birthday = :studentBirthday and cl.id = :classId and s.identification = :studentIdentification",nativeQuery = true)
-    Student getListStudentForParents(@Param("studentId") String studentId, @Param("studentName") String studentName, @Param("studentBirthday") String studentBirthday, @Param("classId") String classId, @Param("studentIdentification") String studentIdentification);
 
+    @Query("select new com.nmt.universitysb.dto.StudentDto(s.id, s.name, s.birthday, s.gender, s.identification, s.phone, s.address, s.classesId, s.facultyId, s.majorId ) " +
+            "from Student s " +
+            "join Classes cl on s.classesId = cl.id " +
+            "WHERE s.id = :studentId and s.name = :studentName and s.birthday = :studentBirthday and cl.id = :classId and s.identification = :studentIdentification")
+    StudentDto getListStudentForParents(@Param("studentId") String studentId, @Param("studentName") String studentName, @Param("studentBirthday") Date studentBirthday, @Param("classId") String classId, @Param("studentIdentification") String studentIdentification);
     @Query(value ="SELECT user.email \n"
             + "FROM student \n"
             + "JOIN user ON student.user_id = user.id\n"

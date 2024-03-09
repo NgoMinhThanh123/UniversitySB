@@ -72,21 +72,4 @@ public class Student implements Serializable {
         return super.hashCode();
     }
 
-//    @Override
-//    public String toString() {
-//        return "Student{" +
-//                "id='" + id + '\'' +
-//                ", name='" + name + '\'' +
-//                ", birthday=" + birthday +
-//                ", gender=" + gender +
-//                ", identification='" + identification + '\'' +
-//                ", phone='" + phone + '\'' +
-//                ", address='" + address + '\'' +
-//                ", classes='" + classesId + '\'' +
-//                ", faculty='" + facultyId + '\'' +
-//                ", major='" + majorId + '\'' +
-//                ", user='" + userId + '\'' +
-//                '}';
-//    }
-
 }

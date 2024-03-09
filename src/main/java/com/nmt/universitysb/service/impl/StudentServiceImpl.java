@@ -11,10 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -77,7 +74,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student getListStudentForParents(String studentId, String studentName, String studentBirthday, String classId, String studentIdentification) {
+    public StudentDto getListStudentForParents(String studentId, String studentName, Date studentBirthday, String classId, String studentIdentification) {
         return this.studentRepo.getListStudentForParents(studentId, studentName, studentBirthday, classId, studentIdentification);
     }
 

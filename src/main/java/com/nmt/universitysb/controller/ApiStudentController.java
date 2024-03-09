@@ -1,6 +1,7 @@
 package com.nmt.universitysb.controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -16,6 +17,7 @@ import com.nmt.universitysb.service.SubjectService;
 import com.nmt.universitysb.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -105,13 +107,13 @@ public class ApiStudentController {
 
     @GetMapping(path = "/get-student-parents/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public ResponseEntity<Student> getListStudentForParents(
+    public ResponseEntity<StudentDto> getListStudentForParents(
             @RequestParam String studentId,
             @RequestParam String studentName,
-            @RequestParam String studentBirthday,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date studentBirthday,
             @RequestParam String classId,
             @RequestParam String studentIdentification) {
-        Student s = studentService.getListStudentForParents(studentId, studentName, studentBirthday, classId, studentIdentification);
+        StudentDto s = studentService.getListStudentForParents(studentId, studentName, studentBirthday, classId, studentIdentification);
         if (s == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

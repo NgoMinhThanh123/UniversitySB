@@ -2,14 +2,12 @@ package com.nmt.universitysb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 
-@Data
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,11 +20,14 @@ public class TuitionFee implements Serializable {
     private Integer id;
     @Column(name = "tuition_fee")
     private Integer tuitionFee;
+    @Column(name = "done")
+    private Boolean done;
     @JoinColumn(name = "semester_id", referencedColumnName = "id")
-    @OneToOne(optional = false)
+    @JsonIgnore
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Semester semesterId;
     @JoinColumn(name = "student_id", referencedColumnName = "id")
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnore
     private Student studentId;
 }
