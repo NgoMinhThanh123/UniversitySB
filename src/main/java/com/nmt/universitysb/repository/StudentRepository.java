@@ -18,8 +18,11 @@ public interface StudentRepository extends JpaRepository<Student, String> {
     Page<Student> findAllByNameContaining(String keyword, Pageable pageable);
     Student save(Student f);
     void deleteById(String id);
-    @Query("select a from Student a where a.userId.username = :username")
-    Student getStudentByUsername(String username);
+    @Query("select new com.nmt.universitysb.dto.StudentDto(s.id, s.name, s.birthday, s.gender, s.identification, s.phone, s.address, s.classesId, s.facultyId, s.majorId ) " +
+            "from Student s " +
+            "join Classes cl on s.classesId = cl.id " +
+            "where s.userId.username = :username")
+    StudentDto getStudentByUsername(String username);
 
     @Query("select new com.nmt.universitysb.dto.StudentDto(a.id, a.name, a.birthday, a.gender, a.identification, a.phone, a.address, a.classesId, a.facultyId, a.majorId ) " +
             "from Student a " +

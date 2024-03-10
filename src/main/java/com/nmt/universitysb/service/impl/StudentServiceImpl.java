@@ -58,19 +58,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public StudentDto getStudentByUsername(String username) {
-        Student u = this.studentRepo.getStudentByUsername(username);
-        StudentDto studentDto = new StudentDto();
-        studentDto.setId(u.getId());
-        studentDto.setName(u.getName());
-        studentDto.setBirthday(u.getBirthday());
-        studentDto.setGender(u.getGender());
-        studentDto.setPhone(u.getPhone());
-        studentDto.setAddress(u.getAddress());
-        studentDto.setClassesId(u.getClassesId());
-        studentDto.setFacultyId(u.getFacultyId());
-        studentDto.setMajorId(u.getMajorId());
-
-        return studentDto;
+      return this.studentRepo.getStudentByUsername(username);
     }
 
     @Override

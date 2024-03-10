@@ -71,5 +71,4 @@ public class Student implements Serializable {
         // return Objects.hash(id, name, birthday, gender, identification, phone, address);
         return super.hashCode();
     }
-
 }
