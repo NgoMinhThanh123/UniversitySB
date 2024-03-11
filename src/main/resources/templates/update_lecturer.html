@@ -52,6 +52,11 @@
             <label for="gender">Giới tính</label>
         </div>
         <div class="form-floating">
+            <input type="text" class="form-control" th:field="*{identification}" id="identification" placeholder="Căn cước công dân" name="identification" />
+            <label for="identification">Căn cước công dân</label>
+            <div th:if="${#fields.hasErrors('identification')}" class="text-danger">Lỗi: <span th:errors="*{identification}"></span></div>
+        </div>
+        <div class="form-floating">
             <input type="text" class="form-control" th:field="*{phone}" id="phone" placeholder="Số điện thoại" name="phone" />
             <label for="phone">Số điện thoại</label>
             <div th:if="${#fields.hasErrors('phone')}" class="text-danger">Lỗi: <span th:errors="*{phone}"></span></div>

@@ -34,6 +34,8 @@ public class Lecturer implements Serializable {
     @Basic(optional = false)
     @Column(name = "gender")
     private short gender;
+    @Column(name = "identification")
+    private String identification;
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @NotBlank(message = "Số điện thoại không được để trống")
     @Column(name = "phone")
