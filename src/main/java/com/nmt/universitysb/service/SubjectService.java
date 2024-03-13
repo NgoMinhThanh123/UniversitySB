@@ -3,7 +3,6 @@ import com.nmt.universitysb.dto.SubjectDto;
 import com.nmt.universitysb.model.Subject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,6 +17,6 @@ public interface SubjectService {
     List<SubjectDto> getSubjectByLecturerId(String lecturerId);
     List<SubjectDto> getSubjectBySemesterId(String semesterId);
     List<SubjectDto> getSubjectByStudentId(String studentId);
-    List<SubjectDto> getSubjectByFacultyId(String facultyId, String semesterId);
+    List<SubjectDto> getSubjectByMajorId(String majorId, String semesterId);
     List<SubjectDto> getSubjectByStudentAndSemesterId(String studentId, String semesterId);
 }

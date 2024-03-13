@@ -1,12 +1,10 @@
 package com.nmt.universitysb.controller;
 
 import com.nmt.universitysb.model.Major;
-import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.service.FacultyService;
 import com.nmt.universitysb.service.MajorService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -17,10 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- *
- * @author acer
- */
 @Controller
 public class MajorController {
 

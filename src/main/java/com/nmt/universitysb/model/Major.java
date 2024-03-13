@@ -3,17 +3,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Set;
 
-@Data
-@ToString
+@Getter
+@Setter
+@ToString(exclude = {"subjectSet", "studentSet", "creditPriceSet"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -27,10 +24,16 @@ public class Major implements Serializable {
     @Column(name = "name")
     private String name;
     @JoinColumn(name = "faculty_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonIgnore
     private Faculty facultyId;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "majorId", fetch = FetchType.LAZY)
+    private Set<Subject> subjectSet;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "majorId", fetch = FetchType.LAZY)
     private Set<Student> studentSet;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "majorId", fetch = FetchType.LAZY)
+    private Set<CreditPrice> creditPriceSet;
 }

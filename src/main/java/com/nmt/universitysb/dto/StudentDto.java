@@ -21,6 +21,8 @@ public class StudentDto {
 
     private short gender;
 
+    private String identification;
+
     private String phone;
 
     private String address;

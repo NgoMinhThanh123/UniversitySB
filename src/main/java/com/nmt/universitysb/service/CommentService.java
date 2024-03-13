@@ -1,9 +1,8 @@
 package com.nmt.universitysb.service;
+
 import com.nmt.universitysb.model.Comment;
-import com.nmt.universitysb.model.User;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 public interface CommentService {

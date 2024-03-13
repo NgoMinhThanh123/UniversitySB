@@ -3,7 +3,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,7 +12,7 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Data
-@ToString
+@ToString(exclude = {"studentSet", "classesSet"})
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -29,9 +28,6 @@ public class Faculty implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "facultyId")
     @JsonIgnore
     private Set<Student> studentSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facultyId")
-    @JsonIgnore
-    private Set<Subject> subjectSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "facultyId")
     @JsonIgnore
     private Set<Classes> classesSet;

@@ -43,6 +43,11 @@ public class LectureServiceImpl implements LecturerService {
     }
 
     @Override
+    public long count() {
+        return this.lecturersRepo.count();
+    }
+
+    @Override
     public boolean deleteLecturer(String id) {
         this.lecturersRepo.deleteById(id);
         return true;
@@ -50,17 +55,7 @@ public class LectureServiceImpl implements LecturerService {
 
     @Override
     public LecturerDto getLecturerByUsername(String username) {
-        Lecturer u = this.lecturersRepo.getLecturerByUsername(username);
-        LecturerDto lecturerDto = new LecturerDto();
-        lecturerDto.setId(u.getId());
-        lecturerDto.setName(u.getName());
-        lecturerDto.setBirthday(u.getBirthday());
-        lecturerDto.setGender(u.getGender());
-        lecturerDto.setPhone(u.getPhone());
-        lecturerDto.setAddress(u.getAddress());
-        lecturerDto.setFacultyId(u.getFacultyId());
-
-        return lecturerDto;
+       return this.lecturersRepo.getLecturerByUsername(username);
     }
 
 }

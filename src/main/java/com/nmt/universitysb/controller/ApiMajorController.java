@@ -2,7 +2,6 @@ package com.nmt.universitysb.controller;
 
 import com.nmt.universitysb.model.Major;
 import com.nmt.universitysb.service.MajorService;
-
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

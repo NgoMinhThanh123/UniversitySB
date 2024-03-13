@@ -14,6 +14,7 @@ public interface LecturerService {
     Optional<Lecturer> findById(String id);
     Page<Lecturer> findAllByNameContaining(String keyword, Pageable pageable);
     Lecturer save(Lecturer f);
+    long count();
     boolean deleteLecturer(String id);
     LecturerDto getLecturerByUsername(String username);
 }

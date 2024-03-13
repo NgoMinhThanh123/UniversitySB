@@ -1,6 +1,5 @@
 package com.nmt.universitysb.service.impl;
 import com.nmt.universitysb.model.Classes;
-import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.repository.ClassesRepository;
 import com.nmt.universitysb.service.ClassesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -41,6 +39,11 @@ public class ClassesServiceImpl implements ClassesService {
     @Override
     public Classes save(Classes f) {
         return this.classesRepo.save(f);
+    }
+
+    @Override
+    public long count() {
+        return this.classesRepo.count();
     }
 
     @Override

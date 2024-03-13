@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,10 +19,13 @@ public interface StudentRepository extends JpaRepository<Student, String> {
     Page<Student> findAllByNameContaining(String keyword, Pageable pageable);
     Student save(Student f);
     void deleteById(String id);
-    @Query("select a from Student a where a.userId.username = :username")
-    Student getStudentByUsername(String username);
+    @Query("select new com.nmt.universitysb.dto.StudentDto(s.id, s.name, s.birthday, s.gender, s.identification, s.phone, s.address, s.classesId, s.facultyId, s.majorId ) " +
+            "from Student s " +
+            "join Classes cl on s.classesId = cl.id " +
+            "where s.userId.username = :username")
+    StudentDto getStudentByUsername(String username);
 
-    @Query("select new com.nmt.universitysb.dto.StudentDto(a.id, a.name, a.birthday, a.gender, a.phone, a.address, a.classesId, a.facultyId, a.majorId ) " +
+    @Query("select new com.nmt.universitysb.dto.StudentDto(a.id, a.name, a.birthday, a.gender, a.identification, a.phone, a.address, a.classesId, a.facultyId, a.majorId ) " +
             "from Student a " +
             "join Classes ls on a.classesId = ls.id " +
             "join Lecturer l on ls.id = l.classesId " +
@@ -40,6 +44,12 @@ public interface StudentRepository extends JpaRepository<Student, String> {
             + "LEFT JOIN score_column ON score_value.score_column_id = score_column.id\n"
             + "WHERE lecturer.id = :lecturerId AND classes.id = :classId AND subject.id = :subjectId AND semester.id = :semesterId",nativeQuery = true)
     List<Student> getListStudent(@Param("lecturerId") String lecturerId, @Param("classId") String classId, @Param("subjectId") String subjectId, @Param("semesterId") String semesterId);
+
+    @Query("select new com.nmt.universitysb.dto.StudentDto(s.id, s.name, s.birthday, s.gender, s.identification, s.phone, s.address, s.classesId, s.facultyId, s.majorId ) " +
+            "from Student s " +
+            "join Classes cl on s.classesId = cl.id " +
+            "WHERE s.id = :studentId and s.name = :studentName and s.birthday = :studentBirthday and cl.id = :classId and s.identification = :studentIdentification")
+    StudentDto getListStudentForParents(@Param("studentId") String studentId, @Param("studentName") String studentName, @Param("studentBirthday") Date studentBirthday, @Param("classId") String classId, @Param("studentIdentification") String studentIdentification);
 
     @Query(value ="SELECT user.email \n"
             + "FROM student \n"

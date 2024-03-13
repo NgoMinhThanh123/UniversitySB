@@ -1,7 +1,6 @@
 package com.nmt.universitysb.service;
 
 import com.nmt.universitysb.model.Semester;
-import com.nmt.universitysb.model.StudentSubject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

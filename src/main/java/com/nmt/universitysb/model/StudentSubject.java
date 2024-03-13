@@ -1,15 +1,14 @@
 package com.nmt.universitysb.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.io.Serializable;
+import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,12 +21,15 @@ public class StudentSubject implements Serializable {
     @Column(name = "id")
     private Integer id;
     @JoinColumn(name = "student_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @JsonIgnore
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Student studentId;
     @JoinColumn(name = "subject_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @JsonIgnore
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Subject subjectId;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "studentSubjectId")
+    @JsonIgnore
+    private Set<Score> scoreSet;
 
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "studentSubjectId")
-//    private Set<Score> scoreSet;
 }

@@ -19,6 +19,8 @@ public class LecturerDto {
 
     private short gender;
 
+    private String identification;
+
     private String phone;
 
     private String address;

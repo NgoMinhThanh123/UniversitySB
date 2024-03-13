@@ -1,7 +1,6 @@
 package com.nmt.universitysb.dto;
 
 import com.nmt.universitysb.model.Semester;
-import com.nmt.universitysb.model.StudentSubject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

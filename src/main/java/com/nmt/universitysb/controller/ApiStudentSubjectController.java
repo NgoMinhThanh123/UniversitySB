@@ -1,6 +1,5 @@
 package com.nmt.universitysb.controller;
 import com.nmt.universitysb.dto.StudentSubjectDto;
-import com.nmt.universitysb.model.Comment;
 import com.nmt.universitysb.model.StudentSubject;
 import com.nmt.universitysb.service.StudentSubjectService;
 import io.swagger.v3.oas.annotations.tags.Tag;

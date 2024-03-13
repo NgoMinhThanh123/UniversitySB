@@ -2,10 +2,8 @@ package com.nmt.universitysb.repository;
 
 import com.nmt.universitysb.dto.StatisticsDto;
 import com.nmt.universitysb.model.ScoreValue;
-import com.nmt.universitysb.model.Semester;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 

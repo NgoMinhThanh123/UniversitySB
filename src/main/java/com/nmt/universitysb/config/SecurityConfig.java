@@ -26,6 +26,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.io.IOException;
 
@@ -44,7 +46,7 @@ import java.io.IOException;
         scheme = "bearer",
         bearerFormat = "JWT"
 )
-public class SecurityConfig{
+public class SecurityConfig implements WebMvcConfigurer {
 
     private final JwtAuthenticationEntryPoint authenticationEntryPoint;
     private final JwtAuthenticationFilter authenticationFilter;
@@ -58,14 +60,11 @@ public class SecurityConfig{
             http.cors().and().csrf().disable()
                     .authorizeHttpRequests(authorize ->
                             authorize
-                                    .requestMatchers("/swagger-ui/**").permitAll()
-                                    .requestMatchers("/v3/api-docs/**").permitAll()
-                                    .requestMatchers("/").permitAll()
-                                    .requestMatchers("/login").permitAll()
-                                    .requestMatchers("/api/login/").permitAll()
-                                    .requestMatchers("/api/users/").permitAll()
+                                    .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                                    .requestMatchers("/login", "/**").permitAll()
+                                    .requestMatchers("/api/login/", "/api/users/").permitAll()
                                     .requestMatchers("/api/firebase/config").permitAll()
-                                    .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("GIAOVU", "GIANGVIEN", "SINHVIEN")
+                                    .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                                     .requestMatchers(HttpMethod.POST, "/api/**").hasAnyRole("GIAOVU", "GIANGVIEN", "SINHVIEN")
 //                                    .requestMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole("GIAOVU")
                                     .requestMatchers(HttpMethod.DELETE, "/api/comments/{commentId}").permitAll()
@@ -76,7 +75,7 @@ public class SecurityConfig{
                             .loginPage("/login").successHandler(new AuthenticationSuccessHandler() {
                                 @Override
                                 public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-                                    response.sendRedirect(request.getContextPath());
+                                    response.sendRedirect("/");
                                 }
                             })
                             .permitAll()
@@ -95,4 +94,10 @@ public class SecurityConfig{
         return new BCryptPasswordEncoder();
     }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/update_faculty/**", "/update_class/**", "/update_lecturer/**", "/update_major/**", "/update_score/**", "/update_score_column/**", "/update_score_value/**", "/update_semester/**", "/update_student/**", "/update_student_subject/**"
+                        , "/update_subject/**", "/update_user/**", "/update_credit_price/**", "/update_score_percent/**", "/update_tuition_fee/**")
+                .addResourceLocations("classpath:/static/");
+    }
 }

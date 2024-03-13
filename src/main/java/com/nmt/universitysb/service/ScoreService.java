@@ -4,9 +4,7 @@ import com.nmt.universitysb.dto.ScoreDto;
 import com.nmt.universitysb.dto.ScoreListDto;
 import com.nmt.universitysb.dto.Score_ScoreValueDto;
 import com.nmt.universitysb.dto.StudentScoreDTO;
-import com.nmt.universitysb.model.Classes;
 import com.nmt.universitysb.model.Score;
-import com.nmt.universitysb.model.ScoreValue;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

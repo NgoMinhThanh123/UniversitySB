@@ -1,8 +1,6 @@
 package com.nmt.universitysb.repository;
 import com.nmt.universitysb.dto.PostDto;
 import com.nmt.universitysb.model.Post;
-import com.nmt.universitysb.model.Student;
-import com.nmt.universitysb.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

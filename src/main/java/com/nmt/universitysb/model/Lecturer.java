@@ -4,18 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,6 +33,8 @@ public class Lecturer implements Serializable {
     @Basic(optional = false)
     @Column(name = "gender")
     private short gender;
+    @Column(name = "identification")
+    private String identification;
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @NotBlank(message = "Số điện thoại không được để trống")
     @Column(name = "phone")
@@ -48,16 +47,18 @@ public class Lecturer implements Serializable {
     @Column(name = "email")
     private String email;
     @JoinColumn(name = "faculty_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnore
     private Faculty facultyId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnore
     private User userId;
     @JoinColumn(name = "classes_id", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Classes classesId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lecturerId")
+    @JsonIgnore
     private Set<LecturerSubject> lecturerSubjectSet;
 }

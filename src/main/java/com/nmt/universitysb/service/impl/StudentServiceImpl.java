@@ -11,10 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class StudentServiceImpl implements StudentService {
@@ -55,20 +52,18 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDto getStudentByUsername(String username) {
-        Student u = this.studentRepo.getStudentByUsername(username);
-        StudentDto studentDto = new StudentDto();
-        studentDto.setId(u.getId());
-        studentDto.setName(u.getName());
-        studentDto.setBirthday(u.getBirthday());
-        studentDto.setGender(u.getGender());
-        studentDto.setPhone(u.getPhone());
-        studentDto.setAddress(u.getAddress());
-        studentDto.setClassesId(u.getClassesId());
-        studentDto.setFacultyId(u.getFacultyId());
-        studentDto.setMajorId(u.getMajorId());
+    public long count() {
+        return this.studentRepo.count();
+    }
 
-        return studentDto;
+    @Override
+    public StudentDto getStudentByUsername(String username) {
+       return this.studentRepo.getStudentByUsername(username);
+    }
+
+    @Override
+    public StudentDto getListStudentForParents(String studentId, String studentName, Date studentBirthday, String classId, String studentIdentification) {
+        return null;
     }
 
     @Override

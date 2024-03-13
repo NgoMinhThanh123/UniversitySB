@@ -12,6 +12,6 @@ public interface MajorService {
     Optional<Major> findById(String id);
     Page<Major> findAllByNameContaining(String keyword, Pageable pageable);
     Major save(Major f);
-
+    long count();
     boolean deleteMajor(String id);
 }

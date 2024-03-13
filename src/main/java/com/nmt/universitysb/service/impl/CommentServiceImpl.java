@@ -1,6 +1,5 @@
 package com.nmt.universitysb.service.impl;
 import com.nmt.universitysb.model.Comment;
-import com.nmt.universitysb.model.Post;
 import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.repository.CommentRepository;
 import com.nmt.universitysb.repository.UserRepository;
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 

@@ -1,6 +1,4 @@
 package com.nmt.universitysb.controller;
-import java.util.List;
-import java.util.Map;
 
 import com.nmt.universitysb.dto.SubjectDto;
 import com.nmt.universitysb.model.Subject;
@@ -10,14 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Tag(name = "Subject Controller")
 @RestController
@@ -65,9 +58,9 @@ public class ApiSubjectController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/subjects/facultyId/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<SubjectDto>> getSubjectByfacultyId(@RequestParam String facultyId, @RequestParam String semesterId) {
-        List<SubjectDto> list = subjectService.getSubjectByFacultyId(facultyId, semesterId);
+    @GetMapping(path = "/subjects/majorId/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<SubjectDto>> getSubjectByMajorId(@RequestParam String majorId, @RequestParam String semesterId) {
+        List<SubjectDto> list = subjectService.getSubjectByMajorId(majorId, semesterId);
         if (list.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

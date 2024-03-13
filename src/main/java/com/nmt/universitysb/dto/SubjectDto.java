@@ -1,8 +1,6 @@
 package com.nmt.universitysb.dto;
 
-import com.nmt.universitysb.model.Faculty;
-import com.nmt.universitysb.model.Student;
-import com.nmt.universitysb.model.Subject;
+import com.nmt.universitysb.model.Major;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -14,5 +12,5 @@ public class SubjectDto {
     private String id;
     private String name;
     private int credit;
-    private Faculty facultyId;
+    private Major majorId;
 }

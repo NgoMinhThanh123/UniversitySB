@@ -1,14 +1,12 @@
 package com.nmt.universitysb.controller;
 
 import com.nmt.universitysb.model.Lecturer;
-import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.service.ClassesService;
 import com.nmt.universitysb.service.FacultyService;
 import com.nmt.universitysb.service.LecturerService;
 import com.nmt.universitysb.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -54,7 +52,7 @@ public class LecturerController {
         model.addAttribute("add_lecturer", new Lecturer());
         model.addAttribute("faculty", this.facultyService.findAll());
         model.addAttribute("user", this.userService.findAll());
-        model.addAttribute("class", this.classesService.findAll());
+        model.addAttribute("classes", this.classesService.findAll());
 
         return "add_lecturer";
     }
@@ -75,7 +73,7 @@ public class LecturerController {
         model.addAttribute("update_lecturer", this.lecturerService.findById(id));
         model.addAttribute("faculty", this.facultyService.findAll());
         model.addAttribute("user", this.userService.findAll());
-        model.addAttribute("class", this.classesService.findAll());
+        model.addAttribute("classes", this.classesService.findAll());
         return "update_lecturer";
     }
 

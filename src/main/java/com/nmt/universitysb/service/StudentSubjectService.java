@@ -2,7 +2,6 @@ package com.nmt.universitysb.service;
 
 import com.nmt.universitysb.dto.StudentSubjectDto;
 import com.nmt.universitysb.model.StudentSubject;
-import com.nmt.universitysb.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

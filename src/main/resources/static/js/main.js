@@ -1,4 +1,3 @@
-
 function deleteFaculty(path) {
     if (confirm("TẤT CẢ dữ liệu liên quan sẽ bị xóa, Bạn chắc chắn xóa không?") === true) {
         fetch(path, {

@@ -1,9 +1,4 @@
 package com.nmt.universitysb.controller;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import com.nmt.universitysb.dto.StuScoreDto;
 import com.nmt.universitysb.dto.StudentDto;
@@ -13,23 +8,19 @@ import com.nmt.universitysb.requests.MailRequest;
 import com.nmt.universitysb.service.MailService;
 import com.nmt.universitysb.service.StudentService;
 import com.nmt.universitysb.service.SubjectService;
-import com.nmt.universitysb.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @Tag(name = "Student Controller")
 @RestController
@@ -101,6 +92,21 @@ public class ApiStudentController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/get-student-parents/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<StudentDto> getListStudentForParents(
+            @RequestParam String studentId,
+            @RequestParam String studentName,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date studentBirthday,
+            @RequestParam String classId,
+            @RequestParam String studentIdentification) {
+        StudentDto s = studentService.getListStudentForParents(studentId, studentName, studentBirthday, classId, studentIdentification);
+        if (s == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(s, HttpStatus.OK);
     }
 
     @PostMapping("/students/mails/")

@@ -1,11 +1,9 @@
 package com.nmt.universitysb.controller;
 
 import com.nmt.universitysb.model.Semester;
-import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.service.SemesterService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -14,7 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-
 
 @Controller
 public class SemesterController {
@@ -61,20 +58,17 @@ public class SemesterController {
             return "redirect:/semester";
 
         }
-
         return "add_semester";
     }
 
     @PostMapping("/update_semester")
     public String update(@ModelAttribute(value = "update_semester") @Valid Semester m,
             BindingResult rs) {
-
         if(!rs.hasErrors()){
             this.semesterService.save(m);
             return "redirect:/semester";
 
         }
-
         return "update_semester";
     }
 }

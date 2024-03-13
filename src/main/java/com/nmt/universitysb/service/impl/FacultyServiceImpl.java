@@ -41,6 +41,11 @@ public class FacultyServiceImpl implements FacultyService {
     }
 
     @Override
+    public long count() {
+        return this.facultyRepo.count();
+    }
+
+    @Override
     public boolean deleteFaculty(String id) {
         this.facultyRepo.deleteById(id);
         return true;

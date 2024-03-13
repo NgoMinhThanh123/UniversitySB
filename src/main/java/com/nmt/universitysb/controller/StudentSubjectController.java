@@ -1,11 +1,9 @@
 package com.nmt.universitysb.controller;
 import com.nmt.universitysb.model.StudentSubject;
-import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.service.StudentService;
 import com.nmt.universitysb.service.StudentSubjectService;
 import com.nmt.universitysb.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;

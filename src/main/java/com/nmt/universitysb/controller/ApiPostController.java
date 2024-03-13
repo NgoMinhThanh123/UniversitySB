@@ -1,7 +1,4 @@
 package com.nmt.universitysb.controller;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 import com.nmt.universitysb.dto.CommentDto;
 import com.nmt.universitysb.dto.PostDto;
@@ -18,6 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @Tag(name = "Post Controller")
 @RestController
