@@ -14,7 +14,6 @@ import java.util.Optional;
 @Repository
 public interface LecturerRepository extends JpaRepository<Lecturer, String> {
     Optional<Lecturer> findById(String id);
-
     Page<Lecturer> findAllByNameContaining(String keyword, Pageable pageable);
     Lecturer save(Lecturer f);
     void deleteById(String id);

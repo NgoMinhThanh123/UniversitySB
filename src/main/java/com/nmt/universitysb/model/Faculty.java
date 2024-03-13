@@ -25,16 +25,16 @@ public class Faculty implements Serializable {
     @NotEmpty(message = "Tên không được để trống")
     @Column(name = "name")
     private String name;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facultyId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facultyId", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Student> studentSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facultyId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facultyId", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Classes> classesSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facultyId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facultyId", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Lecturer> lecturerSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facultyId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facultyId", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Major> majorSet;
 }

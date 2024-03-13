@@ -10,9 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface MajorRepository extends JpaRepository<Major, String> {
-
     Optional<Major> findById(String id);
-
     Page<Major> findAllByNameContaining(String keyword, Pageable pageable);
     Major save(Major f);
     void deleteById(String id);

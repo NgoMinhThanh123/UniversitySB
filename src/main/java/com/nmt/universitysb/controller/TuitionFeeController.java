@@ -1,5 +1,6 @@
 package com.nmt.universitysb.controller;
 
+import com.nmt.universitysb.model.ScorePercent;
 import com.nmt.universitysb.model.TuitionFee;
 import com.nmt.universitysb.service.SemesterService;
 import com.nmt.universitysb.service.StudentService;

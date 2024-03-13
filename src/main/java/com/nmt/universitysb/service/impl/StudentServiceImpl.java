@@ -46,24 +46,26 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public long count() {
+        return this.studentRepo.count();
+    }
+
+    @Override
     public boolean deleteStudent(String id) {
         this.studentRepo.deleteById(id);
         return true;
     }
 
-    @Override
-    public long count() {
-        return this.studentRepo.count();
-    }
 
     @Override
     public StudentDto getStudentByUsername(String username) {
        return this.studentRepo.getStudentByUsername(username);
     }
 
+
     @Override
     public StudentDto getListStudentForParents(String studentId, String studentName, Date studentBirthday, String classId, String studentIdentification) {
-        return null;
+        return this.studentRepo.getListStudentForParents(studentId, studentName, studentBirthday, classId, studentIdentification);
     }
 
     @Override

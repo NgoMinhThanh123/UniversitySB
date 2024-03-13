@@ -5,6 +5,7 @@ import com.nmt.universitysb.dto.StudentDto;
 import com.nmt.universitysb.model.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Date;
 import java.util.List;
@@ -16,8 +17,8 @@ public interface StudentService {
     Optional<Student> findById(String id);
     Page<Student> findAllByNameContaining(String keyword, Pageable pageable);
     Student save(Student f);
-    boolean deleteStudent(String id);
     long count();
+    boolean deleteStudent(String id);
     StudentDto getStudentByUsername(String username);
     StudentDto getListStudentForParents(String studentId, String studentName, Date studentBirthday, String classId, String studentIdentification);
     List<StudentDto> getStudentByHomeroomTeacher(String lecturerId);
