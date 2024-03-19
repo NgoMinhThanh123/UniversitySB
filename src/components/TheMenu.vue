@@ -3,6 +3,7 @@
     v-model:openKeys="openKeys"
     v-model:selectedKeys="selectedKeys"
     mode="inline"
+    style="min-height: 100vh;"
   >
     <a-menu-item key="teacher-studentScore">
       <router-link

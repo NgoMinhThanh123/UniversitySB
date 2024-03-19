@@ -4,7 +4,8 @@ import teacher from './teacher.js';
 import student from './student.js';
 import login from './login.js';
 import store from '@/stores/myStore';
-import register from './register';
+import register from './register.js';
+import parents from './parents.js';
 
 const routes = [
     {
@@ -27,7 +28,8 @@ const routes = [
     ...teacher,
     ...student,
     ...login,
-    ...register
+    ...register,
+    ...parents,
 ]
 
 const router = createRouter({

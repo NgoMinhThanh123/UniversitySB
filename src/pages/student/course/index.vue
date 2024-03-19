@@ -49,7 +49,7 @@
         </div>
       </div>
     </div>
-    <div v-if="courses.length > 0">
+    <div v-if="courses.length > 0" >
       <p>Danh sách môn học mở đăng ký:</p>
       <table class="table table-hover table-bordered">
         <thead>

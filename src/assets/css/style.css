@@ -39,21 +39,50 @@ body {
 }
 
 /* Header */
+#headerBottom {
+  padding: 0 5rem;
+  background: #fff;
+  width: 100%;
+}
+
 .home {
   cursor: pointer;
 }
 
-.profile {
-  padding-left: 20px;
+.profile, .parent {
+  /* padding-left: 20px; */
   cursor: pointer;
+}
+
+.parent::after {
+  content: "";
+  border: 1px solid #fff;
+  margin: 0 10px;
+}
+
+.parent:last-child::after {
+  border: none;
 }
 
 div.profile span,
 div.profile i,
 div.home span,
-div.home i {
+div.home i,
+div.parent span,
+div.parent i {
   color: #fff;
 }
+
+div.profile:hover span,
+div.profile:hover i,
+div.home:hover span,
+div.home:hover i,
+div.parent:hover span,
+div.parent:hover i {
+  color: #c69c6d;
+}
+
+
 
 /* End heaser */
 

@@ -121,7 +121,7 @@
 import Apis, { authApi, endpoints } from "@/configs/Apis";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
-import { auth, db } from "../service/firebase";
+import { auth, db } from "../services/firebase";
 export default {
   name: "Register",
   data() {

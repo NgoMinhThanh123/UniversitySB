@@ -96,7 +96,7 @@
 import { getAuth, signOut } from "firebase/auth";
 import { getFirestore, collection, getDocs } from "firebase/firestore"; // Sử dụng db từ Firebase Modular SDK
 import ChatBox from "../../../components/ChatBox.vue";
-import { db } from "../../../service/firebase";
+import { db } from "../../../services/firebase";
 import { authApi, endpoints } from '@/configs/Apis';
 
 export default {

@@ -40,6 +40,24 @@
             </select>
           </div>
           <div class="input-studentScore">
+            <label for="classSelect">Chọn lớp:</label>
+            <select
+              class="form-control"
+              id="classSelect"
+              v-model="selectedClass"
+              @change="handleClassChange"
+            >
+              <option value="">Chọn lớp</option>
+              <option
+                v-for="(clazz, index) in classList"
+                :key="index"
+                :value="clazz.id"
+              >
+                {{ clazz.id }}
+              </option>
+            </select>
+          </div>
+          <div class="input-studentScore">
             <button class="btn btn-primary">Tìm kiếm</button>
           </div>
           <div v-if="isEditMode">
@@ -142,32 +160,41 @@
                 <td style="width: 20%">{{ student.studentName }}</td>
                 <td>
                   <input
+                    min="0"
+                    max="10"
                     type="number"
                     class="form-control"
                     placeholder=""
                     :disabled="selectedColumn !== '1'"
                     :name="`score_${student.studentId}`"
                     v-model="student.scoreDto.scoreValue1"
+                    @input="handleInput(student)"
                   />
                 </td>
                 <td>
                   <input
+                    min="0"
+                    max="10"
                     type="number"
                     class="form-control"
                     placeholder=""
                     :disabled="selectedColumn !== '2'"
                     :name="`score_${student.studentId}`"
                     v-model="student.scoreDto.scoreValue2"
+                    @input="handleInput(student)"
                   />
                 </td>
                 <td>
                   <input
+                    min="0"
+                    max="10"
                     type="number"
                     class="form-control"
                     placeholder=""
                     :disabled="selectedColumn !== '3'"
                     :name="`score_${student.studentId}`"
                     v-model="student.scoreDto.scoreValue3"
+                    @input="handleInput(student)"
                   />
                 </td>
               </tr>
@@ -241,6 +268,8 @@ export default {
       studentScores: {},
       scoreColumnNames: [],
       loading: false,
+      selectedClass: "",
+      classList: [],
 
       quatrinh: {},
       giuaki: {},
@@ -250,6 +279,8 @@ export default {
         "Giữa kì": 2,
         "Cuối kì": 3,
       },
+      min: 0,
+      max: 10,
     };
   },
   computed: {
@@ -257,6 +288,7 @@ export default {
   },
   created() {
     this.fetchLecturerInfo();
+    this.getClasses();
 
     this.fetchLecturerInfo().then((lecturerInfo) => {
       if (lecturerInfo && lecturerInfo.id) {
@@ -266,6 +298,25 @@ export default {
     });
   },
   methods: {
+    handleInput(student) {
+      if (student.scoreDto.scoreValue3 > this.max) {
+        student.scoreDto.scoreValue3 = this.max;
+      } else if (student.scoreDto.scoreValue3 < this.min) {
+        student.scoreDto.scoreValue3 = this.min;
+      }
+
+      if (student.scoreDto.scoreValue2 > this.max) {
+        student.scoreDto.scoreValue2 = this.max;
+      } else if (student.scoreDto.scoreValue2 < this.min) {
+        student.scoreDto.scoreValue2 = this.min;
+      }
+
+      if (student.scoreDto.scoreValue1 > this.max) {
+        student.scoreDto.scoreValue1 = this.max;
+      } else if (student.scoreDto.scoreValue1 < this.min) {
+        student.scoreDto.scoreValue1 = this.min;
+      }
+    },
     handleEdit() {
       this.isEditMode = true;
     },
@@ -277,6 +328,9 @@ export default {
     },
     handleSemesterChange(event) {
       this.selectedSemester = event.target.value;
+    },
+    handleClassChange(event) {
+      this.selectedClass = event.target.value;
     },
     getScoreValue(scoreDto, columnName) {
       const score = scoreDto.find(
@@ -330,7 +384,6 @@ export default {
 
         const semesterResponse = await authApi().get(endpoint);
         this.semesterList = semesterResponse.data;
-
       } catch (error) {
         console.error(error);
         return null;
@@ -340,7 +393,11 @@ export default {
       event.preventDefault();
 
       try {
-        if (!this.selectedSubject || !this.selectedSemester) {
+        if (
+          !this.selectedSubject ||
+          !this.selectedSemester ||
+          !this.selectedClass
+        ) {
           this.hasError = true;
           this.err = "Vui lòng chọn môn và học kì.";
           return;
@@ -349,10 +406,11 @@ export default {
         const subjectId = this.selectedSubject;
         const lecturerId = this.selectedLecturer.id;
         const semesterId = this.selectedSemester;
+        const classId = this.selectedClass;
 
         const endpoint =
           endpoints["get-list-student"] +
-          `?lecturerId=${lecturerId}&subjectId=${subjectId}&semesterId=${semesterId}`;
+          `?lecturerId=${lecturerId}&classId=${classId}&subjectId=${subjectId}&semesterId=${semesterId}`;
 
         const response = await authApi().get(endpoint);
 
@@ -445,7 +503,6 @@ export default {
         console.error(error);
       }
     },
-
     async handleSendMail() {
       try {
         this.loading = true;
@@ -472,6 +529,16 @@ export default {
       } catch (error) {
         this.loading = false;
         alert("Đã có lỗi xảy ra, vui lòng thử lại sau!");
+        console.error(error);
+      }
+    },
+    async getClasses() {
+      try {
+        const response = await authApi().get(endpoints["classes"]);
+        this.classList = response.data;
+        console.log("this.classList", this.classList);
+        console.log("response.data", response.data);
+      } catch (error) {
         console.error(error);
       }
     },

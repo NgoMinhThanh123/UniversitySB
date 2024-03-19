@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import { createPinia } from 'pinia'
-import router from './router/index.js'
+import router from './routers/index.js'
 import store from './stores/myStore'
 // import reducer from '@/reducers/myUseReducer.js'
 // import { provideUserContext } from '../reducers/UseContext.js'

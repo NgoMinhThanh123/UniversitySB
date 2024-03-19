@@ -1,87 +1,254 @@
 <template>
-    <div id="header" class=" header">
-        <div class="text-white" style="background-color: #070758; padding: 1rem 5rem; display: flex; flex-wrap: wrap;">
-            <div class="col-6 col-sm-6 d-flex justify-content-sm-start align-items-center">
-                <div class="home">
-                    <router-link to="/" class="router-link-hover">
-                        <span>
-                            <i class="fa-solid fa-house"></i>
-                            Trang chủ
-                        </span>
-                    </router-link>
-                </div>
-                <div class="profile" v-if="isAuth === true">
-                    <router-link to="/profile" class="router-link-hover">
-                        <i class="fa-solid fa-user"></i>
-                        <span class="sider">
-                            Hồ sơ
-                        </span>
-                    </router-link>
-                </div>
-            </div>
-            <div class="col-1 d-flex d-sm-none align-items-center justify-content-center">
-                <span>
-                    <i class="fa-solid fa-bars"></i>
-                </span>
-            </div>
-            <div class=" col-6 col-sm-6 d-none d-sm-flex align-items-center justify-content-sm-end">
-                <div v-if="isAuth === false" class="d-none d-sm-flex align-items-center justify-content-sm-end">
-                    <div style="padding-right: 30px;">
-                        <router-link to="/login" class="nav-link ">Đăng nhập</router-link>
-                    </div>
-                    <div>
-                        <router-link to="/register" class="nav-link ">Đăng ký</router-link>
-                    </div>
-                </div>
-                <div v-else class="d-none d-sm-flex align-items-center justify-content-sm-end">
-                    <div style="padding-right: 30px;" class="d-flex align-items-center">
-                        <!-- <img :src="getUser.avatar" class="rounded-circle"style="width: 150px;" alt="Avatar" /> -->
-                        <div style="margin-right: 10px;">
-                            <img :src="getUser.avatar" class="rounded-circle" style="width: 30px; height: 30px;" alt="Avatar" />
-                        </div>
-                        <a class="nav-link" href="#" id="navbarDropdown2" role="button" aria-expanded="false">
-                            Chào, {{getUser.username}}
-                        </a>
-                    </div>
-                    <div>
-                        <router-link to="/login" @click="logout()" class="nav-link ">Đăng xuất</router-link>
-                    </div>
-                </div>
-            </div>
+  <div id="header" class="header">
+    <div
+      class="text-white"
+      style="
+        background-color: #070758;
+        padding: 1rem 5rem;
+        display: flex;
+        flex-wrap: wrap;
+      "
+    >
+      <div
+        class="col-6 col-sm-6 d-flex justify-content-sm-start align-items-center"
+      >
+        <div class="home"></div>
+        <div class="profile" v-if="isAuth === true">
+          <router-link to="/profile" class="router-link-hover">
+            <i class="fa-solid fa-user"></i>
+            <span> Hồ sơ </span>
+          </router-link>
         </div>
+      </div>
+      <!-- <div
+        class="col-1 d-flex d-sm-none align-items-center justify-content-center"
+      >
+        <span>
+          <i class="fa-solid fa-bars"></i>
+        </span>
+      </div> -->
+      <div
+        class="col-6 col-sm-6 d-none d-sm-flex align-items-center justify-content-sm-end"
+      >
+        <div
+          v-if="isAuth === false"
+          class="d-none d-sm-flex align-items-center justify-content-sm-end"
+        >
+          <div class="parent">
+            <router-link to="/login" class="router-link-hover">
+              <i class="fa-solid fa-graduation-cap"></i>
+              <span> Sinh viên </span>
+            </router-link>
+          </div>
+          <div class="parent">
+            <router-link to="/login" class="router-link-hover">
+              <i class="fa-solid fa-user-tie"></i>
+              <span> Giảng viên </span>
+            </router-link>
+          </div>
+          <div class="parent">
+            <router-link to="/parents" class="router-link-hover">
+              <i class="fa-solid fa-hands-holding-child"></i>
+              <span> Phụ huynh </span>
+            </router-link>
+          </div>
+          <!-- <div style="padding-right: 30px">
+            <router-link to="/login" class="nav-link">Đăng nhập</router-link>
+          </div>
+          <div>
+            <router-link to="/register" class="nav-link">Đăng ký</router-link>
+          </div> -->
+        </div>
+        <div
+          v-else
+          class="d-none d-sm-flex align-items-center justify-content-sm-end"
+        >
+          <div style="padding-right: 30px" class="d-flex align-items-center">
+            <!-- <img :src="getUser.avatar" class="rounded-circle"style="width: 150px;" alt="Avatar" /> -->
+            <div style="margin-right: 10px">
+              <img
+                :src="getUser.avatar"
+                class="rounded-circle"
+                style="width: 30px; height: 30px"
+                alt="Avatar"
+              />
+            </div>
+            <a
+              class="nav-link"
+              href="#"
+              id="navbarDropdown2"
+              role="button"
+              aria-expanded="false"
+            >
+              Chào, {{ userInfo.name }}
+            </a>
+          </div>
+          <div>
+            <router-link to="/login" @click="logout()" class="nav-link"
+              >Đăng xuất</router-link
+            >
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+  <div
+    id="headerBottom"
+    class="headerBottom"
+    :class="{ fixHead: isFixed }"
+    v-if="!isLogin"
+  >
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <div style="margin-right: 20px">
+          <img src="../assets/logoSchool_1.png" alt="Logo trường" />
+        </div>
+
+        <div
+          class="collapse navbar-collapse"
+          id="navbarNav"
+          style="justify-content: flex-start; flex-wrap: wrap"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <router-link to="/" class="router-link-hover nav-link active">
+                <span> Trang chủ </span>
+              </router-link>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Tuyển sinh</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Liên hệ</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
 </template>
 
 <script>
-    import Apis, { endpoints, authApi } from '../configs/Apis.js';
-    import { mapGetters } from "vuex";
-    export default {
-        name: "TheHeader",
-        computed: {
-            ...mapGetters(["isAuth", "getUser"]),
-        },
-        methods: {
-            logout() {
-                this.$store.dispatch("logout");
-            }
-        }
-      
+import { authApi, endpoints } from "@/configs/Apis";
+import { mapGetters } from "vuex";
+export default {
+  name: "TheHeader",
+  data() {
+    return {
+      username: "",
+      userInfo: {},
+      formattedBirthday: "",
+      isFixed: false,
+      isLogin: false,
     };
+  },
+  computed: {
+    ...mapGetters(["isAuth", "getUser"]),
+  },
+  methods: {
+    logout() {
+      this.isLogin = false;
+      this.$store.dispatch("logout");
+    },
+    async fetchUserInfo() {
+      let endpoint = "";
+      const userRole = this.getUser.role;
+      this.isLogin = true;
+      if (userRole === "ROLE_SINHVIEN") {
+        endpoint = endpoints["get-student-by-username"];
+      } else if (userRole === "ROLE_GIANGVIEN") {
+        endpoint = endpoints["get-lecturer-by-username"];
+      }
+
+      const response = await authApi().get(
+        endpoint.replace("{username}", this.getUser.username)
+      );
+      this.userInfo = response.data;
+      console.log(response.data);
+      if (response.data.birthday) {
+        const birthdayTimestamp = response.data.birthday;
+        const birthdayDate = new Date(birthdayTimestamp);
+
+        const formattedBirthday = `${birthdayDate.getDate()}/${
+          birthdayDate.getMonth() + 1
+        }/${birthdayDate.getFullYear()}`;
+        this.formattedBirthday = formattedBirthday;
+      }
+    },
+
+    handleScroll() {
+      if (window.pageYOffset > 0) {
+        this.isFixed = true;
+        if (document.getElementById("headerBottom") !== null) {
+          document.getElementById("headerBottom").classList.add("slide-in-top");
+        }
+      } else {
+        this.isFixed = false;
+        if (document.getElementById("headerBottom") !== null) {
+          document
+            .getElementById("headerBottom")
+            .classList.remove("slide-in-top");
+        }
+      }
+    },
+  },
+  mounted() {
+    if (this.getUser) {
+      this.fetchUserInfo();
+    }
+
+    if (!this.isLogin) {
+      window.addEventListener("scroll", this.handleScroll);
+    }
+  },
+};
 </script>
 
-
-
-
-
 <style>
-    .header {
-        position: relative;
-        left: 0;
-        top: 0;
-        width: 100%;
-        background-color: #0c713d;
-        color: white;
-        text-align: center;
-        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15) !important;
-    }
+.header {
+  position: relative;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background-color: #0c713d;
+  color: white;
+  text-align: center;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+.headerBottom {
+  position: relative;
+  z-index: 1000;
+  box-shadow: -1px 1px 3px 0px rgba(221, 221, 221, 1);
+  -webkit-box-shadow: -1px 1px 3px 0px rgba(221, 221, 221, 1);
+  -moz-box-shadow: -1px 1px 3px 0px rgba(221, 221, 221, 1);
+}
+.fixHead {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  background: #fff;
+  box-shadow: 2px 4px 24px 0px rgba(201, 180, 180, 0.75);
+  -webkit-box-shadow: 2px 4px 24px 0px rgba(201, 180, 180, 0.75);
+  -moz-box-shadow: 2px 4px 24px 0px rgba(201, 180, 180, 0.75);
+}
+
+.slide-in-top {
+  -webkit-animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-in-top 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@keyframes slide-in-top {
+  0% {
+    -webkit-transform: translateY(-1000px);
+    transform: translateY(-1000px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 </style>

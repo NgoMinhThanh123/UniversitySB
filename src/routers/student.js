@@ -3,7 +3,7 @@ import store from '../stores/myStore.js';
 const student = [
     {
         path: "/student",
-        component: () => import("../layouts/student.vue"),
+        component: () => import ("../layouts/student.vue"),
         beforeEnter: (to, from, next) => {
             // Kiểm tra trạng thái đăng nhập từ store Vuex
             if (store.getters.isAuth) {

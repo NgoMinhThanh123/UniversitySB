@@ -3,7 +3,7 @@ import store from '../stores/myStore.js';
 const teacher = [
   {
     path: "/teacher",
-    component: () => import("../layouts/teacher.vue"),
+    component: () => import ("../layouts/teacher.vue"),
     beforeEnter: (to, from, next) => {
       // Kiểm tra trạng thái đăng nhập từ store Vuex
       if (store.getters.isAuth) {

@@ -39,7 +39,6 @@
                     v-model="user.password"
                   />
                 </div>
-
                 <input
                   type="submit"
                   value="Đăng nhập"
@@ -92,7 +91,10 @@ import {
   getDocs,
   collection,
 } from "firebase/firestore";
-import firebase from "../service/firebase";
+import firebase from "../services/firebase";
+
+
+
 
 export default {
   name: "Login",
@@ -133,7 +135,7 @@ export default {
           this.errorMessage = "Tài khoản hoặc mật khẩu của bạn không đúng!!";
            this.loading = false;
         } else {
-          console.log(res.data);
+          console.log("res.data", res.data);
           this.errorMessage = "";
           VueCookies.set("token", res.data.accessToken);
 
@@ -141,19 +143,13 @@ export default {
           VueCookies.set("user", data);
 
           await this.$store.dispatch("login", data);
+          console.log("res.data", this.user);
 
           try {
             const u = await this.getUserByUsername(this.user.username);
 
             if (u) {
               const studentUsername = u.username;
-              //   const studentInfo = await authApi().get(
-              //     endpoints["get-student-by-username"].replace(
-              //       "{username}",
-              //       studentUsername
-              //     )
-              //   );
-
               const userEmail = u.email;
 
               const auth = getAuth(firebase); // Sử dụng auth từ Firebase Modular SDK
@@ -162,7 +158,7 @@ export default {
                 userEmail,
                 this.user.password
               );
-              console.log("res.user", res.user);
+              // console.log("res.user", res.user);
               const user = res.user;
 
               if (user) {
