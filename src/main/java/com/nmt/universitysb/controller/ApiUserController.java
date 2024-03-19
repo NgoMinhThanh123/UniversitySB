@@ -108,6 +108,19 @@ public class ApiUserController {
 //        }
 //
 //    }
+
+    @PutMapping("/user/change-password/")
+    public ResponseEntity<String> changePassword(
+            @RequestParam("oldPassword") String oldPassword,
+            @RequestParam("newPassword") String newPassword) {
+
+        boolean passwordChanged = userService.changePassword(oldPassword, newPassword);
+        if (passwordChanged) {
+            return ResponseEntity.ok("Mật khẩu đã được thay đổi thành công");
+        } else {
+            return ResponseEntity.badRequest().body("Không thể thay đổi mật khẩu. Vui lòng kiểm tra lại thông tin.");
+        }
+    }
     @GetMapping(path = "/users-id/{id}/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
     public ResponseEntity<User> getUserById(@PathVariable(value = "id")int id) {

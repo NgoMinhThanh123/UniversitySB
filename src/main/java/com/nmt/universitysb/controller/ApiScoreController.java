@@ -73,6 +73,18 @@ public class ApiScoreController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/scores/list/for-parent", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<List<ScoreListDto>> scoresListForParent(
+            @RequestParam String studentId,
+            @RequestParam String semesterId) {
+        List<ScoreListDto> list = scoreService.getListScoreStudent(studentId, semesterId);
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @GetMapping("/scores/export-excel/")
     @CrossOrigin
     public void exportExcel(

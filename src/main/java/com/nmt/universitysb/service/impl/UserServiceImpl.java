@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -100,6 +102,21 @@ public class UserServiceImpl implements UserService {
     public boolean isValidSchoolEmail(String email) {
         String schoolDomain = "ou.edu.vn";
         return email.endsWith("@" + schoolDomain);
+    }
+
+    @Override
+    public boolean changePassword(String oldPassword, String newPassword) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User u = this.userRepo.getUserByUsername(authentication.getName());
+        if (!encoder.matches(oldPassword, u.getPassword())) {
+            throw new GoodNewsApiException(HttpStatus.BAD_REQUEST, "Vui lòng nhập đúng mật khẩu cũ!!!");
+        }
+
+        String hashedPassword = encoder.encode(newPassword);
+        u.setPassword(hashedPassword);
+        userRepo.save(u);
+
+        return true;
     }
 
     @Override

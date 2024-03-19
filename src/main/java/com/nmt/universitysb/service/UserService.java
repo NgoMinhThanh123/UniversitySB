@@ -22,4 +22,5 @@ public interface UserService extends UserDetailsService{
     Page<User> findAllByUsernameContaining(String keyword, Pageable pageable);
     User addUser(AccountDto accountDto, MultipartFile avatar);
     boolean isValidSchoolEmail(String email);
+    boolean changePassword(String oldPassword, String newPassword);
 }
