@@ -28,8 +28,10 @@ public class ScoreServiceImpl implements ScoreService {
     private ScoreColumnRepository scoreColumnRepository;
     @Autowired
     private ScoreValueRepository scoreValueRepository;
-     @Autowired
+    @Autowired
     private StudentSubjectRepository studentSubjectRepository;
+    @Autowired
+    private ScorePercentRepository scorePercentRepository;
 
     @Override
     public List<Score> findAll() {
@@ -111,7 +113,7 @@ public class ScoreServiceImpl implements ScoreService {
             Optional<Student> student = this.studetnRepository.findById(params.get("studentId"));
             Optional<ScoreColumn> scoreColumn = this.scoreColumnRepository.findById(Integer.parseInt(params.get("scoreColumnId")));
             Optional<StudentSubject> studentSubject = this.studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.get().getId(), subject.get().getId());
-
+//            Optional<ScorePercent> scorePercent = this.scorePercentRepository.findAllBySubjectId(subject.get().getId());
 
             Optional<Score> existingScore = scoreRepo.findByStudentSubjectIdAndSemesterId(
                     studentSubject.get().getId(),
