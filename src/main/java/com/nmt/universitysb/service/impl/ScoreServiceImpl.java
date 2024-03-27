@@ -87,6 +87,9 @@ public class ScoreServiceImpl implements ScoreService {
             for (int i = 0; i < subjects.size(); i++) {
                 SubjectDto subject = subjects.get(i);
                 List<ScoreDto> scoreDtos = this.scoreRepo.getScoreByStudentId(studentId, subject.getId(), semesterId);
+
+                ScoreDto scoreDto = this.scoreRepo.getFinalScoreForSubject(studentId, subject.getId(), semesterId);
+                scoreDtos.add(scoreDto);
                 ScoreListDto scoreListDto = new ScoreListDto();
                 scoreListDto.setScoreDto(scoreDtos);
                 scoreListDto.setSubjectId(subject.getId());
@@ -113,7 +116,6 @@ public class ScoreServiceImpl implements ScoreService {
             Optional<Student> student = this.studetnRepository.findById(params.get("studentId"));
             Optional<ScoreColumn> scoreColumn = this.scoreColumnRepository.findById(Integer.parseInt(params.get("scoreColumnId")));
             Optional<StudentSubject> studentSubject = this.studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.get().getId(), subject.get().getId());
-//            Optional<ScorePercent> scorePercent = this.scorePercentRepository.findAllBySubjectId(subject.get().getId());
 
             Optional<Score> existingScore = scoreRepo.findByStudentSubjectIdAndSemesterId(
                     studentSubject.get().getId(),
@@ -145,6 +147,19 @@ public class ScoreServiceImpl implements ScoreService {
         }
 
         return scoreValueDtoList;
+    }
+
+    @Override
+    public ScoreDto getFinalScoreForSubject(String studentId, String subjectId, String semesterId) {
+        Object o = this.scoreRepo.getFinalScoreForSubject(studentId, subjectId, semesterId);
+
+        ScoreDto s = new ScoreDto();
+
+        if (o instanceof ScoreDto) {
+            s = (ScoreDto) o;
+        }
+
+        return s;
     }
 
 }

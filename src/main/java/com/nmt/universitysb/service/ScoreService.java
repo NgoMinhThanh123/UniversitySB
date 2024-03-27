@@ -7,6 +7,7 @@ import com.nmt.universitysb.dto.StudentScoreDTO;
 import com.nmt.universitysb.model.Score;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -26,4 +27,6 @@ public interface ScoreService {
     List<ScoreListDto> getListScoreStudent(String studentId, String semesterId);
     List<StudentScoreDTO> getStudentScores(String lecturerId, String semesterId, String subjectId);
     List<Score_ScoreValueDto> addScore(List<Map<String, String>> scoreParamsList);
+
+    ScoreDto getFinalScoreForSubject(String studentId, String subjectId, String semesterId);
 }

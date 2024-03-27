@@ -61,6 +61,19 @@ public class ApiScoreController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/scores/final/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<ScoreDto> getFinalScoreForSubject(
+            @RequestParam String studentId,
+            @RequestParam String subjectId,
+            @RequestParam String semesterId) {
+        ScoreDto o = scoreService.getFinalScoreForSubject(studentId, subjectId, semesterId);
+        if (o == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(o, HttpStatus.OK);
+    }
+
     @GetMapping(path = "/scores/list/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
     public ResponseEntity<List<ScoreListDto>> scoresList(
@@ -84,6 +97,7 @@ public class ApiScoreController {
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
 
     @GetMapping("/scores/export-excel/")
     @CrossOrigin
