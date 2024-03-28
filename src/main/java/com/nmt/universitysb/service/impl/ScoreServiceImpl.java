@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -151,15 +152,61 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     public ScoreDto getFinalScoreForSubject(String studentId, String subjectId, String semesterId) {
-        Object o = this.scoreRepo.getFinalScoreForSubject(studentId, subjectId, semesterId);
-
-        ScoreDto s = new ScoreDto();
-
-        if (o instanceof ScoreDto) {
-            s = (ScoreDto) o;
-        }
-
-        return s;
+        return this.scoreRepo.getFinalScoreForSubject(studentId, subjectId, semesterId);
     }
+
+    @Override
+    public ScoreDto getAccumulateScoreForSemester(String studentId, String semesterId) {
+        List<SubjectDto> subjectInSemester = this.subjectRepository.getSubjectByStudentAndSemesterId(studentId, semesterId);
+        int totalCredit = 0;
+        double totalScore = 0.0;
+        for (int i = 0; i < subjectInSemester.size(); i++) {
+            ScoreDto scoreDto = this.scoreRepo.getFinalScoreForSubject(studentId, subjectInSemester.get(i).getId(), semesterId);
+            if (scoreDto != null && scoreDto.getScoreValue() != null) {
+                totalScore += scoreDto.getScoreValue() * subjectInSemester.get(i).getCredit();
+                totalCredit += subjectInSemester.get(i).getCredit();
+            }
+        }
+        if (totalCredit == 0) {
+            // Handle the case where totalCredit is 0 to avoid division by zero.
+            // You may throw an exception or handle it differently based on your application's requirements.
+            return null;
+        }
+        double accumulateScore = totalScore / totalCredit;
+
+        accumulateScore = (double) Math.round(accumulateScore * 100) / 100;
+
+        ScoreDto accumulateScoreAdd = new ScoreDto("Điểm tích lũy học kỳ", accumulateScore);
+        return accumulateScoreAdd;
+    }
+
+    @Override
+    public ScoreDto getFinalAccumulateScoreForStudent(String studentId) {
+        List<SubjectDto> subjects = this.subjectRepository.getSubjectByStudentId(studentId);
+
+        int totalCredit = 0;
+        double totalScore = 0.0;
+        for (int i = 0; i < subjects.size(); i++) {
+            Semester semester = this.semesterRepository.getSemesterBySubjectId(subjects.get(i).getId());
+            ScoreDto scoreDto = this.scoreRepo.getFinalScoreForSubject(studentId, subjects.get(i).getId(), semester.getId());
+            if (scoreDto != null && scoreDto.getScoreValue() != null) {
+                totalScore += scoreDto.getScoreValue() * subjects.get(i).getCredit();
+                totalCredit += subjects.get(i).getCredit();
+            }
+        }
+        if (totalCredit == 0) {
+            // Handle the case where totalCredit is 0 to avoid division by zero.
+            // You may throw an exception or handle it differently based on your application's requirements.
+            return null;
+        }
+        double accumulateScore = totalScore / totalCredit;
+
+        accumulateScore = (double) Math.round(accumulateScore * 100) / 100;
+
+        ScoreDto accumulateScoreAdd = new ScoreDto("Điểm tích lũy tổng kết", accumulateScore);
+
+        return accumulateScoreAdd;
+    }
+
 
 }

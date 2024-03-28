@@ -51,7 +51,7 @@ public interface SubjectRepository extends JpaRepository<Subject, String> {
             "from Subject a \n" +
             "join StudentSubject sb on a.id = sb.subjectId \n" +
             "join Student s on s.id = sb.studentId \n " +
-            "join Score sc on sc.studentSubjectId = sb.id \n" +
+            "join Score sc on sc.studentSubjectId.id = sb.id \n" +
             "join Semester se on sc.semesterId = se.id \n" +
             "where s.id = :studentId and se.id = :semesterId")
     List<SubjectDto> getSubjectByStudentAndSemesterId(@Param("studentId") String studentId, @Param("semesterId") String semesterId);

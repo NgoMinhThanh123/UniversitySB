@@ -50,26 +50,49 @@ public class ApiScoreController {
 
     @GetMapping(path = "/scores/student-id/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public ResponseEntity<List<ScoreDto>> getScoresByStudentId(
+    public ResponseEntity<?> getScoresByStudentId(
             @RequestParam String studentId,
             @RequestParam String subjectId,
             @RequestParam String semesterId) {
         List<ScoreDto> list = scoreService.getScoreByStudentId(studentId, subjectId, semesterId);
         if (list.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("", HttpStatus.OK);
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
     @GetMapping(path = "/scores/final/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public ResponseEntity<ScoreDto> getFinalScoreForSubject(
+    public ResponseEntity<?> getFinalScoreForSubject(
             @RequestParam String studentId,
             @RequestParam String subjectId,
             @RequestParam String semesterId) {
         ScoreDto o = scoreService.getFinalScoreForSubject(studentId, subjectId, semesterId);
         if (o == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("", HttpStatus.OK);
+        }
+        return new ResponseEntity<>(o, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/scores/accumulate/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<?> getAccumulateScoreForSemester(
+            @RequestParam String studentId,
+            @RequestParam String semesterId) {
+        ScoreDto o = scoreService.getAccumulateScoreForSemester(studentId, semesterId);
+        if (o == null) {
+            return new ResponseEntity<>("", HttpStatus.OK);
+        }
+        return new ResponseEntity<>(o, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/scores/final-accumulate/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<?> getFinalAccumulateScoreForStudent(
+            @RequestParam String studentId) {
+        ScoreDto o = scoreService.getFinalAccumulateScoreForStudent(studentId);
+        if (o == null) {
+            return new ResponseEntity<>("", HttpStatus.OK);
         }
         return new ResponseEntity<>(o, HttpStatus.OK);
     }

@@ -35,4 +35,11 @@ public interface SemesterRepository extends JpaRepository<Semester, String> {
             "join student on student_subject.student_id = student.id\n"
             + "where student.id = :studentId",nativeQuery = true)
     List<Semester> getSemesterByStudentId( @Param("studentId") String studentId);
+
+    @Query(value ="SELECT DISTINCT semester.*\n" +
+            "FROM semester\n" +
+            "join subject_semester on subject_semester.semester_id = semester.id\n" +
+            "join subject on subject_semester.subject_id = subject.id\n"
+            + "where subject.id = :subjectId",nativeQuery = true)
+    Semester getSemesterBySubjectId( @Param("subjectId") String subjectId);
 }

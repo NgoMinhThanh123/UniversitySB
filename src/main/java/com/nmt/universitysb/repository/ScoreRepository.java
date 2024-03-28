@@ -50,11 +50,12 @@ Optional<Score> findByStudentSubjectIdAndSemesterId(@Param("studentSubjectId") i
             "where l.id = :lecturerId and se.id = :semesterId and su.id = :subjectId")
     List<StudentScoreDTO> getStudentScores(@Param("lecturerId") String lecturerId, @Param("semesterId") String semesterId, @Param("subjectId") String subjectId);
 
+    //Calculate final score for 1 subject
     @Query("SELECT new com.nmt.universitysb.dto.ScoreDto(sc.name, SumPercent.total ) " +
             "FROM ( " +
-            "    SELECT  SUM(CASE WHEN sc.id = 2 THEN sv.value * sp.percentGK " +
+            "    SELECT  ROUND(SUM(CASE WHEN sc.id = 2 THEN sv.value * sp.percentGK " +
             "         WHEN sc.id = 3 THEN sv.value * sp.percentCK " +
-            "         ELSE 0 END) AS total " +
+            "         ELSE 0 END), 2) AS total " +
             "    FROM ScoreColumn sc " +
             "    LEFT JOIN ScoreValue sv ON sv.scoreColumnId.id = sc.id " +
             "    LEFT JOIN Score s ON sv.scoreId.id = s.id " +

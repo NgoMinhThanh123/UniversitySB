@@ -29,4 +29,6 @@ public interface ScoreService {
     List<Score_ScoreValueDto> addScore(List<Map<String, String>> scoreParamsList);
 
     ScoreDto getFinalScoreForSubject(String studentId, String subjectId, String semesterId);
+    ScoreDto getAccumulateScoreForSemester(String studentId, String semesterId);
+    ScoreDto getFinalAccumulateScoreForStudent(String studentId);
 }
