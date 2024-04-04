@@ -1,5 +1,6 @@
 package com.nmt.universitysb.repository;
 
+import com.nmt.universitysb.dto.ScorePercentDto;
 import com.nmt.universitysb.model.ScorePercent;
 import com.nmt.universitysb.model.Semester;
 import com.nmt.universitysb.model.Subject;
@@ -20,5 +21,9 @@ public interface ScorePercentRepository extends JpaRepository<ScorePercent, Stri
     Page<ScorePercent> findAllBySubjectIdContaining(String keyword, Pageable pageable);
     ScorePercent save(ScorePercent f);
     void deleteById(String id);
-    Optional<ScorePercent> findAllBySubjectId(String subjectId);
+    @Query("select new com.nmt.universitysb.dto.ScorePercentDto(sp.percentCK, sp.percentGK) \n"
+            + "FROM ScorePercent sp \n"
+            + "join Subject s on sp.subjectId.id = s.id\n"
+            + "where s.id = :subjectId\n")
+    ScorePercentDto findAllBySubjectId(String subjectId);
 }

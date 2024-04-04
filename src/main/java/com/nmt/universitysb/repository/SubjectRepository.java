@@ -26,6 +26,11 @@ public interface SubjectRepository extends JpaRepository<Subject, String> {
             "where l.id = :lecturerId")
     List<SubjectDto> getSubjectByLecturerId(@Param("lecturerId") String lecturerId);
 
+    @Query("Select a.credit " +
+            "from Subject a " +
+            "where a.id = :SubjectId")
+    Long getCreditBySubjectId(@Param("SubjectId") String SubjectId);
+
     @Query("select new com.nmt.universitysb.dto.SubjectDto(s.id, s.name, s.credit, s.majorId ) " +
             "from Subject s " +
             "join SubjectSemester ss on s.id = ss.subjectId " +

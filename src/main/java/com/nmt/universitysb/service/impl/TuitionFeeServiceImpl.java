@@ -1,13 +1,17 @@
 package com.nmt.universitysb.service.impl;
 
+import com.nmt.universitysb.dto.creditPriceDto;
+import com.nmt.universitysb.model.Major;
+import com.nmt.universitysb.model.Semester;
 import com.nmt.universitysb.model.TuitionFee;
-import com.nmt.universitysb.repository.TuitionFeeRepository;
+import com.nmt.universitysb.repository.*;
 import com.nmt.universitysb.service.TuitionFeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,6 +19,15 @@ import java.util.Optional;
 public class TuitionFeeServiceImpl implements TuitionFeeService {
     @Autowired
     private TuitionFeeRepository tuitionFeeRepository;
+    @Autowired
+    private SubjectRepository subjectRepository;
+    @Autowired
+    private CreditPriceRepository creditPriceRepository;
+    @Autowired
+    private MajorRepository majorRepository;
+    @Autowired
+    private SemesterRepository semesterRepository;
+
 
     @Override
     public List<TuitionFee> findAll() {
@@ -50,5 +63,16 @@ public class TuitionFeeServiceImpl implements TuitionFeeService {
     public boolean deleteTuitionFee(String id) {
         this.tuitionFeeRepository.deleteById(id);
         return true;
+    }
+
+    @Override
+    public Double calcTuitionFee(String subjectId, int schoolYear) {
+
+        long credit = this.subjectRepository.getCreditBySubjectId(subjectId);
+        Major major = this.majorRepository.getMajorBySubjectId(subjectId);
+        creditPriceDto creditPrice = this.creditPriceRepository.getcreditPriceByMajorIdAndSchoolYear(major.getId(), schoolYear);
+        double tuitionFee = credit*creditPrice.getPrice();
+
+        return tuitionFee;
     }
 }

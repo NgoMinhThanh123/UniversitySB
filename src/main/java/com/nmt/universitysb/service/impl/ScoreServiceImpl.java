@@ -9,10 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ScoreServiceImpl implements ScoreService {
@@ -89,7 +86,7 @@ public class ScoreServiceImpl implements ScoreService {
                 SubjectDto subject = subjects.get(i);
                 List<ScoreDto> scoreDtos = this.scoreRepo.getScoreByStudentId(studentId, subject.getId(), semesterId);
 
-                ScoreDto scoreDto = this.scoreRepo.getFinalScoreForSubject(studentId, subject.getId(), semesterId);
+                ScoreDto scoreDto = getFinalScoreForSubject(studentId, subject.getId(), semesterId);
                 scoreDtos.add(scoreDto);
                 ScoreListDto scoreListDto = new ScoreListDto();
                 scoreListDto.setScoreDto(scoreDtos);
@@ -106,6 +103,42 @@ public class ScoreServiceImpl implements ScoreService {
 
         return scoreListDtos;
     }
+
+    @Override
+    public List<String> getListAcademicWarning(String studentId, String semesterId) {
+        List<String> academicWarningList = new ArrayList<>();
+        Set<String> addedWarnings = new HashSet<>(); // Sử dụng Set để lưu trữ các môn học đã được cảnh báo
+
+        List<ScoreListDto> scoreList = getListScoreStudent(studentId, semesterId);
+        ScoreDto accumulateScore = getAccumulateScoreForSemester(studentId, semesterId);
+        if(accumulateScore.getScoreValue() != null && accumulateScore.getScoreValue() < 4)
+            academicWarningList.add("Điểm tích lũy học kì ở mức thấp.");
+        else if (accumulateScore.getScoreValue() != null && accumulateScore.getScoreValue() < 7) {
+            academicWarningList.add("Điểm tích lũy học kì ở mức trung bình.");
+        } else {
+            academicWarningList.add("Điểm tích lũy học kì ở mức khá.");
+        }
+        for (ScoreListDto score : scoreList) {
+            boolean warningAddedForSubject = false; // Biến để kiểm tra xem đã thêm thông báo cảnh báo cho môn học này chưa
+            for (ScoreDto scoreDto : score.getScoreDto()) {
+                if (scoreDto.getScoreColumnName().equals("Giữa kì") || scoreDto.getScoreColumnName().equals("Cuối kì")) {
+                    Double scoreValue = scoreDto.getScoreValue();
+                    if (scoreValue != null && scoreValue < 4 && !warningAddedForSubject) {
+                        academicWarningList.add("Cần chú ý Điểm môn học " + score.getSubjectName() + " thấp, nguy cơ rớt môn, hãy cố gắng cải thiện điểm nhé!");
+                        addedWarnings.add(score.getSubjectName()); // Đánh dấu rằng đã thêm thông báo cảnh báo cho môn học này
+                        warningAddedForSubject = true;
+                    } else if (scoreValue != null && scoreValue < 7 && !warningAddedForSubject) {
+                        academicWarningList.add("Môn học " + score.getSubjectName() + " có mức điểm trung bình, cần cải thiện thêm điểm số!");
+                        addedWarnings.add(score.getSubjectName()); // Đánh dấu rằng đã thêm thông báo cảnh báo cho môn học này
+                        warningAddedForSubject = true;
+                    }
+                }
+            }
+        }
+
+        return academicWarningList;
+    }
+
 
     @Override
     public List<Score_ScoreValueDto> addScore(List<Map<String, String>> scoreParamsList) {
@@ -152,7 +185,20 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     public ScoreDto getFinalScoreForSubject(String studentId, String subjectId, String semesterId) {
-        return this.scoreRepo.getFinalScoreForSubject(studentId, subjectId, semesterId);
+        List<ScoreDto> scoreDtoList = this.scoreRepo.getScoreByStudentId(studentId, subjectId, semesterId);
+        ScorePercentDto scorePercent = this.scorePercentRepository.findAllBySubjectId(subjectId);
+        double finalScore = 0.0;
+        for(int i = 0; i < scoreDtoList.size(); i++){
+            ScoreDto scoreDto = scoreDtoList.get(i);
+            if(Objects.equals(scoreDto.getScoreColumnName(), "Giữa kì")) {
+                finalScore += scorePercent.getPercentGK()*scoreDto.getScoreValue();
+            } else if (Objects.equals(scoreDto.getScoreColumnName(), "Cuối kì")) {
+                finalScore += scorePercent.getPercentCK()*scoreDto.getScoreValue();
+            }
+        }
+        finalScore = (double) Math.round(finalScore * 100) / 100;
+        ScoreDto finalScoreDto = new ScoreDto("Điểm TK", finalScore);
+        return finalScoreDto;
     }
 
     @Override
@@ -161,7 +207,7 @@ public class ScoreServiceImpl implements ScoreService {
         int totalCredit = 0;
         double totalScore = 0.0;
         for (int i = 0; i < subjectInSemester.size(); i++) {
-            ScoreDto scoreDto = this.scoreRepo.getFinalScoreForSubject(studentId, subjectInSemester.get(i).getId(), semesterId);
+            ScoreDto scoreDto = getFinalScoreForSubject(studentId, subjectInSemester.get(i).getId(), semesterId);
             if (scoreDto != null && scoreDto.getScoreValue() != null) {
                 totalScore += scoreDto.getScoreValue() * subjectInSemester.get(i).getCredit();
                 totalCredit += subjectInSemester.get(i).getCredit();
@@ -188,7 +234,7 @@ public class ScoreServiceImpl implements ScoreService {
         double totalScore = 0.0;
         for (int i = 0; i < subjects.size(); i++) {
             Semester semester = this.semesterRepository.getSemesterBySubjectId(subjects.get(i).getId());
-            ScoreDto scoreDto = this.scoreRepo.getFinalScoreForSubject(studentId, subjects.get(i).getId(), semester.getId());
+            ScoreDto scoreDto = getFinalScoreForSubject(studentId, subjects.get(i).getId(), semester.getId());
             if (scoreDto != null && scoreDto.getScoreValue() != null) {
                 totalScore += scoreDto.getScoreValue() * subjects.get(i).getCredit();
                 totalCredit += subjects.get(i).getCredit();

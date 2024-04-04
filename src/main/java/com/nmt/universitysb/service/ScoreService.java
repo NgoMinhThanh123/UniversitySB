@@ -1,9 +1,6 @@
 package com.nmt.universitysb.service;
 
-import com.nmt.universitysb.dto.ScoreDto;
-import com.nmt.universitysb.dto.ScoreListDto;
-import com.nmt.universitysb.dto.Score_ScoreValueDto;
-import com.nmt.universitysb.dto.StudentScoreDTO;
+import com.nmt.universitysb.dto.*;
 import com.nmt.universitysb.model.Score;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +22,7 @@ public interface ScoreService {
 
     List<ScoreDto> getScoreByStudentId(String studentId, String subjectId, String semesterId);
     List<ScoreListDto> getListScoreStudent(String studentId, String semesterId);
+    List<String> getListAcademicWarning(String studentId, String semesterId);
     List<StudentScoreDTO> getStudentScores(String lecturerId, String semesterId, String subjectId);
     List<Score_ScoreValueDto> addScore(List<Map<String, String>> scoreParamsList);
 

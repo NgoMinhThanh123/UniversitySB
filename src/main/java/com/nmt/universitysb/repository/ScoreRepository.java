@@ -50,25 +50,25 @@ Optional<Score> findByStudentSubjectIdAndSemesterId(@Param("studentSubjectId") i
             "where l.id = :lecturerId and se.id = :semesterId and su.id = :subjectId")
     List<StudentScoreDTO> getStudentScores(@Param("lecturerId") String lecturerId, @Param("semesterId") String semesterId, @Param("subjectId") String subjectId);
 
-    //Calculate final score for 1 subject
-    @Query("SELECT new com.nmt.universitysb.dto.ScoreDto(sc.name, SumPercent.total ) " +
-            "FROM ( " +
-            "    SELECT  ROUND(SUM(CASE WHEN sc.id = 2 THEN sv.value * sp.percentGK " +
-            "         WHEN sc.id = 3 THEN sv.value * sp.percentCK " +
-            "         ELSE 0 END), 2) AS total " +
-            "    FROM ScoreColumn sc " +
-            "    LEFT JOIN ScoreValue sv ON sv.scoreColumnId.id = sc.id " +
-            "    LEFT JOIN Score s ON sv.scoreId.id = s.id " +
-            "    JOIN StudentSubject ss ON s.studentSubjectId.id = ss.id " +
-            "    JOIN Subject su ON ss.subjectId.id = su.id " +
-            "    JOIN ScorePercent sp ON sp.subjectId.id = su.id " +
-            "    JOIN Semester se ON s.semesterId.id = se.id " +
-            "    LEFT JOIN Student st ON ss.studentId.id = st.id " +
-            "    JOIN LecturerSubject lb ON lb.subjectId.id = su.id " +
-            "    JOIN Lecturer l ON lb.lecturerId.id = l.id " +
-            "    WHERE st.id = :studentId AND su.id = :subjectId AND se.id = :semesterId " +
-            ") AS SumPercent, ScoreColumn sc WHERE sc.id = 5")
-    ScoreDto getFinalScoreForSubject(@Param("studentId") String studentId,
-                                     @Param("subjectId") String subjectId,
-                                     @Param("semesterId") String semesterId);
+//    //Calculate final score for 1 subject
+//    @Query("SELECT new com.nmt.universitysb.dto.ScoreDto(sc.name, SumPercent.total ) " +
+//            "FROM ( " +
+//            "    SELECT  ROUND(SUM(CASE WHEN sc.id = 2 THEN sv.value * sp.percentGK " +
+//            "         WHEN sc.id = 3 THEN sv.value * sp.percentCK " +
+//            "         ELSE 0 END), 2) AS total " +
+//            "    FROM ScoreColumn sc " +
+//            "    LEFT JOIN ScoreValue sv ON sv.scoreColumnId.id = sc.id " +
+//            "    LEFT JOIN Score s ON sv.scoreId.id = s.id " +
+//            "    JOIN StudentSubject ss ON s.studentSubjectId.id = ss.id " +
+//            "    JOIN Subject su ON ss.subjectId.id = su.id " +
+//            "    JOIN ScorePercent sp ON sp.subjectId.id = su.id " +
+//            "    JOIN Semester se ON s.semesterId.id = se.id " +
+//            "    LEFT JOIN Student st ON ss.studentId.id = st.id " +
+//            "    JOIN LecturerSubject lb ON lb.subjectId.id = su.id " +
+//            "    JOIN Lecturer l ON lb.lecturerId.id = l.id " +
+//            "    WHERE st.id = :studentId AND su.id = :subjectId AND se.id = :semesterId " +
+//            ") AS SumPercent, ScoreColumn sc WHERE sc.id = 5")
+//    ScoreDto getFinalScoreForSubject(@Param("studentId") String studentId,
+//                                     @Param("subjectId") String subjectId,
+//                                     @Param("semesterId") String semesterId);
 }

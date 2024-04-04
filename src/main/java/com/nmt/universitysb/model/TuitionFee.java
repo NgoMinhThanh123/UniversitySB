@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -19,9 +20,11 @@ public class TuitionFee implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Column(name = "tuition_fee")
-    private Integer tuitionFee;
+    private Double tuitionFee;
     @Column(name = "done")
     private Boolean done;
+    @Column(name = "date_created")
+    private Date dateCreated;
     @JoinColumn(name = "semester_id", referencedColumnName = "id")
     @JsonIgnore
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

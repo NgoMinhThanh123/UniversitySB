@@ -15,4 +15,5 @@ public interface TuitionFeeService {
     TuitionFee save(TuitionFee f);
     long count();
     boolean deleteTuitionFee(String id);
+    Double calcTuitionFee(String subjectId, int schoolYear);
 }

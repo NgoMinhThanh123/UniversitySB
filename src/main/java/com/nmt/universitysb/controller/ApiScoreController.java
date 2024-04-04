@@ -109,6 +109,18 @@ public class ApiScoreController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/scores/academic-warning/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<List<String>> getListAcademicWarning(
+            @RequestParam String studentId,
+            @RequestParam String semesterId) {
+        List<String> list = scoreService.getListAcademicWarning(studentId, semesterId);
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
     @GetMapping(path = "/scores/list/for-parent", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
     public ResponseEntity<List<ScoreListDto>> scoresListForParent(

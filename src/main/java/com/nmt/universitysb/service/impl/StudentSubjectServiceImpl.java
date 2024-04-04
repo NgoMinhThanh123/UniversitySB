@@ -5,15 +5,13 @@ import com.nmt.universitysb.dto.StudentSubjectDto;
 import com.nmt.universitysb.model.*;
 import com.nmt.universitysb.repository.*;
 import com.nmt.universitysb.service.StudentSubjectService;
+import com.nmt.universitysb.service.TuitionFeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class StudentSubjectServiceImpl implements StudentSubjectService {
@@ -27,6 +25,8 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
     private SemesterRepository semesterRepo;
     @Autowired
     private ScoreRepository scoreRepo;
+    @Autowired
+    private TuitionFeeService tuitionFeeService;
 
     @Override
     public List<StudentSubject> findAll() {
@@ -55,7 +55,10 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
 
     @Override
     public List<StudentSubjectDto> courseRegister(List<Map<String, String>> paramsList) {
+        int schoolYear = 2022;
         List<StudentSubjectDto> studentSubjects = new ArrayList<>();
+        Map<String, Double> studentTuitionFees = new HashMap<>(); // Lưu trữ tổng tuitionFee của từng sinh viên
+
         for (Map<String, String> params : paramsList) {
             Optional<Student> student = this.studentRepo.findById(params.get("studentId"));
             Optional<Subject> subject = this.subjectRepo.findById(params.get("subjectId"));
@@ -68,6 +71,9 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
             Optional<StudentSubject> existingStudentSubject = studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.get().getId(), subject.get().getId());
             if (!existingStudentSubject.isPresent()) {
                 StudentSubject studentSubject1 = this.studentSubjectRepository.save(studentSubject);
+
+                // Tính toán tuitionFee
+                Double tuitionFee = this.tuitionFeeService.calcTuitionFee(subject.get().getId(), schoolYear);
 
                 Score score = new Score();
                 score.setStudentSubjectId(studentSubject1);
@@ -87,8 +93,32 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
 
                     studentSubjects.add(studentSubjectDto);
 
+                    // Cộng dồn tuitionFee vào tổng của sinh viên
+                    studentTuitionFees.put(student.get().getId(), studentTuitionFees.getOrDefault(student.get().getId(), 0.0) + tuitionFee);
+
                 }
             }
+        }
+
+        for (Map.Entry<String, Double> entry : studentTuitionFees.entrySet()) {
+            String studentId = entry.getKey();
+            Double totalTuitionFee = entry.getValue();
+
+            TuitionFee tuitionFee1 = new TuitionFee();
+            tuitionFee1.setTuitionFee(totalTuitionFee);
+            tuitionFee1.setDone(false);
+            tuitionFee1.setDateCreated(new Date());
+
+            Optional<Student> student = this.studentRepo.findById(studentId);
+            if (student.isPresent()) {
+                tuitionFee1.setStudentId(student.get());
+            }
+            Optional<Semester> semester = this.semesterRepo.findById(paramsList.get(0).get("semesterId"));
+            if (semester.isPresent()) {
+                tuitionFee1.setSemesterId(semester.get());
+            }
+
+            this.tuitionFeeService.save(tuitionFee1);
         }
 
 
