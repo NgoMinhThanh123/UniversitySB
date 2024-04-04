@@ -16,5 +16,5 @@ public interface LecturerService {
     Lecturer save(Lecturer f);
     long count();
     boolean deleteLecturer(String id);
-    LecturerDto getLecturerByUsername(String username);
+    Lecturer getLecturerByUsername(String username);
 }

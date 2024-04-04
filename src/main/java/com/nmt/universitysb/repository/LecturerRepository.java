@@ -17,9 +17,9 @@ public interface LecturerRepository extends JpaRepository<Lecturer, String> {
     Page<Lecturer> findAllByNameContaining(String keyword, Pageable pageable);
     Lecturer save(Lecturer f);
     void deleteById(String id);
-    @Query("select new com.nmt.universitysb.dto.LecturerDto(l.id, l.name, l.birthday, l.gender, l.identification, l.phone, l.address, l.facultyId, l.userId, l.classesId) " +
+    @Query("select l  " +
             "from Lecturer l " +
-            "join User u on l.userId = u.id " +
+            "join User u on l.userId.id = u.id " +
             "where u.username = :username")
-    LecturerDto getLecturerByUsername(@Param("username") String username);
+    Lecturer getLecturerByUsername(@Param("username") String username);
 }

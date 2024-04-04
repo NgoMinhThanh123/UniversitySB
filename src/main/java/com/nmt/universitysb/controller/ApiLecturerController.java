@@ -34,8 +34,8 @@ public class ApiLecturerController {
 
     @GetMapping(path = "/lecturers-un/{username}/", produces = MediaType.APPLICATION_JSON_VALUE)
     @CrossOrigin
-    public ResponseEntity<LecturerDto> getStudentByUsename(@PathVariable(value = "username") String username) {
-        LecturerDto lecturerDto = lecturerService.getLecturerByUsername(username);
+    public ResponseEntity<Lecturer> getStudentByUsename(@PathVariable(value = "username") String username) {
+        Lecturer lecturerDto = lecturerService.getLecturerByUsername(username);
         if (lecturerDto == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

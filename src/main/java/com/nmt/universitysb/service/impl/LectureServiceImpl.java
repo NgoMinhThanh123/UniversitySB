@@ -54,7 +54,7 @@ public class LectureServiceImpl implements LecturerService {
     }
 
     @Override
-    public LecturerDto getLecturerByUsername(String username) {
+    public Lecturer getLecturerByUsername(String username) {
        return this.lecturersRepo.getLecturerByUsername(username);
     }
 
