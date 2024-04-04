@@ -42,6 +42,8 @@ export const endpoints = {
     "get-semesters":  `${SERVER_CONTEXT}/api/get-semesters/`,
     "get-firebase-config": `${SERVER_CONTEXT}/api/firebase/config`,
     "classes": `${SERVER_CONTEXT}/api/classes/`,
+    "get-student-by-parents": `${SERVER_CONTEXT}/api/get-student-parents/`,
+    "get-scores-accumulate": `${SERVER_CONTEXT}/api/scores/accumulate/`,
    
 }
 

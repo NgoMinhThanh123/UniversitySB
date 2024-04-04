@@ -5,7 +5,7 @@ import student from './student.js';
 import login from './login.js';
 import store from '@/stores/myStore';
 import register from './register.js';
-import parents from './parents.js';
+import parent from './parents.js';
 
 const routes = [
     {
@@ -25,11 +25,17 @@ const routes = [
         }
       },
     },
+    {
+      path: '/parent/scoreStudent/:id',
+      name: 'score-student',
+      component: () => import ('../pages/parents/scoreStudent/index.vue'),
+      props: true
+    },
     ...teacher,
     ...student,
     ...login,
     ...register,
-    ...parents,
+    ...parent,
 ]
 
 const router = createRouter({

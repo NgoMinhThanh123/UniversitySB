@@ -1,9 +1,9 @@
-const parents = [
-    {
-        path: "/parents",
-        name: "parents",
-        component: () => import ("../pages/parents"),
-    }
+const parent = [
+  {
+    path: "/parent",
+    name: "parent",
+    component: () => import("../layouts/parent.vue"),
+  },
 ];
 
-export default parents;
+export default parent;

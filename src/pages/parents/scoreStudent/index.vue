@@ -1,15 +1,11 @@
 <template>
+  <TheHeader/>
   <div>
-    <div v-if="semesterData.length > 0">
+    <div v-if="semesters.length > 0">
       <h2 class="score">Thông tin điểm số</h2>
-      <div
-        v-for="(semester, semesterIndex) in semesterData"
-        :key="semesterIndex"
-      >
+      <div v-for="(semester, semesterIndex) in semesters" :key="semesterIndex">
         <div class="semester">
-          {{
-            `${semester.semesterInfo.name}-${semester.semesterInfo.schoolYear}`
-          }}
+          {{ `${semester.name}-${semester.schoolYear}` }}
         </div>
         <table class="score-table">
           <thead>
@@ -24,7 +20,10 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(score, scoreIndex) in semester.score" :key="scoreIndex">
+            <tr
+              v-for="(score, scoreIndex) in scoreLists[semesterIndex]"
+              :key="scoreIndex"
+            >
               <td>{{ scoreIndex + 1 }}</td>
               <td>{{ score.subjectName }}</td>
               <td>{{ score.credit }}</td>
@@ -51,42 +50,34 @@
                   </span>
                 </span>
               </td>
-              <td>
-                <span v-if="score.scoreDto && score.scoreDto.length > 3">
-                  <span v-if="score.scoreDto[3].scoreColumnName === 'Điểm TK'">
-                    {{ score.scoreDto[3].scoreValue || "-" }}
-                  </span>
-                </span>
-              </td>
+              <td></td>
             </tr>
           </tbody>
         </table>
-        <div>
-          <p>
-            {{ semester.accumulates.scoreColumnName }}:
-            {{ semester.accumulates.scoreValue }}
-          </p>
-        </div>
       </div>
     </div>
     <div v-else style="padding: 20px">
       <span style="font-size: 25px">Sinh viên chưa có điểm</span>
     </div>
   </div>
+  <TheFooter/>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
-import { authApi, endpoints } from "@/configs/Apis";
-import { mapGetters } from "vuex";
+import Apis, { authApi, endpoints } from "@/configs/Apis";
+import TheHeader from '../../../components/TheHeader.vue';
+import TheFooter from '../../../components/TheFooter.vue';
 
 export default {
-  computed: {
-    ...mapGetters(["isAuth", "getUser"]),
+  components: {
+    TheHeader,
+    TheFooter
   },
   data() {
     return {
-      semesterData: [],
+      semesters: [],
+      scoreLists: [],
       err: "",
     };
   },
@@ -96,23 +87,16 @@ export default {
   methods: {
     async fetchData() {
       try {
-        const studentUsername = this.getUser.username;
-        const response = await authApi().get(
-          endpoints["get-student-by-username"].replace(
-            "{username}",
-            studentUsername
-          )
-        );
-        const studentId = response.data.id;
-        const semesterResponse = await authApi().get(
+        const studentId = this.$route.params.id;
+        const semesterResponse = await Apis.get(
           endpoints["semester-student"] + `?studentId=${studentId}`
         );
-
+        console.log("semesterResponse", semesterResponse);
         this.semesters = semesterResponse.data.sort((a, b) => {
           return new Date(b.fromDate) - new Date(a.fromDate);
         });
 
-        const semesterDataValue = [];
+        const scoreListsValue = [];
 
         for (const semester of semesterResponse.data) {
           const semesterId = semester.id;
@@ -120,26 +104,11 @@ export default {
           const scoreEndpoint =
             endpoints["score-list"] +
             `?studentId=${studentId}&semesterId=${semesterId}`;
-          const scoreResponse = await authApi().get(scoreEndpoint);
+          const scoreResponse = await Apis.get(scoreEndpoint);
 
-          const scoreAccumulateEndpoint =
-            endpoints["get-scores-accumulate"] +
-            `?studentId=${studentId}&semesterId=${semesterId}`;
-          const scoreAccumulateResponse = await authApi().get(
-            scoreAccumulateEndpoint
-          );
-
-          const semesterDataItem = {
-            semesterInfo: semester,
-            score: scoreResponse.data,
-            accumulates: scoreAccumulateResponse.data,
-          };
-
-          semesterDataValue.push(semesterDataItem);
+          scoreListsValue.push(scoreResponse.data);
         }
-
-        this.semesterData = semesterDataValue;
-        console.log("semesterData", this.semesterData);
+        this.scoreLists = scoreListsValue;
       } catch (err) {
         err.value = true;
       }

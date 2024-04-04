@@ -47,7 +47,7 @@
             </router-link>
           </div>
           <div class="parent">
-            <router-link to="/parents" class="router-link-hover">
+            <router-link to="/parent" class="router-link-hover">
               <i class="fa-solid fa-hands-holding-child"></i>
               <span> Phụ huynh </span>
             </router-link>
