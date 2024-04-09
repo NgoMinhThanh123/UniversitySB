@@ -107,7 +107,7 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
             TuitionFee tuitionFee1 = new TuitionFee();
             tuitionFee1.setTuitionFee(totalTuitionFee);
             tuitionFee1.setDone(false);
-            tuitionFee1.setDateCreated(new Date());
+//            tuitionFee1.setDateCreated(new Date());
 
             Optional<Student> student = this.studentRepo.findById(studentId);
             if (student.isPresent()) {

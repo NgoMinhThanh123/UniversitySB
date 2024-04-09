@@ -3,6 +3,7 @@ package com.nmt.universitysb.service;
 import com.nmt.universitysb.model.TuitionFee;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,7 +11,8 @@ import java.util.Optional;
 public interface TuitionFeeService {
     List<TuitionFee> findAll();
     Page<TuitionFee> findAll(Pageable pageable);
-    Optional<TuitionFee> findById(String id);
+    Optional<TuitionFee> findById(int id);
+    TuitionFee findByTuitionFeeId(int id);
     Page<TuitionFee> findAllByStudentIdContaining(String keyword, Pageable pageable);
     TuitionFee save(TuitionFee f);
     long count();

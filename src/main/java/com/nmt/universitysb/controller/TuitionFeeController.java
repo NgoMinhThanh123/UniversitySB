@@ -64,7 +64,7 @@ public class TuitionFeeController {
     }
 
     @GetMapping("/update_tuition_fee/{id}")
-    public String update(Model model, @PathVariable(value = "id") String id) {
+    public String update(Model model, @PathVariable(value = "id") int id) {
         Optional<TuitionFee> tuitionFee = this.tuitionFeeService.findById(id);
         model.addAttribute("semester", this.semesterService.findAll());
         model.addAttribute("student", this.studentService.findAll());

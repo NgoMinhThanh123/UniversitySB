@@ -40,8 +40,13 @@ public class TuitionFeeServiceImpl implements TuitionFeeService {
     }
 
     @Override
-    public Optional<TuitionFee> findById(String id) {
+    public Optional<TuitionFee> findById(int id) {
         return this.tuitionFeeRepository.findById(id);
+    }
+
+    @Override
+    public TuitionFee findByTuitionFeeId(int id) {
+        return this.tuitionFeeRepository.findByTuitionFeeId(id);
     }
 
     @Override
