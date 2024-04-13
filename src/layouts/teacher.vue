@@ -1,22 +1,25 @@
 <template>
-  <TheHeader />
-  <div class="container-fluid mt-3" style="height: 100%">
+  <div style="height: 100%">
     <div class="row">
-      <div class="col-sm-3 d-none d-sm-flex">
+      <div class="col-sm-3 d-none d-sm-flex" style="padding: 0">
         <a-list bordered style="width: 100%">
           <TheMenu />
           <template #header>
-            <div style="font-size: 20px;">BẢNG ĐIỀU KHIỂN</div>
+            <!-- <div style="font-size: 20px">BẢNG ĐIỀU KHIỂN</div> -->
+            <div><img src="../assets/logoSchool_1.png" alt="logo" /></div>
           </template>
         </a-list>
       </div>
 
-      <div class="col-12 col-sm-9" style="margin-bottom: 150px">
-        <router-view></router-view>
+      <div class="col-10 col-sm-9" style="padding: 0">
+        <TheHeader />
+        <div class="container" style="padding: 20px; min-height: 81vh">
+          <router-view></router-view>
+        </div>
+        <TheFooter />
       </div>
     </div>
   </div>
-  <TheFooter />
 </template>
 
 <script>

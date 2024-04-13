@@ -60,7 +60,7 @@
           <div class="input-studentScore">
             <button class="btn btn-primary">Tìm kiếm</button>
           </div>
-          <div v-if="isEditMode">
+          <div v-if="isEditMode ">
             <div class="input-studentScore">
               <button
                 @click="exitHandleEdit"
@@ -104,7 +104,7 @@
       <div v-if="hasError">
         <p style="font-size: 20px; padding: 20px">{{ err }}</p>
       </div>
-      <div v-if="isEditMode" class="form-input-score">
+      <div v-if="isEditMode && !notFoundMessage" class="form-input-score">
         <div class="table-studentScore">
           <table class="table table-hover">
             <thead>
@@ -208,37 +208,44 @@
         </div>
       </div>
       <div v-else>
-        <div v-if="studentList.length > 0">
-          <table class="table table-striped table-bordered table-hover">
-            <thead>
-              <tr>
-                <th class="text-center">Mã số sinh viên</th>
-                <th class="text-center">Tên sinh viên</th>
-                <th class="text-center">Ngày sinh</th>
-                <th class="text-center">Quá trình</th>
-                <th class="text-center">Giữa kì</th>
-                <th class="text-center">Cuối kì</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(student, index) in studentList" :key="index">
-                <td class="text-center">{{ student.studentId }}</td>
-                <td class="text-center">{{ student.studentName }}</td>
-                <td class="text-center">
-                  {{ formatDate(student.studentBirthday) }}
-                </td>
-                <td class="text-center">
-                  {{ getScoreValue(student.scoreDto, "Quá trình") }}
-                </td>
-                <td class="text-center">
-                  {{ getScoreValue(student.scoreDto, "Giữa kì") }}
-                </td>
-                <td class="text-center">
-                  {{ getScoreValue(student.scoreDto, "Cuối kì") }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div v-if="notFoundMessage">
+          <div>
+            <p style="font-size: 20px; padding: 20px">{{ errorMessage }}</p>
+          </div>
+        </div>
+        <div v-else>
+          <div v-if="studentList.length > 0">
+            <table class="table table-striped table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th class="text-center">Mã số sinh viên</th>
+                  <th class="text-center">Tên sinh viên</th>
+                  <th class="text-center">Ngày sinh</th>
+                  <th class="text-center">Quá trình</th>
+                  <th class="text-center">Giữa kì</th>
+                  <th class="text-center">Cuối kì</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(student, index) in studentList" :key="index">
+                  <td class="text-center">{{ student.studentId }}</td>
+                  <td class="text-center">{{ student.studentName }}</td>
+                  <td class="text-center">
+                    {{ formatDate(student.studentBirthday) }}
+                  </td>
+                  <td class="text-center">
+                    {{ getScoreValue(student.scoreDto, "Quá trình") }}
+                  </td>
+                  <td class="text-center">
+                    {{ getScoreValue(student.scoreDto, "Giữa kì") }}
+                  </td>
+                  <td class="text-center">
+                    {{ getScoreValue(student.scoreDto, "Cuối kì") }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -270,7 +277,8 @@ export default {
       loading: false,
       selectedClass: "",
       classList: [],
-
+      errorMessage: "",
+      notFoundMessage: true,
       quatrinh: {},
       giuaki: {},
       cuoiki: {},
@@ -352,7 +360,6 @@ export default {
       // Định dạng thành chuỗi "ngày/tháng/năm"
       return `${day}/${month}/${year}`;
     },
-
     async fetchLecturerInfo() {
       try {
         const lecturerUsername = this.getUser.username;
@@ -417,9 +424,12 @@ export default {
         if (response.data) {
           this.studentList = response.data;
           this.hasError = false;
+          this.notFoundMessage = false;
         }
       } catch (error) {
         console.error(error);
+        this.notFoundMessage = true;
+        this.errorMessage = "Không tìm thấy danh sách lớp học này";
       }
     },
     async saveSelectedColumnScores() {

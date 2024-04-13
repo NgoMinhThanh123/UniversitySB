@@ -27,23 +27,23 @@
       <div style="width: 50%; margin-bottom: 20px">
         <div
           class="form-group"
-          :class="{ 'has-error': !selecetFacuties }"
+          :class="{ 'has-error': !selecetMajor }"
           style="margin-right: 10px"
         >
           <label for="selecetFacuties">Đăng ký môn học</label>
           <select
             class="form-control"
             id="selecetFacuties"
-            v-model="selecetFacuties"
+            v-model="selecetMajor"
             @change="getSubject"
           >
             <option value="">-- Chọn Khoa --</option>
             <option
-              v-for="(facutly, index) in faculties"
+              v-for="(major, index) in majors"
               :key="index"
-              :value="facutly.id"
+              :value="major.id"
             >
-              {{ facutly.name }}
+              {{ major.name }}
             </option>
           </select>
         </div>
@@ -157,7 +157,7 @@
 </template>
 
 <script>
-import { authApi, endpoints } from "@/configs/Apis";
+import Apis, { authApi, endpoints } from "@/configs/Apis";
 import { mapGetters } from "vuex";
 export default {
   computed: {
@@ -166,9 +166,9 @@ export default {
   data() {
     return {
       courses: [],
-      faculties: [],
+      majors: [],
       semesters: [],
-      selecetFacuties: "",
+      selecetMajor: "",
       selectSemester: "",
       selectedCourses: [],
       maxQuantity: 0,
@@ -203,14 +203,14 @@ export default {
 
     async getSubject() {
       try {
-        if (this.selecetFacuties) {
+        if (this.selecetMajor) {
           // Check if a selection has been made
-          const facultyId = this.selecetFacuties; // Use the selected value as facultyId
+          const majorId = this.selecetMajor; // Use the selected value as facultyId
           const semesterId = this.selectSemester;
 
           const response = await authApi().get(
-            endpoints["get-subject-by-facultyId"] +
-              `?facultyId=${facultyId}&semesterId=${semesterId}`
+            endpoints["get-subject-by-major"] +
+              `?majorId=${majorId}&semesterId=${semesterId}`
           );
           this.courses = response.data;
         } else {
@@ -228,10 +228,11 @@ export default {
       }
     },
 
-    async getFacutly() {
+    async getMajor() {
       try {
-        const response = await authApi().get(endpoints["faculties"]);
-        this.faculties = response.data;
+        const response = await Apis.get(endpoints["majors"]);
+        this.majors = response.data;
+        console.log(response)
       } catch (error) {
         console.log(error);
       }
@@ -288,12 +289,11 @@ export default {
     },
   },
   created() {
-    this.getFacutly();
+    this.getMajor();
     this.getSubject();
     this.getListSemester();
-    if (this.faculties.length > 0) {
+    if (this.majors.length > 0) {
       this.getSubject();
-      // Tính toán giá trị `maxQuantity` dựa trên dữ liệu ban đầu
       this.maxQuantity = this.courses.reduce(
         (max, course) => (course.quantity > max ? course.quantity : max),
         0

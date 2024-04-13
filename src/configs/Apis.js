@@ -6,57 +6,61 @@ const SERVER = "http://localhost:8082";
 // const SERVER = "http://universitysb-env.eba-nnscwuyq.ap-southeast-2.elasticbeanstalk.com";
 
 export const endpoints = {
-    "subjects": `${SERVER_CONTEXT}/api/subjects/`,
-    "faculties": `${SERVER_CONTEXT}/api/faculties/`,
-    "get-subject-by-facultyId": `${SERVER_CONTEXT}/api/subjects/facultyId/`,
-    "login": `${SERVER_CONTEXT}/api/login/`,
-    "register": `${SERVER_CONTEXT}/api/users/`,
-    "semester": `${SERVER_CONTEXT}/api/semesters/`,
-    "semester-student": `${SERVER_CONTEXT}/api/semesters/student/`,
-    "current-user": `${SERVER_CONTEXT}/api/current-user/`,
-    "get-user": `${SERVER_CONTEXT}/api/users/{username}/`,
-    "user-id": `${SERVER_CONTEXT}/api/users-id/{id}/`,
-    "get-student-by-username": `${SERVER_CONTEXT}/api/students-un/{username}/`,
-    "student-home-room-teacher": `${SERVER_CONTEXT}/api/students-lecturer/{lecturerId}/`,
-    "get-lecturer-by-username": `${SERVER_CONTEXT}/api/lecturers-un/{username}/`,
-    "get-list-student": `${SERVER_CONTEXT}/api/get-list-student/`,
-    "get-subject-by-lecturerId": `${SERVER_CONTEXT}/api/subjects/{lecturerId}/`,
-    "get-subject-student": `${SERVER_CONTEXT}/api/subjects/studentId/`,
-    "get-list-scores": `${SERVER_CONTEXT}/api/scores/`,
-    "score-student": `${SERVER_CONTEXT}/api/scores/student-id/`,
-    "score-list": `${SERVER_CONTEXT}/api/scores/list/`,
-    "add-score": `${SERVER_CONTEXT}/api/add-score/`,
-    "export": `${SERVER_CONTEXT}/api/scores/export-csv/`,
-    "posts": `${SERVER_CONTEXT}/api/posts/`,
-    "details": (postId) => `${SERVER_CONTEXT}/api/posts/${postId}/`,
-    "comments":`${SERVER_CONTEXT}/api/posts/{id}/comments/`,
-    "add-comment": `${SERVER_CONTEXT}/api/comments/`,
-    "add-post": `${SERVER_CONTEXT}/api/add-post/`,
-    "send-mail": `${SERVER_CONTEXT}/api/students/mails/`,
-    "get-list-post-by-userId": `${SERVER_CONTEXT}/api/post-user/{userId}`,
-    "update-post": `${SERVER_CONTEXT}/api/post-update/{postId}`,
-    "delete-post": `${SERVER_CONTEXT}/api/posts-delete/{postId}`,
-    "update-comment": `${SERVER_CONTEXT}/api/comment-update/{commentId}`,
-    "delete-comment": `${SERVER_CONTEXT}/api/comments/{commentId}`,
-    "course-register": `${SERVER_CONTEXT}/api/course-register/`,
-    "get-semesters":  `${SERVER_CONTEXT}/api/get-semesters/`,
-    "get-firebase-config": `${SERVER_CONTEXT}/api/firebase/config`,
-    "classes": `${SERVER_CONTEXT}/api/classes/`,
-    "get-student-by-parents": `${SERVER_CONTEXT}/api/get-student-parents/`,
-    "get-scores-accumulate": `${SERVER_CONTEXT}/api/scores/accumulate/`,
-   
-}
+  subjects: `${SERVER_CONTEXT}/api/subjects/`,
+  faculties: `${SERVER_CONTEXT}/api/faculties/`,
+  majors: `${SERVER_CONTEXT}/api/majors/`,
+  login: `${SERVER_CONTEXT}/api/login/`,
+  register: `${SERVER_CONTEXT}/api/users/`,
+  semester: `${SERVER_CONTEXT}/api/semesters/`,
+  export: `${SERVER_CONTEXT}/api/scores/export-csv/`,
+  posts: `${SERVER_CONTEXT}/api/posts/`,
+  details: (postId) => `${SERVER_CONTEXT}/api/posts/${postId}/`,
+  comments: `${SERVER_CONTEXT}/api/posts/{id}/comments/`,
+  classes: `${SERVER_CONTEXT}/api/classes/`,
+  "get-subject-by-facultyId": `${SERVER_CONTEXT}/api/subjects/facultyId/`,
+  "semester-student": `${SERVER_CONTEXT}/api/semesters/student/`,
+  "current-user": `${SERVER_CONTEXT}/api/current-user/`,
+  "get-user": `${SERVER_CONTEXT}/api/users/{username}/`,
+  "user-id": `${SERVER_CONTEXT}/api/users-id/{id}/`,
+  "get-student-by-username": `${SERVER_CONTEXT}/api/students-un/{username}/`,
+  "student-home-room-teacher": `${SERVER_CONTEXT}/api/students-lecturer/{lecturerId}/`,
+  "get-lecturer-by-username": `${SERVER_CONTEXT}/api/lecturers-un/{username}/`,
+  "get-list-student": `${SERVER_CONTEXT}/api/get-list-student/`,
+  "get-subject-by-lecturerId": `${SERVER_CONTEXT}/api/subjects/{lecturerId}/`,
+  "get-subject-student": `${SERVER_CONTEXT}/api/subjects/studentId/`,
+  "get-list-scores": `${SERVER_CONTEXT}/api/scores/`,
+  "score-student": `${SERVER_CONTEXT}/api/scores/student-id/`,
+  "score-list": `${SERVER_CONTEXT}/api/scores/list/`,
+  "add-score": `${SERVER_CONTEXT}/api/add-score/`,
+  "add-comment": `${SERVER_CONTEXT}/api/comments/`,
+  "add-post": `${SERVER_CONTEXT}/api/add-post/`,
+  "send-mail": `${SERVER_CONTEXT}/api/students/mails/`,
+  "get-list-post-by-userId": `${SERVER_CONTEXT}/api/post-user/{userId}`,
+  "update-post": `${SERVER_CONTEXT}/api/post-update/{postId}`,
+  "delete-post": `${SERVER_CONTEXT}/api/posts-delete/{postId}`,
+  "update-comment": `${SERVER_CONTEXT}/api/comment-update/{commentId}`,
+  "delete-comment": `${SERVER_CONTEXT}/api/comments/{commentId}`,
+  "course-register": `${SERVER_CONTEXT}/api/course-register/`,
+  "get-semesters": `${SERVER_CONTEXT}/api/get-semesters/`,
+  "get-firebase-config": `${SERVER_CONTEXT}/api/firebase/config`,
+  "get-student-by-parents": `${SERVER_CONTEXT}/api/get-student-parents/`,
+  "get-scores-accumulate": `${SERVER_CONTEXT}/api/scores/accumulate/`,
+  "get-academic-warnings": `${SERVER_CONTEXT}/api/scores/academic-warning/`,
+  "change-password": `${SERVER_CONTEXT}/api/user/change-password/`,
+  "get-final-accumulate": `${SERVER_CONTEXT}/api/scores/final-accumulate/`,
+  "get-subject-by-major": `${SERVER_CONTEXT}/api/subjects/majorId/`,
+};
 
 export const authApi = () => {
-    const token = VueCookies.get("token");
-    return axios.create({
-        baseURL: SERVER,
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    });
-}
+  const token = VueCookies.get("token");
+  return axios.create({
+    baseURL: SERVER,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
 
 export default axios.create({
-    baseURL: SERVER
-})
+  baseURL: SERVER,
+});

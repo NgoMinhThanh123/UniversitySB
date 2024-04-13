@@ -171,7 +171,6 @@ export default {
   min-height: 100vh;
   transition: all 0.3s;
   position: absolute;
-  top: 0;
   right: 0;
 }
 </style>

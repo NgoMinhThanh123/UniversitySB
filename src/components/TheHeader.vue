@@ -4,7 +4,7 @@
       class="text-white"
       style="
         background-color: #070758;
-        padding: 1rem 5rem;
+        padding: 1.5rem 5rem;
         display: flex;
         flex-wrap: wrap;
       "
@@ -73,7 +73,35 @@
                 alt="Avatar"
               />
             </div>
-            <a
+            <div class="dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                role="button"
+                data-bs-toggle="dropdown"
+              >
+                Chào, {{ userInfo.name }}
+              </a>
+
+              <ul class="dropdown-menu">
+                <li>
+                  <router-link
+                    to="/changePassword"
+                    class="dropdown-item"
+                    >Thay đổi mật khẩu</router-link
+                  >
+                </li>
+                <li>
+                  <router-link
+                    to="/login"
+                    @click="logout()"
+                    class="dropdown-item"
+                    >Đăng xuất</router-link
+                  >
+                </li>
+              </ul>
+            </div>
+            <!-- <a
               class="nav-link"
               href="#"
               id="navbarDropdown2"
@@ -81,13 +109,9 @@
               aria-expanded="false"
             >
               Chào, {{ userInfo.name }}
-            </a>
+            </a> -->
           </div>
-          <div>
-            <router-link to="/login" @click="logout()" class="nav-link"
-              >Đăng xuất</router-link
-            >
-          </div>
+          <div></div>
         </div>
       </div>
     </div>
@@ -250,5 +274,9 @@ export default {
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+.dropdown-toggle::after {
+  right: unset !important;
 }
 </style>

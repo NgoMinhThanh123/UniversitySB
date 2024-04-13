@@ -185,7 +185,7 @@ export default {
             password
           );
           const user = userCredential.user;
-          console.log(user);
+          // console.log(user);
           // Add user data to Firestore
           const userRef = await addDoc(collection(db, "users"), {
             name,
