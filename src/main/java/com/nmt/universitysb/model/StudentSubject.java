@@ -21,6 +21,8 @@ public class StudentSubject implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+    @Column(name = "status")
+    private boolean status;
     @JoinColumn(name = "student_id", referencedColumnName = "id")
     @JsonIgnore
     @ManyToOne(optional = false, fetch = FetchType.LAZY)

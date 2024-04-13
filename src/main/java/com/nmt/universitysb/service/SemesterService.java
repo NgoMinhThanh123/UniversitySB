@@ -16,4 +16,5 @@ public interface SemesterService {
     boolean deleteSemester(String id);
     List<Semester> getSemesterByLecturerId(String lecturerId);
     List<Semester> getSemesterByStudentId(String studentId);
+    Semester getLatestSemester();
 }

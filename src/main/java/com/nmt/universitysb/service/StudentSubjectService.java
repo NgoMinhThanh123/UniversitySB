@@ -16,6 +16,7 @@ public interface StudentSubjectService{
     Page<StudentSubject> findAllByStudentIdContaining(String keyword, Pageable pageable);
     StudentSubject save(StudentSubject f);
     List<StudentSubjectDto> courseRegister(List<Map<String, String>> paramsList);
+    List<StudentSubjectDto> temporaryCourseRegister(List<Map<String, String>> paramsList);
     boolean deleteStudentSubject(int id);
     Optional<StudentSubject> getStudentSubjectByStudentAndSubjectId(String studentId, String subjectId);
 }

@@ -45,4 +45,10 @@ public interface SemesterRepository extends JpaRepository<Semester, String> {
             +"where subject.id = :subjectId \n" +
             "ORDER BY semester.school_year, semester.id",nativeQuery = true)
     Semester getSemesterBySubjectId( @Param("subjectId") String subjectId);
+
+    @Query(value ="SELECT s.*\n" +
+            "FROM semester s\n" +
+            "ORDER BY s.school_year DESC, id DESC \n" +
+            "LIMIT 1",nativeQuery = true)
+    Semester getLatestSemester();
 }

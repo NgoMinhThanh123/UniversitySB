@@ -42,7 +42,17 @@ public class ApiStudentSubjectController {
     @CrossOrigin
     public ResponseEntity<List<StudentSubjectDto>> courseRegister(@RequestBody List<Map<String, String>> paramsList) {
         List<StudentSubjectDto> studentSubjectDtos = this.studentSubjectService.courseRegister(paramsList);
-        if (studentSubjectDtos == null) {
+        if (studentSubjectDtos.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(studentSubjectDtos, HttpStatus.CREATED);
+    }
+
+    @PostMapping(path="/temporary-course-register/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @CrossOrigin
+    public ResponseEntity<List<StudentSubjectDto>> temporaryCourseRegister(@RequestBody List<Map<String, String>> paramsList) {
+        List<StudentSubjectDto> studentSubjectDtos = this.studentSubjectService.temporaryCourseRegister(paramsList);
+        if (studentSubjectDtos.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(studentSubjectDtos, HttpStatus.CREATED);

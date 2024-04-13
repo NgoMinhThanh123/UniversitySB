@@ -67,6 +67,7 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
             StudentSubject studentSubject = new StudentSubject();
             studentSubject.setStudentId(student.get());
             studentSubject.setSubjectId(subject.get());
+            studentSubject.setStatus(true);
 
             Optional<StudentSubject> existingStudentSubject = studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.get().getId(), subject.get().getId());
             if (!existingStudentSubject.isPresent()) {
@@ -90,6 +91,7 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
                     StudentSubjectDto studentSubjectDto = new StudentSubjectDto();
                     studentSubjectDto.setStudentId(student.get().getId());
                     studentSubjectDto.setSubjectId(subject.get().getId());
+                    studentSubjectDto.setStatus(true);
 
                     studentSubjects.add(studentSubjectDto);
 
@@ -97,6 +99,38 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
                     studentTuitionFees.put(student.get().getId(), studentTuitionFees.getOrDefault(student.get().getId(), 0.0) + tuitionFee);
 
                 }
+            } else {
+                StudentSubject studentSubject2 = existingStudentSubject.get();
+                studentSubject2.setStatus(true);
+                this.studentSubjectRepository.save(studentSubject2);
+
+                // Tính toán tuitionFee
+                Double tuitionFee = this.tuitionFeeService.calcTuitionFee(subject.get().getId(), schoolYear);
+
+                Score score = new Score();
+                score.setStudentSubjectId(studentSubject2);
+                score.setSemesterId(semester.get());
+
+                Optional<Score> existingScore = scoreRepo.findByStudentSubjectIdAndSemesterId(
+                        studentSubject2.getId(),
+                        semester.get().getId()
+                );
+
+                if (!existingScore.isPresent()) {
+                    Score score1 = this.scoreRepo.save(score);
+
+                    StudentSubjectDto studentSubjectDto = new StudentSubjectDto();
+                    studentSubjectDto.setStudentId(student.get().getId());
+                    studentSubjectDto.setSubjectId(subject.get().getId());
+                    studentSubjectDto.setStatus(true);
+
+                    studentSubjects.add(studentSubjectDto);
+
+                    // Cộng dồn tuitionFee vào tổng của sinh viên
+                    studentTuitionFees.put(student.get().getId(), studentTuitionFees.getOrDefault(student.get().getId(), 0.0) + tuitionFee);
+
+                }
+
             }
         }
 
@@ -109,19 +143,50 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
             tuitionFee1.setDone(false);
 //            tuitionFee1.setDateCreated(new Date());
 
-            Optional<Student> student = this.studentRepo.findById(studentId);
-            if (student.isPresent()) {
-                tuitionFee1.setStudentId(student.get());
+            Optional<Student> student1 = this.studentRepo.findById(studentId);
+            if (student1.isPresent()) {
+                tuitionFee1.setStudentId(student1.get());
             }
-            Optional<Semester> semester = this.semesterRepo.findById(paramsList.get(0).get("semesterId"));
-            if (semester.isPresent()) {
-                tuitionFee1.setSemesterId(semester.get());
+            Optional<Semester> semester1 = this.semesterRepo.findById(paramsList.get(0).get("semesterId"));
+            if (semester1.isPresent()) {
+                tuitionFee1.setSemesterId(semester1.get());
             }
 
             this.tuitionFeeService.save(tuitionFee1);
         }
 
 
+        return studentSubjects;
+    }
+
+    @Override
+    public List<StudentSubjectDto> temporaryCourseRegister(List<Map<String, String>> paramsList) {
+        List<StudentSubjectDto> studentSubjects = new ArrayList<>();
+
+        for (Map<String, String> params : paramsList) {
+            Optional<Student> student = this.studentRepo.findById(params.get("studentId"));
+            Optional<Subject> subject = this.subjectRepo.findById(params.get("subjectId"));
+            Optional<Semester> semester = this.semesterRepo.findById(params.get("semesterId"));
+
+            StudentSubject studentSubject = new StudentSubject();
+            studentSubject.setStudentId(student.get());
+            studentSubject.setSubjectId(subject.get());
+            studentSubject.setStatus(false);
+
+            Optional<StudentSubject> existingStudentSubject = studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.get().getId(), subject.get().getId());
+            if (!existingStudentSubject.isPresent()) {
+                StudentSubject studentSubject1 = this.studentSubjectRepository.save(studentSubject);
+
+
+                    StudentSubjectDto studentSubjectDto = new StudentSubjectDto();
+                    studentSubjectDto.setStudentId(student.get().getId());
+                    studentSubjectDto.setSubjectId(subject.get().getId());
+                    studentSubjectDto.setStatus(false);
+
+                    studentSubjects.add(studentSubjectDto);
+
+                }
+            }
         return studentSubjects;
     }
 

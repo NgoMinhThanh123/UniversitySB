@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class StudentSubjectDto {
+    private Boolean status;
     private String studentId;
     private String subjectId;
 }
