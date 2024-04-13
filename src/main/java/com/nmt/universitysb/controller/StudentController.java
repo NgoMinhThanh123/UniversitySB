@@ -2,15 +2,25 @@ package com.nmt.universitysb.controller;
 
 import com.nmt.universitysb.model.Student;
 import com.nmt.universitysb.service.*;
+import com.nmt.universitysb.utils.ExcelStudentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -26,6 +36,8 @@ public class StudentController {
     private UserService userService;
     @Autowired
     private ClassesService classesService;
+    @Autowired
+    private ExcelStudentService excelService;
 
     @GetMapping("/student")
     public String list(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
@@ -87,5 +99,33 @@ public class StudentController {
         }
 
         return "update_student";
+    }
+
+    @PostMapping("/students/upload/")
+    @CrossOrigin
+    public ResponseEntity<?> uploadExcelFile(@RequestParam("file") MultipartFile file) throws IOException {
+        try {
+            Path tempDir = Files.createTempDirectory("upload-dir");
+
+            // Tạo một đường dẫn đến tệp tin tạm thời trong thư mục tạm thời
+            Path tempFile = tempDir.resolve(file.getOriginalFilename());
+
+            // Lưu dữ liệu từ MultipartFile vào tệp tin tạm thời
+            Files.write(tempFile, file.getBytes());
+
+            // Đọc dữ liệu từ tệp tin và xử lý
+            List<Student> students = excelService.readStudentsFromExcelFile(tempFile.toFile());
+
+            // Xóa thư mục tạm thời và tất cả các tệp tin bên trong sau khi đã xử lý xong
+            Files.walk(tempDir)
+                    .sorted(Comparator.reverseOrder())
+                    .map(Path::toFile)
+                    .forEach(File::delete);
+            this.studentService.save(students);
+            return ResponseEntity.ok("File uploaded successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing the file.");
+        }
     }
 }

@@ -37,4 +37,9 @@ public class Faculty implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "facultyId", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Major> majorSet;
+
+    @Override
+    public String toString() {
+        return "Faculty[id=" + this.id + ", name=" + this.name +"]";
+    }
 }

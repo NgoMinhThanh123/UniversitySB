@@ -35,7 +35,8 @@ public class PaypalController {
     }
 
     @PostMapping("/pay")
-    public String payment(@RequestParam("tuitionFeeId") int tuitionFeeId) {
+    public String payment() {
+        int tuitionFeeId = 9;
         TuitionFee tuitionFee = this.tuitionFeeService.findByTuitionFeeId(tuitionFeeId);
         double tuitionfeeTransfer = tuitionFee.getTuitionFee()/24985;
         try {

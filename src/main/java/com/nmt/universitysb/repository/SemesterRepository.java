@@ -25,7 +25,8 @@ public interface SemesterRepository extends JpaRepository<Semester, String> {
             "join subject on student_subject.subject_id = subject.id\n" +
             "join lecturer_subject on lecturer_subject.subject_id = subject.id\n" +
             "join lecturer on lecturer_subject.lecturer_id = lecturer.id\n" +
-            "where lecturer.id = :lecturerId",nativeQuery = true)
+            "where lecturer.id = :lecturerId " +
+            "ORDER BY semester.school_year, semester.id",nativeQuery = true)
     List<Semester> getSemesterByLecturerId(@Param("lecturerId")String lecturerId);
     @Query(value ="SELECT DISTINCT semester.*\n" +
             "FROM semester\n" +
@@ -33,13 +34,15 @@ public interface SemesterRepository extends JpaRepository<Semester, String> {
             "join student_subject on score.student_subject_id = student_subject.id\n" +
             "join subject on student_subject.subject_id = subject.id\n" +
             "join student on student_subject.student_id = student.id\n"
-            + "where student.id = :studentId",nativeQuery = true)
+            + "where student.id = :studentId \n" +
+            "ORDER BY semester.school_year, semester.id",nativeQuery = true)
     List<Semester> getSemesterByStudentId( @Param("studentId") String studentId);
 
     @Query(value ="SELECT DISTINCT semester.*\n" +
             "FROM semester\n" +
             "join subject_semester on subject_semester.semester_id = semester.id\n" +
             "join subject on subject_semester.subject_id = subject.id\n"
-            + "where subject.id = :subjectId",nativeQuery = true)
+            +"where subject.id = :subjectId \n" +
+            "ORDER BY semester.school_year, semester.id",nativeQuery = true)
     Semester getSemesterBySubjectId( @Param("subjectId") String subjectId);
 }

@@ -110,6 +110,7 @@ public class ApiUserController {
 //    }
 
     @PutMapping("/user/change-password/")
+    @CrossOrigin
     public ResponseEntity<String> changePassword(
             @RequestParam("oldPassword") String oldPassword,
             @RequestParam("newPassword") String newPassword) {

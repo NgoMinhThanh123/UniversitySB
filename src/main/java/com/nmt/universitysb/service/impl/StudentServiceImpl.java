@@ -3,12 +3,15 @@ import com.nmt.universitysb.dto.ScoreDto;
 import com.nmt.universitysb.dto.StuScoreDto;
 import com.nmt.universitysb.dto.StudentDto;
 import com.nmt.universitysb.model.Student;
+import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.repository.ScoreRepository;
 import com.nmt.universitysb.repository.StudentRepository;
+import com.nmt.universitysb.repository.UserRepository;
 import com.nmt.universitysb.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -17,8 +20,12 @@ import java.util.*;
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentRepository studentRepo;
-        @Autowired
+    @Autowired
     private ScoreRepository scoreRepo;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     @Override
     public List<Student> findAll() {
@@ -41,8 +48,34 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student save(Student f) {
-        return this.studentRepo.save(f);
+    public Student save(Student s) {
+        User u = new User();
+        u.setUsername(s.getId());
+        u.setPassword(encoder.encode(s.getIdentification()));
+        u.setEmail(s.getId()+"@ou.edu.vn");
+        u.setRole("ROLE_SINHVIEN");
+        u.setAvatar("https://res.cloudinary.com/dp1am0vsj/image/upload/v1696605996/u2bgxhndtzwzvxfv6zzg.webp");
+        this.userRepository.save(u);
+
+        s.setUserId(u);
+        return this.studentRepo.save(s);
+    }
+
+    @Override
+    public List<Student> save(List<Student> students) {
+        for(int i =0; i < students.size(); i++){
+            Student s = students.get(i);
+            User u = new User();
+            u.setUsername(s.getId());
+            u.setPassword(encoder.encode(s.getIdentification()));
+            u.setEmail(s.getId()+"@ou.edu.vn");
+            u.setRole("ROLE_SINHVIEN");
+            u.setAvatar("https://res.cloudinary.com/dp1am0vsj/image/upload/v1696605996/u2bgxhndtzwzvxfv6zzg.webp");
+            this.userRepository.save(u);
+            s.setUserId(u);
+
+        }
+        return this.studentRepo.saveAll(students);
     }
 
     @Override

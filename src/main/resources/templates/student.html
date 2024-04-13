@@ -27,7 +27,46 @@
 
                     <div class="d-flex justify-content-between">
                         <div>
-                            <a th:href="@{/add_student}" class="btn button-a mt-1">Thêm sinh viên</a>
+                            <div>
+                                <h5>Thêm danh sách sinh viên (Tệp định dạng .xlsx)</h5>
+                            </div>
+                            <div class="ml-3">
+                                <input type="file" id="uploadFile" accept=".xlsx,.xls">
+                            </div>
+                            <div class="d-flex mt-2">
+                                <div class="mr-2">
+                                    <a th:href="@{/add_student}" class="btn button-a">Thêm sinh viên</a>
+                                </div>
+                                <div class="ml-2">
+                                    <button id="uploadButton" class="btn btn-primary">Upload</button>
+                                </div>
+                            </div>
+                            <script>
+                                document.getElementById('uploadButton').addEventListener('click', function() {
+                                    var fileInput = document.getElementById('uploadFile');
+                                    var file = fileInput.files[0];
+                                    var formData = new FormData();
+                                    formData.append('file', file);
+
+                                    fetch('/students/upload/', {
+                                        method: 'POST',
+                                        body: formData
+                                    })
+                                        .then(response => {
+                                            if (!response.ok) {
+                                                throw new Error('Network response was not ok');
+                                            }
+                                            return response.text();
+                                        })
+                                        .then(data => {
+                                            alert(data); // Hiển thị thông báo từ server
+                                        })
+                                        .catch(error => {
+                                            console.error('There was an error!', error);
+                                            alert('An error occurred while uploading the file.');
+                                        });
+                                });
+                            </script>
                         </div>
                         <div>
                             <form class="d-flex" th:action="@{/student}">
@@ -128,6 +167,7 @@
 <!-- Page level custom scripts -->
 <script src="js/demo/chart-area-demo.js"></script>
 <script src="js/demo/chart-pie-demo.js"></script>
+
 
 </body>
 

@@ -32,7 +32,7 @@ public class Student implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date birthday;
     @Column(name = "gender")
-    private short gender;
+    private boolean gender;
     @NotEmpty(message = "Căn cước không được để trống")
     @Column(name = "identification")
     private String identification;
@@ -71,4 +71,5 @@ public class Student implements Serializable {
         // return Objects.hash(id, name, birthday, gender, identification, phone, address);
         return super.hashCode();
     }
+
 }
