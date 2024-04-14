@@ -1,6 +1,9 @@
 package com.nmt.universitysb.utils;
 
-import com.nmt.universitysb.model.*;
+import com.nmt.universitysb.model.Classes;
+import com.nmt.universitysb.model.Faculty;
+import com.nmt.universitysb.model.Major;
+import com.nmt.universitysb.model.Student;
 import com.nmt.universitysb.repository.*;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ExcelStudentService {
-
+public class ExcelScoreService {
     @Autowired
     private StudentRepository studentRepository;
     @Autowired

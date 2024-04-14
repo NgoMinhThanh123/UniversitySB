@@ -19,7 +19,7 @@ public class StudentDto {
 
     private Date birthday;
 
-    private short gender;
+    private boolean gender;
 
     private String identification;
 
