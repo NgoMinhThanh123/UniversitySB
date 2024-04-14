@@ -67,11 +67,22 @@ public class ApiSubjectController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-     @GetMapping(path = "/subjects/studentId-semesterId/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/subjects/studentId-semesterId/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<SubjectDto>> getSubjectByStudentAndSemesterId(
             @RequestParam String studentId,
             @RequestParam String semesterId) {
         List<SubjectDto> list = subjectService.getSubjectByStudentAndSemesterId(studentId, semesterId);
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/subjects/temporary-course/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<SubjectDto>> getSubjectTemporaryCourse(
+            @RequestParam String studentId,
+            @RequestParam String semesterId) {
+        List<SubjectDto> list = subjectService.getSubjectTemporaryCourse(studentId, semesterId);
         if (list.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

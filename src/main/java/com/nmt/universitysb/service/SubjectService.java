@@ -19,4 +19,5 @@ public interface SubjectService {
     List<SubjectDto> getSubjectByStudentId(String studentId);
     List<SubjectDto> getSubjectByMajorId(String majorId, String semesterId);
     List<SubjectDto> getSubjectByStudentAndSemesterId(String studentId, String semesterId);
+    List<SubjectDto> getSubjectTemporaryCourse(String studentId, String semesterId);
 }
