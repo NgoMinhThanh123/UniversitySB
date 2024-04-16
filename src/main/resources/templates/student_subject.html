@@ -58,7 +58,7 @@
                         <td th:text="${student_subject.subjectId.name}"></td>
                         <td>
                             <a th:href="@{/update_student_subject/{id}(id=${student_subject.id})}" class="btn button-a">Cập nhật</a>
-                            <button class="btn btn-danger" th:attr="data-student_subject-id=${student_subject.id}" onclick="deleteFaculty('/api/add_student_subject/' + this.getAttribute('data-student_subject-id'))">Xóa</button>
+                            <button class="btn btn-danger" th:attr="data-student_subject-id=${student_subject.id}" onclick="deleteFaculty('/api/delete_student_subject/' + this.getAttribute('data-student_subject-id'))">Xóa</button>
                         </td>
                     </tr>
                     </tbody>

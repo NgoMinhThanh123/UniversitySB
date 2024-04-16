@@ -21,7 +21,7 @@ public class ApiStudentSubjectController {
     @Autowired
     private StudentSubjectService studentSubjectService;
 
-    @DeleteMapping("/add_student_subject/{id}")
+    @DeleteMapping("/delete_student_subject/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable(value = "id") int id) {
         this.studentSubjectService.deleteStudentSubject(id);
