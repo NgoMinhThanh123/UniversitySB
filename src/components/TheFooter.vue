@@ -1,9 +1,9 @@
 <template>
     <div class="footer">
         <div class="containter-fluid">
-            <div class="text-white" style="background-color: #070758; padding: 1rem 5rem;">
+            <div class="text-white" style="background-color: #070758;">
                 <div class="d-flex justify-content-center align-items-center">
-                    <span>
+                    <span style="font-size: 15px; line-height: 45px;">
                         Copyright
                         <i class="fa-regular fa-copyright"></i>
                         2023 Trường đại học Thành phố Hồ Chí Minh

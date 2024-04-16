@@ -148,7 +148,7 @@ export default {
             const u = await this.getUserByUsername(this.user.username);
 
             if (u) {
-              const studentUsername = u.username;
+              // const studentUsername = u.username;
               const userEmail = u.email;
 
               const auth = getAuth(firebase); // Sử dụng auth từ Firebase Modular SDK
@@ -167,11 +167,11 @@ export default {
                   collection(db, "users"),
                   where("id", "==", user.uid)
                 );
-                console.log("user.uid", user.uid);
+                // console.log("user.uid", user.uid);
 
                 const querySnapshot = await getDocs(q);
 
-                console.log("querySnapshot", querySnapshot);
+                // console.log("querySnapshot", querySnapshot);
 
                 if (!querySnapshot.empty) {
                   querySnapshot.forEach((doc) => {

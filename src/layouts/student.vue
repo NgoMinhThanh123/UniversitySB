@@ -12,7 +12,7 @@
       </div>
       <div class="col-10 col-sm-10"  style="padding: 0">
         <TheHeader />
-        <div class="container" style="padding: 20px; min-height: 81vh">
+        <div class="container" style="padding: 20px; min-height: 85vh">
           <router-view></router-view>
         </div>
         <TheFooter />

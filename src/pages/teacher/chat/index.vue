@@ -168,7 +168,6 @@ export default {
 }
 .header-width {
   width: calc(100% - 350px);
-  min-height: 100vh;
   transition: all 0.3s;
   position: absolute;
   right: 0;

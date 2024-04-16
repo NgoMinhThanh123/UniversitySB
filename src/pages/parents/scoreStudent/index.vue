@@ -1,8 +1,8 @@
 <template>
   <TheHeader/>
-  <div>
+  <div class="container-fluid mb-4">
     <div v-if="semesters.length > 0">
-      <h2 class="score">Thông tin điểm số</h2>
+      <h2 class="score mt-4">Thông tin điểm số</h2>
       <div v-for="(semester, semesterIndex) in semesters" :key="semesterIndex">
         <div class="semester">
           {{ `${semester.name}-${semester.schoolYear}` }}

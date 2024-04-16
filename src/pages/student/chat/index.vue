@@ -2,7 +2,7 @@
   <div class="wrapper" >
     <!-- Sidebar  -->
     <nav style="color: white" id="sidebar">
-      <div class="sidebar-header d-flex justify-content-around">
+      <div class="sidebar-header d-flex justify-content-around" >
         <div
           class="d-flex pointer"
           style="margin-right: 25px; width: 160px"
@@ -167,10 +167,8 @@ export default {
 }
 .header-width {
   width: calc(100% - 350px);
-  min-height: 100vh;
   transition: all 0.3s;
   position: absolute;
-  top: 0;
   right: 0;
 }
 </style>

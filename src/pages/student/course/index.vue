@@ -11,15 +11,11 @@
           <select
             class="form-control"
             id="selectSemester"
-            v-model="selectSemester"
+            :v-model="selectSemester"
+            disabled
           >
-            <option value="">-- Chọn học kì --</option>
-            <option
-              v-for="(semester, index) in semesters"
-              :key="index"
-              :value="semester.id"
-            >
-              {{ semester.name }} - Năm học: {{ semester.schoolYear }}
+            <option :key="index" :value="semesters.id">
+              {{ semesters.name }} - Năm học: {{ semesters.schoolYear }}
             </option>
           </select>
         </div>
@@ -49,7 +45,7 @@
         </div>
       </div>
     </div>
-    <div v-if="courses.length > 0" >
+    <div v-if="courses.length > 0">
       <p>Danh sách môn học mở đăng ký:</p>
       <table class="table table-hover table-bordered">
         <thead>
@@ -167,7 +163,7 @@ export default {
     return {
       courses: [],
       majors: [],
-      semesters: [],
+      semesters: {},
       selecetMajor: "",
       selectSemester: "",
       selectedCourses: [],
@@ -175,13 +171,21 @@ export default {
       quantity: 80,
     };
   },
+  watch: {
+    selectedCourses: {
+      handler(newValue, oldValue) {
+        this.saveTemporaryCourse();
+      },
+      deep: true // Đảm bảo theo dõi sâu vào các phần tử của mảng
+    },
+  },
   methods: {
     // Phương thức được gọi khi checkbox thay đổi trạng thái
     toggleCourse(event, rowData, index) {
       if (!rowData.isSelected) {
         rowData.isSelected = true;
         this.selectedCourses.push(rowData);
-        this.remaining -= 1; // Giảm giá trị "Còn lại" đi 1 khi được chọn
+        this.remaining -= 1; 
       }
     },
     removeCourse(index) {
@@ -200,13 +204,12 @@ export default {
         matchingCourse.remaining += 1;
       }
     },
-
     async getSubject() {
       try {
         if (this.selecetMajor) {
           // Check if a selection has been made
           const majorId = this.selecetMajor; // Use the selected value as facultyId
-          const semesterId = this.selectSemester;
+          const semesterId = this.semesters.id;
 
           const response = await authApi().get(
             endpoints["get-subject-by-major"] +
@@ -227,19 +230,18 @@ export default {
         }
       }
     },
-
     async getMajor() {
       try {
         const response = await Apis.get(endpoints["majors"]);
         this.majors = response.data;
-        console.log(response)
+        console.log(response);
       } catch (error) {
         console.log(error);
       }
     },
-    async getListSemester() {
+    async getLatestSemester() {
       try {
-        const res = await authApi().get(endpoints["get-semesters"]);
+        const res = await authApi().get(endpoints["get-latest-semester"]);
         this.semesters = res.data;
       } catch (error) {
         console.log(error);
@@ -254,9 +256,9 @@ export default {
         const studentId = resStudentId.data.id;
 
         try {
-          const promises = this.selectedCourses.map(async (score) => {
-            const subjectId = score.id;
-            const semesterId = this.selectSemester;
+          const promises = this.selectedCourses.map(async (subject) => {
+            const subjectId = subject.id;
+            const semesterId = this.semesters.id;
             const requestData = [
               {
                 studentId: studentId,
@@ -287,11 +289,55 @@ export default {
         console.log(error);
       }
     },
+    async saveTemporaryCourse() {
+      try {
+        const username = this.getUser.username;
+        const resStudentId = await authApi().get(
+          endpoints["get-student-by-username"].replace("{username}", username)
+        );
+        const studentId = resStudentId.data.id;
+
+        try {
+          const promises = this.selectedCourses.map(async (subject) => {
+            const subjectId = subject.id;
+            const semesterId = this.semesters.id;
+            const requestData = [
+              {
+                studentId: studentId,
+                subjectId: subjectId,
+                semesterId: semesterId,
+              },
+            ];
+            const response = await authApi().post(
+              endpoints["temporary-course-register"],
+              requestData,
+              {
+                headers: {
+                  "Content-Type": "application/json", // Đặt Content-Type là application/json
+                },
+              }
+            );
+            if (response.status !== 201) {
+              console.error(`Lưu tạm thất bại!!!`);
+            }
+          });
+          await Promise.all(promises);
+
+          // alert("Đăng ký môn học thành công!");
+          console.log("Lưu tạm thành công");
+        } catch (error) {
+          console.log(error);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    },
+
   },
   created() {
     this.getMajor();
     this.getSubject();
-    this.getListSemester();
+    this.getLatestSemester();
     if (this.majors.length > 0) {
       this.getSubject();
       this.maxQuantity = this.courses.reduce(

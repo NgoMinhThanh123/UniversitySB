@@ -30,7 +30,7 @@
         <TheHeader />
         <div
           class="container-fluid"
-          style="min-height: 81vh"
+          style="min-height: 85vh"
           v-if="this.getUser && this.getUser.role != null"
         >
           <section class="section about-section">
@@ -62,6 +62,7 @@
                   <div
                     class="about-text go-to"
                     style="padding: 0 15px 24px 15px"
+                    v-if="this.getUser.role === 'ROLE_SINHVIEN'"
                   >
                     <div class="row about-list">
                       <div class="col-lg-8">
@@ -89,17 +90,58 @@
                           <label>Số điện thoại</label>
                           <p>{{ userInfo.phone }}</p>
                         </div>
-                        <div class="media">
-                          <label>Khoa</label>
-                          <p v-if="userInfo.facultyId">
-                            {{ userInfo.facultyId.name }}
-                          </p>
+                      </div>
+                      <div class="col-lg-4">
+                        <div
+                          class="about-avatar text-center"
+                          v-if="isAuth === true"
+                        >
+                          <img
+                            :src="getUser.avatar"
+                            title=""
+                            alt=""
+                            style="height: 100%; width: 100%"
+                          />
                         </div>
-                        <div class="media">
-                          <label>Chuyên ngành</label>
-                          <p v-if="userInfo.majorId">
-                            {{ userInfo.majorId.name }}
-                          </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="about-text go-to"
+                    style="padding: 0 15px 24px 15px"
+                    v-if="this.getUser.role === 'ROLE_GIANGVIEN'"
+                  >
+                    <div class="row about-list">
+                      <div class="col-lg-8">
+                        <div class="row about-text go-to">
+                          <div class="col-md-6">
+                            <div class="media">
+                              <label>Tên</label>
+                              <p>{{ userInfo.name }}</p>
+                            </div>
+                            <div class="media">
+                              <label>CCCD</label>
+                              <p>{{ userInfo.identification }}</p>
+                            </div>
+                            <div class="media">
+                              <label>Ngày sinh</label>
+                              <p>{{ formattedBirthday }}</p>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="media">
+                              <label>Địa chỉ</label>
+                              <p>{{ userInfo.address }}</p>
+                            </div>
+                            <div class="media">
+                              <label>E-mail</label>
+                              <p v-if="isAuth === true">{{ getUser.email }}</p>
+                            </div>
+                            <div class="media">
+                              <label>Số điện thoại</label>
+                              <p>{{ userInfo.phone }}</p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div class="col-lg-4">
@@ -119,6 +161,7 @@
                   </div>
                 </div>
                 <div
+                  v-if="this.getUser.role === 'ROLE_SINHVIEN'"
                   class="about-list"
                   style="
                     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -173,6 +216,7 @@
               <div
                 class="col-5"
                 style="padding: 0; margin: 10px; border-radius: 5px"
+                v-if="this.getUser.role === 'ROLE_SINHVIEN'"
               >
                 <div class="row">
                   <div

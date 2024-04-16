@@ -41,6 +41,8 @@ export const endpoints = {
   "update-comment": `${SERVER_CONTEXT}/api/comment-update/{commentId}`,
   "delete-comment": `${SERVER_CONTEXT}/api/comments/{commentId}`,
   "course-register": `${SERVER_CONTEXT}/api/course-register/`,
+  "temporary-course-register": `${SERVER_CONTEXT}/api/temporary-course-register/`,
+  "get-subjects-temporary-course-register": `${SERVER_CONTEXT}/api/subjects/temporary-course/`,
   "get-semesters": `${SERVER_CONTEXT}/api/get-semesters/`,
   "get-firebase-config": `${SERVER_CONTEXT}/api/firebase/config`,
   "get-student-by-parents": `${SERVER_CONTEXT}/api/get-student-parents/`,
@@ -49,6 +51,7 @@ export const endpoints = {
   "change-password": `${SERVER_CONTEXT}/api/user/change-password/`,
   "get-final-accumulate": `${SERVER_CONTEXT}/api/scores/final-accumulate/`,
   "get-subject-by-major": `${SERVER_CONTEXT}/api/subjects/majorId/`,
+  "get-latest-semester": `${SERVER_CONTEXT}/api/semesters/latest/`,
 };
 
 export const authApi = () => {

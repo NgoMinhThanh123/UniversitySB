@@ -4,7 +4,7 @@
       class="text-white"
       style="
         background-color: #070758;
-        padding: 1.5rem 5rem;
+        padding: 1rem 2rem;
         display: flex;
         flex-wrap: wrap;
       "
@@ -16,7 +16,7 @@
         <div class="profile" v-if="isAuth === true">
           <router-link to="/profile" class="router-link-hover">
             <i class="fa-solid fa-user"></i>
-            <span> Hồ sơ </span>
+            <span style="font-size: 16px"> Hồ sơ </span>
           </router-link>
         </div>
       </div>
@@ -79,6 +79,7 @@
                 href="#"
                 role="button"
                 data-bs-toggle="dropdown"
+                style="font-size: 16px"
               >
                 Chào, {{ userInfo.name }}
               </a>
@@ -124,14 +125,14 @@
   >
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-        <div style="margin-right: 20px">
-          <img src="../assets/logoSchool_1.png" alt="Logo trường" />
+        <div style="width: 10%;">
+          <img style="width: 100%;" src="../assets/logoSchool_1.png" alt="Logo trường" />
         </div>
 
         <div
           class="collapse navbar-collapse"
           id="navbarNav"
-          style="justify-content: flex-start; flex-wrap: wrap"
+          style="justify-content: flex-end; flex-wrap: wrap"
         >
           <ul class="navbar-nav">
             <li class="nav-item">
@@ -155,6 +156,7 @@
 <script>
 import { authApi, endpoints } from "@/configs/Apis";
 import { mapGetters } from "vuex";
+import { getAuth, signOut } from "firebase/auth";
 export default {
   name: "TheHeader",
   data() {
@@ -170,9 +172,12 @@ export default {
     ...mapGetters(["isAuth", "getUser"]),
   },
   methods: {
-    logout() {
+    async logout() {
       this.isLogin = false;
       this.$store.dispatch("logout");
+      const auth = getAuth();
+      await signOut(auth);
+      localStorage.clear();
     },
     async fetchUserInfo() {
       let endpoint = "";

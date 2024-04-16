@@ -1,7 +1,7 @@
 <template>
   <div style="height: 100%">
     <div class="row">
-      <div class="col-sm-3 d-none d-sm-flex" style="padding: 0">
+      <div class="col-lg-2 col-sm-2 d-none d-sm-flex" style="padding: 0">
         <a-list
           bordered
           style="width: 100%"
@@ -15,69 +15,97 @@
           </div>
           <template #header>
             <!-- <div style="font-size: 20px">BẢNG ĐIỀU KHIỂN</div> -->
-            <div><img src="../../assets/logoSchool_1.png" alt="logo" /></div>
+            <div><img  style="width: 100%" src="../../assets/logoSchool_1.png" alt="logo" /></div>
           </template>
         </a-list>
       </div>
-
-      <div class="col col-sm-9" style="padding: 0">
+      <div class="col-lg-10 col-sm-10" style="padding: 0">
         <TheHeader />
-        <form
-          class="row g-3"
-          style="padding: 20px"
-          action="#"
-          method="put"
-          @submit.prevent="changePasswordForStudent"
-        >
-          <div class="col">
-            <label for="inputPassword1">Mật khẩu hiện tại</label>
-            <input
-              type="password"
-              class="form-control"
-              id="inputPassword1"
-              required
-              placeholder="Mật khẩu hiện tại"
-              v-model="passwordUser.oldPassword"
-            />
+        <div class="container-fluid" style="min-height: 80vh">
+          <div
+            style="
+              margin: 10px 0;
+              box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+              border-radius: 5px;
+            "
+          >
+            <h5
+              class="title"
+              style="
+                background: #070758;
+                color: #fff;
+                padding: 10px 24px;
+                border-top-left-radius: 5px;
+                border-top-right-radius: 5px;
+                font-size: 16px;
+              "
+            >
+              Thay đổi mật khẩu
+            </h5>
+            <form
+              class="row"
+              style="padding: 20px"
+              action="#"
+              method="put"
+              @submit.prevent="changePasswordForStudent"
+            >
+              <div class="mt-3">
+                <label for="inputPassword1">Mật khẩu hiện tại</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="inputPassword1"
+                  required
+                  placeholder="Mật khẩu hiện tại"
+                  v-model="passwordUser.oldPassword"
+                />
+              </div>
+              <div class="mt-3">
+                <label for="inputPassword2">Mật khẩu mới</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="inputPassword2"
+                  required
+                  placeholder="Mật khẩu mới"
+                  v-model="passwordUser.newPassword"
+                  @input="change($event, 'password')"
+                />
+              </div>
+              <div class="mt-3">
+                <label for="inputPassword3">Nhập lại mật khẩu</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="inputPassword3"
+                  required
+                  placeholder="Nhập lại mật khẩu"
+                  @input="change($event, 'confirmPass')"
+                  v-model="passwordUser.confirmPassword"
+                />
+              </div>
+              <div v-if="!notiCheck">
+                <div
+                  v-if="errorMessage"
+                  class="alert alert-danger"
+                  role="alert"
+                >
+                  {{ errorMessage }}
+                </div>
+              </div>
+              <div v-else>
+                <div v-if="message" class="alert alert-success" role="alert">
+                  {{ message }}
+                </div>
+              </div>
+              <div class="mt-5">
+                <button type="submit" class="btn btn-primary mb-3">
+                  Cập nhật
+                </button>
+              </div>
+            </form>
           </div>
-          <div class="col">
-            <label for="inputPassword2">Mật khẩu mới</label>
-            <input
-              type="password"
-              class="form-control"
-              id="inputPassword2"
-              required
-              placeholder="Mật khẩu mới"
-              v-model="passwordUser.newPassword"
-              @input="change($event, 'password')"
-            />
-          </div>
-          <div class="col">
-            <label for="inputPassword3">Nhập lại mật khẩu</label>
-            <input
-              type="password"
-              class="form-control"
-              id="inputPassword3"
-              required
-              placeholder="Nhập lại mật khẩu"
-              @input="change($event, 'confirmPass')"
-              v-model="passwordUser.confirmPassword"
-            />
-          </div>
-          <div v-if="!notiCheck">
-            <div v-if="errorMessage" class="alert alert-danger" role="alert">
-              {{ errorMessage }}
-            </div>
-          </div>
-          <div v-else>
-            <div v-if="message" class="alert alert-success" role="alert">
-              {{ message }}
-            </div>
-          </div>
-          <div class="">
-            <button type="submit" class="btn btn-primary mb-3">Cập nhật</button>
-          </div>
-        </form>
+        </div>
         <TheFooter />
       </div>
     </div>
@@ -171,9 +199,9 @@ export default {
           this.message = res.data;
           console.log("put password: " + res.data);
           this.notiCheck = true;
-          this.passwordUser.oldPassword = '';
-          this.passwordUser.newPassword = '';
-          this.passwordUser.confirmPassword = '';
+          this.passwordUser.oldPassword = "";
+          this.passwordUser.newPassword = "";
+          this.passwordUser.confirmPassword = "";
         }
       } catch (e) {
         this.errorMessage = "Mật khẩu cũ không chính xác";
