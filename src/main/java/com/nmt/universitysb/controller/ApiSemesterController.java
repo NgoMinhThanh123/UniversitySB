@@ -12,6 +12,7 @@ import java.util.List;
 
 @Tag(name = "Semester Controller")
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class ApiSemesterController {
     @Autowired
@@ -25,7 +26,6 @@ public class ApiSemesterController {
 
 
     @GetMapping("/get-semesters/")
-    @CrossOrigin
     public ResponseEntity<List<Semester>> getList() {
         List<Semester> list = this.semesterService.findAll();
         if (list.isEmpty()) {
@@ -35,7 +35,6 @@ public class ApiSemesterController {
     }
 
     @GetMapping("/semesters/latest/")
-    @CrossOrigin
     public ResponseEntity<Semester> getLatestSemester() {
        Semester s = this.semesterService.getLatestSemester();
         if (s == null) {
@@ -45,7 +44,6 @@ public class ApiSemesterController {
     }
 
     @GetMapping("/semesters/")
-    @CrossOrigin
     public ResponseEntity<List<Semester>> list(@RequestParam String lecturerId) {
         List<Semester> list = this.semesterService.getSemesterByLecturerId(lecturerId);
         if (list.isEmpty()) {
@@ -54,7 +52,6 @@ public class ApiSemesterController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
     @GetMapping("/semesters/student/")
-    @CrossOrigin
     public ResponseEntity<List<Semester>> getListSemesterByStudentId( @RequestParam String studentId) {
         List<Semester> list = this.semesterService.getSemesterByStudentId(studentId);
         if (list.isEmpty()) {

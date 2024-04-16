@@ -12,6 +12,7 @@ import java.util.List;
 
 @Tag(name = "Class Controller")
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class ApiClassController {
     @Autowired
@@ -24,7 +25,6 @@ public class ApiClassController {
     }
 
     @GetMapping("/classes/")
-    @CrossOrigin
     public ResponseEntity<List<Classes>> list() {
         return new ResponseEntity<>(this.classesService.findAll(), HttpStatus.OK);
     }

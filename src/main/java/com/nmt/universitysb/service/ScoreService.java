@@ -25,6 +25,7 @@ public interface ScoreService {
     List<String> getListAcademicWarning(String studentId, String semesterId);
     List<StudentScoreDTO> getStudentScores(String lecturerId, String semesterId, String subjectId);
     List<Score_ScoreValueDto> addScore(List<Map<String, String>> scoreParamsList);
+    List<Score_ScoreValueDto> addScoreByExcel(String subjectId, String semesterId, String studentId, int scoreColumnId, double scoreValue);
 
     ScoreDto getFinalScoreForSubject(String studentId, String subjectId, String semesterId);
     ScoreDto getAccumulateScoreForSemester(String studentId, String semesterId);

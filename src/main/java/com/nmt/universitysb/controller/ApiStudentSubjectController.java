@@ -15,6 +15,7 @@ import java.util.Optional;
 
 @Tag(name = "StudentSubject Controller")
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class ApiStudentSubjectController {
     @Autowired
@@ -27,7 +28,6 @@ public class ApiStudentSubjectController {
     }
 
     @GetMapping(path = "/get_student_subject/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<Optional<StudentSubject>> getStudentSubject(
             @RequestParam String studentId,
             @RequestParam String subjectId) {
@@ -38,8 +38,18 @@ public class ApiStudentSubjectController {
         return new ResponseEntity<>(studentSubject, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/get-temporary-course/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<StudentSubjectDto>> getTemporaryCourse(
+            @RequestParam String studentId,
+            @RequestParam String semesterId) {
+        List<StudentSubjectDto> studentSubject = this.studentSubjectService.getTemporaryCourse(studentId, semesterId);
+        if (studentSubject.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(studentSubject, HttpStatus.OK);
+    }
+
     @PostMapping(path="/course-register/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<List<StudentSubjectDto>> courseRegister(@RequestBody List<Map<String, String>> paramsList) {
         List<StudentSubjectDto> studentSubjectDtos = this.studentSubjectService.courseRegister(paramsList);
         if (studentSubjectDtos.isEmpty()) {
@@ -49,7 +59,6 @@ public class ApiStudentSubjectController {
     }
 
     @PostMapping(path="/temporary-course-register/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<List<StudentSubjectDto>> temporaryCourseRegister(@RequestBody List<Map<String, String>> paramsList) {
         List<StudentSubjectDto> studentSubjectDtos = this.studentSubjectService.temporaryCourseRegister(paramsList);
         if (studentSubjectDtos.isEmpty()) {

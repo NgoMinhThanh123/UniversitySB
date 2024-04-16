@@ -200,4 +200,9 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
     public Optional<StudentSubject> getStudentSubjectByStudentAndSubjectId(String studentId, String subjectId) {
         return this.studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(studentId, subjectId);
     }
+
+    @Override
+    public List<StudentSubjectDto> getTemporaryCourse(String studentId, String semesterId) {
+        return this.studentSubjectRepository.getTemporaryCourse(studentId, semesterId);
+    }
 }

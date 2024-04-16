@@ -1,4 +1,5 @@
 package com.nmt.universitysb.service;
+import com.nmt.universitysb.dto.Score_ScoreValueDto;
 import com.nmt.universitysb.model.ScoreValue;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

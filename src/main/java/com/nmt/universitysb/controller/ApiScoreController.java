@@ -23,6 +23,7 @@ import java.util.Map;
 
 @Tag(name = "Score Controller")
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class ApiScoreController {
 
@@ -36,7 +37,6 @@ public class ApiScoreController {
     }
 
     @GetMapping(path = "/scores/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<List<StudentScoreDTO>> getScoresById(
             @RequestParam String lecturerId,
             @RequestParam String semesterId,
@@ -49,7 +49,6 @@ public class ApiScoreController {
     }
 
     @GetMapping(path = "/scores/student-id/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<?> getScoresByStudentId(
             @RequestParam String studentId,
             @RequestParam String subjectId,
@@ -62,7 +61,6 @@ public class ApiScoreController {
     }
 
     @GetMapping(path = "/scores/final/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<?> getFinalScoreForSubject(
             @RequestParam String studentId,
             @RequestParam String subjectId,
@@ -75,7 +73,6 @@ public class ApiScoreController {
     }
 
     @GetMapping(path = "/scores/accumulate/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<?> getAccumulateScoreForSemester(
             @RequestParam String studentId,
             @RequestParam String semesterId) {
@@ -87,7 +84,6 @@ public class ApiScoreController {
     }
 
     @GetMapping(path = "/scores/final-accumulate/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<?> getFinalAccumulateScoreForStudent(
             @RequestParam String studentId) {
         ScoreDto o = scoreService.getFinalAccumulateScoreForStudent(studentId);
@@ -98,7 +94,6 @@ public class ApiScoreController {
     }
 
     @GetMapping(path = "/scores/list/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<List<ScoreListDto>> scoresList(
             @RequestParam String studentId,
             @RequestParam String semesterId) {
@@ -110,7 +105,6 @@ public class ApiScoreController {
     }
 
     @GetMapping(path = "/scores/academic-warning/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<List<String>> getListAcademicWarning(
             @RequestParam String studentId,
             @RequestParam String semesterId) {
@@ -122,7 +116,6 @@ public class ApiScoreController {
     }
 
     @GetMapping(path = "/scores/list/for-parent", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<List<ScoreListDto>> scoresListForParent(
             @RequestParam String studentId,
             @RequestParam String semesterId) {
@@ -135,7 +128,6 @@ public class ApiScoreController {
 
 
     @GetMapping("/scores/export-excel/")
-    @CrossOrigin
     public void exportExcel(
             @RequestParam String lecturerId,
             @RequestParam String semesterId,
@@ -172,7 +164,6 @@ public class ApiScoreController {
     }
 
     @PostMapping(path="/add-score/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<List<Score_ScoreValueDto>> addScore(@RequestBody List<Map<String, String>> scoreParamsList) {
         List<Score_ScoreValueDto> scoreValueDtos = this.scoreService.addScore(scoreParamsList);
         if (scoreValueDtos == null) {

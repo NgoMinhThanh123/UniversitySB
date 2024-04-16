@@ -34,6 +34,7 @@ import java.util.Optional;
 
 @Tag(name = "Student Controller")
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class ApiStudentController {
     public static final String YYYY_MM_DD = "yyyy-MM-dd";
@@ -51,13 +52,11 @@ public class ApiStudentController {
     }
 
     @GetMapping("/students")
-    @CrossOrigin
     public ResponseEntity<List<Student>> list() {
         return new ResponseEntity<>(this.studentService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/students/{id}/")
-    @CrossOrigin
     public ResponseEntity<Student> getStudentById(@PathVariable(value = "id") String id) {
         Optional<Student> studentOptional = studentService.findById(id);
 
@@ -70,7 +69,6 @@ public class ApiStudentController {
     }
 
     @GetMapping(path = "/students-un/{username}/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<StudentDto> getStudentByUsename(@PathVariable(value = "username") String username) {
         StudentDto studentDto = studentService.getStudentByUsername(username);
         if (studentDto == null) {
@@ -81,7 +79,6 @@ public class ApiStudentController {
 
 
     @GetMapping(path = "/students-lecturer/{lecturerId}/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<List<StudentDto>> getStudentByHomeroomTeacher(@PathVariable(value = "lecturerId") String lecturerId) {
         List<StudentDto> students = studentService.getStudentByHomeroomTeacher(lecturerId);
         if (students.isEmpty()) {
@@ -91,7 +88,6 @@ public class ApiStudentController {
     }
 
     @GetMapping(path = "/get-list-student/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<List<StuScoreDto>> getListStudent(
             @RequestParam String lecturerId,
             @RequestParam String classId,
@@ -105,7 +101,6 @@ public class ApiStudentController {
     }
 
     @GetMapping(path = "/get-student-parents/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<StudentDto> getListStudentForParents(
             @RequestParam String studentId,
             @RequestParam String studentName,
@@ -120,7 +115,6 @@ public class ApiStudentController {
     }
 
     @PostMapping("/students/mails/")
-    @CrossOrigin
     public ResponseEntity<?> sendMailToStudent(
             @RequestParam String lecturerId,
             @RequestParam String subjectId,
@@ -142,7 +136,5 @@ public class ApiStudentController {
         });
         return ResponseEntity.ok("Send mail to group successfully!");
     }
-
-
 
 }

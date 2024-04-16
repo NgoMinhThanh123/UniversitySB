@@ -13,6 +13,7 @@ import java.util.Map;
 
 @Tag(name = "Major Controller")
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class ApiMajorController {
     @Autowired
@@ -25,8 +26,7 @@ public class ApiMajorController {
     }
 
     @GetMapping("/majors/")
-    @CrossOrigin
-    public ResponseEntity<List<Major>> list(@RequestParam Map<String, String> params) {
+    public ResponseEntity<List<Major>> list() {
         return new ResponseEntity<>(this.majorService.findAll(), HttpStatus.OK);
     }
 }

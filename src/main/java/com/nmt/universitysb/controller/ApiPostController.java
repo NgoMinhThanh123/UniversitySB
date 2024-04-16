@@ -21,6 +21,7 @@ import java.util.Optional;
 
 @Tag(name = "Post Controller")
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class ApiPostController {
     @Autowired
@@ -30,7 +31,6 @@ public class ApiPostController {
     private CommentService commentService;
 
     @GetMapping("/posts/")
-    @CrossOrigin
     public ResponseEntity<List<Post>> list(@RequestParam(required = false) String kw, Pageable pageable) {
         Page<Post> page;
         if (kw != null && !kw.isEmpty()) {
@@ -49,7 +49,6 @@ public class ApiPostController {
     }
 
     @GetMapping(path = "/posts/{postId}/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<Post> getPostById(@PathVariable(value = "postId") int postId) {
         Optional<Post> post = postService.findById(postId);
         if (post.isEmpty()) {
@@ -59,7 +58,6 @@ public class ApiPostController {
     }
 
     @GetMapping(path = "/post-user/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<List<PostDto>> getPostByUserId(@PathVariable(value = "userId") int userId) {
         List<PostDto> post = postService.findByUserId(userId);
         if (post.isEmpty()) {
@@ -69,7 +67,6 @@ public class ApiPostController {
     }
 
     @GetMapping(path = "/posts/{postId}/comments/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<List<Comment>> getCommentByPostId(@PathVariable(value = "postId") int postId) {
         List<Comment> list = commentService.getCommentByPostId(postId);
         if (list.isEmpty()) {
@@ -79,7 +76,6 @@ public class ApiPostController {
     }
 
     @PostMapping(path="/add-post/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<Post> addPost(@RequestBody Post post) {
         Post p = this.postService.addPost(post);
 
@@ -87,7 +83,6 @@ public class ApiPostController {
     }
 
     @PutMapping(path = "/post-update/{postId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<String> updatePostContent(
             @PathVariable(value = "postId") int postId,
             @RequestBody PostUpdateDto post) {
@@ -100,7 +95,6 @@ public class ApiPostController {
     }
 
     @DeleteMapping(path ="/posts-delete/{postId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<String> deletePost(@PathVariable(value = "postId") int postId) {
         try {
             this.postService.deletePost(postId);
@@ -111,7 +105,6 @@ public class ApiPostController {
     }
 
     @PostMapping(path="/comments/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<Comment> addComment(@RequestBody Comment comment) {
         Comment c = this.commentService.addComment(comment);
 
@@ -119,7 +112,6 @@ public class ApiPostController {
     }
 
     @PutMapping(path = "/comment-update/{commentId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<String> updateCommentContent(
             @PathVariable(value = "commentId") int commentId,
             @RequestBody CommentDto commentDto) {
@@ -132,7 +124,6 @@ public class ApiPostController {
     }
 
     @DeleteMapping(path ="/comments/{commentId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<String> deleteComment(@PathVariable(value = "commentId") int commentId) {
         try {
             this.commentService.deleteComment(commentId);

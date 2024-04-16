@@ -45,4 +45,9 @@ public class ScoreColumnSeviceImpl implements ScoreColumnSevice {
         this.scoreColumnRepo.deleteById(id);
         return true;
     }
+
+    @Override
+    public ScoreColumn getScoreColumnByName(String scoreColumnName) {
+        return this.scoreColumnRepo.getScoreColumnByName(scoreColumnName);
+    }
 }

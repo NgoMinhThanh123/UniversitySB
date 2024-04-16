@@ -14,6 +14,7 @@ import java.util.List;
 
 @Tag(name = "Lecturer Controller")
 @RestController
+@CrossOrigin
 @RequestMapping("/api")
 public class ApiLecturerController {
 
@@ -27,13 +28,11 @@ public class ApiLecturerController {
     }
 
     @GetMapping("/lecturers/")
-    @CrossOrigin
     public ResponseEntity<List<Lecturer>> list() {
         return new ResponseEntity<>(this.lecturerService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping(path = "/lecturers-un/{username}/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @CrossOrigin
     public ResponseEntity<Lecturer> getStudentByUsename(@PathVariable(value = "username") String username) {
         Lecturer lecturerDto = lecturerService.getLecturerByUsername(username);
         if (lecturerDto == null) {

@@ -47,6 +47,11 @@ public interface SubjectRepository extends JpaRepository<Subject, String> {
 
     @Query("select new com.nmt.universitysb.dto.SubjectDto(a.id, a.name, a.credit, a.majorId ) " +
             "from Subject a " +
+            "where a.name = :subjectName")
+    SubjectDto getSubjectByName(@Param("subjectName") String subjectName);
+
+    @Query("select new com.nmt.universitysb.dto.SubjectDto(a.id, a.name, a.credit, a.majorId ) " +
+            "from Subject a " +
             "join SubjectSemester ss on a.id = ss.subjectId " +
             "join Semester s on s.id = ss.semesterId " +
             "where a.majorId.id = :majorId and s.id = :semesterId")
@@ -61,7 +66,7 @@ public interface SubjectRepository extends JpaRepository<Subject, String> {
             "where s.id = :studentId and se.id = :semesterId")
     List<SubjectDto> getSubjectByStudentAndSemesterId(@Param("studentId") String studentId, @Param("semesterId") String semesterId);
 
-    @Query("select new com.nmt.universitysb.dto.SubjectDto(s.id, s.name, s.credit, s.majorId ) " +
+    @Query("select distinct new com.nmt.universitysb.dto.SubjectDto(s.id, s.name, s.credit, s.majorId ) " +
             "from Subject s \n" +
             "join StudentSubject ss on s.id = ss.subjectId.id \n" +
             "join Student st on st.id = ss.studentId.id \n" +
