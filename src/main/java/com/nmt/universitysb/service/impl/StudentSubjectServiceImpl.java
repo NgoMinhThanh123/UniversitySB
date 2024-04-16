@@ -89,8 +89,8 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
                     Score score1 = this.scoreRepo.save(score);
 
                     StudentSubjectDto studentSubjectDto = new StudentSubjectDto();
-                    studentSubjectDto.setStudentId(student.get().getId());
-                    studentSubjectDto.setSubjectId(subject.get().getId());
+                    studentSubjectDto.setStudentId(student.get());
+                    studentSubjectDto.setSubjectId(subject.get());
                     studentSubjectDto.setStatus(true);
 
                     studentSubjects.add(studentSubjectDto);
@@ -120,8 +120,8 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
                     Score score1 = this.scoreRepo.save(score);
 
                     StudentSubjectDto studentSubjectDto = new StudentSubjectDto();
-                    studentSubjectDto.setStudentId(student.get().getId());
-                    studentSubjectDto.setSubjectId(subject.get().getId());
+                    studentSubjectDto.setStudentId(student.get());
+                    studentSubjectDto.setSubjectId(subject.get());
                     studentSubjectDto.setStatus(true);
 
                     studentSubjects.add(studentSubjectDto);
@@ -179,8 +179,8 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
 
 
                     StudentSubjectDto studentSubjectDto = new StudentSubjectDto();
-                    studentSubjectDto.setStudentId(student.get().getId());
-                    studentSubjectDto.setSubjectId(subject.get().getId());
+                    studentSubjectDto.setStudentId(student.get());
+                    studentSubjectDto.setSubjectId(subject.get());
                     studentSubjectDto.setStatus(false);
 
                     studentSubjects.add(studentSubjectDto);

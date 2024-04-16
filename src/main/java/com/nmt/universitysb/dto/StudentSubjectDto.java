@@ -1,5 +1,7 @@
 package com.nmt.universitysb.dto;
 
+import com.nmt.universitysb.model.Student;
+import com.nmt.universitysb.model.Subject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +12,6 @@ import lombok.RequiredArgsConstructor;
 public class StudentSubjectDto {
     private int id;
     private Boolean status;
-    private String studentId;
-    private String subjectId;
+    private Student studentId;
+    private Subject subjectId;
 }

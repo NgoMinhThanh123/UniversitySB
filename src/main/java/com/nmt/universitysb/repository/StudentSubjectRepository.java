@@ -22,7 +22,7 @@ public interface StudentSubjectRepository extends JpaRepository<StudentSubject, 
             " from StudentSubject a where a.studentId.id = :studentId AND a.subjectId.id = :subjectId")
     Optional<StudentSubject> getStudentSubjectByStudentAndSubjectId(@Param("studentId") String studentId, @Param("subjectId") String subjectId);
 
-    @Query("select new com.nmt.universitysb.dto.StudentSubjectDto(ss.id, ss.status, ss.studentId.id, ss.subjectId.id) " +
+    @Query("select distinct new com.nmt.universitysb.dto.StudentSubjectDto(ss.id, ss.status, ss.studentId, ss.subjectId) " +
             "from StudentSubject ss \n" +
             "join Subject s on s.id = ss.subjectId.id \n" +
             "join Student st on st.id = ss.studentId.id \n" +
