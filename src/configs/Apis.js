@@ -43,7 +43,8 @@ export const endpoints = {
   "course-register": `${SERVER_CONTEXT}/api/course-register/`,
   "temporary-course-register": `${SERVER_CONTEXT}/api/temporary-course-register/`,
   "get-subjects-temporary-course-register": `${SERVER_CONTEXT}/api/subjects/temporary-course/`,
-  "get-semesters": `${SERVER_CONTEXT}/api/get-semesters/`,
+  "get-semesters": `${SERVER_CONTEXT}/api/semesters/student/`,
+  "delete-course": `${SERVER_CONTEXT}/api/delete_student_subject/{studentSubjectId}`,
   "get-firebase-config": `${SERVER_CONTEXT}/api/firebase/config`,
   "get-student-by-parents": `${SERVER_CONTEXT}/api/get-student-parents/`,
   "get-scores-accumulate": `${SERVER_CONTEXT}/api/scores/accumulate/`,
@@ -52,6 +53,7 @@ export const endpoints = {
   "get-final-accumulate": `${SERVER_CONTEXT}/api/scores/final-accumulate/`,
   "get-subject-by-major": `${SERVER_CONTEXT}/api/subjects/majorId/`,
   "get-latest-semester": `${SERVER_CONTEXT}/api/semesters/latest/`,
+  "get-temporary-courses": `${SERVER_CONTEXT}/api/get-temporary-course/`,
 };
 
 export const authApi = () => {

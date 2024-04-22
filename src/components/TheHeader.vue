@@ -136,7 +136,7 @@
         >
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link to="/" class="router-link-hover nav-link active">
+              <router-link to="/" class="router-link-hover nav-link" :class="{ active: $route.path === '/' }" exact>
                 <span> Trang chủ </span>
               </router-link>
             </li>
@@ -144,7 +144,9 @@
               <a class="nav-link" href="#">Tuyển sinh</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Liên hệ</a>
+              <router-link to="/general-information" class="router-link-hover nav-link" :class="{ active: $route.path === '/general-information' }">
+                <span> Giới thiệu chung </span>
+              </router-link>
             </li>
           </ul>
         </div>

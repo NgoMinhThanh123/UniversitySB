@@ -290,13 +290,13 @@
                           v-model="selectSemester"
                           @change="showAcademicWarming"
                           style="width: 40%"
+                          
                         >
                           <option value="">-- Chọn học kì --</option>
                           <option
                             v-for="(semester, index) in semesters"
                             :key="index"
                             :value="semester.id"
-                            :selected="index === 0"
                           >
                             {{ semester.name }} - Năm học:
                             {{ semester.schoolYear }}
@@ -422,7 +422,7 @@ export default {
       try {
         const studentId = this.userInfo.id;
         const res = await Apis.get(
-          endpoints["semester"] + `?studentId=${studentId}`
+          endpoints["get-semesters"] + `?studentId=${studentId}`
         );
         this.semesters = res.data;
         console.log("semesters: ", this.semesters);
@@ -487,7 +487,7 @@ export default {
           endpoints["get-final-accumulate"] + `?studentId=${studentId}`
         );
         this.finalScore = res.data;
-        console.log("this.finalScore", res);
+        // console.log("this.finalScore", res);
       } catch (e) {
         this.errorMessage = "Lỗi server";
         console.log(e);

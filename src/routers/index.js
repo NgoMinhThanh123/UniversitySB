@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import home from "../layouts/homePage.vue";
+import home from "../layouts/home.vue";
 import teacher from "./teacher.js";
 import student from "./student.js";
 import login from "./login.js";
@@ -10,7 +10,12 @@ import parent from "./parents.js";
 const routes = [
   {
     path: "/",
-    component: home,
+    component: () => import("../pages/home/index.vue"),
+  },
+  {
+    path: "/general-information",
+    name: "general-information",
+    component: () => import("../pages/general_Information/index.vue"),
   },
   {
     path: "/profile",

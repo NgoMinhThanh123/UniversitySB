@@ -133,7 +133,7 @@
         <tbody>
           <tr v-for="(selectedCourse, index) in selectedCourses" :key="index">
             <td style="position: relative; width: 40px">
-              <button class="btn btn-danger" @click="removeCourse(index)">
+              <button class="btn btn-danger">
                 Xóa
               </button>
             </td>
@@ -169,6 +169,7 @@ export default {
       selectedCourses: [],
       maxQuantity: 0,
       quantity: 80,
+      isSuccess: false,
     };
   },
   watch: {
@@ -176,7 +177,7 @@ export default {
       handler(newValue, oldValue) {
         this.saveTemporaryCourse();
       },
-      deep: true // Đảm bảo theo dõi sâu vào các phần tử của mảng
+      deep: true, // Đảm bảo theo dõi sâu vào các phần tử của mảng
     },
   },
   methods: {
@@ -185,10 +186,10 @@ export default {
       if (!rowData.isSelected) {
         rowData.isSelected = true;
         this.selectedCourses.push(rowData);
-        this.remaining -= 1; 
+        this.remaining -= 1;
       }
     },
-    removeCourse(index) {
+    removeCourse(index, studentSubjectId) {
       const removedCourse = this.selectedCourses.splice(index, 1)[0];
       // Đánh dấu môn học đã bị xóa
       removedCourse.isSelected = false;
@@ -203,7 +204,23 @@ export default {
       if (matchingCourse) {
         matchingCourse.remaining += 1;
       }
+
+      console.log(studentSubjectId);
+      this.deleteCourse(studentSubjectId);
+
     },
+    async deleteCourse(studentSubjectId) {
+    try {
+      const response = await authApi().delete(
+        endpoints["delete-course"].replace("{studentSubjectId}", studentSubjectId)
+      );
+
+      // this.isEditMode = false;
+      // this.getListPostByUser();
+    } catch (error) {
+      console.error("Error submitting post:", error);
+    }
+  },
     async getSubject() {
       try {
         if (this.selecetMajor) {
@@ -282,6 +299,7 @@ export default {
           await Promise.all(promises);
 
           alert("Đăng ký môn học thành công!");
+          this.isSuccess = true;
         } catch (error) {
           console.log(error);
         }
@@ -332,12 +350,35 @@ export default {
         console.log(e);
       }
     },
+    async getSubjectTemoratyCourse() {
+      try {
+        const username = this.getUser.username;
+        const resStudentId = await authApi().get(
+          endpoints["get-student-by-username"].replace("{username}", username)
+        );
+        const studentId = resStudentId.data.id;
+        const semesterId = this.semesters.id;
+        const res = await authApi().get(
+          endpoints["get-temporary-courses"] +
+            `?studentId=${studentId}&semesterId=${semesterId}`
+        );
+        // this.selectedCourses = res.data;
+        const temporatyCourseData = res.data;
+        // const temporatyCourse = temporatyCourseData.map((item) => (item.subjectId));
+        this.selectedCourses = temporatyCourseData;
+        console.log("course temporaty", res.data);
+        console.log("temporatyCourse", this.selectedCourses);
+      } catch (error) {
+        console.log(error);
+      }
+    },
 
   },
   created() {
     this.getMajor();
     this.getSubject();
     this.getLatestSemester();
+    this.getSubjectTemoratyCourse();
     if (this.majors.length > 0) {
       this.getSubject();
       this.maxQuantity = this.courses.reduce(
