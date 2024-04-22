@@ -4,7 +4,9 @@ import com.nmt.universitysb.dto.ScoreDto;
 import com.nmt.universitysb.dto.ScoreListDto;
 import com.nmt.universitysb.dto.Score_ScoreValueDto;
 import com.nmt.universitysb.dto.StudentScoreDTO;
+import com.nmt.universitysb.model.Student;
 import com.nmt.universitysb.service.ScoreService;
+import com.nmt.universitysb.utils.ExcelScoreService;
 import com.nmt.universitysb.utils.ExcelUtils;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,11 +15,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +35,8 @@ public class ApiScoreController {
 
     @Autowired
     private ScoreService scoreService;
+    @Autowired
+    private ExcelScoreService excelScoreService;
 
     @DeleteMapping("/add_score/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -170,6 +178,30 @@ public class ApiScoreController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(scoreValueDtos, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/score/excel-add/")
+    @CrossOrigin
+    public ResponseEntity<?> addScoreByExcel(@RequestParam("file") MultipartFile file) throws IOException {
+        try {
+            Path tempDir = Files.createTempDirectory("upload-dir");
+
+            Path tempFile = tempDir.resolve(file.getOriginalFilename());
+
+            Files.write(tempFile, file.getBytes());
+
+            List<Score_ScoreValueDto> scoreScoreValueDtos = excelScoreService.readScoreFromExcelFile(tempFile.toFile());
+
+            // Xóa thư mục tạm thời và tất cả các tệp tin bên trong sau khi đã xử lý xong
+            Files.walk(tempDir)
+                    .sorted(Comparator.reverseOrder())
+                    .map(Path::toFile)
+                    .forEach(File::delete);
+            return ResponseEntity.ok("File uploaded successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing the file.");
+        }
     }
 
 }

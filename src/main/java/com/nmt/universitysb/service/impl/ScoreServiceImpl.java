@@ -183,41 +183,58 @@ public class ScoreServiceImpl implements ScoreService {
     }
 
     @Override
-    public List<Score_ScoreValueDto> addScoreByExcel(String subjectId, String semesterId, String studentId, int scoreColumnId, double scoreValue) {
+    public List<Score_ScoreValueDto> addScoreByExcel(String subjectId, String semesterId, String studentId, List<ScoreDto> scoreDtoList) {
         List<Score_ScoreValueDto> scoreValueDtoList = new ArrayList<>();
-            Optional<Subject> subject = this.subjectRepository.findById(subjectId);
-            Optional<Semester> semester = this.semesterRepository.findById(semesterId);
-            Optional<Student> student = this.studentRepository.findById(studentId);
-            Optional<ScoreColumn> scoreColumn = this.scoreColumnRepository.findById(scoreColumnId);
-            Optional<StudentSubject> studentSubject = this.studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.get().getId(), subject.get().getId());
+        Optional<Subject> subjectOptional = this.subjectRepository.findById(subjectId);
+        Optional<Semester> semesterOptional = this.semesterRepository.findById(semesterId);
+        Optional<Student> studentOptional = this.studentRepository.findById(studentId);
+        Student student = studentOptional.orElse(null);
+        Subject subject = subjectOptional.orElse(null);
+        Semester semester = semesterOptional.orElse(null);
+        if (student != null && subject != null && semester != null) {
+            Optional<StudentSubject> studentSubjectOptional = this.studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.getId(), subject.getId());
+            if (studentSubjectOptional.isPresent()) {
+                StudentSubject studentSubject = studentSubjectOptional.get();
+                Optional<Score> existingScore = scoreRepo.findByStudentSubjectIdAndSemesterId(
+                        studentSubject.getId(),
+                        semester.getId()
+                );
+                if (existingScore.isPresent()) {
+                    for (ScoreDto scoreDto : scoreDtoList) {
+                        ScoreValue scoreValueNew = new ScoreValue();
+                        double scoreValueStr = scoreDto.getScoreValue();
 
-            Optional<Score> existingScore = scoreRepo.findByStudentSubjectIdAndSemesterId(
-                    studentSubject.get().getId(),
-                    semester.get().getId()
-            );
+                        int scoreColumnId = this.scoreColumnRepository.getScoreColumnByName(scoreDto.getScoreColumnName()).getId();
+                        Optional<ScoreColumn> scoreColumn = this.scoreColumnRepository.findById(scoreColumnId);
 
-            ScoreValue scoreValueNew = new ScoreValue();
-            double scoreValueStr = scoreValue;
+                        scoreValueNew.setValue(scoreValueStr);
+                        scoreValueNew.setScoreColumnId(scoreColumn.orElse(null));
+                        scoreValueNew.setScoreId(existingScore.get());
 
-            scoreValueNew.setValue(0.0);
-            scoreValueNew.setScoreColumnId(scoreColumn.get());
-            scoreValueNew.setScoreId(existingScore.get());
+                        ScoreValue scoreValue1 = this.scoreValueRepository.save(scoreValueNew);
 
-            ScoreValue scoreValue1 = this.scoreValueRepository.save(scoreValueNew);
+                        Score_ScoreValueDto scoreValueDto = new Score_ScoreValueDto();
 
-            Score_ScoreValueDto scoreValueDto = new Score_ScoreValueDto();
+                        scoreValueDto.setSubjectId(existingScore.get().getStudentSubjectId().getSubjectId().getId());
+                        scoreValueDto.setSemesterId(existingScore.get().getSemesterId().getId());
+                        scoreValueDto.setStudentId(existingScore.get().getStudentSubjectId().getStudentId().getId());
+                        scoreValueDto.setColumnId(scoreValue1.getScoreColumnId().getId());
+                        scoreValueDto.setValue(Double.parseDouble(String.valueOf(scoreValue1.getValue())));
 
-            scoreValueDto.setSubjectId(existingScore.get().getStudentSubjectId().getSubjectId().getId());
-            scoreValueDto.setSemesterId(existingScore.get().getSemesterId().getId());
-            scoreValueDto.setStudentId(existingScore.get().getStudentSubjectId().getStudentId().getId());
-            scoreValueDto.setColumnId(scoreValue1.getScoreColumnId().getId());
-            scoreValueDto.setValue(Double.parseDouble(String.valueOf(scoreValue1.getValue())));
-
-            scoreValueDtoList.add(scoreValueDto);
-
-
+                        scoreValueDtoList.add(scoreValueDto);
+                    }
+                } else {
+                    // Xử lý trường hợp không tìm thấy điểm của sinh viên cho môn học và kỳ học tương ứng
+                }
+            } else {
+                // Xử lý trường hợp không tìm thấy thông tin sinh viên cho môn học
+            }
+        } else {
+            // Xử lý trường hợp không tìm thấy thông tin về sinh viên, môn học hoặc kỳ học
+        }
         return scoreValueDtoList;
     }
+
 
     @Override
     public ScoreDto getFinalScoreForSubject(String studentId, String subjectId, String semesterId) {

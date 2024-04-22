@@ -17,7 +17,7 @@ public interface ScoreColumnRepository extends JpaRepository<ScoreColumn, Intege
     Page<ScoreColumn> findAllByNameContaining(String keyword, Pageable pageable);
     ScoreColumn save(ScoreColumn f);
     void deleteById(int id);
-    @Query(value ="SELECT sc \n"
+    @Query(value ="SELECT sc.* \n"
             + "FROM score_column sc \n"
             + "where sc.name = :scoreColumnName",nativeQuery = true)
     ScoreColumn getScoreColumnByName(@Param("scoreColumnName") String scoreColumnName);
