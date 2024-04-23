@@ -25,7 +25,7 @@ public class ClassController {
     @GetMapping("/classes")
     public String list(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
                        @RequestParam(name = "kw", required = false) String keyword) {
-        int pageSize = 12;
+        int pageSize = 6;
         Page<Classes> classesPage;
 
         if (keyword != null && !keyword.isEmpty()) {

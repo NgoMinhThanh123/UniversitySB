@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<div th:replace="fragments/headTag"/>
+<div th:replace="~{fragments/headTag}"></div>
 <body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <div th:replace="fragments/sideBar"/>
+    <div th:replace="~{fragments/sideBar}"></div>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -17,7 +17,7 @@
         <div id="content">
 
             <!-- Topbar -->
-            <div th:replace="fragments/navBar" />
+            <div th:replace="~{fragments/navBar}"></div>
             <!-- End of Topbar -->
 
             <div class="container">
@@ -35,19 +35,12 @@
                             </form>
                         </div>
                     </div>
-                    <ul class="pagination mt-1">
-                        <li class="page-item"><a class="page-link" th:href="@{/lecturer?page=1}">Tất cả</a></li>
-                        <th:block th:each="i : ${#numbers.sequence(0, lecturerPage.totalPages-1)}">
-                            <li class="page-item"><a class="page-link" th:href="@{/lecturer(page=${i})}" th:text="${i}+1"></a></li>
-                        </th:block>
-                    </ul>
 
-                    <table class="table table-hover">
+                    <table class="table table-hover mt-5">
                         <thead>
                         <tr>
                             <th>Id</th>
                             <th>Tên giảng viên</th>
-                            <th>Số điện thoại</th>
                             <th>Email</th>
                             <th>Khoa</th>
                             <th>Mã tài khoản</th>
@@ -58,18 +51,24 @@
                         <tr th:each="lecturer : ${lecturerPage}">
                             <td th:text="${lecturer.id}"></td>
                             <td th:text="${lecturer.name}"></td>
-                            <td th:text="${lecturer.phone}"></td>
                             <td th:text="${lecturer.email}"></td>
                             <td th:text="${lecturer.facultyId.name}"></td>
                             <td th:text="${lecturer.userId.id}"></td>
                             <td>
 
-                                <a th:href="@{/update_lecturer/{id}(id=${lecturer.id})}" class="btn button-a">Cập nhật</a>
+                                <a th:href="@{/update_lecturer/{id}(id=${lecturer.id})}" class="btn button-a mr-2">Cập nhật</a>
                                 <button class="btn btn-danger" th:attr="data-lecturer-id=${lecturer.id}" onclick="deleteFaculty('/api/update_lecturer/' + this.getAttribute('data-lecturer-id'))">Xóa</button>
                             </td>
                         </tr>
                         </tbody>
                     </table>
+                    <ul class="pagination mt-1">
+                        <li class="page-item"><a class="page-link" th:href="@{/lecturer?page=1}">Tất cả</a></li>
+                        <th:block th:each="i : ${#numbers.sequence(0, lecturerPage.totalPages-1)}">
+                            <li class="page-item"><a class="page-link" th:href="@{/lecturer(page=${i})}" th:text="${i}+1"></a></li>
+                        </th:block>
+                    </ul>
+
                     <script th:src="@{js/main.js}"></script>
                 </section>
             </div>
@@ -78,7 +77,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <div th:replace="fragments/footer" />
+        <div th:replace="~{fragments/footer}"></div>
         <!-- End of Footer -->
 
     </div>

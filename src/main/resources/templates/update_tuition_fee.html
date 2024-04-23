@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org">
-<div th:replace="fragments/headTag"/>
+<div th:replace="~{fragments/headTag}"></div>
 <body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <div th:replace="fragments/sideBar"/>
+    <div th:replace="~{fragments/sideBar}"></div>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -17,7 +17,7 @@
         <div id="content">
 
             <!-- Topbar -->
-            <div th:replace="fragments/navBar" />
+            <div th:replace="~{fragments/navBar}"></div>
             <!-- End of Topbar -->
 
             <div class="container">
@@ -25,27 +25,27 @@
                 <form th:object="${update_tuition_fee}" th:action="@{/update_tuition_fee}" method="post">
                     <input type="hidden" th:field="*{id}" />
                     <div class="form-floating mb-3 mt-3">
-                        <input type="number" class="form-control"  th:field="*{tuitionFee}" id="tuitionFee" placeholder="Học phí" name="tuitionFee" />
                         <label for="tuitionFee">Học phí</label>
+                        <input type="number" class="form-control"  th:field="*{tuitionFee}" id="tuitionFee" placeholder="Học phí" name="tuitionFee" />
                     </div>
                     <div class="form-floating">
+                        <label for="done">Thanh toán</label>
                         <select class="form-select" th:field="*{done}" id="done" name="done">
                             <option value="0" selected>Chưa thanh toán</option>
                             <option value="1">Đã thanh toán</option>
                         </select>
-                        <label for="done">Giới tính</label>
                     </div>
                     <div class="form-floating">
+                        <label for="semester" class="form-label">Học kì</label>
                         <select class="form-select" th:name="semesterId" id="semester" name="semester">
                             <option th:each="f : ${semester}" th:value="${f.id}" th:text="${f.name}"></option>
                         </select>
-                        <label for="semester" class="form-label">Học kì</label>
                     </div>
                     <div class="form-floating">
+                        <label for="student" class="form-label">Sinh viên</label>
                         <select class="form-select" th:name="studentId" id="student" name="student">
                             <option th:each="f : ${student}" th:value="${f.id}" th:text="${f.name}"></option>
                         </select>
-                        <label for="student" class="form-label">Sinh viên</label>
                     </div>
                     <div class="form-floating mb-3 mt-3">
                         <button type="submit" class="btn button-a">
@@ -59,7 +59,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <div th:replace="fragments/footer" />
+        <div th:replace="~{fragments/headTag}"></div>
         <!-- End of Footer -->
 
     </div>

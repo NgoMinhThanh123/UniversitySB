@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<div th:replace="fragments/headTag"/>
+<div th:replace="~{fragments/headTag}"></div>
 <body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <div th:replace="fragments/sideBar"/>
+    <div th:replace="~{fragments/sideBar}"></div>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -17,7 +17,7 @@
         <div id="content">
 
             <!-- Topbar -->
-            <div th:replace="fragments/navBar" />
+            <div th:replace="~{fragments/navBar}"></div>
             <!-- End of Topbar -->
 
             <div class="container">
@@ -25,8 +25,8 @@
                 <form th:object="${add_score_column}" th:action="@{/add_score_column}" method="post">
                     <input type="hidden">
                     <div class="form-floating mb-3 mt-3">
-                        <input type="text" class="form-control"  th:field="*{name}" id="name" placeholder="Tên cột điểm" name="name" />
                         <label for="name">Tên cột điểm</label>
+                        <input type="text" class="form-control"  th:field="*{name}" id="name" placeholder="VD: Cuối kì" name="name" />
                         <div th:if="${#fields.hasErrors('name')}" class="text-danger">Lỗi: <span th:errors="*{name}"></span></div>
                     </div>
                     <div class="form-floating mb-3 mt-3">
@@ -41,7 +41,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <div th:replace="fragments/footer" />
+        <div th:replace="~{fragments/footer}"></div>
         <!-- End of Footer -->
 
     </div>

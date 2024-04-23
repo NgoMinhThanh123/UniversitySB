@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<div th:replace="fragments/headTag"/>
+<div th:replace="~{fragments/headTag}"></div>
 <body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <div th:replace="fragments/sideBar"/>
+    <div th:replace="~{fragments/sideBar}"></div>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -17,11 +17,11 @@
         <div id="content">
 
             <!-- Topbar -->
-            <div th:replace="fragments/navBar" />
+            <div th:replace="~{fragments/navBar}"></div>
             <!-- End of Topbar -->
 
             <div class="container">
-                <h1 class="text-center text-a mt-1">HỌC PHÌ</h1>
+                <h1 class="text-center text-a mt-1">HỌC PHÍ</h1>
 
                 <div class="d-flex justify-content-between">
                     <div>
@@ -34,20 +34,15 @@
                         </form>
                     </div>
                 </div>
-                <ul class="pagination mt-1">
-                    <li class="page-item"><a class="page-link" th:href="@{/tuition_fee?page=1}">Tất cả</a></li>
-                    <th:block th:each="i : ${#numbers.sequence(0,tuitionFeePage.totalPages-1)}">
-                        <li class="page-item"><a class="page-link" th:href="@{/tuition_fee(page=${i})}" th:text="${i}+1"></a></li>
-                    </th:block>
-                </ul>
 
-                <table class="table table-hover">
+                <table class="table table-hover mt-5">
                     <thead>
                     <tr>
                         <th>Id</th>
                         <th>Học phí</th>
                         <th>Học kì</th>
                         <th>Sinh viên</th>
+                        <th>Học phí</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -57,9 +52,10 @@
                         <td th:text="${tuition_fee.tuitionFee}"></td>
                         <td th:text="${tuition_fee.semesterId.name}"></td>
                         <td th:text="${tuition_fee.studentId.name}"></td>
+                        <td th:text="${tuition_fee.done}"></td>
                         <td>
 
-                            <a th:href="@{/update_tuition_fee/{id}(id=${tuition_fee.id})}" class="btn button-a">Cập nhật</a>
+                            <a th:href="@{/update_tuition_fee/{id}(id=${tuition_fee.id})}" class="btn button-a mr-2">Cập nhật</a>
                             <button class="btn btn-danger" th:attr="data-tuition_fee-id=${tuition_fee.id}"
                                     onclick="deleteFaculty('/api/update_tuition_fee/' + this.getAttribute('data-tuition_fee-id'))">Xóa
                             </button>
@@ -67,6 +63,12 @@
                     </tr>
                     </tbody>
                 </table>
+                <ul class="pagination mt-1">
+                    <li class="page-item"><a class="page-link" th:href="@{/tuition_fee?page=1}">Tất cả</a></li>
+                    <th:block th:each="i : ${#numbers.sequence(0,tuitionFeePage.totalPages-1)}">
+                        <li class="page-item"><a class="page-link" th:href="@{/tuition_fee(page=${i})}" th:text="${i}+1"></a></li>
+                    </th:block>
+                </ul>
                 <script th:src="@{js/main.js}"></script>
             </div>
 
@@ -74,7 +76,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <div th:replace="fragments/footer" />
+        <div th:replace="~{fragments/footer}"></div>
         <!-- End of Footer -->
 
     </div>

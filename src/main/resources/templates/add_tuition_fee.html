@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<div th:replace="fragments/headTag"/>
+<div th:replace="~{fragments/headTag}"></div>
 <body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <div th:replace="fragments/sideBar"/>
+    <div th:replace="~{fragments/sideBar}"></div>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -17,7 +17,7 @@
         <div id="content">
 
             <!-- Topbar -->
-            <div th:replace="fragments/navBar" />
+            <div th:replace="~{fragments/navBar}"></div>
             <!-- End of Topbar -->
 
             <div class="container">
@@ -58,7 +58,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <div th:replace="fragments/footer" />
+        <div th:replace="~{fragments/footer}"></div>
         <!-- End of Footer -->
 
     </div>
@@ -86,7 +86,7 @@
             <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
+                <a class="btn btn-primary" href="/">Logout</a>
             </div>
         </div>
     </div>

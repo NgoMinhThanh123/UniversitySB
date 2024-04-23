@@ -1,14 +1,14 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<div th:replace="fragments/headTag"/>
+<div th:replace="~{fragments/headTag}"></div>
 <body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
 
   <!-- Sidebar -->
-  <div th:replace="fragments/sideBar"/>
+  <div th:replace="~{fragments/sideBar}"></div>
   <!-- End of Sidebar -->
 
   <!-- Content Wrapper -->
@@ -18,7 +18,7 @@
     <div id="content">
 
       <!-- Topbar -->
-      <div th:replace="fragments/navBar" />
+      <div th:replace="~{fragments/navBar}"></div>
       <!-- End of Topbar -->
 
       <div class="container">
@@ -27,32 +27,32 @@
           <input type="hidden" th:field="*{id}" />
           <input type="hidden" th:field="*{avatar}" />
           <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control"  th:field="*{username}" id="username" placeholder="Tài khoản" name="username" />
             <label for="username">Tài khoản</label>
+            <input type="text" class="form-control"  th:field="*{username}" id="username" placeholder="Tài khoản" name="username" />
             <div th:if="${#fields.hasErrors('username')}" class="text-danger">Lỗi: <span th:errors="*{username}"></span></div>
           </div>
           <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control"  th:field="*{password}" id="password" placeholder="Mật khẩu" name="password" />
             <label for="password">Mật khẩu</label>
+            <input type="text" class="form-control"  th:field="*{password}" id="password" placeholder="Mật khẩu" name="password" />
             <div th:if="${#fields.hasErrors('password')}" class="text-danger">Lỗi: <span th:errors="*{password}"></span></div>
           </div>
           <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control"  th:field="*{email}" id="email" placeholder="Email" name="email" />
             <label for="email">Email</label>
+            <input type="text" class="form-control"  th:field="*{email}" id="email" placeholder="Email" name="email" />
             <div th:if="${#fields.hasErrors('email')}" class="text-danger">Lỗi: <span th:errors="*{email}"></span></div>
           </div>
           <div class="form-floating">
+            <label for="role" class="form-label">Quyền</label>
             <select class="form-select" id="role" name="role" th:field="*{role}">
               <option value="ROLE_GIAOVU">Giáo vụ</option>
               <option value="ROLE_GIANGVIEN">Giảng viên</option>
               <option value="ROLE_SINHVIEN">Sinh viên</option>
             </select>
-            <label for="role" class="form-label">Quyền</label>
           </div>
           <div class="form-floating mb-3 mt-3">
+            <label for="file">Ảnh của bạn</label>
             <input type="file" class="form-control" id="file" name="file" th:field="*{file}"/>
             <img th:if="${update_user.isPresent() and update_user.get().avatar != null}" th:src="${update_user.get().avatar}" width="100"/>
-            <label for="file">Ảnh của bạn</label>
           </div>
           <div class="form-floating mb-3 mt-3">
             <button type="submit" class="btn button-a">
@@ -66,7 +66,7 @@
     <!-- End of Main Content -->
 
     <!-- Footer -->
-    <div th:replace="fragments/footer" />
+    <div th:replace="~{fragments/footer}"></div>
     <!-- End of Footer -->
 
   </div>

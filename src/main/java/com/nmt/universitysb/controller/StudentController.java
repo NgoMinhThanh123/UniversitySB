@@ -1,6 +1,7 @@
 package com.nmt.universitysb.controller;
 
 import com.nmt.universitysb.model.Student;
+import com.nmt.universitysb.repository.StudentRepository;
 import com.nmt.universitysb.service.*;
 import com.nmt.universitysb.utils.ExcelStudentService;
 import jakarta.validation.Valid;
@@ -42,7 +43,7 @@ public class StudentController {
     @GetMapping("/student")
     public String list(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
                        @RequestParam(name = "kw", required = false) String keyword) {
-        int pageSize = 12;
+        int pageSize = 6;
         Page<Student> studentPage;
 
         if (keyword != null && !keyword.isEmpty()) {

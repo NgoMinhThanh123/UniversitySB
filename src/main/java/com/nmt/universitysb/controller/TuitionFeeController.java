@@ -28,7 +28,7 @@ public class TuitionFeeController {
     @GetMapping("/tuition_fee")
     public String list(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
                        @RequestParam(name = "kw", required = false) String keyword) {
-        int pageSize = 12;
+        int pageSize = 6;
         Page<TuitionFee> tuitionFeePage;
 
         if (keyword != null && !keyword.isEmpty()) {

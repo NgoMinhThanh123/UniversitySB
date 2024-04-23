@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org">
-<div th:replace="fragments/headTag"/>
+<div th:replace="~{fragments/headTag}"></div>
 <body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <div th:replace="fragments/sideBar"/>
+    <div th:replace="~{fragments/sideBar}"></div>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -17,7 +17,7 @@
         <div id="content">
 
             <!-- Topbar -->
-            <div th:replace="fragments/navBar" />
+            <div th:replace="~{fragments/navBar}"></div>
             <!-- End of Topbar -->
 
             <div class="container">
@@ -25,18 +25,18 @@
                 <form th:object="${update_credit_price}" th:action="@{/update_credit_price}" method="post">
                     <input type="hidden" th:field="*{id}" />
                     <div class="form-floating mb-3 mt-3">
-                        <input type="number" class="form-control"  th:field="*{schoolYear}" id="schoolYear" placeholder="Năm học" name="schoolYear" />
                         <label for="schoolYear">Năm học</label>
+                        <input type="number" class="form-control"  th:field="*{schoolYear}" id="schoolYear" placeholder="VD: 2025" name="schoolYear" />
                     </div>
                     <div class="form-floating mb-3 mt-3">
-                        <input type="number" class="form-control"  th:field="*{price}" id="price" placeholder="Giá" name="price" />
                         <label for="price">Giá</label>
+                        <input type="number" class="form-control"  th:field="*{price}" id="price" placeholder="Giá" name="price" />
                     </div>
                     <div class="form-floating">
+                        <label for="major" class="form-label">Chuyên nghành</label>
                         <select class="form-select" th:name="majorId" id="major" name="major">
                             <option th:each="f : ${major}" th:value="${f.id}" th:text="${f.name}"></option>
                         </select>
-                        <label for="major" class="form-label">Chuyên nghành</label>
                     </div>
                     <div class="form-floating mb-3 mt-3">
                         <button type="submit" class="btn button-a">
@@ -50,7 +50,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <div th:replace="fragments/footer" />
+        <div th:replace="~{fragments/footer}"></div>
         <!-- End of Footer -->
 
     </div>

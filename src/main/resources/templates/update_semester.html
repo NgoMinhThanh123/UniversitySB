@@ -1,14 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
-<div th:replace="fragments/headTag"/>
+<div th:replace="~{fragments/headTag}"></div>
 <body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <div th:replace="fragments/sideBar"/>
+    <div th:replace="~{fragments/sideBar}"></div>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -18,38 +17,38 @@
         <div id="content">
 
             <!-- Topbar -->
-            <div th:replace="fragments/navBar" />
+            <div th:replace="~{fragments/navBar}"></div>
             <!-- End of Topbar -->
 
             <div class="container">
                 <h1 class="text-center text-a mt-1">THÊM HỌC KÌ</h1>
                 <form th:object="${update_semester}" th:action="@{/update_semester}" method="post">
                     <div class="form-floating mb-3 mt-3">
-                        <input type="text" class="form-control"  th:field="*{id}" id="id" placeholder="ID" name="id" />
                         <label for="id">ID</label>
+                        <input type="text" class="form-control"  th:field="*{id}" id="id" placeholder="ID" name="id" />
                         <div th:if="${#fields.hasErrors('id')}" class="text-danger">Lỗi: <span th:errors="*{id}"></span></div>
                     </div>
                     <div class="form-floating mb-3 mt-3">
-                        <input type="text" class="form-control"  th:field="*{name}" id="name" placeholder="Học kì" name="name" />
                         <label for="name">Học kì</label>
+                        <input type="text" class="form-control"  th:field="*{name}" id="name" placeholder="Học kì" name="name" />
                     </div>
                     <div class="form-floating mb-3 mt-3">
-                        <input type="text" class="form-control"  th:field="*{schoolYear}" id="schoolYear" placeholder="Năm học" name="schoolYear" />
                         <label for="schoolYear">Năm học</label>
+                        <input type="text" class="form-control"  th:field="*{schoolYear}" id="schoolYear" placeholder="Năm học" name="schoolYear" />
                         <div th:if="${#fields.hasErrors('schoolYear')}" class="text-danger">Lỗi: <span th:errors="*{schoolYear}"></span></div>
                     </div>
                     <div class="form-floating mb-3 mt-3">
-                        <input type="date" class="form-control"  th:field="*{fromDate}" id="fromDate" name="fromDate" />
                         <label for="fromDate">Thời gian bắt đầu</label>
+                        <input type="date" class="form-control"  th:field="*{fromDate}" id="fromDate" name="fromDate" />
                         <div th:if="${#fields.hasErrors('fromDate')}" class="text-danger">Lỗi: <span th:errors="*{fromDate}"></span></div>
                     </div>
                     <div class="form-floating mb-3 mt-3">
-                        <input type="date" class="form-control"  th:field="*{toDate}" id="toDate" name="toDate" />
                         <label for="toDate">Thời gian kết thúc</label>
+                        <input type="date" class="form-control"  th:field="*{toDate}" id="toDate" name="toDate" />
                         <div th:if="${#fields.hasErrors('toDate')}" class="text-danger">Lỗi: <span th:errors="*{toDate}"></span></div>
                     </div>
                     <div class="form-floating mb-3 mt-3">
-                        <button type="submit" class="btn btn-info">
+                        <button type="submit" class="btn button-a">
                             Cập nhật học kỳ
                         </button>
                     </div>
@@ -60,7 +59,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <div th:replace="fragments/footer" />
+        <div th:replace="~{fragments/footer}"></div>
         <!-- End of Footer -->
 
     </div>

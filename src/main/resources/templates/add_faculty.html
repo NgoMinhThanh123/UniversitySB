@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<div th:replace="fragments/headTag"/>
+<div th:replace="~{fragments/headTag}"></div>
 <body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
 
   <!-- Sidebar -->
-  <div th:replace="fragments/sideBar"/>
+  <div th:replace="~{fragments/sideBar}"></div>
   <!-- End of Sidebar -->
 
   <!-- Content Wrapper -->
@@ -17,24 +17,24 @@
     <div id="content">
 
       <!-- Topbar -->
-      <div th:replace="fragments/navBar" />
+      <div th:replace="~{fragments/navBar}"></div>
       <!-- End of Topbar -->
 
       <div class="container">
         <h1 class="text-center text-a mt-1">THÊM KHOA</h1>
         <form th:object="${add_faculty}" th:action="@{/add_faculty}" method="post">
           <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control"  th:field="*{id}" id="id" placeholder="ID" name="id" />
             <label for="id">ID</label>
+            <input type="text" class="form-control"  th:field="*{id}" id="id" placeholder="VD: CNTT" name="id" />
             <div th:if="${#fields.hasErrors('id')}" class="text-danger">Lỗi: <span th:errors="*{id}"></span></div>
           </div>
-          <div class="form-floating mb-3 mt-3">
-            <input type="text" class="form-control"  th:field="*{name}" id="name" placeholder="Tên khoa" name="name" />
+          <div class="form-floating mb-3 mt-3" >
             <label for="name">Tên khoa</label>
+            <input type="text" class="form-control"  th:field="*{name}" id="name" placeholder="VD: Công Nghệ Thông Tin" name="name" />
             <div th:if="${#fields.hasErrors('name')}" class="text-danger">Lỗi: <span th:errors="*{name}"></span></div>
           </div>
           <div class="form-floating mb-3 mt-3">
-            <button type="submit" class="btn btn-info">
+            <button type="submit" class="btn button-a">
               Thêm khoa
             </button>
           </div>
@@ -45,7 +45,7 @@
     <!-- End of Main Content -->
 
     <!-- Footer -->
-    <div th:replace="fragments/footer" />
+    <div th:replace="~{fragments/footer}"></div>
     <!-- End of Footer -->
 
   </div>

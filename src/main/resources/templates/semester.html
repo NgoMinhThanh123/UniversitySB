@@ -1,14 +1,14 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<div th:replace="fragments/headTag"/>
+<div th:replace="~{fragments/headTag}"></div>
 <body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <div th:replace="fragments/sideBar"/>
+    <div th:replace="~{fragments/sideBar}"></div>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -18,7 +18,7 @@
         <div id="content">
 
             <!-- Topbar -->
-            <div th:replace="fragments/navBar" />
+            <div th:replace="~{fragments/navBar}"></div>
             <!-- End of Topbar -->
 
             <div class="container">
@@ -35,14 +35,8 @@
                         </form>
                     </div>
                 </div>
-                <ul class="pagination mt-1">
-                    <li class="page-item"><a class="page-link" th:href="@{/semester?page=0}">Tất cả</a></li>
-                    <th:block th:each="i : ${#numbers.sequence(0, semesterPage.totalPages-1)}">
-                        <li class="page-item"><a class="page-link" th:href="@{/semester(page=${i})}" th:text="${i}+1"></a></li>
-                    </th:block>
-                </ul>
 
-                <table class="table table-hover">
+                <table class="table table-hover mt-5">
                     <thead>
                     <tr>
                         <th>Học kì</th>
@@ -60,12 +54,18 @@
                         <td th:text="${semester.toDate}"></td>
                         <td>
 
-                            <a th:href="@{/update_semester/{id}(id=${semester.id})}" class="btn button-a">Cập nhật</a>
+                            <a th:href="@{/update_semester/{id}(id=${semester.id})}" class="btn button-a mr-2">Cập nhật</a>
                             <button class="btn btn-danger" th:attr="data-semester-id=${semester.id}" onclick="deleteFaculty('/api/update_semester/' + this.getAttribute('data-semester-id'))">Xóa</button>
                         </td>
                     </tr>
                     </tbody>
                 </table>
+                <ul class="pagination mt-1">
+                    <li class="page-item"><a class="page-link" th:href="@{/semester?page=0}">Tất cả</a></li>
+                    <th:block th:each="i : ${#numbers.sequence(0, semesterPage.totalPages-1)}">
+                        <li class="page-item"><a class="page-link" th:href="@{/semester(page=${i})}" th:text="${i}+1"></a></li>
+                    </th:block>
+                </ul>
                 <script th:src="@{js/main.js}"></script>
             </div>
 
@@ -73,7 +73,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <div th:replace="fragments/footer" />
+        <div th:replace="~{fragments/footer}"></div>
         <!-- End of Footer -->
 
     </div>

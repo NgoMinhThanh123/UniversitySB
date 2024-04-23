@@ -17,7 +17,8 @@ public interface StudentService {
     Page<Student> findAll(Pageable pageable);
     Optional<Student> findById(String id);
     Page<Student> findAllByNameContaining(String keyword, Pageable pageable);
-    Student save(Student f);
+    Student save (Student f);
+    Student saveAndCreateUser(Student f);
     List<Student> save(List<Student> students);
     long count();
     boolean deleteStudent(String id);

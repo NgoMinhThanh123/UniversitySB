@@ -1,14 +1,14 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<div th:replace="fragments/headTag"/>
+<div th:replace="~{fragments/headTag}"></div>
 <body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <div th:replace="fragments/sideBar"/>
+    <div th:replace="~{fragments/sideBar}"></div>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -18,7 +18,7 @@
         <div id="content">
 
             <!-- Topbar -->
-            <div th:replace="fragments/navBar" />
+            <div th:replace="~{fragments/navBar}"></div>
             <!-- End of Topbar -->
 
             <div class="container">
@@ -26,20 +26,20 @@
                 <form th:object="${update_score_value}" th:action="@{/update_score_value}" method="post">
                     <input type="hidden" th:field="*{id}" />
                     <div class="form-floating mb-3 mt-3">
-                        <input type="text" class="form-control"  th:field="*{value}" id="value" placeholder="Điểm số" name="value" />
                         <label for="value">Điểm số</label>
+                        <input type="text" class="form-control"  th:field="*{value}" id="value" placeholder="Điểm số" name="value" />
                     </div>
                     <div class="form-floating">
+                        <label for="score" class="form-label">Mã điểm</label>
                         <select class="form-select" th:name="scoreId" id="score" name="score">
                             <option th:each="f : ${score}" th:value="${f.id}" th:text="${f.id}"></option>
                         </select>
-                        <label for="score" class="form-label">Mã điểm</label>
                     </div>
                     <div class="form-floating">
+                        <label for="score_column" class="form-label">Cột điểm</label>
                         <select class="form-select" th:name="scoreColumnId" id="score_column" name="score_column">
                             <option th:each="f : ${score_column}" th:value="${f.id}" th:text="${f.name}"></option>
                         </select>
-                        <label for="score_column" class="form-label">Cột điểm</label>
                     </div>
                     <div class="form-floating mb-3 mt-3">
                         <button type="submit" class="btn btn-info">Cập nhật điểm số</button>
@@ -51,7 +51,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <div th:replace="fragments/footer" />
+        <div th:replace="~{fragments/footer}"></div>
         <!-- End of Footer -->
 
     </div>

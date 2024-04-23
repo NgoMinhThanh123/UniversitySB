@@ -1,14 +1,14 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<div th:replace="fragments/headTag"/>
+<div th:replace="~{fragments/headTag}"></div>
 <body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <div th:replace="fragments/sideBar"/>
+    <div th:replace="~{fragments/sideBar}"></div>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -18,7 +18,7 @@
         <div id="content">
 
             <!-- Topbar -->
-            <div th:replace="fragments/navBar" />
+            <div th:replace="~{fragments/navBar}"></div>
             <!-- End of Topbar -->
 
             <div class="container">
@@ -67,23 +67,23 @@
                         <div th:if="${#fields.hasErrors('address')}" class="text-danger">Lỗi: <span th:errors="*{address}"></span></div>
                     </div>
                     <div class="form-floating">
+                        <label for="faculty" class="form-label">Khoa</label>
                         <select class="form-select" th:name="facultyId" id="faculty" name="faculty">
                             <option th:each="f : ${faculty}" th:value="${f.id}" th:text="${f.name}"></option>
                         </select>
-                        <label for="faculty" class="form-label">Khoa</label>
                     </div>
                     <div class="form-floating">
+                        <label for="user" class="form-label">Mã tài khoản</label>
                         <select class="form-select" th:name="userId" id="user" name="user">
                             <option th:each="f : ${user}" th:value="${f.id}" th:text="${f.id}"></option>
                         </select>
-                        <label for="user" class="form-label">Mã tài khoản</label>
                     </div>
                     <div class="form-floating">
+                        <label for="classes" class="form-label">Mã lớp</label>
                         <select class="form-select" th:name="classesId" id="classes" name="classes">
                             <option value="">-- Chọn mã lớp --</option>
                             <option th:each="f : ${classes}" th:value="${f.id}" th:text="${f.id}"></option>
                         </select>
-                        <label for="classes" class="form-label">Mã lớp</label>
                     </div>
                     <div class="form-floating mb-3 mt-3">
                         <button type="submit" class="btn btn-info">Cập nhật giảng viên</button>
@@ -95,7 +95,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <div th:replace="fragments/footer" />
+        <div th:replace="~{fragments/footer}"></div>
         <!-- End of Footer -->
 
     </div>

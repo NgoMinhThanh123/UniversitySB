@@ -1,14 +1,14 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<div th:replace="fragments/headTag"/>
+<div th:replace="~{fragments/headTag}"></div>
 <body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <div th:replace="fragments/sideBar"/>
+    <div th:replace="~{fragments/sideBar}"></div>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -18,35 +18,35 @@
         <div id="content">
 
             <!-- Topbar -->
-            <div th:replace="fragments/navBar" />
+            <div th:replace="~{fragments/navBar}"></div>
             <!-- End of Topbar -->
 
             <div class="container">
                 <h1 class="text-center text-a mt-1">THÊM MÔN HỌC</h1>
                 <form th:object="${update_subject}" th:action="@{/update_subject}" method="post">
                     <div class="form-floating mb-3 mt-3">
-                        <input required type="text" class="form-control" th:field="*{id}" id="id" placeholder="ID" name="id" />
                         <label for="id">ID</label>
+                        <input required type="text" class="form-control" th:field="*{id}" id="id" placeholder="ID" name="id" />
                         <div th:if="${#fields.hasErrors('id')}" class="text-danger">Lỗi: <span th:errors="*{id}"></span></div>
                     </div>
                     <div class="form-floating mb-3 mt-3">
-                        <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Tên môn học" name="name" />
                         <label for="name">Tên môn học</label>
+                        <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Tên môn học" name="name" />
                         <div th:if="${#fields.hasErrors('name')}" class="text-danger">Lỗi: <span th:errors="*{name}"></span></div>
                     </div>
                     <div class="form-floating mb-3 mt-3">
-                        <input type="text" class="form-control" th:field="*{credit}" id="credit" placeholder="Số tín chỉ" name="credit" />
                         <label for="name">Số tín chỉ</label>
+                        <input type="text" class="form-control" th:field="*{credit}" id="credit" placeholder="Số tín chỉ" name="credit" />
                         <div th:if="${#fields.hasErrors('credit')}" class="text-danger">Lỗi: <span th:errors="*{credit}"></span></div>
                     </div>
                     <div class="form-floating">
+                        <label for="faculty" class="form-label">Chuyên ngành</label>
                         <select class="form-select" th:name="majorId" id="faculty" name="faculty">
                             <option th:each="f : ${major}" th:value="${f.id}" th:text="${f.name}"></option>
                         </select>
-                        <label for="faculty" class="form-label">Chuyên ngành</label>
                     </div>
                     <div class="form-floating mb-3 mt-3">
-                        <button type="submit" class="btn btn-info">Cập nhật môn học</button>
+                        <button type="submit" class="btn button-a">Cập nhật môn học</button>
                     </div>
                 </form>
             </div>
@@ -55,7 +55,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <div th:replace="fragments/footer" />
+        <div th:replace="~{fragments/footer}"></div>
         <!-- End of Footer -->
 
     </div>

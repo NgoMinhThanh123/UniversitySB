@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
 <html lang="en">
-<div th:replace="fragments/headTag"/>
+<div th:replace="~{fragments/headTag}"></div>
 <body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <div th:replace="fragments/sideBar"/>
+    <div th:replace="~{fragments/sideBar}"></div>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -18,25 +17,25 @@
         <div id="content">
 
             <!-- Topbar -->
-            <div th:replace="fragments/navBar" />
+            <div th:replace="~{fragments/navBar}"></div>
             <!-- End of Topbar -->
 
             <div class="container">
                 <h1 class="text-center text-a mt-1">THÊM TỈ LỆ ĐIỂM</h1>
                 <form th:object="${add_score_percent}" th:action="@{/add_score_percent}" method="post">
                     <div class="form-floating mb-3 mt-3">
-                        <input type="text" class="form-control"  th:field="*{percentCK}" id="percentCK" placeholder="Tỉ lệ điểm cuối kì" name="percentCK" />
                         <label for="percentCK">Tỉ lệ điểm cuối kì</label>
+                        <input type="text" class="form-control"  th:field="*{percentCK}" id="percentCK" placeholder="VD: 0.5" name="percentCK" />
                     </div>
                     <div class="form-floating mb-3 mt-3">
-                        <input type="text" class="form-control"  th:field="*{percentGK}" id="percentGK" placeholder="Tỉ lệ điểm giữa kì" name="percentGK" />
                         <label for="percentGK">Tỉ lệ điểm giữa kì</label>
+                        <input type="text" class="form-control"  th:field="*{percentGK}" id="percentGK" placeholder="VD: 0.5" name="percentGK" />
                     </div>
                     <div class="form-floating">
+                        <label for="subject" class="form-label">Môn học</label>
                         <select class="form-select" th:field="*{subjectId}" id="subject" name="subject">
                             <option th:each="f : ${subject}" th:value="${f.id}" th:text="${f.name}"></option>
                         </select>
-                        <label for="subject" class="form-label">Môn học</label>
                     </div>
                     <div class="form-floating mb-3 mt-3">
                         <button type="submit" class="btn button-a">
@@ -50,7 +49,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <div th:replace="fragments/footer" />
+        <div th:replace="~{fragments/footer}"></div>
         <!-- End of Footer -->
 
     </div>

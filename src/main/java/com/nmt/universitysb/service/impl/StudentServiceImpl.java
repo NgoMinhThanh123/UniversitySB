@@ -49,7 +49,12 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student save(Student s) {
+    public Student save(Student f) {
+        return this.studentRepo.save(f);
+    }
+
+    @Override
+    public Student saveAndCreateUser(Student s) {
         User u = new User();
         u.setUsername(s.getId());
         u.setPassword(encoder.encode(s.getIdentification()));

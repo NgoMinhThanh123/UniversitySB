@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<div th:replace="fragments/headTag"/>
+<div th:replace="~{fragments/headTag}"></div>
 <body id="page-top">
 
 <!-- Page Wrapper -->
 <div id="wrapper">
 
     <!-- Sidebar -->
-    <div th:replace="fragments/sideBar"/>
+    <div th:replace="~{fragments/sideBar}"></div>
     <!-- End of Sidebar -->
 
     <!-- Content Wrapper -->
@@ -17,7 +17,7 @@
         <div id="content">
 
             <!-- Topbar -->
-            <div th:replace="fragments/navBar" />
+            <div th:replace="~{fragments/navBar}"></div>
             <!-- End of Topbar -->
 
             <div class="container">
@@ -34,14 +34,9 @@
                         </form>
                     </div>
                 </div>
-                <ul class="pagination mt-1">
-                    <li class="page-item"><a class="page-link" th:href="@{/faculty?page=1}">Tất cả</a></li>
-                    <th:block th:each="i : ${#numbers.sequence(0, facultyPage.totalPages-1)}">
-                        <li class="page-item"><a class="page-link" th:href="@{/faculty(page=${i})}" th:text="${i}+1"></a></li>
-                    </th:block>
-                </ul>
 
-                <table class="table table-hover">
+
+                <table class="table table-hover mt-5">
                     <thead>
                     <tr>
                         <th>Id</th>
@@ -53,14 +48,19 @@
                     <tr th:each="faculty : ${facultyPage}">
                         <td th:text="${faculty.id}"></td>
                         <td th:text="${faculty.name}"></td>
-                        <td>
-
-                            <a th:href="@{/update_faculty/{id}(id=${faculty.id})}" class="btn button-a">Cập nhật</a>
+                        <td style="display: flex; justify-content: flex-end">
+                            <a th:href="@{/update_faculty/{id}(id=${faculty.id})}" class="btn button-a mr-2">Cập nhật</a>
                             <button class="btn btn-danger" th:attr="data-faculty-id=${faculty.id}" onclick="deleteFaculty('/api/update_faculty/' + this.getAttribute('data-faculty-id'))">Xóa</button>
                         </td>
                     </tr>
                     </tbody>
                 </table>
+                <ul class="pagination mt-1">
+                    <li class="page-item"><a class="page-link" th:href="@{/faculty?page=1}">Tất cả</a></li>
+                    <th:block th:each="i : ${#numbers.sequence(0, facultyPage.totalPages-1)}">
+                        <li class="page-item"><a class="page-link" th:href="@{/faculty(page=${i})}" th:text="${i}+1"></a></li>
+                    </th:block>
+                </ul>
                 <script th:src="@{js/main.js}"></script>
             </div>
 
@@ -68,7 +68,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        <div th:replace="fragments/footer" />
+        <div th:replace="~{fragments/footer}"></div>
         <!-- End of Footer -->
 
     </div>
@@ -81,26 +81,6 @@
 <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
 </a>
-
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Bootstrap core JavaScript-->
 <script src="vendor/jquery/jquery.min.js"></script>
