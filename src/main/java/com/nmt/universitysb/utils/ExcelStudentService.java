@@ -41,13 +41,9 @@ public class ExcelStudentService {
                     continue;
                 }
 
-                // Tạo một đối tượng Student mới cho mỗi dòng dữ liệu
                 Student student = new Student();
 
-//                 Xử lý dữ liệu và thiết lập các thuộc tính của sinh viên
-//                Cell cellId = currentRow.getCell(0);
                 Cell cellIdent = currentRow.getCell(4);
-//                Cell cellPhone = currentRow.getCell(5);
                 String studentId, phone, identification;
                 if (cellIdent.getCellType() == CellType.NUMERIC) {
                     // Nếu ô chứa số, chuyển đổi sang chuỗi
