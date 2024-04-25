@@ -133,13 +133,16 @@
         <tbody>
           <tr v-for="(selectedCourse, index) in selectedCourses" :key="index">
             <td style="position: relative; width: 40px">
-              <button class="btn btn-danger">
+              <button
+                class="btn btn-danger"
+                @click="removeCourse(index, selectedCourse.id)"
+              >
                 Xóa
               </button>
             </td>
-            <td>{{ selectedCourse.id }}</td>
-            <td>{{ selectedCourse.name }}</td>
-            <td>{{ selectedCourse.credit }}</td>
+            <td>{{ selectedCourse.subjectId.id }}</td>
+            <td>{{ selectedCourse.subjectId.name }}</td>
+            <td>{{ selectedCourse.subjectId.credit }}</td>
           </tr>
         </tbody>
       </table>
@@ -167,60 +170,85 @@ export default {
       selecetMajor: "",
       selectSemester: "",
       selectedCourses: [],
+      selectedTemporaryCourses: [],
       maxQuantity: 0,
       quantity: 80,
       isSuccess: false,
     };
   },
   watch: {
-    selectedCourses: {
-      handler(newValue, oldValue) {
-        this.saveTemporaryCourse();
+    selectedTemporaryCourses: {
+      async handler(newValue, oldValue) {
+        await this.saveTemporaryCourse();
+        await this.getSubjectTemoratyCourse();
+
+        console.log(1);
       },
       deep: true, // Đảm bảo theo dõi sâu vào các phần tử của mảng
     },
   },
   methods: {
+    checkedSubjectedCourse() {
+      try {
+        console.log("this. courses: ", this.courses);
+        this.courses = this.courses.filter(
+          (course) => course.id === this.selectedCourses.subjectId.id
+        );
+        this.courses.forEach((course) => (course.isSelected = true));
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
     // Phương thức được gọi khi checkbox thay đổi trạng thái
     toggleCourse(event, rowData, index) {
       if (!rowData.isSelected) {
         rowData.isSelected = true;
-        this.selectedCourses.push(rowData);
+        this.selectedTemporaryCourses.push(rowData);
         this.remaining -= 1;
       }
     },
-    removeCourse(index, studentSubjectId) {
+    async removeCourse(index, studentSubjectId) {
       const removedCourse = this.selectedCourses.splice(index, 1)[0];
-      // Đánh dấu môn học đã bị xóa
-      removedCourse.isSelected = false;
 
-      // Tìm môn học mở đăng ký tương ứng dựa trên mã và nhóm
-      const matchingCourse = this.courses.find(
-        (course) =>
-          course.id === removedCourse.id && course.group === removedCourse.group
+      this.selectedTemporaryCourses = this.selectedTemporaryCourses.filter(
+        (course) => course.id !== removedCourse.subjectId.id
       );
 
-      // Cập nhật lại giá trị "Còn lại" cho môn học mở đăng ký tương ứng
+      console.log("1", removedCourse);
+      console.log("2", this.selectedTemporaryCourses);
+
+      // // Tìm môn học mở đăng ký tương ứng dựa trên mã và nhóm
+      const matchingCourse = this.courses.find(
+        (course) =>
+          course.id === removedCourse.subjectId.id &&
+          course.group === removedCourse.group
+      );
+
+      console.log("matchingCourse", matchingCourse);
+      // // Cập nhật lại giá trị "Còn lại" cho môn học mở đăng ký tương ứng
       if (matchingCourse) {
+        matchingCourse.isSelected = false;
         matchingCourse.remaining += 1;
       }
 
-      console.log(studentSubjectId);
-      this.deleteCourse(studentSubjectId);
-
+      // console.log(studentSubjectId);
+      await this.deleteCourse(studentSubjectId);
     },
     async deleteCourse(studentSubjectId) {
-    try {
-      const response = await authApi().delete(
-        endpoints["delete-course"].replace("{studentSubjectId}", studentSubjectId)
-      );
+      try {
+        const response = await authApi().delete(
+          endpoints["delete-course"].replace(
+            "{studentSubjectId}",
+            studentSubjectId
+          )
+        );
 
-      // this.isEditMode = false;
-      // this.getListPostByUser();
-    } catch (error) {
-      console.error("Error submitting post:", error);
-    }
-  },
+        // this.isEditMode = false;
+        // this.getListPostByUser();
+      } catch (error) {
+        console.error("Error submitting post:", error);
+      }
+    },
     async getSubject() {
       try {
         if (this.selecetMajor) {
@@ -251,7 +279,6 @@ export default {
       try {
         const response = await Apis.get(endpoints["majors"]);
         this.majors = response.data;
-        console.log(response);
       } catch (error) {
         console.log(error);
       }
@@ -316,32 +343,32 @@ export default {
         const studentId = resStudentId.data.id;
 
         try {
-          const promises = this.selectedCourses.map(async (subject) => {
-            const subjectId = subject.id;
-            const semesterId = this.semesters.id;
-            const requestData = [
-              {
-                studentId: studentId,
-                subjectId: subjectId,
-                semesterId: semesterId,
-              },
-            ];
-            const response = await authApi().post(
-              endpoints["temporary-course-register"],
-              requestData,
-              {
-                headers: {
-                  "Content-Type": "application/json", // Đặt Content-Type là application/json
+          const promises = this.selectedTemporaryCourses.map(
+            async (subject) => {
+              const subjectId = subject.id;
+              const semesterId = this.semesters.id;
+              const requestData = [
+                {
+                  studentId: studentId,
+                  subjectId: subjectId,
+                  semesterId: semesterId,
                 },
+              ];
+              const response = await authApi().post(
+                endpoints["temporary-course-register"],
+                requestData,
+                {
+                  headers: {
+                    "Content-Type": "application/json", // Đặt Content-Type là application/json
+                  },
+                }
+              );
+              if (response.status !== 201) {
+                console.error(`Lưu tạm thất bại!!!`);
               }
-            );
-            if (response.status !== 201) {
-              console.error(`Lưu tạm thất bại!!!`);
             }
-          });
+          );
           await Promise.all(promises);
-
-          // alert("Đăng ký môn học thành công!");
           console.log("Lưu tạm thành công");
         } catch (error) {
           console.log(error);
@@ -362,23 +389,20 @@ export default {
           endpoints["get-temporary-courses"] +
             `?studentId=${studentId}&semesterId=${semesterId}`
         );
-        // this.selectedCourses = res.data;
+
         const temporatyCourseData = res.data;
-        // const temporatyCourse = temporatyCourseData.map((item) => (item.subjectId));
         this.selectedCourses = temporatyCourseData;
-        console.log("course temporaty", res.data);
-        console.log("temporatyCourse", this.selectedCourses);
       } catch (error) {
         console.log(error);
       }
     },
-
   },
-  created() {
+  async created() {
     this.getMajor();
     this.getSubject();
     this.getLatestSemester();
-    this.getSubjectTemoratyCourse();
+    await this.getSubjectTemoratyCourse();
+    console.log("this.getSubjectTemoratyCourse", this.selectedCourses);
     if (this.majors.length > 0) {
       this.getSubject();
       this.maxQuantity = this.courses.reduce(

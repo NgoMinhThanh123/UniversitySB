@@ -86,9 +86,7 @@
 
               <ul class="dropdown-menu">
                 <li>
-                  <router-link
-                    to="/changePassword"
-                    class="dropdown-item"
+                  <router-link to="/changePassword" class="dropdown-item"
                     >Thay đổi mật khẩu</router-link
                   >
                 </li>
@@ -125,8 +123,12 @@
   >
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
-        <div style="width: 10%;">
-          <img style="width: 100%;" src="../assets/logoSchool_1.png" alt="Logo trường" />
+        <div style="width: 10%">
+          <img
+            style="width: 100%"
+            src="../assets/logoSchool_1.png"
+            alt="Logo trường"
+          />
         </div>
 
         <div
@@ -136,15 +138,21 @@
         >
           <ul class="navbar-nav">
             <li class="nav-item">
-              <router-link to="/" class="router-link-hover nav-link" :class="{ active: $route.path === '/' }" exact>
+              <router-link
+                to="/"
+                class="router-link-hover nav-link"
+                :class="{ active: $route.path === '/' }"
+                exact
+              >
                 <span> Trang chủ </span>
               </router-link>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Tuyển sinh</a>
-            </li>
-            <li class="nav-item">
-              <router-link to="/general-information" class="router-link-hover nav-link" :class="{ active: $route.path === '/general-information' }">
+              <router-link
+                to="/general-information"
+                class="router-link-hover nav-link"
+                :class="{ active: $route.path === '/general-information' }"
+              >
                 <span> Giới thiệu chung </span>
               </router-link>
             </li>

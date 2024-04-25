@@ -164,7 +164,7 @@ export default {
 #parent {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 60.7vh;
   margin-top: 50px;
   margin-bottom: 50px;
   /* background: #d3d3d3; */
@@ -188,6 +188,4 @@ export default {
   justify-content: flex-end;
 }
 
-.formParent {
-}
 </style>
