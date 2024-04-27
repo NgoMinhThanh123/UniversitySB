@@ -54,6 +54,7 @@ export const endpoints = {
   "get-subject-by-major": `${SERVER_CONTEXT}/api/subjects/majorId/`,
   "get-latest-semester": `${SERVER_CONTEXT}/api/semesters/latest/`,
   "get-temporary-courses": `${SERVER_CONTEXT}/api/get-temporary-course/`,
+  "get-already-course": `${SERVER_CONTEXT}/api/get-already-course/`,
 };
 
 export const authApi = () => {

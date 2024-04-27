@@ -134,7 +134,6 @@ export default {
           this.errorMessage = "Tài khoản hoặc mật khẩu của bạn không đúng!!";
            this.loading = false;
         } else {
-          console.log("res.data", res.data);
           this.errorMessage = "";
           VueCookies.set("token", res.data.accessToken);
 
@@ -191,7 +190,7 @@ export default {
             }
             
           } catch (error) {
-            console.log(error);
+            this.errorMessage = "Lỗi server";
             this.loading = false;
           }
 
