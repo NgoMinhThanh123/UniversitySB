@@ -92,7 +92,7 @@ const student = [
         },
       },
       {
-        path: "paymet",
+        path: "payment",
         name: "student-payment",
         component: () => import("../pages/student/payment/index.vue"),
         beforeEnter: (to, from, next) => {

@@ -20,7 +20,7 @@ const routes = [
   {
     path: "/payment",
     name: "payment",
-    component: () => import("../pages/payment/index.vue"),
+    component: () => import("../pages/parents/payment/index.vue"),
   },
   {
     path: "/profile",
