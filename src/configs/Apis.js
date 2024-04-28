@@ -19,6 +19,7 @@ export const endpoints = {
   classes: `${SERVER_CONTEXT}/api/classes/`,
   "get-subject-by-facultyId": `${SERVER_CONTEXT}/api/subjects/facultyId/`,
   "semester-student": `${SERVER_CONTEXT}/api/semesters/student/`,
+  "semester-lecturer-subject": `${SERVER_CONTEXT}/api/semesters/lecturer-subject/`,
   "current-user": `${SERVER_CONTEXT}/api/current-user/`,
   "get-user": `${SERVER_CONTEXT}/api/users/{username}/`,
   "user-id": `${SERVER_CONTEXT}/api/users-id/{id}/`,
@@ -32,6 +33,7 @@ export const endpoints = {
   "score-student": `${SERVER_CONTEXT}/api/scores/student-id/`,
   "score-list": `${SERVER_CONTEXT}/api/scores/list/`,
   "add-score": `${SERVER_CONTEXT}/api/add-score/`,
+  "excel-add": `${SERVER_CONTEXT}/api/score/excel-add/`,
   "add-comment": `${SERVER_CONTEXT}/api/comments/`,
   "add-post": `${SERVER_CONTEXT}/api/add-post/`,
   "send-mail": `${SERVER_CONTEXT}/api/students/mails/`,
@@ -55,6 +57,8 @@ export const endpoints = {
   "get-latest-semester": `${SERVER_CONTEXT}/api/semesters/latest/`,
   "get-temporary-courses": `${SERVER_CONTEXT}/api/get-temporary-course/`,
   "get-already-course": `${SERVER_CONTEXT}/api/get-already-course/`,
+  "get-tuition-fee": `${SERVER_CONTEXT}/api/tuition_fee/student/`,
+  "payment": `${SERVER_CONTEXT}/pay`
 };
 
 export const authApi = () => {

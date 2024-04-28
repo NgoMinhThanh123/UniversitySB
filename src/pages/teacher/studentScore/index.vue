@@ -1,6 +1,17 @@
 <template>
   <div class="container" style="margin-bottom: 200px">
     <div class="row">
+      <form>
+        <div class="input-studentScore">
+          <input
+            type="file"
+            ref="fileInput"
+            accept=".xls,.xlsx"
+            @change="onFileChange"
+          />
+          <button class="btn btn-primary" @click="saveScoreByFile">Gửi</button>
+        </div>
+      </form>
       <form @submit.prevent="handleSubmit">
         <div class="col-12 d-flex studentScore">
           <div class="input-studentScore">
@@ -60,7 +71,8 @@
           <div class="input-studentScore">
             <button class="btn btn-primary">Tìm kiếm</button>
           </div>
-          <div v-if="isEditMode ">
+
+          <div v-if="isEditMode">
             <div class="input-studentScore">
               <button
                 @click="exitHandleEdit"
@@ -289,14 +301,24 @@ export default {
       },
       min: 0,
       max: 10,
+      fileExcel: "",
+      fileExcel: null,
     };
   },
   computed: {
     ...mapGetters(["isAuth", "getUser"]),
   },
-  created() {
-    this.fetchLecturerInfo();
-    this.getClasses();
+  watch: {
+    selectedSubject: {
+      async handler(newSubject, oldSubject) {
+        await this.getSemesterBySubject();
+      },
+      // deep: true,
+    },
+  },
+  async created() {
+    await this.fetchLecturerInfo();
+    await this.getClasses();
 
     this.fetchLecturerInfo().then((lecturerInfo) => {
       if (lecturerInfo && lecturerInfo.id) {
@@ -547,7 +569,48 @@ export default {
         const response = await authApi().get(endpoints["classes"]);
         this.classList = response.data;
         console.log("this.classList", this.classList);
-        console.log("response.data", response.data);
+        console.log("response.data", response);
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getSemesterBySubject() {
+      try {
+        const lecturerId = this.selectedLecturer.id;
+        const subjectId = this.selectedSubject;
+        const res = await authApi().get(
+          endpoints["semester-lecturer-subject"] +
+            `?lecturerId=${lecturerId}&subjectId=${subjectId}`
+        );
+
+        this.semesterList = res.data;
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    onFileChange(event) {
+      // Lấy đối tượng file từ sự kiện change
+      const file = event.target.files[0];
+      this.fileExcel = file;
+    },
+    async saveScoreByFile() {
+      try {
+        if (!this.fileExcel) {
+          return alert("Vui lòng chọn file excel");
+        }
+        const formData = new FormData();
+        formData.append('file', this.fileExcel);
+        const res = await authApi().post(endpoints["excel-add"], formData, {
+          headers: {
+            "Content-Type": "multipart/form-data", 
+          },
+        });
+
+        console.log(res.status);
+
+        if (res.status === 200) {
+          alert("Lưu điểm của tất cả sinh viên thành công!");
+        }
       } catch (error) {
         console.error(error);
       }

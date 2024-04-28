@@ -30,6 +30,12 @@
         <span class="sider"> Đăng ký môn học </span>
       </router-link>
     </a-menu-item>
+    <a-menu-item key="student-payment">
+      <router-link :to="{ name: 'student-payment' }" class="router-link-hover">
+        <i class="fa-solid fa-book-open-reader"></i>
+        <span class="sider"> Học phí </span>
+      </router-link>
+    </a-menu-item>
   </a-menu>
 </template>
 
