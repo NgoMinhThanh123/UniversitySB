@@ -25,17 +25,17 @@
                 <form th:object="${add_user}" th:action="@{/add_user}" method="post" enctype="multipart/form-data" >
                     <div class="form-floating mb-3 mt-3">
                         <label for="username">Tài khoản</label>
-                        <input type="text" class="form-control"  th:field="*{username}" id="username" placeholder="Tài khoản" name="username" />
+                        <input type="text" class="form-control"  th:field="*{username}" id="username" placeholder="VD: nguyenvanan" name="username" />
                         <div th:if="${#fields.hasErrors('username')}" class="text-danger">Lỗi: <span th:errors="*{username}"></span></div>
                     </div>
                     <div class="form-floating mb-3 mt-3">
                         <label for="password">Mật khẩu</label>
-                        <input type="password" class="form-control"  th:field="*{password}" id="password" placeholder="Mật khẩu" name="password" />
+                        <input type="password" class="form-control"  th:field="*{password}" id="password" placeholder="VD: nguyenvanan" name="password" />
                         <div th:if="${#fields.hasErrors('password')}" class="text-danger">Lỗi: <span th:errors="*{password}"></span></div>
                     </div>
                     <div class="form-floating mb-3 mt-3">
                         <label for="email">Email</label>
-                        <input type="text" class="form-control"  th:field="*{email}" id="email" placeholder="Email" name="email" />
+                        <input type="text" class="form-control"  th:field="*{email}" id="email" placeholder="VD: XXX@gmail.com" name="email" />
                         <div th:if="${#fields.hasErrors('email')}" class="text-danger">Lỗi: <span th:errors="*{email}"></span></div>
                     </div>
                     <div class="form-floating">

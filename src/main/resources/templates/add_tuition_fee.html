@@ -24,7 +24,7 @@
                 <h1 class="text-center text-a mt-1">THÊM HỌC PHÍ</h1>
                 <form th:object="${add_tuition_fee}" th:action="@{/add_tuition_fee}" method="post">
                     <div class="form-floating mb-3 mt-3">
-                        <input type="number" class="form-control"  th:field="*{tuitionFee}" id="tuitionFee" placeholder="Học phí" name="tuitionFee" />
+                        <input type="number" class="form-control"  th:field="*{tuitionFee}" id="tuitionFee" placeholder="VD: 900000" name="tuitionFee" />
                         <label for="tuitionFee">Học phí</label>
                     </div>
                     <div class="form-floating">

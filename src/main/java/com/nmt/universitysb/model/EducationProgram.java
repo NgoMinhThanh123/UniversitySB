@@ -4,33 +4,27 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.io.Serializable;
-import jakarta.validation.constraints.NotEmpty;
-import lombok.*;
-
-import java.io.Serializable;
-import java.util.Set;
-
 @Getter
 @Setter
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "credit_price")
-public class CreditPrice implements Serializable {
+@Table(name = "education_program")
+public class EducationProgram {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
-    @Column(name = "price")
-    private Double price;
-    @JoinColumn(name = "major_id", referencedColumnName = "id")
+    @JoinColumn(name = "subject_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnore
-    private Major majorId;
+    private Subject subjectId;
     @JoinColumn(name = "semester_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnore
     private Semester semesterId;
+    @JoinColumn(name = "major_id", referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Major majorId;
 }

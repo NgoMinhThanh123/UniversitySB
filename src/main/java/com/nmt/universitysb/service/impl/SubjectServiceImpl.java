@@ -79,4 +79,9 @@ public class SubjectServiceImpl implements SubjectService {
         return this.subjectRepo.getSubjectTemporaryCourse(studentId, semesterId);
     }
 
+    @Override
+    public List<SubjectDto> getSubjectByEducationProgram(String studentId, String semesterId, String majorId) {
+        return this.subjectRepo.getSubjectByEducationProgram(studentId, semesterId, majorId);
+    }
+
 }

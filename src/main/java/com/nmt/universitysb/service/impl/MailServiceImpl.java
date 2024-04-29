@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MailServiceImpl implements MailService {
-@Autowired
+    @Autowired
     private JavaMailSender mailSender;
     private static final Logger logger = LoggerFactory.getLogger(ApiStudentController.class);
 

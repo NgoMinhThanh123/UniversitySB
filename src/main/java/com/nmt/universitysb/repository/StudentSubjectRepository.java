@@ -26,8 +26,17 @@ public interface StudentSubjectRepository extends JpaRepository<StudentSubject, 
             "from StudentSubject ss \n" +
             "join Subject s on s.id = ss.subjectId.id \n" +
             "join Student st on st.id = ss.studentId.id \n" +
-            "join SubjectSemester se on s.id = ss.subjectId.id " +
+            "join EducationProgram se on s.id = se.subjectId.id " +
             "join Semester sr on sr.id = se.semesterId.id " +
             "where ss.status = false and st.id = :studentId and sr.id = :semesterId")
     List<StudentSubjectDto> getTemporaryCourse(@Param("studentId") String studentId, @Param("semesterId") String semesterId);
+
+    @Query("select distinct new com.nmt.universitysb.dto.StudentSubjectDto(ss.id, ss.status, ss.studentId, ss.subjectId) " +
+            "from StudentSubject ss \n" +
+            "join Subject s on s.id = ss.subjectId.id \n" +
+            "join Student st on st.id = ss.studentId.id \n" +
+            "join EducationProgram se on s.id = se.subjectId.id " +
+            "join Semester sr on sr.id = se.semesterId.id " +
+            "where ss.status = true and st.id = :studentId and sr.id = :semesterId")
+    List<StudentSubjectDto> getAlreadyCourse(@Param("studentId") String studentId, @Param("semesterId") String semesterId);
 }

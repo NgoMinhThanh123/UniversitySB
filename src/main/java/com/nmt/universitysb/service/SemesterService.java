@@ -1,8 +1,10 @@
 package com.nmt.universitysb.service;
 
+import com.nmt.universitysb.dto.SemesterDto;
 import com.nmt.universitysb.model.Semester;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,5 +18,6 @@ public interface SemesterService {
     boolean deleteSemester(String id);
     List<Semester> getSemesterByLecturerId(String lecturerId);
     List<Semester> getSemesterByStudentId(String studentId);
+    List<Semester> getSemesterByLecturerIdAndSubjectId(String lecturerId, String subjectId);
     Semester getLatestSemester();
 }

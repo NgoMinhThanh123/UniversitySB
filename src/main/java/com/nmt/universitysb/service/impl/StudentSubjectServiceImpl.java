@@ -55,7 +55,6 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
 
     @Override
     public List<StudentSubjectDto> courseRegister(List<Map<String, String>> paramsList) {
-        int schoolYear = 2022;
         List<StudentSubjectDto> studentSubjects = new ArrayList<>();
         Map<String, Double> studentTuitionFees = new HashMap<>(); // Lưu trữ tổng tuitionFee của từng sinh viên
 
@@ -63,6 +62,9 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
             Optional<Student> student = this.studentRepo.findById(params.get("studentId"));
             Optional<Subject> subject = this.subjectRepo.findById(params.get("subjectId"));
             Optional<Semester> semester = this.semesterRepo.findById(params.get("semesterId"));
+
+            int schoolYear = semester.get().getSchoolYear();
+
 
             StudentSubject studentSubject = new StudentSubject();
             studentSubject.setStudentId(student.get());
@@ -204,5 +206,10 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
     @Override
     public List<StudentSubjectDto> getTemporaryCourse(String studentId, String semesterId) {
         return this.studentSubjectRepository.getTemporaryCourse(studentId, semesterId);
+    }
+
+    @Override
+    public List<StudentSubjectDto> getAlreadyCourse(String studentId, String semesterId) {
+        return this.studentSubjectRepository.getAlreadyCourse(studentId, semesterId);
     }
 }

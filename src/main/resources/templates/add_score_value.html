@@ -24,7 +24,7 @@
                 <h1 class="text-center text-a mt-1">THÊM ĐIỂM SỐ</h1>
                 <form th:object="${add_score_value}" th:action="@{/add_score_value}" method="post">
                     <div class="form-floating mb-3 mt-3">
-                        <input type="text" class="form-control"  th:field="*{value}" id="value" placeholder="Điểm số" name="value" />
+                        <input type="text" class="form-control"  th:field="*{value}" id="value" placeholder="VD: 8.0" name="value" />
                         <label for="value">Điểm số</label>
                     </div>
                     <div class="form-floating">

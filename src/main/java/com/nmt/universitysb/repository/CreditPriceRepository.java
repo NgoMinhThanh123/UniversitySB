@@ -18,9 +18,10 @@ public interface CreditPriceRepository extends JpaRepository<CreditPrice, String
     Page<CreditPrice> findAllByMajorIdContaining(String keyword, Pageable pageable);
     CreditPrice save(CreditPrice f);
     void deleteById(String id);
-    @Query("select new com.nmt.universitysb.dto.creditPriceDto(c.schoolYear, c.price, c.majorId) " +
+    @Query("select new com.nmt.universitysb.dto.creditPriceDto(c.price, c.majorId, c.semesterId) " +
             "from CreditPrice c " +
             "join Major m on m.id = c.majorId.id " +
-            "where m.id = :majorId and c.schoolYear = :schoolYear")
+            "join Semester s on s.id = c.semesterId.id " +
+            "where m.id = :majorId and s.schoolYear = :schoolYear")
     creditPriceDto getcreditPriceByMajorIdAndSchoolYear(@Param("majorId") String majorId, @Param("schoolYear") int schoolYear);
 }

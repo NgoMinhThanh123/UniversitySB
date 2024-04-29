@@ -37,4 +37,7 @@ public class Major implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "majorId", fetch = FetchType.LAZY)
     private Set<CreditPrice> creditPriceSet;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "majorId", fetch = FetchType.LAZY)
+    private Set<EducationProgram> educationPrograms;
 }

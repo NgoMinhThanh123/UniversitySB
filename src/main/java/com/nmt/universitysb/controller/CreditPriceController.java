@@ -3,6 +3,7 @@ package com.nmt.universitysb.controller;
 import com.nmt.universitysb.model.CreditPrice;
 import com.nmt.universitysb.service.CreditPriceService;
 import com.nmt.universitysb.service.MajorService;
+import com.nmt.universitysb.service.SemesterService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,8 @@ public class CreditPriceController {
     private CreditPriceService creditPriceService;
     @Autowired
     private MajorService majorService;
+    @Autowired
+    private SemesterService semesterService;
 
     @GetMapping("/credit_price")
     public String list(Model model, @RequestParam(name = "page", defaultValue = "0") int page,
@@ -43,6 +46,7 @@ public class CreditPriceController {
     public String addList(Model model) {
         model.addAttribute("add_credit_price", new CreditPrice());
         model.addAttribute("major", this.majorService.findAll());
+        model.addAttribute("semester", this.semesterService.findAll());
 
         return "add_credit_price";
     }
@@ -62,6 +66,7 @@ public class CreditPriceController {
     public String update(Model model, @PathVariable(value = "id") String id) {
         Optional<CreditPrice> creditPrice = this.creditPriceService.findById(id);
         model.addAttribute("major", this.majorService.findAll());
+        model.addAttribute("semester", this.semesterService.findAll());
         if (creditPrice.isPresent()) {
             model.addAttribute("update_credit_price", creditPrice.get());
         } else {

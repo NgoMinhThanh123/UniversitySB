@@ -49,6 +49,17 @@ public class ApiStudentSubjectController {
         return new ResponseEntity<>(studentSubject, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/get-already-course/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<StudentSubjectDto>> getAlreadyCourse(
+            @RequestParam String studentId,
+            @RequestParam String semesterId) {
+        List<StudentSubjectDto> studentSubject = this.studentSubjectService.getAlreadyCourse(studentId, semesterId);
+        if (studentSubject.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(studentSubject, HttpStatus.OK);
+    }
+
     @PostMapping(path="/course-register/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<StudentSubjectDto>> courseRegister(@RequestBody List<Map<String, String>> paramsList) {
         List<StudentSubjectDto> studentSubjectDtos = this.studentSubjectService.courseRegister(paramsList);
@@ -66,4 +77,5 @@ public class ApiStudentSubjectController {
         }
         return new ResponseEntity<>(studentSubjectDtos, HttpStatus.CREATED);
     }
+
 }

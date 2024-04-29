@@ -92,22 +92,6 @@ public class ApiUserController {
         }
    }
 
-//    @PostMapping(path = "/register/",
-//            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
-//            produces = {MediaType.APPLICATION_JSON_VALUE})
-//    @CrossOrigin
-//    public ResponseEntity<User> addUser( @RequestParam("registerRequest") final String registerRequest,
-//                                         @RequestPart("avatar") final MultipartFile avatar){
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        try {
-//            RegisterRequest req = objectMapper.readValue(registerRequest, RegisterRequest.class);
-//            User user = this.authService.userRegister(req, avatar);
-//            return new ResponseEntity<>(user, HttpStatus.CREATED);
-//        } catch (JsonProcessingException e) {
-//            return ResponseEntity.badRequest().build();
-//        }
-//
-//    }
 
     @PutMapping("/user/change-password/")
     @CrossOrigin

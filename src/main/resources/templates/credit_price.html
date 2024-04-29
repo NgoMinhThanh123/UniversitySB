@@ -40,18 +40,18 @@
                     <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Năm học</th>
                         <th>Giá</th>
                         <th>Chuyên ngành</th>
+                        <th>Năm học</th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="credit_price : ${creditPricePage}">
                         <td th:text="${credit_price.id}"></td>
-                        <td th:text="${credit_price.schoolYear}"></td>
                         <td th:text="${credit_price.price}"></td>
                         <td th:text="${credit_price.majorId.name}"></td>
+                        <td th:text="${credit_price.semesterId.schoolYear}"></td>
                         <td>
                             <a th:href="@{/update_credit_price/{id}(id=${credit_price.id})}" class="btn button-a mr-2">Cập nhật</a>
                             <button class="btn btn-danger" th:attr="data-credit_price-id=${credit_price.id}"

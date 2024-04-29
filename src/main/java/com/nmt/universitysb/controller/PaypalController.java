@@ -6,10 +6,8 @@ import com.nmt.universitysb.service.TuitionFeeService;
 import com.nmt.universitysb.service.impl.PaypalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
@@ -19,6 +17,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @Controller
+@CrossOrigin
 public class PaypalController {
 
     @Autowired
@@ -28,21 +27,24 @@ public class PaypalController {
 
     public static final String SUCCESS_URL = "pay/success";
     public static final String CANCEL_URL = "pay/cancel";
+    public static final String ERROR_URL = "pay/error";
 
     @GetMapping("/home")
     public String home() {
         return "home";
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("/pay")
-    public String payment() {
-        int tuitionFeeId = 9;
+    public String payment(Model model,
+                          @RequestParam("tuitionFeeId") int tuitionFeeId) {
         TuitionFee tuitionFee = this.tuitionFeeService.findByTuitionFeeId(tuitionFeeId);
         double tuitionfeeTransfer = tuitionFee.getTuitionFee()/24985;
+        model.addAttribute(tuitionFee);
         try {
             Payment payment = service.createPayment(tuitionfeeTransfer, "USD", "paypal",
-                    "sale", "Pay tuition fee", "http://localhost:8082/" + CANCEL_URL,
-                    "http://localhost:8082/" + SUCCESS_URL + "?tuitionFeeId=" + tuitionFeeId);
+                    "sale", "Pay tuition fee", "http://localhost:8080/" + CANCEL_URL,
+                    "http://localhost:8080/" + SUCCESS_URL + "?tuitionFeeId=" + tuitionFeeId);
             for(Links link:payment.getLinks()) {
                 if(link.getRel().equals("approval_url")) {
                     return "redirect:"+link.getHref();
@@ -53,12 +55,17 @@ public class PaypalController {
 
             e.printStackTrace();
         }
-        return "redirect:/";
+        return "redirect:" + ERROR_URL;
     }
 
     @GetMapping(value = CANCEL_URL)
     public String cancelPay() {
         return "cancel";
+    }
+
+    @GetMapping(value = ERROR_URL)
+    public String errorPay() {
+        return "error";
     }
 
     @GetMapping(value = SUCCESS_URL)

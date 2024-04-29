@@ -52,17 +52,17 @@
                             <div class="col-6">
                                 <div class="form-floating">
                                     <label for="phone">Số điện thoại</label>
-                                    <input type="text" class="form-control" th:field="*{phone}" id="phone" placeholder="Số điện thoại" name="phone" />
+                                    <input type="text" class="form-control" th:field="*{phone}" id="phone" placeholder="VD: 0353894917" name="phone" />
                                     <div th:if="${#fields.hasErrors('phone')}" class="text-danger">Lỗi: <span th:errors="*{phone}"></span></div>
                                 </div>
                                 <div class="form-floating mt-2">
                                     <label for="email">Email</label>
-                                    <input type="text" class="form-control" th:field="*{email}" id="email" placeholder="Email" name="email" />
+                                    <input type="text" class="form-control" th:field="*{email}" id="email" placeholder="VD: xxx@gmail.com" name="email" />
                                     <div th:if="${#fields.hasErrors('email')}" class="text-danger">Lỗi: <span th:errors="*{email}"></span></div>
                                 </div>
                                 <div class="form-floating mt-2">
                                     <label for="name">Địa chỉ</label>
-                                    <input type="text" class="form-control" th:field="*{address}" id="address" placeholder="Địa chỉ" name="address" />
+                                    <input type="text" class="form-control" th:field="*{address}" id="address" placeholder="VD: XXX đường YYY" name="address" />
                                     <div th:if="${#fields.hasErrors('address')}" class="text-danger">Lỗi: <span th:errors="*{address}"></span></div>
                                 </div>
                                 <div class="form-floating mt-2">
@@ -109,13 +109,14 @@
                 </form>
             </div>
 
+
         </div>
         <!-- End of Main Content -->
 
         <!-- Footer -->
         <div th:replace="~{fragments/footer}"></div>
         <!-- End of Footer -->
-
+</div>
     </div>
     <!-- End of Content Wrapper -->
 

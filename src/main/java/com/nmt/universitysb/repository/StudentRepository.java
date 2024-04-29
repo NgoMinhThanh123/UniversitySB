@@ -56,7 +56,7 @@ public interface StudentRepository extends JpaRepository<Student, String> {
             + "JOIN user ON student.user_id = user.id\n"
             + "join student_subject on student_subject.student_id = student.id\n"
             + "join subject on student_subject.subject_id = subject.id\n"
-            + "join subject_semester on subject_semester.subject_id = subject.id\n"
+            + "join education_program on education_program.subject_id = subject.id\n"
             + "join semester on subject_semester.semester_id = semester.id\n"
             + "join lecturer_subject on lecturer_subject.subject_id = subject.id\n"
             + "join lecturer on lecturer_subject.lecturer_id = lecturer.id\n"

@@ -25,10 +25,6 @@
                 <h1 class="text-center text-a mt-1">THÊM GIÁ TÍN CHỈ</h1>
                 <form th:object="${add_credit_price}" th:action="@{/add_credit_price}" method="post">
                     <div class="form-floating mb-3 mt-3">
-                        <label for="schoolYear">Năm học</label>
-                        <input type="number" class="form-control"  th:field="*{schoolYear}" id="schoolYear" placeholder="VD: 2024" name="schoolYear" />
-                    </div>
-                    <div class="form-floating mb-3 mt-3">
                         <label for="price">Giá</label>
                         <input type="number" class="form-control"  th:field="*{price}" id="price" placeholder="VD: 200000" name="price" />
                     </div>
@@ -36,6 +32,12 @@
                         <label for="major" class="form-label">Chuyên nghành</label>
                         <select class="form-select" th:field="*{majorId}" id="major" name="major">
                             <option th:each="f : ${major}" th:value="${f.id}" th:text="${f.name}"></option>
+                        </select>
+                    </div>
+                    <div class="form-floating">
+                        <label for="semester" class="form-label">Năm học</label>
+                        <select class="form-select" th:field="*{semesterId}" id="semester" name="semester">
+                            <option th:each="f : ${semester}" th:value="${f.id}" th:text="${f.name + ' - ' + f.schoolYear}"></option>
                         </select>
                     </div>
                     <div class="form-floating mb-3 mt-3">

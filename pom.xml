@@ -11,7 +11,7 @@
     <groupId>com.nmt</groupId>
     <artifactId>UniversitySB</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>UniversitySB</name>
     <description>UniversitySB</description>
     <properties>

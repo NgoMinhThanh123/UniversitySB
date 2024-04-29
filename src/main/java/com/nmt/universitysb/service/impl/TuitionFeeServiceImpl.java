@@ -1,5 +1,6 @@
 package com.nmt.universitysb.service.impl;
 
+import com.nmt.universitysb.dto.TuitionFeeDto;
 import com.nmt.universitysb.dto.creditPriceDto;
 import com.nmt.universitysb.model.Major;
 import com.nmt.universitysb.model.Semester;
@@ -79,5 +80,15 @@ public class TuitionFeeServiceImpl implements TuitionFeeService {
         double tuitionFee = credit*creditPrice.getPrice();
 
         return tuitionFee;
+    }
+
+    @Override
+    public List<TuitionFeeDto> getTuitionFeeByStudentId(String studentId) {
+        return this.tuitionFeeRepository.getTuitionFeeByStudentId(studentId);
+    }
+
+    @Override
+    public List<TuitionFeeDto> getTuitionFeeByStudentIdAndSemesterId(String studentId, String semesterId) {
+        return this.tuitionFeeRepository.getTuitionFeeByStudentIdAndSemesterId(studentId, semesterId);
     }
 }

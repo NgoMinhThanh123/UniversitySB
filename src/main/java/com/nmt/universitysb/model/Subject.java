@@ -33,9 +33,6 @@ public class Subject implements Serializable {
     private Major majorId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId", fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<SubjectSemester> subjectSemesterSet;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId", fetch = FetchType.LAZY)
-    @JsonIgnore
     private Set<LecturerSubject> lecturerSubjectSet;
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId", fetch = FetchType.LAZY)
@@ -43,4 +40,7 @@ public class Subject implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<ScorePercent> scorePercentSet;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "subjectId", fetch = FetchType.LAZY)
+    private Set<EducationProgram> educationPrograms;
 }

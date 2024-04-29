@@ -21,4 +21,5 @@ public interface StudentSubjectService{
     boolean deleteStudentSubject(int id);
     Optional<StudentSubject> getStudentSubjectByStudentAndSubjectId(String studentId, String subjectId);
     List<StudentSubjectDto> getTemporaryCourse(String studentId, String semesterId);
+    List<StudentSubjectDto> getAlreadyCourse(String studentId, String semesterId);
 }

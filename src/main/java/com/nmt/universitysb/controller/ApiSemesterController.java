@@ -59,4 +59,13 @@ public class ApiSemesterController {
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+    @GetMapping("/semesters/lecturer-subject/")
+    public ResponseEntity<List<Semester>> getSemesterByLecturerIdAndSubjectId(@RequestParam String lecturerId, @RequestParam String subjectId) {
+        List<Semester> list = this.semesterService.getSemesterByLecturerIdAndSubjectId(lecturerId, subjectId);
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
 }

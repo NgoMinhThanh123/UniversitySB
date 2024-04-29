@@ -24,69 +24,91 @@
             <div class="container">
                 <h1 class="text-center text-a mt-1">CẬP NHẬT GIẢNG VIÊN</h1>
                 <form th:object="${update_lecturer}" th:action="@{/update_lecturer}" method="post">
-                    <div class="form-floating">
-                        <input type="text" class="form-control" th:field="*{id}" id="id" placeholder="ID" name="id" />
-                        <label for="id">ID</label>
-                        <div th:if="${#fields.hasErrors('id')}" class="text-danger">Lỗi: <span th:errors="*{id}"></span></div>
+                    <div style="background: #fff; padding: 24px; box-shadow: 0px 10px 23px -8px rgba(0,0,0,0.1); border-radius: 5px;">
+                        <h5 style="border-bottom: 1px solid #c3c3c3; padding-bottom: 10px">Thông tin giảng viên</h5>
+                        <div class="row" style="padding-top: 10px">
+
+                            <div class="col-6">
+                                <input type="hidden" th:field="*{id}" />
+                                <div class="form-floating">
+                                    <label for="id">ID</label>
+                                    <input disabled type="text" class="form-control" th:field="*{id}" id="id" placeholder="ID" name="id" />
+                                    <div th:if="${#fields.hasErrors('id')}" class="text-danger">Lỗi: <span th:errors="*{id}"></span></div>
+                                </div>
+                                <div class="form-floating mt-2">
+                                    <label for="name">Tên giảng viên</label>
+                                    <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Tên giảng viên" name="name" />
+                                    <div th:if="${#fields.hasErrors('name')}" class="text-danger">Lỗi: <span th:errors="*{name}"></span></div>
+                                </div>
+                                <div class="form-floating mt-2">
+                                    <label for="birthday">Ngày sinh</label>
+                                    <input type="date" class="form-control" th:field="*{birthday}" id="birthday" placeholder="Ngày sinh" name="birthday" />
+                                    <div th:if="${#fields.hasErrors('birthday')}" class="text-danger">Lỗi: <span th:errors="*{birthday}"></span></div>
+                                </div>
+                                <div class="form-floating mt-2">
+                                    <label for="identification">Căn cước công dân</label>
+                                    <input type="text" class="form-control" th:field="*{identification}" id="identification" placeholder="Căn cước công dân" name="identification" />
+                                    <div th:if="${#fields.hasErrors('identification')}" class="text-danger">Lỗi: <span th:errors="*{identification}"></span></div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <label for="phone">Số điện thoại</label>
+                                    <input type="text" class="form-control" th:field="*{phone}" id="phone" placeholder="Số điện thoại" name="phone" />
+                                    <div th:if="${#fields.hasErrors('phone')}" class="text-danger">Lỗi: <span th:errors="*{phone}"></span></div>
+                                </div>
+                                <div class="form-floating mt-2">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" th:field="*{email}" id="email" placeholder="Email" name="email" />
+                                    <div th:if="${#fields.hasErrors('email')}" class="text-danger">Lỗi: <span th:errors="*{email}"></span></div>
+                                </div>
+                                <div class="form-floating mt-2">
+                                    <label for="name">Địa chỉ</label>
+                                    <input type="text" class="form-control" th:field="*{address}" id="address" placeholder="Địa chỉ" name="address" />
+                                    <div th:if="${#fields.hasErrors('address')}" class="text-danger">Lỗi: <span th:errors="*{address}"></span></div>
+                                </div>
+                                <div class="form-floating mt-2">
+                                    <label style="display: block" for="gender">Giới tính</label>
+                                    <select style="padding: 5px 10px; border-radius: 5px" class="form-select" id="gender" name="gender">
+                                        <option value="1" selected>Nam</option>
+                                        <option value="0">Nữ</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-floating">
-                        <input type="text" class="form-control" th:field="*{name}" id="name" placeholder="Tên giảng viên" name="name" />
-                        <label for="name">Tên giảng viên</label>
-                        <div th:if="${#fields.hasErrors('name')}" class="text-danger">Lỗi: <span th:errors="*{name}"></span></div>
+                    <div  style="background: #fff; padding: 24px; margin-top: 10px; box-shadow: 0px 10px 23px -8px rgba(0,0,0,0.1); border-radius: 5px;">
+                        <h5 style="border-bottom: 1px solid #c3c3c3; padding-bottom: 10px">Thông tin khóa</h5>
+                        <div class="row" style="padding-top: 10px">
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <label style="display: block" for="faculty" class="form-label">Khoa</label>
+                                    <select  style="width: 100%; padding: 5px 10px; border-radius: 5px"
+                                    th:name="facultyId" id="faculty" name="faculty">
+                                        <option th:each="f : ${faculty}" th:value="${f.id}" th:text="${f.name}"></option>
+                                    </select>
+                                </div>
+                                <div class="form-floating mt-2">
+                                    <label style="display: block" for="user" class="form-label">Mã tài khoản</label>
+                                    <select  style="width: 100%; padding: 5px 10px; border-radius: 5px" class="form-select"
+                                             th:name="userId" id="user" name="user">
+                                        <option th:each="f : ${user}" th:value="${f.id}" th:text="${f.id}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-floating">
+                                    <label style="display: block" for="classes" class="form-label">Mã lớp</label>
+                                    <select  style="width: 100%; padding: 5px 10px; border-radius: 5px" class="form-select" th:name="classesId" id="classes" name="classes">
+                                        <option value="">-- Chọn mã lớp --</option>
+                                        <option th:each="f : ${classes}" th:value="${f.id}" th:text="${f.id}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-floating">
-                        <input type="date" class="form-control" th:field="*{birthday}" id="birthday" placeholder="Ngày sinh" name="birthday" />
-                        <label for="birthday">Ngày sinh</label>
-                        <div th:if="${#fields.hasErrors('birthday')}" class="text-danger">Lỗi: <span th:errors="*{birthday}"></span></div>
-                    </div>
-                    <div class="form-floating">
-                        <select class="form-select" id="gender" name="gender">
-                            <option value="1" selected>Nam</option>
-                            <option value="0">Nữ</option>
-                        </select>
-                        <label for="gender">Giới tính</label>
-                    </div>
-                    <div class="form-floating">
-                        <input type="text" class="form-control" th:field="*{identification}" id="identification" placeholder="Căn cước công dân" name="identification" />
-                        <label for="identification">Căn cước công dân</label>
-                        <div th:if="${#fields.hasErrors('identification')}" class="text-danger">Lỗi: <span th:errors="*{identification}"></span></div>
-                    </div>
-                    <div class="form-floating">
-                        <input type="text" class="form-control" th:field="*{phone}" id="phone" placeholder="Số điện thoại" name="phone" />
-                        <label for="phone">Số điện thoại</label>
-                        <div th:if="${#fields.hasErrors('phone')}" class="text-danger">Lỗi: <span th:errors="*{phone}"></span></div>
-                    </div>
-                    <div class="form-floating">
-                        <input type="text" class="form-control" th:field="*{email}" id="email" placeholder="Email" name="email" />
-                        <label for="email">Email</label>
-                        <div th:if="${#fields.hasErrors('email')}" class="text-danger">Lỗi: <span th:errors="*{email}"></span></div>
-                    </div>
-                    <div class="form-floating">
-                        <input type="text" class="form-control" th:field="*{address}" id="address" placeholder="Địa chỉ" name="address" />
-                        <label for="name">Địa chỉ</label>
-                        <div th:if="${#fields.hasErrors('address')}" class="text-danger">Lỗi: <span th:errors="*{address}"></span></div>
-                    </div>
-                    <div class="form-floating">
-                        <label for="faculty" class="form-label">Khoa</label>
-                        <select class="form-select" th:name="facultyId" id="faculty" name="faculty">
-                            <option th:each="f : ${faculty}" th:value="${f.id}" th:text="${f.name}"></option>
-                        </select>
-                    </div>
-                    <div class="form-floating">
-                        <label for="user" class="form-label">Mã tài khoản</label>
-                        <select class="form-select" th:name="userId" id="user" name="user">
-                            <option th:each="f : ${user}" th:value="${f.id}" th:text="${f.id}"></option>
-                        </select>
-                    </div>
-                    <div class="form-floating">
-                        <label for="classes" class="form-label">Mã lớp</label>
-                        <select class="form-select" th:name="classesId" id="classes" name="classes">
-                            <option value="">-- Chọn mã lớp --</option>
-                            <option th:each="f : ${classes}" th:value="${f.id}" th:text="${f.id}"></option>
-                        </select>
-                    </div>
-                    <div class="form-floating mb-3 mt-3">
-                        <button type="submit" class="btn btn-info">Cập nhật giảng viên</button>
+                    <div class="form-floating mb-3 mt-3 d-flex justify-content-end">
+                        <button type="submit" class="btn button-a">Cập nhật giảng viên</button>
                     </div>
                 </form>
             </div>
@@ -109,25 +131,6 @@
     <i class="fas fa-angle-up"></i>
 </a>
 
-<!-- Logout Modal-->
-<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                <a class="btn btn-primary" href="login.html">Logout</a>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Bootstrap core JavaScript-->
 <script src="vendor/jquery/jquery.min.js"></script>
