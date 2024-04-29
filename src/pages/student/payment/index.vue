@@ -30,7 +30,8 @@
               {{ index + 1 }}
             </th>
             <td style="width: 25%; vertical-align: middle" class="text-center">
-              {{ tuitionFee.semesterId.name }} - Năm học {{ tuitionFee.semesterId.schoolYear }}
+              {{ tuitionFee.semesterId.name }} - Năm học
+              {{ tuitionFee.semesterId.schoolYear }}
             </td>
             <td style="width: 20%; vertical-align: middle" class="text-end">
               <div v-if="!tuitionFee.done">
@@ -48,7 +49,11 @@
               {{ formattedCurrency(0) }}
             </td>
             <td style="width: 15%">
-              <button class="button" v-if="!tuitionFee.done" @click="submitTuitionFee(tuitionFee.id)">
+              <button
+                class="button"
+                v-if="!tuitionFee.done"
+                @click="submitTuitionFee(tuitionFee.id)"
+              >
                 <p>Thanh toán</p>
               </button>
             </td>
@@ -111,8 +116,24 @@ export default {
       }
     },
     async submitTuitionFee(tuitionFeeId) {
-      await Apis.post(endpoints["payment"] + `?tuitionFeeId=${tuitionFeeId}`)
-    }
+      const res = await Apis.post(
+        endpoints["payment"] + `?tuitionFeeId=${tuitionFeeId}`
+      );
+
+      console.log(res.data.contextualLogin.paymentToken);
+      if (res.data && res.data.contextualLogin.paymentToken) {
+        // Lấy token từ phản hồi
+        const paymentToken = res.data.contextualLogin.paymentToken
+
+        // Tạo đường dẫn chuyển hướng đến trang PayPal với token
+        const paypalUrl = `https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=${paymentToken}`;
+
+        // Chuyển hướng người dùng đến trang PayPal
+        window.location.href = paypalUrl;
+      } else {
+        console.error("Invalid payment token received.");
+      }
+    },
   },
   async created() {
     await this.getTuitionFee();

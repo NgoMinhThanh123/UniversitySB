@@ -14,7 +14,6 @@
             <TheMenu />
           </div>
           <template #header>
-            <!-- <div style="font-size: 20px">BẢNG ĐIỀU KHIỂN</div> -->
             <div>
               <img
                 style="width: 100%"

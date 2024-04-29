@@ -76,6 +76,52 @@
         </div>
       </div>
     </section>
+    <section class="section3">
+      <h2 class="title_content">Tầm nhìn và sứ mệnh</h2>
+      <div class="container">
+        <div class="row">
+          <div
+            class="col-4"
+            style="height: auto; position: relative; margin: auto 0"
+          >
+            <div>
+              <img
+                src="../../assets/truong-thanh-lap.jpg"
+                alt=""
+                width="100%"
+              />
+            </div>
+          </div>
+          <div class="col-8">
+            <div style="margin-bottom: 40px">
+              <div class="section3-card">
+                <div class="content content1">
+                  <h5>Sứ mạng</h5>
+                  <p class="para">
+                    Trường đại học Mở thành phố Hồ Chí Minh thực hiện giáo dục
+                    mở, tọa bình đẳng cho mọi người trong tiếp cận giáo dục đại
+                    học, góp phần xây dựng xã hội học tập, nâng cao tri thức và
+                    năng lực nghề nghiệp cho người học bằng các phương thức linh
+                    hoạt, thuận tiện và hiệu quả.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top: 40px">
+              <div class="section3-card">
+                <div class="content content2">
+                  <h5>Tầm nhìn</h5>
+                  <p class="para">
+                    Trường đại học Mở thành phố Hồ Chí Minh thực hiện giáo dục
+                    mở, định hướng ứng dụng với chất lượng cao.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <!-- </div> -->
     <!-- <div class="container-fluid mt-3 container">
       <div class="row">
@@ -181,7 +227,8 @@ export default {
 
 <style>
 .section1,
-.section2 {
+.section2,
+.section3 {
   padding: 60px 0;
 }
 
@@ -334,5 +381,126 @@ export default {
 .card3:hover p {
   display: none;
 }
+/* section 3 */
+.section3-card {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  border-radius: 24px;
+  line-height: 1.6;
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
 
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 36px;
+  border-radius: 22px;
+  color: #ffffff;
+  overflow: hidden;
+
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.content1 {
+  background: #070758;
+}
+
+.content2 {
+  background: #dfb36f;
+}
+
+.content::before {
+  position: absolute;
+  content: "";
+  top: -4%;
+  left: 50%;
+  width: 90%;
+  height: 90%;
+  transform: translate(-50%);
+
+  z-index: -1;
+  transform-origin: bottom;
+
+  border-radius: inherit;
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.content::after {
+  position: absolute;
+  content: "";
+  top: -8%;
+  left: 50%;
+  width: 80%;
+  height: 80%;
+  transform: translate(-50%);
+
+  z-index: -2;
+  transform-origin: bottom;
+  border-radius: inherit;
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.content1::before {
+  background: #ced8ff;
+}
+
+.content1::after {
+  background: #e7ecff;
+}
+
+.content2::before {
+  background: #ffe5ce;
+}
+
+.content2::after {
+  background: #fff5e7;
+}
+
+.content svg {
+  width: 48px;
+  height: 48px;
+}
+
+.content .para {
+  z-index: 1;
+  opacity: 1;
+  font-size: 18px;
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.content .link {
+  z-index: 1;
+  color: #fea000;
+  text-decoration: none;
+  font-family: inherit;
+  font-size: 16px;
+  transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.content .link:hover {
+  text-decoration: underline;
+}
+
+.section3-card:hover {
+  transform: translate(0px, -6px);
+}
+
+.section3-card:hover .content::before {
+  rotate: -2deg;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.section3-card:hover .content::after {
+  rotate: 2deg;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
 </style>

@@ -1,4 +1,38 @@
 <template>
+  <div class="menu" v-if="isChecked">
+    <div class="sidebar-mobile-main"></div>
+    <div class="row">
+      <div class="col-6">
+        <a-list
+          bordered
+          style="width: 100%"
+          v-if="this.getUser && this.getUser.role != null"
+        >
+          <div v-if="this.getUser.role === 'ROLE_SINHVIEN'">
+            <TheMenuStudent
+              :isChecked="isChecked"
+              @update:isChecked="isChecked = $event"
+            />
+          </div>
+          <div v-if="this.getUser.role === 'ROLE_GIANGVIEN'">
+            <TheMenu
+              :isChecked="isChecked"
+              @update:isChecked="isChecked = $event"
+            />
+          </div>
+          <template #header>
+            <div>
+              <img
+                style="width: 100%"
+                src="../assets/logoSchool_1.png"
+                alt="logo"
+              />
+            </div>
+          </template>
+        </a-list>
+      </div>
+    </div>
+  </div>
   <div id="header" class="header">
     <div
       class="text-white"
@@ -19,14 +53,21 @@
             <span style="font-size: 16px"> Hồ sơ </span>
           </router-link>
         </div>
+        <div class="container-mobile">
+          <input
+            class="label-check"
+            id="label-check"
+            type="checkbox"
+            v-model="isChecked"
+          />
+          <label for="label-check" class="hamburger-label">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+            <label></label
+          ></label>
+        </div>
       </div>
-      <!-- <div
-        class="col-1 d-flex d-sm-none align-items-center justify-content-center"
-      >
-        <span>
-          <i class="fa-solid fa-bars"></i>
-        </span>
-      </div> -->
       <div
         class="col-6 col-sm-6 d-none d-sm-flex align-items-center justify-content-sm-end"
       >
@@ -52,12 +93,6 @@
               <span> Phụ huynh </span>
             </router-link>
           </div>
-          <!-- <div style="padding-right: 30px">
-            <router-link to="/login" class="nav-link">Đăng nhập</router-link>
-          </div>
-          <div>
-            <router-link to="/register" class="nav-link">Đăng ký</router-link>
-          </div> -->
         </div>
         <div
           v-else
@@ -164,11 +199,17 @@
 </template>
 
 <script>
+import TheMenu from "@/components/TheMenu.vue";
+import TheMenuStudent from "@/components/TheMenuStudent.vue";
 import { authApi, endpoints } from "@/configs/Apis";
 import { mapGetters } from "vuex";
 import { getAuth, signOut } from "firebase/auth";
 export default {
   name: "TheHeader",
+  components: {
+    TheMenu,
+    TheMenuStudent,
+  },
   data() {
     return {
       username: "",
@@ -176,6 +217,7 @@ export default {
       formattedBirthday: "",
       isFixed: false,
       isLogin: false,
+      isChecked: false,
     };
   },
   computed: {
@@ -239,6 +281,13 @@ export default {
     if (!this.isLogin) {
       window.addEventListener("scroll", this.handleScroll);
     }
+  },
+  watch: {
+    isChecked: {
+      handler(newCheck, oldCheck) {
+        console.log("isCheck", this.isChecked);
+      },
+    },
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="row">
-      <div class="col-sm-2 d-none d-sm-flex" style="padding: 0">
+      <div class="col-sm-2 d-none d-sm-flex sidebar-desktop" style="padding: 0">
         <a-list bordered style="width: 100%;">
           <TheMenuStudent />
           <template #header>
