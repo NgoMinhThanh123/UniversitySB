@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid" style="padding-bottom: 50px">
-    <div class="row">
+    <div class="row table-container">
       <table class="table">
         <thead>
           <tr>

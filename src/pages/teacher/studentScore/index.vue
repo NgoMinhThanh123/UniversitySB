@@ -2,12 +2,13 @@
   <div class="container" style="margin-bottom: 200px">
     <div class="row">
       <form>
-        <div class="input-studentScore">
+        <div class="input-file">
           <input
             type="file"
             ref="fileInput"
             accept=".xls,.xlsx"
             @change="onFileChange"
+            class="fileInput"
           />
           <button class="btn btn-primary" @click="saveScoreByFile">Gửi</button>
         </div>
@@ -226,7 +227,7 @@
           </div>
         </div>
         <div v-else>
-          <div v-if="studentList.length > 0">
+          <div v-if="studentList.length > 0" class="table-container">
             <table class="table table-striped table-bordered table-hover">
               <thead>
                 <tr>
@@ -599,10 +600,10 @@ export default {
           return alert("Vui lòng chọn file excel");
         }
         const formData = new FormData();
-        formData.append('file', this.fileExcel);
+        formData.append("file", this.fileExcel);
         const res = await authApi().post(endpoints["excel-add"], formData, {
           headers: {
-            "Content-Type": "multipart/form-data", 
+            "Content-Type": "multipart/form-data",
           },
         });
 
@@ -618,3 +619,36 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.studentScore {
+  flex-wrap: wrap;
+}
+.input-studentScore {
+  margin-bottom: 10px;
+}
+@media (max-width: 768px) {
+  .container {
+    padding: 0;
+  }
+  .input-file {
+    display: flex;
+  }
+  .fileInput {
+    width: 100%;
+  }
+  .studentScore {
+    display: block !important;
+  }
+  .input-studentScore {
+    padding: 5px 0;
+    display: block !important;
+  }
+
+  .col-12 {
+    padding: 0;
+  }
+
+
+}
+</style>

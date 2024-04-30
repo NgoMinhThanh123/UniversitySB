@@ -59,7 +59,7 @@
         >
       </div>
 
-      <div class="foroum">
+      <div class="foroum table-container">
         <table class="table table-responsive-xl" v-if="post.length > 0">
           <thead>
             <tr>

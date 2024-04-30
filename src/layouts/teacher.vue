@@ -1,7 +1,7 @@
 <template>
   <div style="height: 100%">
     <div class="row">
-      <div class="col-2 sidebar-desktop" style="padding: 0">
+      <div class="col-2 col-md-3 sidebar-desktop" style="padding: 0">
         <a-list bordered style="width: 100%">
           <TheMenu />
           <template #header>
@@ -12,7 +12,7 @@
         </a-list>
       </div>
 
-      <div class="col" style="padding: 0">
+      <div class="col col-md-9" style="padding: 0">
         <TheHeader />
         <div class="container" style="padding: 20px; min-height: 84.8vh">
           <router-view></router-view>

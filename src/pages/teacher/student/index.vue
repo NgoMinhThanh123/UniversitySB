@@ -61,7 +61,7 @@
       <p style="font-size: 20px; padding: 20px">{{ err }}</p>
     </div>
     <div v-else>
-      <div v-if="studentList.length > 0">
+      <div v-if="studentList.length > 0" class="table-container">
         <table class="table table-striped table-bordered table-hover">
           <thead>
             <tr>

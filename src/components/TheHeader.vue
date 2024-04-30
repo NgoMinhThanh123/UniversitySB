@@ -47,13 +47,13 @@
         class="col-6 col-sm-6 d-flex justify-content-sm-start align-items-center"
       >
         <div class="home"></div>
-        <div class="profile" v-if="isAuth === true">
+        <div class="profile d-none d-md-flex d-lg-flex " v-if="isAuth === true">
           <router-link to="/profile" class="router-link-hover">
             <i class="fa-solid fa-user"></i>
             <span style="font-size: 16px"> Hồ sơ </span>
           </router-link>
         </div>
-        <div class="container-mobile">
+        <div class="container-mobile" v-if="isAuth">
           <input
             class="label-check"
             id="label-check"
@@ -69,11 +69,11 @@
         </div>
       </div>
       <div
-        class="col-6 col-sm-6 d-none d-sm-flex align-items-center justify-content-sm-end"
+        class="col-6 col-sm-6 d-sm-flex align-items-center justify-content-sm-end"
       >
         <div
           v-if="isAuth === false"
-          class="d-none d-sm-flex align-items-center justify-content-sm-end"
+          class="d-sm-flex align-items-center justify-content-sm-end"
         >
           <div class="parent">
             <router-link to="/login" class="router-link-hover">
@@ -96,11 +96,10 @@
         </div>
         <div
           v-else
-          class="d-none d-sm-flex align-items-center justify-content-sm-end"
+          class="align-items-center justify-content-sm-end"
         >
           <div style="padding-right: 30px" class="d-flex align-items-center">
-            <!-- <img :src="getUser.avatar" class="rounded-circle"style="width: 150px;" alt="Avatar" /> -->
-            <div style="margin-right: 10px">
+            <div style="margin-right: 10px" class="d-flex">
               <img
                 :src="getUser.avatar"
                 class="rounded-circle"
@@ -108,7 +107,7 @@
                 alt="Avatar"
               />
             </div>
-            <div class="dropdown">
+            <div class="dropdown d-none d-sm-flex">
               <a
                 class="nav-link dropdown-toggle"
                 href="#"

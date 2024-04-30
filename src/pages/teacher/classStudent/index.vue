@@ -5,7 +5,7 @@
     </strong>
   </div>
   <div class="table col-12">
-    <div class="table">
+    <div class="table table-container">
       <template v-if="studentList.length > 0">
         <table class="table table-striped table-bordered table-hover">
           <thead>
