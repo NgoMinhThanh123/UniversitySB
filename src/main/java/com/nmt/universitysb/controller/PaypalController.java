@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;
 import java.util.Optional;
 
-@Controller
+@RestController
 @CrossOrigin
 public class PaypalController {
 
@@ -43,11 +44,11 @@ public class PaypalController {
         model.addAttribute(tuitionFee);
         try {
             Payment payment = service.createPayment(tuitionfeeTransfer, "USD", "paypal",
-                    "sale", "Pay tuition fee", "http://localhost:8080/" + CANCEL_URL,
-                    "http://localhost:8080/" + SUCCESS_URL + "?tuitionFeeId=" + tuitionFeeId);
+                    "sale", "Pay tuition fee", "http://localhost:8082/" + CANCEL_URL,
+                    "http://localhost:8082/" + SUCCESS_URL + "?tuitionFeeId=" + tuitionFeeId);
             for(Links link:payment.getLinks()) {
                 if(link.getRel().equals("approval_url")) {
-                    return "redirect:"+link.getHref();
+                    return link.getHref();
                 }
             }
 
@@ -59,17 +60,17 @@ public class PaypalController {
     }
 
     @GetMapping(value = CANCEL_URL)
-    public String cancelPay() {
-        return "cancel";
+    public ModelAndView cancelPay() {
+        return new ModelAndView("cancel");
     }
 
     @GetMapping(value = ERROR_URL)
-    public String errorPay() {
-        return "error";
+    public ModelAndView errorPay() {
+        return new ModelAndView("error");
     }
 
     @GetMapping(value = SUCCESS_URL)
-    public String successPay(@RequestParam("paymentId") String paymentId,
+    public ModelAndView successPay(@RequestParam("paymentId") String paymentId,
                              @RequestParam("PayerID") String payerId,
                              @RequestParam("tuitionFeeId") int tuitionFeeId) {
         try {
@@ -80,12 +81,12 @@ public class PaypalController {
                 tuitionFee.setDateCreated(new Date());
                 tuitionFee.setDone(true);
                 this.tuitionFeeService.save(tuitionFee);
-                return "success";
+                return new ModelAndView("success") ;
             }
         } catch (PayPalRESTException e) {
             System.out.println(e.getMessage());
         }
-        return "redirect:/";
+        return new ModelAndView("redirect:/");
     }
 
 }
