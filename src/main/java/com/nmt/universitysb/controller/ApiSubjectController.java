@@ -1,6 +1,7 @@
 package com.nmt.universitysb.controller;
 
 import com.nmt.universitysb.dto.SubjectDto;
+import com.nmt.universitysb.dto.TuitionFeeAndSubjectDto;
 import com.nmt.universitysb.model.Subject;
 import com.nmt.universitysb.service.SubjectService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -95,6 +96,17 @@ public class ApiSubjectController {
             @RequestParam String semesterId,
             @RequestParam String majorId) {
         List<SubjectDto> list = subjectService.getSubjectByEducationProgram(studentId, semesterId, majorId);
+        if (list.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/subjects/tuituion-fee/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TuitionFeeAndSubjectDto>> getTuitionFeeOfSemester(
+            @RequestParam String studentId,
+            @RequestParam String semesterId) {
+        List<TuitionFeeAndSubjectDto> list = subjectService.getTuitionFeeOfSemester(studentId, semesterId);
         if (list.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -1,5 +1,6 @@
 package com.nmt.universitysb.service;
 import com.nmt.universitysb.dto.SubjectDto;
+import com.nmt.universitysb.dto.TuitionFeeAndSubjectDto;
 import com.nmt.universitysb.model.Subject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,5 +23,5 @@ public interface SubjectService {
     List<SubjectDto> getSubjectByStudentAndSemesterId(String studentId, String semesterId);
     List<SubjectDto> getSubjectTemporaryCourse(String studentId, String semesterId);
     List<SubjectDto> getSubjectByEducationProgram(String studentId, String semesterId, String majorId);
-
+    List<TuitionFeeAndSubjectDto> getTuitionFeeOfSemester(String studentId, String semesterId);
 }

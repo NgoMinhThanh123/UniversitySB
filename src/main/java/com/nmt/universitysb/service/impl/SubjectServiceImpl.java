@@ -1,5 +1,6 @@
 package com.nmt.universitysb.service.impl;
 import com.nmt.universitysb.dto.SubjectDto;
+import com.nmt.universitysb.dto.TuitionFeeAndSubjectDto;
 import com.nmt.universitysb.model.Subject;
 import com.nmt.universitysb.repository.SubjectRepository;
 import com.nmt.universitysb.service.SubjectService;
@@ -82,6 +83,11 @@ public class SubjectServiceImpl implements SubjectService {
     @Override
     public List<SubjectDto> getSubjectByEducationProgram(String studentId, String semesterId, String majorId) {
         return this.subjectRepo.getSubjectByEducationProgram(studentId, semesterId, majorId);
+    }
+
+    @Override
+    public List<TuitionFeeAndSubjectDto> getTuitionFeeOfSemester(String studentId, String semesterId) {
+        return this.subjectRepo.getTuitionFeeOfSemester(studentId, semesterId);
     }
 
 }

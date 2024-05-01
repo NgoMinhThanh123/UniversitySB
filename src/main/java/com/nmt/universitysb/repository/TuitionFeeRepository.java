@@ -1,5 +1,6 @@
 package com.nmt.universitysb.repository;
 
+import com.nmt.universitysb.dto.TuitionFeeAndSubjectDto;
 import com.nmt.universitysb.dto.TuitionFeeDto;
 import com.nmt.universitysb.model.Semester;
 import com.nmt.universitysb.model.TuitionFee;
@@ -36,4 +37,5 @@ public interface TuitionFeeRepository extends JpaRepository<TuitionFee, String> 
             "join Semester se on t.semesterId.id = se.id\n" +
             "where s.id = :studentId and se.id = :semesterId")
     List<TuitionFeeDto> getTuitionFeeByStudentIdAndSemesterId(@Param("studentId") String studentId, @Param("semesterId") String semesterId);
+
 }

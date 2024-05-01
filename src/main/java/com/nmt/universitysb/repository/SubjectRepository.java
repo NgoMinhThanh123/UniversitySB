@@ -1,5 +1,6 @@
 package com.nmt.universitysb.repository;
 import com.nmt.universitysb.dto.SubjectDto;
+import com.nmt.universitysb.dto.TuitionFeeAndSubjectDto;
 import com.nmt.universitysb.model.Subject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -83,4 +84,14 @@ public interface SubjectRepository extends JpaRepository<Subject, String> {
             "join Semester sr on sr.id = ed.semesterId.id " +
             "where st.id = :studentId and sr.id = :semesterId and ed.majorId.id = :majorId ")
     List<SubjectDto> getSubjectByEducationProgram(@Param("studentId") String studentId, @Param("semesterId") String semesterId, @Param("majorId") String majorId);
+
+    @Query(value ="select new com.nmt.universitysb.dto.TuitionFeeAndSubjectDto(s, cp.price*s.credit)\n" +
+            "FROM Subject s\n" +
+            "JOIN StudentSubject ss ON s.id = ss.subjectId.id\n" +
+            "JOIN Student st ON st.id = ss.studentId.id\n" +
+            "JOIN EducationProgram ed ON s.id = ed.subjectId.id\n" +
+            "JOIN Semester sr ON sr.id = ed.semesterId.id \n" +
+            "JOIN CreditPrice cp ON cp.majorId.id = s.majorId.id\n" +
+            "WHERE st.id = :studentId and sr.id = :semesterId AND cp.semesterId = :semesterId \n")
+    List<TuitionFeeAndSubjectDto> getTuitionFeeOfSemester(@Param("studentId") String studentId, @Param("semesterId") String semesterId);
 }
