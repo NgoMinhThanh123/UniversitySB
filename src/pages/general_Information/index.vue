@@ -33,7 +33,7 @@
         <h2 class="title_content">Thông tin chi tiết</h2>
         <div class="container">
           <div class="row">
-            <div class="col" style="padding: 10px 24px">
+            <div class="col col-item" style="padding: 10px 24px">
               <div class="item">
                 <h5>Tên trường</h5>
                 <div>
@@ -58,7 +58,7 @@
                 </div>
               </div>
             </div>
-            <div class="col" style="padding: 10px 24px">
+            <div class="col col-item" style="padding: 10px 24px">
               <div class="item">
                 <h5>Cơ quan/Bộ chủ quản</h5>
                 <div>
@@ -85,8 +85,14 @@
         </div>
       </div>
     </section>
-    <div>
-      <img loading="lazy" src="../../assets/bg-bottom.png" alt="logo bottom" style="margin: 0px auto; display: block;" />
+    <div style="width: 100%;">
+      <img
+        loading="lazy"
+        src="../../assets/bg-bottom.png"
+        alt="logo bottom"
+        width="100%"
+        style="margin: 0px auto; display: block"
+      />
     </div>
   </Home>
 </template>
@@ -239,5 +245,31 @@ p {
   font-family: IBM Plex Sans;
   font-size: 1.125rem;
   font-weight: 300;
+}
+
+@media (max-width: 767px) {
+  .title_backgound {
+    position: relative;
+    font-size: 2.5rem;
+    width: 100%;
+  }
+
+  .content_background {
+    position: relative !important;
+    bottom: -200px;
+    width: 100%;
+    line-height: 1.5;
+    font-size: 1.125rem;
+    font-weight: 300;
+  }
+  .title_content {
+    font-size: 20px !important;
+    margin-bottom: 15px !important;
+  }
+
+  .col-item {
+    flex: 1 0 100%;
+    padding: 0 !important;
+  }
 }
 </style>

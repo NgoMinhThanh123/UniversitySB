@@ -6,7 +6,7 @@
       <h2 class="title_content">Tìm hiểu về STU</h2>
       <div class="container">
         <div class="row">
-          <div class="col-6">
+          <div class="col-lg-6 col-sm-12">
             <div
               style="
                 width: 100%;
@@ -21,7 +21,7 @@
               />
             </div>
           </div>
-          <div class="col-6" style="position: relative">
+          <div class="col-lg-6 col-sm-12" style="position: relative">
             <div class="title-1">Nơi hiện thực hóa ước mơ</div>
             <p class="content-body-1" style="text-align: justify">
               Đại học Mở Thành phố Hồ Chí Minh là ngôi trường nổi tiếng với môi
@@ -57,18 +57,18 @@
       <h2 class="title_content">Đôi nét về STU</h2>
       <div class="container">
         <div class="row">
-          <div class="col">
+          <div class="col card-item">
             <div class="card card0"><p class="text1">Thành lập</p></div>
           </div>
-          <div class="col">
+          <div class="col card-item">
             <div class="card card1">
               <p class="text2">Số lượng sinh viên</p>
             </div>
           </div>
-          <div class="col">
+          <div class="col card-item">
             <div class="card card2"><p class="text3">Số ngành đào tạo</p></div>
           </div>
-          <div class="col">
+          <div class="col card-item">
             <div class="card card3">
               <p class="text4">Sinh viên đã tốt nghiệp</p>
             </div>
@@ -81,7 +81,7 @@
       <div class="container">
         <div class="row">
           <div
-            class="col-4"
+            class="col-lg-4 d-none"
             style="height: auto; position: relative; margin: auto 0"
           >
             <div>
@@ -92,7 +92,7 @@
               />
             </div>
           </div>
-          <div class="col-8">
+          <div class="col-lg-8">
             <div style="margin-bottom: 40px">
               <div class="section3-card">
                 <div class="content content1">
@@ -122,94 +122,7 @@
         </div>
       </div>
     </section>
-    <!-- </div> -->
-    <!-- <div class="container-fluid mt-3 container">
-      <div class="row">
-        <div class="introduce">
-          <div>
-            <h3>GIỚI THIỆU CHUNG</h3>
-            Được thành lập vào năm 1990 và trở thành trường đại học công lập từ
-            năm 2006, đến nay Trường Đại học Mở Thành phố Hồ Chí Minh là trường
-            đại học đa ngành trực thuộc Bộ Giáo dục và Đào tạo, có nhiệm vụ đào
-            tạo đại học và sau đại học, với các hình thức đào tạo chính quy và
-            giáo dục thường xuyên, đào tạo các điểm vệ tinh,…nhằm đáp ứng nhu
-            cầu học tập đa dạng của xã hội, góp phần tăng cường đội ngũ cán bộ
-            khoa học-kỹ thuật cho đất nước.
-          </div>
-        </div>
-        <hr class="seperate-black" />
-
-        <div class="info">
-          <div>
-            <h5>Tên trường</h5>
-            <div>Tiếng Việt: Trường Đại học Mở Thành Phố Hồ Chí Minh</div>
-            <div>Tiếng Anh: Ho Chi Minh City Open University</div>
-            <h5>Tên viết tắt của trường</h5>
-            <div>Tiếng Việt: Trường Đại học Mở Tp. Hồ Chí Minh</div>
-            <div>Tiếng Anh: HCMCOU</div>
-            <h5>Tên trước đây</h5>
-            <div>
-              Viện Đào Tạo Mở Rộng TP. Hồ Chí Minh (từ năm 1990)Đại học Mở Bán
-              Công TP. Hồ Chí Minh (từ năm 1993 đến năm 2005)
-            </div>
-          </div>
-          <div>
-            <h5>Cơ quan/Bộ chủ quản</h5>
-            <div>
-              Trường Đại học Mở TP. Hồ Chí Minh trực thuộc Bộ giáo dục và Đào
-              tạo
-            </div>
-            <h5>Địa chỉ liên lạc</h5>
-            <div>
-              Số 97 Võ Văn Tần, Phường Võ Thị Sáu, Quận 3, TP. Hồ Chí Minh
-            </div>
-            <div>Điện thoại: (028) 3930 0210</div>
-            <div>Fax: (028) 3930 0083</div>
-            <div>E-mail: ou@ou.edu.vn</div>
-            <div>Website: www.ou.edu.vn</div>
-          </div>
-        </div>
-
-        <div class="view">
-          <img
-            loading="lazy"
-            width="1300"
-            height="2000"
-            src="https://ou.edu.vn/wp-content/uploads/2022/09/Sumang-TNOU2022.png"
-            alt=""
-            class="wp-image-33616"
-            srcSet="https://ou.edu.vn/wp-content/uploads/2022/09/Sumang-TNOU2022.png 2109w, https://ou.edu.vn/wp-content/uploads/2022/09/Sumang-TNOU2022-175x300.png 175w, https://ou.edu.vn/wp-content/uploads/2022/09/Sumang-TNOU2022-598x1024.png 598w, https://ou.edu.vn/wp-content/uploads/2022/09/Sumang-TNOU2022-768x1315.png 768w, https://ou.edu.vn/wp-content/uploads/2022/09/Sumang-TNOU2022-897x1536.png 897w, https://ou.edu.vn/wp-content/uploads/2022/09/Sumang-TNOU2022-1196x2048.png 1196w"
-            sizes="(max-width: 2109px) 100vw, 2109px"
-          />
-        </div>
-        <div class="contain" style="margin-bottom: 100px">
-          <div class="logo">
-            <div>
-              <img
-                class="alignnone size-full wp-image-47"
-                src="https://ou.edu.vn/wp-content/uploads/2016/08/Logo.png"
-                alt="logo2"
-              />
-            </div>
-            <div>
-              <div>
-                Sứ mạng: Trường Đại học Mở thành phố Hồ Chí Minh thực hiện giáo
-                dục mở, tạo bình đẳng cho mọi người trong giáo dục đại học, góp
-                phần xây dựng xã hội học tập, nâng cao tri thức và năng lực nghề
-                nghiệp cho người học bằng các phương thức linh hoạt, thuận tiện
-                và hiệu quả.
-              </div>
-              <div class="mission">
-                Tầm nhìn: Trường Đại học Mở thành phố Hồ Chí Minh phấn đấu trở
-                thành Đại học thực hiện giáo dục mở, định hướng ứng dụng với
-                chất lượng cao.
-              </div>
-            </div>
-          </div>
-          <hr class="seperate" />
-        </div>
-      </div>
-    </div> -->
+    
   </Home>
 </template>
 
@@ -225,7 +138,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .section1,
 .section2,
 .section3 {
@@ -402,7 +315,6 @@ export default {
   border-radius: 22px;
   color: #ffffff;
   overflow: hidden;
-
   transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
@@ -422,10 +334,8 @@ export default {
   width: 90%;
   height: 90%;
   transform: translate(-50%);
-
   z-index: -1;
   transform-origin: bottom;
-
   border-radius: inherit;
   transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
 }
@@ -502,5 +412,66 @@ export default {
   top: 0;
   width: 100%;
   height: 100%;
+}
+
+@media (max-width: 767px) {
+  .section1,
+  .section2,
+  .section3 {
+    padding: 20px 0 !important;
+  }
+
+  .title_content {
+    font-size: 20px !important;
+    margin-bottom: 15px !important;
+  }
+
+  .title-1 {
+    position: relative !important;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px 30px;
+    font-size: 1rem;
+    color: #ffe2a9;
+    font-weight: 500;
+    left: unset;
+  }
+
+  .content-body-1 {
+    position: relative !important;
+    bottom: unset;
+    line-height: 1.5;
+    font-size: 0.8rem;
+    font-weight: 300;
+  }
+
+  .card0,
+  .card1,
+  .card2,
+  .card3 {
+    height: 160px;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+
+  .card::before,
+  .card::after {
+    font-size: 16px;
+  }
+
+  .card-item {
+    flex: 1 0 40%;
+    margin-bottom: 10px;
+  }
+
+  .content {
+    gap: 0;
+    padding: 16px;
+    border-radius: 22px;
+  }
+
+  .section3-card {
+    margin: 20px 0;
+  }
 }
 </style>

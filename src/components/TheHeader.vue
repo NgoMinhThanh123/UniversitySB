@@ -2,7 +2,7 @@
   <div class="menu" v-if="isChecked">
     <div class="sidebar-mobile-main"></div>
     <div class="row">
-      <div class="col-6">
+      <div class="col">
         <a-list
           bordered
           style="width: 100%"
@@ -33,6 +33,51 @@
       </div>
     </div>
   </div>
+  <div class="menu2" :class="{ 'slide-left': !isCheckedMenu2, 'slide-right': isCheckedMenu2 }">
+    <div class="menu-container">
+      <h5>Trường đại học STU</h5>
+      <div class="btn-close-menu2" @click="toggleMenu">
+        <i class="fa-solid fa-xmark"></i>
+      </div>
+      <ul class="menu-items">
+        <li class="menu-item"  :class="{ active: $route.path === '/' }">
+          <router-link
+            to="/"
+            class="router-link-hover nav-link"
+           
+            exact
+          >
+            <span> Trang chủ </span>
+          </router-link>
+        </li>
+        <li class="menu-item"  :class="{ active: $route.path === '/general-information' }">
+          <router-link
+            to="/general-information"
+            class="router-link-hover nav-link"
+          >
+            <span> Giới thiệu chung </span>
+          </router-link>
+        </li>
+        <div class="menu-login">
+          <li class="menu-item">
+            <router-link to="/login" class="router-link-hover nav-link">
+              <span> Sinh viên </span>
+            </router-link>
+          </li>
+          <li class="menu-item">
+            <router-link to="/login" class="router-link-hover nav-link">
+              <span> Giảng viên </span>
+            </router-link>
+          </li>
+          <li class="menu-item">
+            <router-link to="/parent" class="router-link-hover nav-link">
+              <span> Phụ huynh </span>
+            </router-link>
+          </li>
+        </div>
+      </ul>
+    </div>
+  </div>
   <div id="header" class="header">
     <div
       class="text-white"
@@ -47,7 +92,7 @@
         class="col-6 col-sm-6 d-flex justify-content-sm-start align-items-center"
       >
         <div class="home"></div>
-        <div class="profile d-none d-md-flex d-lg-flex " v-if="isAuth === true">
+        <div class="profile d-none d-md-flex d-lg-flex" v-if="isAuth === true">
           <router-link to="/profile" class="router-link-hover">
             <i class="fa-solid fa-user"></i>
             <span style="font-size: 16px"> Hồ sơ </span>
@@ -67,9 +112,17 @@
             <label></label
           ></label>
         </div>
+        <div v-else>
+          <input type="checkbox" id="checkbox" v-model="isCheckedMenu2" />
+          <label for="checkbox" class="toggle" style="margin-bottom: 0">
+            <div class="bars" id="bar1"></div>
+            <div class="bars" id="bar2"></div>
+            <div class="bars" id="bar3"></div>
+          </label>
+        </div>
       </div>
       <div
-        class="col-6 col-sm-6 d-sm-flex align-items-center justify-content-sm-end"
+        class="col-6 col-sm-6 d-none d-sm-flex align-items-center justify-content-sm-end"
       >
         <div
           v-if="isAuth === false"
@@ -94,10 +147,7 @@
             </router-link>
           </div>
         </div>
-        <div
-          v-else
-          class="align-items-center justify-content-sm-end"
-        >
+        <div v-else class="align-items-center justify-content-sm-end">
           <div style="padding-right: 30px" class="d-flex align-items-center">
             <div style="margin-right: 10px" class="d-flex">
               <img
@@ -134,15 +184,6 @@
                 </li>
               </ul>
             </div>
-            <!-- <a
-              class="nav-link"
-              href="#"
-              id="navbarDropdown2"
-              role="button"
-              aria-expanded="false"
-            >
-              Chào, {{ userInfo.name }}
-            </a> -->
           </div>
           <div></div>
         </div>
@@ -217,12 +258,19 @@ export default {
       isFixed: false,
       isLogin: false,
       isChecked: false,
+      isCheckedMenu2: false,
     };
   },
   computed: {
     ...mapGetters(["isAuth", "getUser"]),
   },
   methods: {
+    toggleMenu() {
+      this.isCheckedMenu2 = !this.isCheckedMenu2;
+    },
+    itemAction() {
+
+    },
     async logout() {
       this.isLogin = false;
       this.$store.dispatch("logout");
@@ -281,13 +329,6 @@ export default {
       window.addEventListener("scroll", this.handleScroll);
     }
   },
-  watch: {
-    isChecked: {
-      handler(newCheck, oldCheck) {
-        console.log("isCheck", this.isChecked);
-      },
-    },
-  },
 };
 </script>
 
@@ -341,5 +382,180 @@ export default {
 
 .dropdown-toggle::after {
   right: unset !important;
+}
+
+.menu2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.05);
+  z-index: 99;
+  display: none;
+}
+
+.menu-container {
+  position: relative;
+  width: 80%;
+  height: 100%;
+  padding: 16px 24px;
+  background: #fff;
+}
+
+.menu-item {
+  margin: 0 0 10px 0 !important;
+  list-style: none;
+  font-size: 20px;
+  line-height: 1.5;
+  padding-left: 5px !important;
+}
+
+.menu-item.active span {
+  position: relative;
+  color: #070758 !important;
+  font-weight: bold !important;
+}
+
+.menu-item.active span::after {
+  content: "";
+  width: 100%;
+  left: 0;
+  bottom: -5px;
+  position: absolute;
+  border: 1px solid #070758;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.menu-login {
+  border-top: 1px solid #000;
+  padding-top: 10px;
+}
+
+.btn-close-menu2 {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 20px;
+}
+
+.slide-right {
+  -webkit-animation: slide-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.slide-left {
+  -webkit-animation: slide-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  animation: slide-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@-webkit-keyframes slide-right {
+  0% {
+    -webkit-transform: translateX(-100px);
+    transform: translateX(-100px);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+@keyframes slide-right {
+  0% {
+    -webkit-transform: translateX(-100px);
+    transform: translateX(-100px);
+  }
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+}
+
+@-webkit-keyframes slide-left {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-1000px);
+    transform: translateX(-1000px);
+  }
+}
+@keyframes slide-left {
+  0% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+  100% {
+    -webkit-transform: translateX(-1000px);
+    transform: translateX(-1000px);
+  }
+}
+
+@media (max-width: 767px) {
+  .menu2 {
+    display: block;
+  }
+  .headerBottom {
+    display: none;
+  }
+  #checkbox {
+    display: none;
+  }
+
+  .toggle {
+    position: relative;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition-duration: 0.5s;
+  }
+
+  .bars {
+    width: 100%;
+    height: 4px;
+    background-color: rgb(247, 247, 247);
+    border-radius: 4px;
+  }
+
+  #bar2 {
+    transition-duration: 0.8s;
+  }
+
+  #bar1,
+  #bar3 {
+    width: 70%;
+  }
+
+  #checkbox:checked + .toggle .bars {
+    position: absolute;
+    transition-duration: 0.5s;
+  }
+
+  #checkbox:checked + .toggle #bar2 {
+    transform: scaleX(0);
+    transition-duration: 0.5s;
+  }
+
+  #checkbox:checked + .toggle #bar1 {
+    width: 100%;
+    transform: rotate(45deg);
+    transition-duration: 0.5s;
+  }
+
+  #checkbox:checked + .toggle #bar3 {
+    width: 100%;
+    transform: rotate(-45deg);
+    transition-duration: 0.5s;
+  }
+
+  #checkbox:checked + .toggle {
+    transition-duration: 0.5s;
+    transform: rotate(180deg);
+  }
 }
 </style>

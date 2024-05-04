@@ -25,7 +25,7 @@
         </a-list>
       </div>
 
-      <div class="col-lg-10 col-sm-10" style="padding: 0">
+      <div class="col-lg-10 col-sm-10" style="padding: 0; box-sizing: border-box;">
         <TheHeader />
         <div
           class="container-fluid"
@@ -33,9 +33,9 @@
           v-if="this.getUser && this.getUser.role != null"
         >
           <section class="section about-section">
-            <div class="row">
+            <div class="row" >
               <div
-                class="col"
+                class="col-lg-6 col-sm-12 profile-info-mobile"
                 style="padding: 0; margin: 10px; border-radius: 5px"
               >
                 <div
@@ -213,7 +213,7 @@
                 </div>
               </div>
               <div
-                class="col-5"
+                class="col-lg-5 col-sm-12 profile-info-mobile profile-info-mobile-1"
                 style="padding: 0; margin: 10px; border-radius: 5px"
                 v-if="this.getUser.role === 'ROLE_SINHVIEN'"
               >
@@ -495,3 +495,15 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@media (max-width: 768px) {
+  .profile-info-mobile {
+    margin: 0 !important;
+  }
+
+  .profile-info-mobile-1 {
+    margin-top: 10px !important;
+  };
+}
+</style>

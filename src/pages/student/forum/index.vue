@@ -1,5 +1,5 @@
 <template>
-   <div class="container-fluid" style="padding-bottom: 50px">
+  <div class="container-fluid" style="padding-bottom: 50px">
     <div class="row">
       <div class="col-12 d-flex justify-content-end">
         <form class="d-flex">
@@ -38,12 +38,14 @@
           placeholder="Nhập nội dung bài viết"
           v-model="content"
         ></textarea>
-        <Button class="btn-title btn btn-primary" @click="handlePostSubmit"
-          >Đăng</Button
-        >
-        <Button class="btn-title btn btn-primary" @click="exitHandleEdit"
-          >Thoát</Button
-        >
+        <div style="display: flex">
+          <button style="display: inline-block" class="btn-title btn btn-primary" @click="handlePostSubmit"
+            >Đăng</button
+          >
+          <button style="display: inline-block" class="btn-title btn btn-primary" @click="exitHandleEdit"
+            >Thoát</button
+          >
+        </div>
       </div>
       <div class="col-12 post-container d-flex" v-else>
         <Button class="btn-title btn btn-primary" @click="handleEdit"

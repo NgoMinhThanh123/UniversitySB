@@ -3,7 +3,7 @@
     v-model:openKeys="openKeys"
     v-model:selectedKeys="selectedKeys"
     mode="inline"
-    style="min-height: 81vh"
+    style="min-height: 81vh;"
   >
     <a-menu-item key="student-score" @click="hideMenu">
       <router-link :to="{ name: 'student-score' }" class="router-link-hover">
@@ -34,15 +34,16 @@
       <router-link :to="{ name: 'student-payment' }" class="router-link-hover">
         <i class="fa-solid fa-book-open-reader"></i>
         <span class="sider"> Học phí </span>
-      </router-link>
+      </router-link> </a-menu-item
+    ><a-menu-item>
+      <div class="menu_profile">
+        <router-link to="/profile" class="router-link-hover">
+          <i class="fa-solid fa-user"></i>
+          <span style="font-size: 16px"> Hồ sơ </span>
+        </router-link>
+      </div>
     </a-menu-item>
   </a-menu>
-  <div class="menu">
-    <router-link to="/profile" class="router-link-hover">
-      <i class="fa-solid fa-user"></i>
-      <span style="font-size: 16px"> Hồ sơ </span>
-    </router-link>
-  </div>
 </template>
 
 <script>

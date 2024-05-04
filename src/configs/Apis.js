@@ -58,6 +58,8 @@ export const endpoints = {
   "get-temporary-courses": `${SERVER_CONTEXT}/api/get-temporary-course/`,
   "get-already-course": `${SERVER_CONTEXT}/api/get-already-course/`,
   "get-tuition-fee": `${SERVER_CONTEXT}/api/tuition_fee/student/`,
+  "get-subjects-tuition-fee": `${SERVER_CONTEXT}/api/subjects/tuituion-fee/`,
+  "get-education-program": `${SERVER_CONTEXT}/api/subjects/education-program/`,
   "payment": `${SERVER_CONTEXT}/pay`
 };
 
@@ -67,6 +69,7 @@ export const authApi = () => {
     baseURL: SERVER,
     headers: {
       Authorization: `Bearer ${token}`,
+      
     },
   });
 };

@@ -82,7 +82,7 @@ import moment from "moment";
 
 export default {
   name: "ChatBox",
-  props: ["currentPeerUser"],
+  props: ["currentPeerUser", ""],
   data() {
     return {
       currentUserName: localStorage.getItem("name"),
@@ -213,6 +213,32 @@ export default {
 }
 .pointer {
   cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  /* Hide the sidebar by default on smaller screens */
+  #sidebar {
+    display: none;
+  }
+  /* Show the sidebar when active class is applied */
+  #sidebar.active {
+    display: block;
+  }
+
+  #content {
+    position: relative;
+  }
+
+  .content-chatbox {
+    margin: 10px 0;
+  }
+  
+  .text-inner {
+  width: 45%;
+}
+.textFrom {
+  margin: 0% 0% 20px 50%;
+}
 }
 </style>
 

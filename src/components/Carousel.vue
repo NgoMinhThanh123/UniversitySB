@@ -36,40 +36,40 @@
         <img
           src="../assets/anh1.jpg"
           alt="Los Angeles"
-          class="d-block"
-          style="width: 100%; height: 400px"
+          class="d-block height-mobile"
+          style="width: 100%;"
         />
       </div>
       <div class="carousel-item">
         <img
           src="../assets/anh2.jpg"
           alt="Chicago"
-          class="d-block"
-          style="width: 100%; height: 400px"
+          class="d-block height-mobile"
+          style="width: 100%;"
         />
       </div>
       <div class="carousel-item">
         <img
           src="../assets/anh3.jpg"
           alt="New York"
-          class="d-block"
-          style="width: 100%; height: 400px"
+          class="d-block height-mobile"
+          style="width: 100%;"
         />
       </div>
       <div class="carousel-item">
         <img
           src="../assets/moe-masthead-vn-1440x450.jpg"
           alt="New York"
-          class="d-block"
-          style="width: 100%; height: 400px"
+          class="d-block height-mobile"
+          style="width: 100%;"
         />
       </div>
       <div class="carousel-item">
         <img
           src="../assets/news-masthead-blended-learning.jpg"
           alt="New York"
-          class="d-block"
-          style="width: 100%; height: 400px"
+          class="d-block height-mobile"
+          style="width: 100%;"
         />
       </div>
     </div>
@@ -95,3 +95,15 @@
 </template>
 
 <script></script>
+
+<style>
+.height-mobile {
+  height: 400px;
+}
+
+@media (max-width: 767px) {
+  .height-mobile {
+    height: 150px;
+  }
+}
+</style>

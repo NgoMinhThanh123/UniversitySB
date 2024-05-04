@@ -3,7 +3,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import Apis, { endpoints } from "@/configs/Apis";
 
-async function fetchFirebaseConfig() {
+export async function fetchFirebaseConfig() {
   try {
       const response = await Apis.get(endpoints["get-firebase-config"]);
       const data = response.data;
@@ -23,10 +23,12 @@ async function fetchFirebaseConfig() {
   }
 }
 
-const firebaseConfig = await fetchFirebaseConfig();
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = getFirestore(app);
+
+
+// const firebaseConfig = await fetchFirebaseConfig();
+// const app = initializeApp(firebaseConfig);
+// export const auth = getAuth(app);
+// export const db = getFirestore(app);
 
  
 

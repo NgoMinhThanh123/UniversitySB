@@ -302,7 +302,6 @@ export default {
       },
       min: 0,
       max: 10,
-      fileExcel: "",
       fileExcel: null,
     };
   },

@@ -1,8 +1,8 @@
 <template>
   <div style="height: 100%">
     <div class="row">
-      <div class="col-2 col-md-3 sidebar-desktop" style="padding: 0">
-        <a-list bordered style="width: 100%">
+      <div class="col-2 col-md-3 col-lg-3 col-xl-2 d-none d-md-flex sidebar-desktop" style="padding: 0">
+        <a-list bordered style="width: 100%;">
           <TheMenu />
           <template #header>
             <div>
@@ -12,9 +12,9 @@
         </a-list>
       </div>
 
-      <div class="col col-md-9" style="padding: 0">
+      <div class="col col-md-9 col-lg-9 col-xl-10" style="padding: 0">
         <TheHeader />
-        <div class="container" style="padding: 20px; min-height: 84.8vh">
+        <div class="container" style="padding: 20px; min-height: 85vh">
           <router-view></router-view>
         </div>
         <TheFooter />

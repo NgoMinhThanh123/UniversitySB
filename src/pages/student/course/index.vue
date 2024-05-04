@@ -336,23 +336,23 @@ export default {
         if (this.selecetMajor) {
           const majorId = this.selecetMajor;
           const semesterId = this.semesters.id;
+          const studentId = this.getUser.username;
 
           const response = await authApi().get(
-            endpoints["get-subject-by-major"] +
-              `?majorId=${majorId}&semesterId=${semesterId}`
+            endpoints["get-education-program"] +
+              `?studentId=${studentId}&semesterId=22023&majorId=${majorId}`
           );
           this.courses = response.data;
+          console.log("education program", this.courses);
           this.isLoadSubjects = true;
         } else {
           console.error("Please select a faculty before fetching subjects.");
         }
       } catch (error) {
         if (error.response && error.response.status === 404) {
-          // Handle 404 error by setting courses to an empty array
           this.courses = [];
         } else {
           console.error("Error fetching subjects:", error);
-          // Handle other errors as needed
         }
       }
     },

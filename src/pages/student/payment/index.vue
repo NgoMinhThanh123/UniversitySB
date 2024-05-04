@@ -1,78 +1,148 @@
 <template>
   <section>
     <div class="container">
-      <table class="table">
-        <thead>
-          <tr class="table-title">
-            <th scope="col" class="text-center" style="width: 5%">STT</th>
-            <th scope="col" class="text-center" style="width: 25%">
-              Niên học học kỳ
-            </th>
-            <th scope="col" class="text-center" style="width: 20%">
-              Học phí phải thu
-            </th>
-            <th scope="col" class="text-center" style="width: 20%">
-              Học phí đã thu
-            </th>
-            <th scope="col" class="text-center" style="width: 15%">Còn nợ</th>
-            <th style="width: 15%"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="table-title-item">
-            <th colspan="6">Thu học phí</th>
-          </tr>
-          <tr v-for="(tuitionFee, index) in listTuitionFee" :key="index">
-            <th
-              scope="row"
-              style="width: 5%; text-align: center; vertical-align: middle"
-            >
-              {{ index + 1 }}
-            </th>
-            <td style="width: 25%; vertical-align: middle" class="text-center">
-              {{ tuitionFee.semesterId.name }} - Năm học
-              {{ tuitionFee.semesterId.schoolYear }}
-            </td>
-            <td style="width: 20%; vertical-align: middle" class="text-end">
-              <div v-if="!tuitionFee.done">
-                {{ formattedCurrency(tuitionFee.tuitionFee) }}
-              </div>
-              <div v-else>{{ formattedCurrency(0) }}</div>
-            </td>
-            <td style="width: 20%; vertical-align: middle" class="text-end">
-              <div v-if="tuitionFee.done">
-                {{ formattedCurrency(tuitionFee.tuitionFee) }}
-              </div>
-              <div v-else>{{ formattedCurrency(0) }}</div>
-            </td>
-            <td style="width: 15%; vertical-align: middle" class="text-end">
-              {{ formattedCurrency(0) }}
-            </td>
-            <td style="width: 15%">
-              <button
-                class="button"
-                v-if="!tuitionFee.done"
-                @click="submitTuitionFee(tuitionFee.id)"
+      <select
+        class="form-control"
+        id="selectSemester"
+        v-model="selectSemester"
+        style="width: 40%"
+      >
+        <option value="">Tổng hợp học phí tất cả học kỳ</option>
+        <option
+          v-for="(semester, index) in semesters"
+          :key="index"
+          :value="semester.id"
+        >
+          {{ semester.name }} - Năm học:
+          {{ semester.schoolYear }}
+        </option>
+      </select>
+      <div v-if="isTuitionFeeSuccess">
+        <table class="table">
+          <thead>
+            <tr class="table-title">
+              <th scope="col" class="text-center" style="width: 5%">STT</th>
+              <th scope="col" class="text-center" style="width: 25%">
+                Niên học học kỳ
+              </th>
+              <th scope="col" class="text-center" style="width: 20%">
+                Học phí phải thu
+              </th>
+              <th scope="col" class="text-center" style="width: 20%">
+                Học phí đã thu
+              </th>
+              <th scope="col" class="text-center" style="width: 15%">Còn nợ</th>
+              <th style="width: 15%"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-title-item">
+              <th colspan="6">Thu học phí</th>
+            </tr>
+            <tr v-for="(tuitionFee, index) in listTuitionFee" :key="index">
+              <th
+                scope="row"
+                style="width: 5%; text-align: center; vertical-align: middle"
               >
-                <p>Thanh toán</p>
-              </button>
-            </td>
-          </tr>
-          <!-- <tr>
-            <th scope="row" style="width: 10%">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row" style="width: 10%">3</th>
-            <td>Larry the Bird</td>
-            <td>@twitter</td>
-            <td>@twitter</td>
-          </tr> -->
-        </tbody>
-      </table>
+                {{ index + 1 }}
+              </th>
+              <td
+                style="width: 25%; vertical-align: middle"
+                class="text-center"
+              >
+                {{ tuitionFee.semesterId.name }} - Năm học
+                {{ tuitionFee.semesterId.schoolYear }}
+              </td>
+              <td style="width: 20%; vertical-align: middle" class="text-end">
+                <div v-if="!tuitionFee.done">
+                  {{ formattedCurrency(tuitionFee.tuitionFee) }}
+                </div>
+                <div v-else>{{ formattedCurrency(0) }}</div>
+              </td>
+              <td style="width: 20%; vertical-align: middle" class="text-end">
+                <div v-if="tuitionFee.done">
+                  {{ formattedCurrency(tuitionFee.tuitionFee) }}
+                </div>
+                <div v-else>{{ formattedCurrency(0) }}</div>
+              </td>
+              <td style="width: 15%; vertical-align: middle" class="text-end">
+                {{ formattedCurrency(0) }}
+              </td>
+              <td style="width: 15%">
+                <button
+                  class="button"
+                  v-if="!tuitionFee.done"
+                  @click="submitTuitionFee(tuitionFee.id)"
+                >
+                  <p>Thanh toán</p>
+                </button>
+              </td>
+            </tr>
+            <!-- <tr>
+              <th scope="row" style="width: 10%">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row" style="width: 10%">3</th>
+              <td>Larry the Bird</td>
+              <td>@twitter</td>
+              <td>@twitter</td>
+            </tr> -->
+          </tbody>
+        </table>
+      </div>
+      <div v-if="isSubjectTuitionFeeSuccess">
+        <table class="table">
+          <thead>
+            <tr class="table-title">
+              <th scope="col" class="text-center" style="width: 5%">STT</th>
+              <th scope="col" class="text-center" style="width: 25%">
+                Mã môn học
+              </th>
+              <th scope="col" class="text-center" style="width: 20%">
+                Tên môn học
+              </th>
+              <th scope="col" class="text-center" style="width: 20%">
+                Số tín chỉ
+              </th>
+              <th scope="col" class="text-center" style="width: 15%">
+                Số tiền
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="(subjectTuitionFee, index) in listSubjectTuitionFee"
+              :key="index"
+            >
+              <th
+                scope="row"
+                style="width: 5%; text-align: center; vertical-align: middle"
+              >
+                {{ index + 1 }}
+              </th>
+              <td
+                style="width: 25%; vertical-align: middle"
+                class="text-center"
+              >
+                {{ subjectTuitionFee.subjectId.id }}
+              </td>
+              <td style="width: 20%; vertical-align: middle" class="text-end">
+                {{ subjectTuitionFee.subjectId.name }}
+              </td>
+              <td style="width: 20%; vertical-align: middle" class="text-end">
+                {{ subjectTuitionFee.subjectId.credit }}
+              </td>
+              <td style="width: 15%; vertical-align: middle" class="text-end">
+                {{ subjectTuitionFee.price }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 </template>
@@ -87,9 +157,26 @@ export default {
   },
   data() {
     return {
-      isSuccess: false,
+      isTuitionFeeSuccess: false,
+      isSubjectTuitionFeeSuccess: false,
+      selectSemester: "",
       listTuitionFee: [],
+      listSubjectTuitionFee: [],
+      semesters: [],
     };
+  },
+  watch: {
+    selectSemester: async function (newSemester, oldSemester) {
+      if (newSemester !== oldSemester) {
+        if (newSemester === "") {
+          await this.getTuitionFee();
+          this.isSubjectTuitionFeeSuccess = false;
+        } else {
+          await this.getSubjectTuitionFee();
+          this.isTuitionFeeSuccess = false;
+        }
+      }
+    },
   },
   methods: {
     formatYear(year) {
@@ -110,7 +197,7 @@ export default {
         );
         console.log("tuition fee:", res.data);
         this.listTuitionFee = res.data;
-        this.isSuccess = true;
+        this.isTuitionFeeSuccess = true;
       } catch (e) {
         console.log(e.error);
       }
@@ -120,22 +207,46 @@ export default {
         endpoints["payment"] + `?tuitionFeeId=${tuitionFeeId}`
       );
 
-      console.log(res.data.contextualLogin.paymentToken);
-      if (res.data && res.data.contextualLogin.paymentToken) {
+      if (res.data) {
         // Lấy token từ phản hồi
-        const paymentToken = res.data.contextualLogin.paymentToken
-
-        // Tạo đường dẫn chuyển hướng đến trang PayPal với token
-        const paypalUrl = `https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token=${paymentToken}`;
+        const paymentToken = res.data;
 
         // Chuyển hướng người dùng đến trang PayPal
-        window.location.href = paypalUrl;
+        window.location.href = paymentToken;
       } else {
         console.error("Invalid payment token received.");
       }
     },
+    async getListSemester() {
+      try {
+        const studentId = this.getUser.username;
+        const res = await Apis.get(
+          endpoints["get-semesters"] + `?studentId=${studentId}`
+        );
+        this.semesters = res.data;
+        console.log("semesters: ", this.semesters);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async getSubjectTuitionFee() {
+      try {
+        const studentId = this.getUser.username;
+        const semesterId = this.selectSemester;
+        const res = await authApi().get(
+          endpoints["get-subjects-tuition-fee"] +
+            `?studentId=${studentId}&semesterId=${semesterId}`
+        );
+        this.listSubjectTuitionFee = res.data;
+        this.isSubjectTuitionFeeSuccess = true;
+        console.log("getSubjectTuitionFee: ", res.status);
+      } catch (error) {
+        this.listSubjectTuitionFee = [];
+      }
+    },
   },
   async created() {
+    await this.getListSemester();
     await this.getTuitionFee();
   },
 };
