@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "score_percent")
 public class ScorePercent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +20,7 @@ public class ScorePercent {
     private Double percentCK;
     @Column(name = "percentGK")
     private Double percentGK;
-    @JoinColumn(name = "subject_id", referencedColumnName = "id")
+    @JoinColumn(name = "subject_id", referencedColumnName = "id", columnDefinition = "VARCHAR(12)")
     @ManyToOne(optional = false)
     @JsonIgnore
     private Subject subjectId;

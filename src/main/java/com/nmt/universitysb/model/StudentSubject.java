@@ -2,7 +2,6 @@ package com.nmt.universitysb.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.io.Serializable;
@@ -23,11 +22,11 @@ public class StudentSubject implements Serializable {
     private Integer id;
     @Column(name = "status")
     private boolean status;
-    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    @JoinColumn(name = "student_id", referencedColumnName = "id", columnDefinition = "VARCHAR(10)")
     @JsonIgnore
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Student studentId;
-    @JoinColumn(name = "subject_id", referencedColumnName = "id")
+    @JoinColumn(name = "subject_id", referencedColumnName = "id", columnDefinition = "VARCHAR(12)")
     @JsonIgnore
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Subject subjectId;

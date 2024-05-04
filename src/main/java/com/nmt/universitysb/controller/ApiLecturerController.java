@@ -1,6 +1,5 @@
 package com.nmt.universitysb.controller;
 
-import com.nmt.universitysb.dto.LecturerDto;
 import com.nmt.universitysb.model.Lecturer;
 import com.nmt.universitysb.service.LecturerService;
 import io.swagger.v3.oas.annotations.tags.Tag;

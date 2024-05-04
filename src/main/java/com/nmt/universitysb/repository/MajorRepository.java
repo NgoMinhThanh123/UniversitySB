@@ -1,6 +1,5 @@
 package com.nmt.universitysb.repository;
 
-import com.nmt.universitysb.dto.SubjectDto;
 import com.nmt.universitysb.model.Major;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

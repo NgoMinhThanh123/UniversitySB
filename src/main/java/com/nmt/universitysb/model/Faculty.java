@@ -20,7 +20,7 @@ import java.util.Set;
 public class Faculty implements Serializable {
     @Id
     @NotBlank(message = "Id không được để trống")
-    @Column(name = "id")
+    @Column(name = "id", columnDefinition = "VARCHAR(10)")
     private String id;
     @NotEmpty(message = "Tên không được để trống")
     @Column(name = "name")

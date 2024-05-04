@@ -1,7 +1,6 @@
 package com.nmt.universitysb.controller;
 
 import com.nmt.universitysb.model.Student;
-import com.nmt.universitysb.repository.StudentRepository;
 import com.nmt.universitysb.service.*;
 import com.nmt.universitysb.utils.ExcelStudentService;
 import jakarta.validation.Valid;
@@ -106,15 +105,19 @@ public class StudentController {
     @CrossOrigin
     public ResponseEntity<?> uploadExcelFile(@RequestParam("file") MultipartFile file) throws IOException {
         try {
+            if (file.isEmpty()) {
+                throw new IllegalArgumentException("File is empty.");
+            }
+            if (!file.getOriginalFilename().endsWith(".xlsx")) {
+                throw new IllegalArgumentException("File format is not supported. Please upload an Excel file.");
+            }
+
             Path tempDir = Files.createTempDirectory("upload-dir");
 
-            // Tạo một đường dẫn đến tệp tin tạm thời trong thư mục tạm thời
             Path tempFile = tempDir.resolve(file.getOriginalFilename());
 
-            // Lưu dữ liệu từ MultipartFile vào tệp tin tạm thời
             Files.write(tempFile, file.getBytes());
 
-            // Đọc dữ liệu từ tệp tin và xử lý
             List<Student> students = excelService.readStudentsFromExcelFile(tempFile.toFile());
 
             // Xóa thư mục tạm thời và tất cả các tệp tin bên trong sau khi đã xử lý xong
@@ -124,6 +127,7 @@ public class StudentController {
                     .forEach(File::delete);
             this.studentService.save(students);
             return ResponseEntity.ok("File uploaded successfully!");
+
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing the file.");

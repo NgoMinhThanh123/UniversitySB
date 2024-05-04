@@ -1,6 +1,5 @@
 package com.nmt.universitysb.config;
 
-import com.nmt.universitysb.dto.StatisticsDto;
 import com.nmt.universitysb.security.JwtAuthenticationEntryPoint;
 import com.nmt.universitysb.security.JwtAuthenticationFilter;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -12,10 +11,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -26,7 +23,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -107,7 +103,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/update_faculty/**", "/update_class/**", "/update_lecturer/**", "/update_major/**", "/update_score/**", "/update_score_column/**", "/update_score_value/**", "/update_semester/**", "/update_student/**", "/update_student_subject/**"
-                        , "/update_subject/**", "/update_user/**", "/update_credit_price/**", "/update_score_percent/**", "/update_tuition_fee/**")
+                        , "/update_subject/**", "/update_user/**", "/update_credit_price/**", "/update_score_percent/**", "/update_tuition_fee/**", "/update_education_program/**")
                 .addResourceLocations("classpath:/static/");
     }
 

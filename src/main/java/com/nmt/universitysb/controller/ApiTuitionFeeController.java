@@ -1,8 +1,6 @@
 package com.nmt.universitysb.controller;
 
-import com.nmt.universitysb.dto.SubjectDto;
 import com.nmt.universitysb.dto.TuitionFeeDto;
-import com.nmt.universitysb.model.TuitionFee;
 import com.nmt.universitysb.service.TuitionFeeService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

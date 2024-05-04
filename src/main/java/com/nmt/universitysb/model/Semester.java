@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -23,7 +22,7 @@ public class Semester implements Serializable {
     @Id
     @Basic(optional = false)
     @NotBlank(message = "Id không được để trống")
-    @Column(name = "id")
+    @Column(name = "id", columnDefinition = "VARCHAR(5)")
     private String id;
     @NotEmpty(message = "Tên không được để trống")
     @Column(name = "name")

@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.io.Serializable;
@@ -20,14 +19,14 @@ import java.util.Set;
 public class Subject implements Serializable {
     @Id
     @NotBlank(message = "Id không được để trống")
-    @Column(name = "id")
+    @Column(name = "id", columnDefinition = "VARCHAR(12)")
     private String id;
     @NotEmpty(message = "Tên không được để trống")
     @Column(name = "name")
     private String name;
     @Column(name = "credit")
     private int credit;
-    @JoinColumn(name = "major_id", referencedColumnName = "id")
+    @JoinColumn(name = "major_id", referencedColumnName = "id", columnDefinition = "VARCHAR(12)")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnore
     private Major majorId;

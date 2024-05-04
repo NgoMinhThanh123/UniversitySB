@@ -4,7 +4,6 @@ import com.nmt.universitysb.dto.ScoreDto;
 import com.nmt.universitysb.dto.ScoreListDto;
 import com.nmt.universitysb.dto.Score_ScoreValueDto;
 import com.nmt.universitysb.dto.StudentScoreDTO;
-import com.nmt.universitysb.model.Student;
 import com.nmt.universitysb.service.ScoreService;
 import com.nmt.universitysb.utils.ExcelScoreService;
 import com.nmt.universitysb.utils.ExcelUtils;

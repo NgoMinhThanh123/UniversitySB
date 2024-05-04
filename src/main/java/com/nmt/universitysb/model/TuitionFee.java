@@ -25,11 +25,11 @@ public class TuitionFee implements Serializable {
     private Boolean done;
     @Column(name = "date_created")
     private Date dateCreated;
-    @JoinColumn(name = "semester_id", referencedColumnName = "id")
+    @JoinColumn(name = "semester_id", referencedColumnName = "id", columnDefinition = "VARCHAR(5)")
     @JsonIgnore
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Semester semesterId;
-    @JoinColumn(name = "student_id", referencedColumnName = "id")
+    @JoinColumn(name = "student_id", referencedColumnName = "id", columnDefinition = "VARCHAR(10)")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnore
     private Student studentId;

@@ -1,6 +1,5 @@
 package com.nmt.universitysb.service;
 
-import com.nmt.universitysb.dto.LecturerDto;
 import com.nmt.universitysb.model.Lecturer;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

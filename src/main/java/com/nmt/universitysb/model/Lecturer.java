@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,7 +21,7 @@ import java.util.Set;
 public class Lecturer implements Serializable {
     @Id
     @NotBlank(message = "Id không được để trống")
-    @Column(name = "id")
+    @Column(name = "id", columnDefinition = "VARCHAR(10)")
     private String id;
     @NotEmpty(message = "Tên không được để trống")
     @Column(name = "name")
@@ -47,7 +46,7 @@ public class Lecturer implements Serializable {
     @NotBlank(message = "Email không được để trống")
     @Column(name = "email")
     private String email;
-    @JoinColumn(name = "faculty_id", referencedColumnName = "id")
+    @JoinColumn(name = "faculty_id", referencedColumnName = "id", columnDefinition = "VARCHAR(10)")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnore
     private Faculty facultyId;
@@ -55,7 +54,7 @@ public class Lecturer implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnore
     private User userId;
-    @JoinColumn(name = "classes_id", referencedColumnName = "id")
+    @JoinColumn(name = "classes_id", referencedColumnName = "id", columnDefinition = "VARCHAR(8)")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnore
     private Classes classesId;

@@ -1,11 +1,9 @@
 package com.nmt.universitysb.controller;
 
-import com.nmt.universitysb.model.Order;
 import com.nmt.universitysb.model.TuitionFee;
 import com.nmt.universitysb.service.TuitionFeeService;
 import com.nmt.universitysb.service.impl.PaypalService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +11,7 @@ import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.web.servlet.ModelAndView;
-
 import java.util.Date;
-import java.util.Optional;
 
 @RestController
 @CrossOrigin

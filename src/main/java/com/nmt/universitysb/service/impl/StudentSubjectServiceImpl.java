@@ -1,6 +1,5 @@
 package com.nmt.universitysb.service.impl;
 
-import com.nmt.universitysb.dto.Score_ScoreValueDto;
 import com.nmt.universitysb.dto.StudentSubjectDto;
 import com.nmt.universitysb.model.*;
 import com.nmt.universitysb.repository.*;

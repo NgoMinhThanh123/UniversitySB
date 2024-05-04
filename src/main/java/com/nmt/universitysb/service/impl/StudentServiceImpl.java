@@ -2,7 +2,6 @@ package com.nmt.universitysb.service.impl;
 import com.nmt.universitysb.dto.ScoreDto;
 import com.nmt.universitysb.dto.StuScoreDto;
 import com.nmt.universitysb.dto.StudentDto;
-import com.nmt.universitysb.dto.SubjectDto;
 import com.nmt.universitysb.model.Student;
 import com.nmt.universitysb.model.User;
 import com.nmt.universitysb.repository.ScoreRepository;

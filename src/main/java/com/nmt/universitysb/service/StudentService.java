@@ -2,12 +2,9 @@ package com.nmt.universitysb.service;
 
 import com.nmt.universitysb.dto.StuScoreDto;
 import com.nmt.universitysb.dto.StudentDto;
-import com.nmt.universitysb.dto.SubjectDto;
 import com.nmt.universitysb.model.Student;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;

@@ -3,7 +3,6 @@ package com.nmt.universitysb.service.impl;
 import com.nmt.universitysb.dto.TuitionFeeDto;
 import com.nmt.universitysb.dto.creditPriceDto;
 import com.nmt.universitysb.model.Major;
-import com.nmt.universitysb.model.Semester;
 import com.nmt.universitysb.model.TuitionFee;
 import com.nmt.universitysb.repository.*;
 import com.nmt.universitysb.service.TuitionFeeService;
@@ -11,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 

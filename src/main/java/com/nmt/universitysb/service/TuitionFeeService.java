@@ -4,9 +4,6 @@ import com.nmt.universitysb.dto.TuitionFeeDto;
 import com.nmt.universitysb.model.TuitionFee;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import java.util.List;
 import java.util.Optional;
 

@@ -1,5 +1,5 @@
 package com.nmt.universitysb.service.impl;
-import com.nmt.universitysb.dto.LecturerDto;
+
 import com.nmt.universitysb.model.Lecturer;
 import com.nmt.universitysb.repository.LecturerRepository;
 import com.nmt.universitysb.service.LecturerService;

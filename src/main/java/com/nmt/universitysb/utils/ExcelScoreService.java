@@ -5,7 +5,6 @@ import com.nmt.universitysb.dto.Score_ScoreValueDto;
 import com.nmt.universitysb.dto.SubjectDto;
 import com.nmt.universitysb.model.*;
 import com.nmt.universitysb.repository.*;
-import com.nmt.universitysb.service.ScoreColumnSevice;
 import com.nmt.universitysb.service.ScoreService;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;

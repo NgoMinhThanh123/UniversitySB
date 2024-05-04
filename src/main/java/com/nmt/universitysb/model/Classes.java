@@ -2,9 +2,6 @@ package com.nmt.universitysb.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.io.Serializable;
@@ -21,12 +18,12 @@ import java.util.Set;
 public class Classes implements Serializable {
     @Id
     @NotBlank(message = "Id không được để trống")
-    @Column(name = "id")
+    @Column(name = "id", columnDefinition = "VARCHAR(8)")
     private String id;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "classesId", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Student> studentSet;
-    @JoinColumn(name = "faculty_id", referencedColumnName = "id")
+    @JoinColumn(name = "faculty_id", referencedColumnName = "id", columnDefinition = "VARCHAR(10)")
     @JsonIgnore
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Faculty facultyId;

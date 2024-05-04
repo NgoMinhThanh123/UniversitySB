@@ -1,8 +1,6 @@
 package com.nmt.universitysb.repository;
 
-import com.nmt.universitysb.dto.TuitionFeeAndSubjectDto;
 import com.nmt.universitysb.dto.TuitionFeeDto;
-import com.nmt.universitysb.model.Semester;
 import com.nmt.universitysb.model.TuitionFee;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
