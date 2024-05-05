@@ -102,7 +102,7 @@ public class ApiSubjectController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @GetMapping(path = "/subjects/tuituion-fee/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/subjects/tuition-fee/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TuitionFeeAndSubjectDto>> getTuitionFeeOfSemester(
             @RequestParam String studentId,
             @RequestParam String semesterId) {
