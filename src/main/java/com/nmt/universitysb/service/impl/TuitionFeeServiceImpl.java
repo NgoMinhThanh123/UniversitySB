@@ -88,4 +88,14 @@ public class TuitionFeeServiceImpl implements TuitionFeeService {
     public List<TuitionFeeDto> getTuitionFeeByStudentIdAndSemesterId(String studentId, String semesterId) {
         return this.tuitionFeeRepository.getTuitionFeeByStudentIdAndSemesterId(studentId, semesterId);
     }
+
+    @Override
+    public double totalTuitionFee(String studentId) {
+        double totalTuitionFee = 0.0;
+        List<TuitionFeeDto> tuitionFeeDtos = getTuitionFeeByStudentId(studentId);
+        for(int i = 0; i < tuitionFeeDtos.size(); i++){
+            totalTuitionFee += tuitionFeeDtos.get(i).getTuitionFee();
+        }
+        return totalTuitionFee;
+    }
 }

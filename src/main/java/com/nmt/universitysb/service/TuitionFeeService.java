@@ -19,4 +19,5 @@ public interface TuitionFeeService {
     Double calcTuitionFee(String subjectId, int schoolYear);
     List<TuitionFeeDto> getTuitionFeeByStudentId(String studentId);
     List<TuitionFeeDto> getTuitionFeeByStudentIdAndSemesterId(String studentId, String semesterId);
+    double totalTuitionFee(String studentId);
 }

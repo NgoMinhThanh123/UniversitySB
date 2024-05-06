@@ -39,19 +39,6 @@ public class IndexController {
     public String login() {
         return "login";
     }
-    @GetMapping("/success")
-    public String success() {
-        return "success";
-    }
-    @GetMapping("/error")
-    public String error() {
-        return "error";
-    }
-
-    @GetMapping("/cancel")
-    public String cancel() {
-        return "cancel";
-    }
 
     @GetMapping("/test")
     @ResponseBody

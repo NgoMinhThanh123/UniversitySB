@@ -41,4 +41,10 @@ public class ApiTuitionFeeController {
         }
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+    @GetMapping("/tuition_fee/total/")
+    public ResponseEntity<?> totalTuitionFee(@RequestParam("studentId") String studentId) {
+        Double totalTuitionFee = tuitionFeeService.totalTuitionFee(studentId);
+        return new ResponseEntity<>(totalTuitionFee, HttpStatus.OK);
+    }
 }

@@ -31,7 +31,6 @@ public class PaypalController {
         return "home";
     }
 
-    @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("/pay")
     public String payment(Model model,
                           @RequestParam("tuitionFeeId") int tuitionFeeId) {
@@ -40,8 +39,8 @@ public class PaypalController {
         model.addAttribute(tuitionFee);
         try {
             Payment payment = service.createPayment(tuitionfeeTransfer, "USD", "paypal",
-                    "sale", "Pay tuition fee", "http://localhost:8082/" + CANCEL_URL,
-                    "http://localhost:8082/" + SUCCESS_URL + "?tuitionFeeId=" + tuitionFeeId);
+                    "sale", "Pay tuition fee", "http://13.212.10.201/" + CANCEL_URL,
+                    "http://13.212.10.201/" + SUCCESS_URL + "?tuitionFeeId=" + tuitionFeeId);
             for(Links link:payment.getLinks()) {
                 if(link.getRel().equals("approval_url")) {
                     return link.getHref();

@@ -19,7 +19,7 @@ services:
   springboot-restful-webservices:
     container_name: springboot-restful-webservices
     build:
-      context: ./UniversitySB
+      context: .
       dockerfile: Dockerfile
     ports:
       - 8080:8080
