@@ -5,11 +5,11 @@
     </strong>
   </div>
   <div class="table col-12">
-    <div class="table table-container">
+    <div class="table-container">
       <template v-if="studentList.length > 0">
         <table class="table table-striped table-bordered table-hover">
           <thead>
-            <tr>
+            <tr class="table-title">
               <th style="text-align: center">Mã số sinh viên</th>
               <th style="text-align: center">Tên sinh viên</th>
               <th style="text-align: center">Ngày sinh</th>
@@ -103,3 +103,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.table-title th {
+  background: #070758;
+  color: #fff;
+}
+</style>

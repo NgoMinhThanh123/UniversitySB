@@ -10,7 +10,8 @@ body {
   font-size: 16px;
 }
 
-ul, li {
+ul,
+li {
   list-style-type: none;
   padding: 0 !important;
   margin: 0 !important;
@@ -763,6 +764,13 @@ a.article:hover {
   display: none;
 }
 
+.table th,
+.table td {
+  white-space: nowrap;
+}
+
+
+
 /* ---------------------------------------------------
     MEDIAQUERIES
 ----------------------------------------------------- */
@@ -789,7 +797,7 @@ a.article:hover {
 
   /* sidebar */
   .container-mobile {
-   display: block; 
+    display: block;
   }
   .sidebar-desktop {
     display: none !important;
@@ -798,57 +806,56 @@ a.article:hover {
   .label-check {
     display: none;
   }
-  
+
   .hamburger-label {
     width: 40px;
     height: 20px;
     display: block;
     cursor: pointer;
   }
-  
+
   .hamburger-label div {
     width: 30px;
     height: 4px;
     background-color: #fff;
     position: absolute;
   }
-  
+
   .line1 {
     transition: all 0.3s;
   }
-  
+
   .line2 {
     margin: 12px 0 0 0;
     transition: 0.3s;
   }
-  
+
   .line3 {
     margin: 24px 0 0 0;
     transition: 0.3s;
   }
-  
+
   #label-check:checked + .hamburger-label .line1 {
     transform: rotate(35deg) scaleX(0.55) translate(20px, 1.5px);
     border-radius: 50px 50px 50px 0;
   }
-  
+
   #label-check:checked + .hamburger-label .line3 {
     transform: rotate(-35deg) scaleX(0.55) translate(20px, -1.5px);
     border-radius: 0 50px 50px 50px;
   }
-  
+
   #label-check:checked + .hamburger-label .line2 {
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
     width: 30px;
   }
-  
+
   #label-check:checked ~ .menu {
     /* display: block !important; */
     transform: translateX(0);
-  
   }
-  
+
   .menu {
     position: fixed;
     display: block;

@@ -20,60 +20,75 @@
           </option>
         </select>
         <div v-if="isTuitionFeeSuccess">
-          <table class="table table-container">
-            <thead>
-              <tr class="table-title">
-                <th scope="col" class="text-center" style="width: 5%">STT</th>
-                <th scope="col" class="text-center" style="width: 25%">
-                  Niên học học kỳ
-                </th>
-                <th scope="col" class="text-center" style="width: 20%">
-                  Học phí phải thu
-                </th>
-                <th scope="col" class="text-center" style="width: 20%">
-                  Học phí đã thu
-                </th>
-                <th scope="col" class="text-center" style="width: 15%">
-                  Còn nợ
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="table-title-item">
-                <th colspan="6">Thu học phí</th>
-              </tr>
-              <tr v-for="(tuitionFee, index) in listTuitionFee" :key="index">
-                <th
-                  scope="row"
-                  style="width: 5%; text-align: center; vertical-align: middle"
-                >
-                  {{ index + 1 }}
-                </th>
-                <td
-                  style="width: 25%; vertical-align: middle"
-                  class="text-center"
-                >
-                  {{ tuitionFee.semesterId.name }} - Năm học
-                  {{ tuitionFee.semesterId.schoolYear }}
-                </td>
-                <td style="width: 20%; vertical-align: middle" class="text-end">
-                  <div v-if="!tuitionFee.done">
-                    {{ formattedCurrency(tuitionFee.tuitionFee) }}
-                  </div>
-                  <div v-else>{{ formattedCurrency(0) }}</div>
-                </td>
-                <td style="width: 20%; vertical-align: middle" class="text-end">
-                  <div v-if="tuitionFee.done">
-                    {{ formattedCurrency(tuitionFee.tuitionFee) }}
-                  </div>
-                  <div v-else>{{ formattedCurrency(0) }}</div>
-                </td>
-                <td style="width: 15%; vertical-align: middle" class="text-end">
-                  {{ formattedCurrency(0) }}
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-container">
+            <table class="table">
+              <thead>
+                <tr class="table-title">
+                  <th scope="col" class="text-center" style="width: 5%">STT</th>
+                  <th scope="col" class="text-center" style="width: 25%">
+                    Niên học học kỳ
+                  </th>
+                  <th scope="col" class="text-center" style="width: 20%">
+                    Học phí phải thu
+                  </th>
+                  <th scope="col" class="text-center" style="width: 20%">
+                    Học phí đã thu
+                  </th>
+                  <th scope="col" class="text-center" style="width: 15%">
+                    Còn nợ
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="table-title-item">
+                  <th colspan="6">Thu học phí</th>
+                </tr>
+                <tr v-for="(tuitionFee, index) in listTuitionFee" :key="index">
+                  <th
+                    scope="row"
+                    style="
+                      width: 5%;
+                      text-align: center;
+                      vertical-align: middle;
+                    "
+                  >
+                    {{ index + 1 }}
+                  </th>
+                  <td
+                    style="width: 25%; vertical-align: middle"
+                    class="text-center"
+                  >
+                    {{ tuitionFee.semesterId.name }} - Năm học
+                    {{ tuitionFee.semesterId.schoolYear }}
+                  </td>
+                  <td
+                    style="width: 20%; vertical-align: middle"
+                    class="text-end"
+                  >
+                    <div v-if="!tuitionFee.done">
+                      {{ formattedCurrency(tuitionFee.tuitionFee) }}
+                    </div>
+                    <div v-else>{{ formattedCurrency(0) }}</div>
+                  </td>
+                  <td
+                    style="width: 20%; vertical-align: middle"
+                    class="text-end"
+                  >
+                    <div v-if="tuitionFee.done">
+                      {{ formattedCurrency(tuitionFee.tuitionFee) }}
+                    </div>
+                    <div v-else>{{ formattedCurrency(0) }}</div>
+                  </td>
+                  <td
+                    style="width: 15%; vertical-align: middle"
+                    class="text-end"
+                  >
+                    {{ formattedCurrency(0) }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
         <div v-if="isSubjectTuitionFeeSuccess">
           <table class="table">
@@ -130,7 +145,7 @@
 </template>
 
 <script>
-import Apis, { endpoints } from '@/configs/Apis';
+import Apis, { endpoints } from "@/configs/Apis";
 import Home from "../../../layouts/home.vue";
 export default {
   components: {
@@ -219,6 +234,15 @@ export default {
 </script>
 
 <style>
+.table-title th {
+  background: #070758;
+  color: #fff;
+}
+
+.table-title-item th {
+  background: rgba(7, 7, 88, 0.6);
+}
+
 .title_content {
   margin-bottom: 30px;
   text-align: center;
@@ -245,6 +269,10 @@ export default {
   .title_content {
     font-size: 20px !important;
     margin-bottom: 15px !important;
+  }
+
+  .form-width {
+    width: 100% !important;
   }
 }
 </style>

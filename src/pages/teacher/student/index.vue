@@ -1,7 +1,7 @@
 <template>
   <div class="studentHome">
     <form @submit.prevent="handleSubmit">
-      <div class="select d-flex">
+      <div class="select d-md-flex s-sm-block">
         <div
           class="form-group"
           :class="{ 'has-error': !selectedSubject }"
@@ -64,7 +64,7 @@
       <div v-if="studentList.length > 0" class="table-container">
         <table class="table table-striped table-bordered table-hover">
           <thead>
-            <tr>
+            <tr class="table-title">
               <th class="text-center">Mã số sinh viên</th>
               <th class="text-center">Tên sinh viên</th>
               <th
@@ -293,3 +293,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.table-title th {
+  background: #070758;
+  color: #fff;
+}
+</style>

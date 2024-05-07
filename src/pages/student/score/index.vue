@@ -20,16 +20,16 @@
             }}
           </div>
           <div class="table-container">
-            <table class="table table-striped table-bordered">
+            <table class="table table-striped table-bordered text-center">
               <thead>
-                <tr>
-                  <th scope="col" style="flex: 1">STT</th>
-                  <th scope="col" style="flex: 2">Tên môn học</th>
-                  <th scope="col" style="flex: 1">Số tín chỉ</th>
-                  <th scope="col" style="flex: 1.5">Quá trình</th>
-                  <th scope="col" style="flex: 1.5">Giữa kì</th>
-                  <th scope="col" style="flex: 1.5">Cuối kì</th>
-                  <th scope="col" style="flex: 1.5">TK</th>
+                <tr class="table-title">
+                  <th style="width: 5%;">STT</th>
+                  <th style="width: 30%;">Tên môn học</th>
+                  <th style="width: 10%;">Số tín chỉ</th>
+                  <th style="width: 15%;">Quá trình</th>
+                  <th style="width: 15%;">Giữa kì</th>
+                  <th style="width: 15%;">Cuối kì</th>
+                  <th style="width: 10%;">TK</th>
                 </tr>
               </thead>
               <tbody>
@@ -38,7 +38,7 @@
                   :key="scoreIndex"
                 >
                   <td scope="row">{{ scoreIndex + 1 }}</td>
-                  <td>{{ score.subjectName }}</td>
+                  <td class="text-start">{{ score.subjectName }}</td>
                   <td>{{ score.credit }}</td>
                   <td>
                     <span v-if="score.scoreDto && score.scoreDto.length > 0">
@@ -202,6 +202,11 @@ export default {
 
 .ball:nth-child(3) {
   animation-delay: 0.5s;
+}
+
+.table-title th {
+  background: #070758;
+  color: #fff;
 }
 
 @keyframes bounce6135 {

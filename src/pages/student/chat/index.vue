@@ -56,7 +56,7 @@
       <div style="height: 1px; border-bottom: 1px solid #00388b"></div>
       <ul class="list-unstyled components">
         <li
-          class="active mb-3"
+          class="action mb-3"
           @click="letsChat(item)"
           v-for="item in searchUsers"
           :key="item.id"
@@ -148,7 +148,7 @@ export default {
   methods: {
     toggleSidebar() {
       const sidebar = document.getElementById("sidebar");
-      sidebar.classList.toggle("active");
+      sidebar.classList.toggle("action");
       sidebar.classList.toggle("slide-right");
 
       const boxContent = document.getElementById("box-content");
@@ -159,7 +159,7 @@ export default {
       this.showProfile = false;
       this.currentPeerUser = null;
       const sidebar = document.getElementById("sidebar");
-      sidebar.classList.remove("active");
+      sidebar.classList.remove("action");
       sidebar.classList.remove("slide-right");
 
       const boxContent = document.getElementById("box-content");
@@ -175,7 +175,7 @@ export default {
       this.currentPeerUser = item;
       this.showProfile = true;
       const sidebar = document.getElementById("sidebar");
-      sidebar.classList.remove("active");
+      sidebar.classList.remove("action");
       sidebar.classList.remove("slide-right");
 
       const boxContent = document.getElementById("box-content");
@@ -292,9 +292,9 @@ export default {
   }
 
   /* Show the sidebar when active class is applied */
-  #sidebar.active {
+  #sidebar.action {
     display: block;
-    margin: 10px;
+    margin: 10px !important;
   }
 
   .unactive {

@@ -47,134 +47,141 @@
     </div>
     <div v-if="courses.length > 0">
       <p>Danh sách môn học mở đăng ký:</p>
-      <table class="table table-hover table-bordered table-container">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Mã môn học</th>
-            <th>Tên môn học</th>
-            <th>Số tín chỉ</th>
-            <th>Số lượng</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(rowData, index) in courses" :key="index">
-            <td style="position: relative; width: 40px">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                :id="'check' + index"
-                :disabled="rowData.isSelected"
-                :checked="rowData.isSelected"
-                @change="toggleCourse($event, rowData)"
-                style="
-                  position: absolute;
-                  top: 43%;
-                  left: 100%;
-                  transform: translate(-50%, -50%);
-                "
-              />
-            </td>
-            <td>{{ rowData.id }}</td>
-            <td>{{ rowData.name }}</td>
-            <td style="text-align: center">{{ rowData.credit }}</td>
-            <td style="text-align: center">{{ this.quantity }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-container">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Mã môn học</th>
+              <th>Tên môn học</th>
+              <th>Số tín chỉ</th>
+              <th>Số lượng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(rowData, index) in courses" :key="index">
+              <td style="position: relative; width: 40px">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  :id="'check' + index"
+                  :disabled="rowData.isSelected"
+                  :checked="rowData.isSelected"
+                  @change="toggleCourse($event, rowData)"
+                  style="
+                    position: absolute;
+                    top: 43%;
+                    left: 100%;
+                    transform: translate(-50%, -50%);
+                  "
+                />
+              </td>
+              <td>{{ rowData.id }}</td>
+              <td>{{ rowData.name }}</td>
+              <td style="text-align: center">{{ rowData.credit }}</td>
+              <td style="text-align: center">{{ this.quantity }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
     <div v-else-if="courses === null">
       <p>Danh sách môn học mở đăng ký:</p>
-
-      <table class="table table-hover table-bordered table-container">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Mã môn học</th>
-            <th>Tên môn học</th>
-            <th>Số tín chỉ</th>
-            <th>Số lượng</th>
-          </tr>
-        </thead>
-      </table>
+      <div class="table-container">
+        <table class="table table-hover table-bordered table-container">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Mã môn học</th>
+              <th>Tên môn học</th>
+              <th>Số tín chỉ</th>
+              <th>Số lượng</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
       <p style="text-align: center">
         <strong>Không có môn học nào mở đăng ký cho khoa này.</strong>
       </p>
     </div>
     <div v-else>
       <p>Danh sách môn học mở đăng ký:</p>
-
-      <table class="table table-hover table-bordered table-container">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Mã môn học</th>
-            <th>Tên môn học</th>
-            <th>Số tín chỉ</th>
-            <th>Số lượng</th>
-          </tr>
-        </thead>
-      </table>
+      <div class="table-container">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Mã môn học</th>
+              <th>Tên môn học</th>
+              <th>Số tín chỉ</th>
+              <th>Số lượng</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
       <p style="text-align: center">
         <strong>Không có môn học nào mở đăng ký cho khoa này.</strong>
       </p>
     </div>
     <div>
       <p>Danh sách môn học đã đăng kí:</p>
-      <table class="table table-hover table-bordered table-container">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Mã môn học</th>
-            <th>Tên môn học</th>
-            <th>Số tín chỉ</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(selectedCourse, index) in selectedCourses" :key="index">
-            <td style="position: relative; width: 40px">
-              <button
-                class="btn btn-danger"
-                @click="removeCourse(index, selectedCourse.id)"
-              >
-                Xóa
-              </button>
-            </td>
-            <td>{{ selectedCourse.subjectId.id }}</td>
-            <td>{{ selectedCourse.subjectId.name }}</td>
-            <td>{{ selectedCourse.subjectId.credit }}</td>
-          </tr>
-        </tbody>
-      </table>
-
+      <div class="table-container">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Mã môn học</th>
+              <th>Tên môn học</th>
+              <th>Số tín chỉ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(selectedCourse, index) in selectedCourses" :key="index">
+              <td style="position: relative; width: 40px">
+                <button
+                  class="btn btn-danger"
+                  @click="removeCourse(index, selectedCourse.id)"
+                >
+                  Xóa
+                </button>
+              </td>
+              <td>{{ selectedCourse.subjectId.id }}</td>
+              <td>{{ selectedCourse.subjectId.name }}</td>
+              <td>{{ selectedCourse.subjectId.credit }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <p>Danh sách môn học đã chọn:</p>
-      <table class="table table-hover table-bordered table-container">
-        <thead>
-          <tr>
-            <th></th>
-            <th style="text-align: center">STT</th>
-            <th>Mã môn học</th>
-            <th>Tên môn học</th>
-            <th>Số tín chỉ</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(course, index) in ListCourses" :key="index">
-            <td style="position: relative; width: 40px">
-              <button
-                class="btn btn-danger"
-                @click="removeCoursed(index, course.id)"
-              >
-                Xóa
-              </button>
-            </td>
-            <td style="text-align: center">{{ index + 1 }}</td>
-            <td>{{ course.subjectId.id }}</td>
-            <td>{{ course.subjectId.name }}</td>
-            <td>{{ course.subjectId.credit }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="table-container">
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th style="width: 5%;"></th>
+              <th style="text-align: center">STT</th>
+              <th>Mã môn học</th>
+              <th>Tên môn học</th>
+              <th>Số tín chỉ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(course, index) in ListCourses" :key="index">
+              <td style="position: relative; width: 40px">
+                <button
+                  class="btn btn-danger"
+                  @click="removeCoursed(index, course.id)"
+                >
+                  Xóa
+                </button>
+              </td>
+              <td style="text-align: center">{{ index + 1 }}</td>
+              <td>{{ course.subjectId.id }}</td>
+              <td>{{ course.subjectId.name }}</td>
+              <td>{{ course.subjectId.credit }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
       <div class="d-flex justify-content-end">
         <button class="btn btn-primary" @click="submitCourses()">
           Đăng ký

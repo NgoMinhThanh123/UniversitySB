@@ -9,7 +9,7 @@
         @submit.prevent="getStudentByParent"
       >
         <div class="row">
-          <div class="col-lg col-sm-block">
+          <div class="col-lg col-sm-block mb-3">
             <label>Mã số sinh viên</label>
             <input
               v-model="student.studentId"
@@ -19,7 +19,7 @@
               required
             />
           </div>
-          <div class="col-lg col-sm-block mt-3">
+          <div class="col-lg col-sm-block mb-3">
             <label>Họ và tên</label>
             <input
               v-model="student.studentName"
@@ -29,7 +29,7 @@
               required
             />
           </div>
-          <div class="col-lg col-sm-block mt-3">
+          <div class="col-lg col-sm-block mb-3">
             <label>Ngày sinh</label>
             <input
               v-model="student.studentBirthday"
@@ -41,7 +41,7 @@
           </div>
         </div>
         <div class="row" style="margin-top: 20px">
-          <div class="col-lg col-sm-block mt-3">
+          <div class="col-lg col-sm-block mb-3">
             <label>Mã lớp</label>
             <input
               v-model="student.classId"
@@ -51,7 +51,7 @@
               required
             />
           </div>
-          <div class="col-lg col-sm-block mt-3">
+          <div class="col-lg col-sm-block mb-3">
             <label>CCCD</label>
             <input
               v-model="student.studentIdentification"
@@ -61,7 +61,7 @@
               required
             />
           </div>
-          <div class="col col-sm-block mt-3">
+          <div class="col col-sm-block mb-3">
             <!-- <input type="text" class="form-control" placeholder="Last name" /> -->
           </div>
         </div>

@@ -125,11 +125,11 @@
         </div>
       </div>
       <div
-        class="col-lg-6 col-sm-6 d-md-flex align-items-center justify-content-sm-end"
+        class="col-lg-6 col-sm-6 d-md-flex align-items-center justify-content-sm-end avatar-main"
       >
         <div
           v-if="isAuth === false"
-          class="align-items-center d-none justify-content-sm-end"
+          class="align-items-center d-none d-md-flex justify-content-sm-end"
         >
           <div class="parent">
             <router-link to="/login" class="router-link-hover">
@@ -440,6 +440,7 @@ export default {
   font-size: 20px;
 }
 
+
 .slide-right {
   -webkit-animation: slide-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   animation: slide-right 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
@@ -495,7 +496,6 @@ export default {
     transform: translateX(-1000px);
   }
 }
-
 @media (max-width: 767px) {
   .menu2 {
     display: block;

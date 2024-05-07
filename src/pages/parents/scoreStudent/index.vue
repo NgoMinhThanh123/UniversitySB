@@ -12,16 +12,16 @@
               {{ `${semester.name}-${semester.schoolYear}` }}
             </div>
             <div class="table-container">
-              <table class="table table-striped table-bordered">
+              <table class="table table-striped table-bordered text-center">
                 <thead>
-                  <tr>
-                    <th>STT</th>
-                    <th>Tên môn học</th>
-                    <th>Số tín chỉ</th>
-                    <th>Quá trình</th>
-                    <th>Giữa kì</th>
-                    <th>Cuối kì</th>
-                    <th>TK</th>
+                  <tr class="table-title">
+                    <th style="width: 5%">STT</th>
+                    <th style="width: 30%">Tên môn học</th>
+                    <th style="width: 10%">Số tín chỉ</th>
+                    <th style="width: 15%">Quá trình</th>
+                    <th style="width: 15%">Giữa kì</th>
+                    <th style="width: 15%">Cuối kì</th>
+                    <th style="width: 10%">TK</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -30,7 +30,7 @@
                     :key="scoreIndex"
                   >
                     <td>{{ scoreIndex + 1 }}</td>
-                    <td>{{ score.subjectName }}</td>
+                    <td class="text-start">{{ score.subjectName }}</td>
                     <td>{{ score.credit }}</td>
                     <td>
                       <span v-if="score.scoreDto && score.scoreDto.length > 0">
@@ -132,7 +132,7 @@ export default {
           scoreListsValue.push(scoreResponse.data);
         }
         this.scoreLists = scoreListsValue;
-        console.log("scoreListsValue", scoreListsValue)
+        console.log("scoreListsValue", scoreListsValue);
       } catch (err) {
         err.value = true;
       }
@@ -163,6 +163,11 @@ export default {
   right: 0;
   bottom: 0;
   margin: auto;
+}
+
+.table-title th {
+  background: #070758;
+  color: #fff;
 }
 
 @media (max-width: 767px) {

@@ -121,7 +121,7 @@
         <div class="table-studentScore table-container">
           <table class="table table-hover">
             <thead>
-              <tr class="header-studentScore">
+              <tr class="table-title">
                 <th style="width: 150px">Mã số sinh viên</th>
                 <th style="width: 30%">Họ và tên</th>
                 <th>
@@ -230,7 +230,7 @@
           <div v-if="studentList.length > 0" class="table-container">
             <table class="table table-striped table-bordered table-hover">
               <thead>
-                <tr>
+                <tr class="table-title">
                   <th class="text-center">Mã số sinh viên</th>
                   <th class="text-center">Tên sinh viên</th>
                   <th class="text-center">Ngày sinh</th>
@@ -620,6 +620,10 @@ export default {
 </script>
 
 <style scoped>
+.table-title th {
+  background: #070758;
+  color: #fff;
+}
 .studentScore {
   flex-wrap: wrap;
 }
