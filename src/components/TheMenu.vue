@@ -45,7 +45,7 @@
       <div class="menu_profile">
         <router-link to="/profile" class="router-link-hover">
           <i class="fa-solid fa-user"></i>
-          <span style="font-size: 16px"> Hồ sơ </span>
+          <span  class="sider" style="font-size: 16px"> Hồ sơ </span>
         </router-link>
       </div>
     </a-menu-item>

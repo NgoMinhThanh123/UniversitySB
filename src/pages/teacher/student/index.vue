@@ -119,7 +119,6 @@ export default {
       studentList: [],
       semesterList: [],
       selectedSemester: "",
-      //   csvData: [],
       studentScores: {},
       scoreColumns: [],
       err: "",
@@ -221,6 +220,7 @@ export default {
           this.studentList = response.data;
           this.err = "";
           this.hasError = false;
+          console.log("response", this.studentList);
         }
       } catch (error) {
         console.error(error);

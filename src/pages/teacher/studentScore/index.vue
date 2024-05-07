@@ -118,12 +118,12 @@
         <p style="font-size: 20px; padding: 20px">{{ err }}</p>
       </div>
       <div v-if="isEditMode && !notFoundMessage" class="form-input-score">
-        <div class="table-studentScore">
+        <div class="table-studentScore table-container">
           <table class="table table-hover">
             <thead>
               <tr class="header-studentScore">
                 <th style="width: 150px">Mã số sinh viên</th>
-                <th style="width: 20%">Họ và tên</th>
+                <th style="width: 30%">Họ và tên</th>
                 <th>
                   <div class="form-check">
                     <input
@@ -170,7 +170,7 @@
                 <td style="width: 150px; text-align: center">
                   {{ student.studentId }}
                 </td>
-                <td style="width: 20%">{{ student.studentName }}</td>
+                <td style="width: 30%">{{ student.studentName }}</td>
                 <td>
                   <input
                     min="0"
@@ -647,7 +647,5 @@ export default {
   .col-12 {
     padding: 0;
   }
-
-
 }
 </style>

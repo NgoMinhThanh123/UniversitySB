@@ -1,56 +1,64 @@
 <template>
-  <div class="menu" v-if="isChecked">
-    <div class="sidebar-mobile-main"></div>
-    <div class="row">
-      <div class="col">
-        <a-list
-          bordered
-          style="width: 100%"
-          v-if="this.getUser && this.getUser.role != null"
-        >
-          <div v-if="this.getUser.role === 'ROLE_SINHVIEN'">
-            <TheMenuStudent
-              :isChecked="isChecked"
-              @update:isChecked="isChecked = $event"
-            />
-          </div>
-          <div v-if="this.getUser.role === 'ROLE_GIANGVIEN'">
-            <TheMenu
-              :isChecked="isChecked"
-              @update:isChecked="isChecked = $event"
-            />
-          </div>
-          <template #header>
-            <div>
-              <img
-                style="width: 100%"
-                src="../assets/logoSchool_1.png"
-                alt="logo"
+  <div
+    class="menu"
+    :class="{ 'slide-left': !isChecked, 'slide-right': isChecked }"
+  >
+    <div class="sidebar-mobile-main">
+      <div class="row">
+        <div class="col">
+          <a-list
+            bordered
+            style="width: 100%"
+            v-if="this.getUser && this.getUser.role != null"
+          >
+            <div v-if="this.getUser.role === 'ROLE_SINHVIEN'">
+              <TheMenuStudent
+                :isChecked="isChecked"
+                @update:isChecked="isChecked = $event"
               />
             </div>
-          </template>
-        </a-list>
+            <div v-if="this.getUser.role === 'ROLE_GIANGVIEN'">
+              <TheMenu
+                :isChecked="isChecked"
+                @update:isChecked="isChecked = $event"
+              />
+            </div>
+            <template #header>
+              <div>
+                <img
+                  style="width: 100%"
+                  src="../assets/logoSchool_1.png"
+                  alt="logo"
+                />
+              </div>
+              <div class="btn-close-menu" @click="toggleMenu">
+                <i class="fa-solid fa-xmark"></i>
+              </div>
+            </template>
+          </a-list>
+        </div>
       </div>
     </div>
   </div>
-  <div class="menu2" :class="{ 'slide-left': !isCheckedMenu2, 'slide-right': isCheckedMenu2 }">
+  <div
+    class="menu2"
+    :class="{ 'slide-left': !isCheckedMenu2, 'slide-right': isCheckedMenu2 }"
+  >
     <div class="menu-container">
       <h5>Trường đại học STU</h5>
-      <div class="btn-close-menu2" @click="toggleMenu">
+      <div class="btn-close-menu2" @click="toggleMenu2">
         <i class="fa-solid fa-xmark"></i>
       </div>
       <ul class="menu-items">
-        <li class="menu-item"  :class="{ active: $route.path === '/' }">
-          <router-link
-            to="/"
-            class="router-link-hover nav-link"
-           
-            exact
-          >
+        <li class="menu-item" :class="{ active: $route.path === '/' }">
+          <router-link to="/" class="router-link-hover nav-link" exact>
             <span> Trang chủ </span>
           </router-link>
         </li>
-        <li class="menu-item"  :class="{ active: $route.path === '/general-information' }">
+        <li
+          class="menu-item"
+          :class="{ active: $route.path === '/general-information' }"
+        >
           <router-link
             to="/general-information"
             class="router-link-hover nav-link"
@@ -81,15 +89,10 @@
   <div id="header" class="header">
     <div
       class="text-white"
-      style="
-        background-color: #070758;
-        padding: 1rem 2rem;
-        display: flex;
-        flex-wrap: wrap;
-      "
+      style="background-color: #070758; padding: 1rem 2rem; display: flex"
     >
       <div
-        class="col-6 col-sm-6 d-flex justify-content-sm-start align-items-center"
+        class="col-lg-6 col-sm-6 d-flex justify-content-sm-start align-items-center"
       >
         <div class="home"></div>
         <div class="profile d-none d-md-flex d-lg-flex" v-if="isAuth === true">
@@ -112,7 +115,7 @@
             <label></label
           ></label>
         </div>
-        <div v-else>
+        <div v-else class="container-mobile">
           <input type="checkbox" id="checkbox" v-model="isCheckedMenu2" />
           <label for="checkbox" class="toggle" style="margin-bottom: 0">
             <div class="bars" id="bar1"></div>
@@ -122,11 +125,11 @@
         </div>
       </div>
       <div
-        class="col-6 col-sm-6 d-none d-sm-flex align-items-center justify-content-sm-end"
+        class="col-lg-6 col-sm-6 d-md-flex align-items-center justify-content-sm-end"
       >
         <div
           v-if="isAuth === false"
-          class="d-sm-flex align-items-center justify-content-sm-end"
+          class="align-items-center d-none justify-content-sm-end"
         >
           <div class="parent">
             <router-link to="/login" class="router-link-hover">
@@ -147,8 +150,13 @@
             </router-link>
           </div>
         </div>
-        <div v-else class="align-items-center justify-content-sm-end">
-          <div style="padding-right: 30px" class="d-flex align-items-center">
+        <div v-else class="d-flex align-items-center justify-content-end">
+          <div
+            style="padding-right: 30px"
+            class="d-flex align-items-center avatar-main"
+            role="button"
+            data-bs-toggle="dropdown"
+          >
             <div style="margin-right: 10px" class="d-flex">
               <img
                 :src="getUser.avatar"
@@ -161,31 +169,24 @@
               <a
                 class="nav-link dropdown-toggle"
                 href="#"
-                role="button"
-                data-bs-toggle="dropdown"
                 style="font-size: 16px"
               >
                 Chào, {{ userInfo.name }}
               </a>
-
-              <ul class="dropdown-menu">
-                <li>
-                  <router-link to="/changePassword" class="dropdown-item"
-                    >Thay đổi mật khẩu</router-link
-                  >
-                </li>
-                <li>
-                  <router-link
-                    to="/login"
-                    @click="logout()"
-                    class="dropdown-item"
-                    >Đăng xuất</router-link
-                  >
-                </li>
-              </ul>
             </div>
           </div>
-          <div></div>
+          <ul class="dropdown-menu">
+            <li>
+              <router-link to="/changePassword" class="dropdown-item"
+                >Thay đổi mật khẩu</router-link
+              >
+            </li>
+            <li>
+              <router-link to="/login" @click="logout()" class="dropdown-item"
+                >Đăng xuất</router-link
+              >
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -207,7 +208,7 @@
         </div>
 
         <div
-          class="collapse navbar-collapse"
+          class="collapse d-md-flex"
           id="navbarNav"
           style="justify-content: flex-end; flex-wrap: wrap"
         >
@@ -266,10 +267,10 @@ export default {
   },
   methods: {
     toggleMenu() {
-      this.isCheckedMenu2 = !this.isCheckedMenu2;
+      this.isChecked = !this.isChecked;
     },
-    itemAction() {
-
+    toggleMenu2() {
+      this.isCheckedMenu2 = !this.isCheckedMenu2;
     },
     async logout() {
       this.isLogin = false;
@@ -449,6 +450,10 @@ export default {
   animation: slide-left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
 }
 
+.show {
+  inset: 5px auto auto 45px !important;
+}
+
 @-webkit-keyframes slide-right {
   0% {
     -webkit-transform: translateX(-100px);
@@ -556,6 +561,21 @@ export default {
   #checkbox:checked + .toggle {
     transition-duration: 0.5s;
     transform: rotate(180deg);
+  }
+
+  .avatar-main {
+    padding: 0 !important;
+  }
+
+  .show {
+    inset: 5px 0 auto auto !important;
+  }
+
+  .btn-close-menu {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 20px;
   }
 }
 </style>

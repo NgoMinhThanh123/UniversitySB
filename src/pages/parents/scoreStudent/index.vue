@@ -1,6 +1,6 @@
 <template>
   <Home>
-    <div class="container-fluid mb-4 mt-4" style="min-height: 80vh;">
+    <div class="container-fluid mb-4 mt-4" style="min-height: 80vh">
       <div v-if="semesters.length > 0">
         <h2 class="title_content">Điểm số sinh viên</h2>
         <div class="container">
@@ -11,57 +11,69 @@
             <div class="semester">
               {{ `${semester.name}-${semester.schoolYear}` }}
             </div>
-            <table class="score-table">
-              <thead>
-                <tr>
-                  <th>STT</th>
-                  <th>Tên môn học</th>
-                  <th>Số tín chỉ</th>
-                  <th>Quá trình</th>
-                  <th>Giữa kì</th>
-                  <th>Cuối kì</th>
-                  <th>TK</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr
-                  v-for="(score, scoreIndex) in scoreLists[semesterIndex]"
-                  :key="scoreIndex"
-                >
-                  <td>{{ scoreIndex + 1 }}</td>
-                  <td>{{ score.subjectName }}</td>
-                  <td>{{ score.credit }}</td>
-                  <td>
-                    <span v-if="score.scoreDto && score.scoreDto.length > 0">
-                      <span
-                        v-if="score.scoreDto[0].scoreColumnName === 'Quá trình'"
-                      >
-                        {{ score.scoreDto[0].scoreValue || "-" }}
+            <div class="table-container">
+              <table class="table table-striped table-bordered">
+                <thead>
+                  <tr>
+                    <th>STT</th>
+                    <th>Tên môn học</th>
+                    <th>Số tín chỉ</th>
+                    <th>Quá trình</th>
+                    <th>Giữa kì</th>
+                    <th>Cuối kì</th>
+                    <th>TK</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    v-for="(score, scoreIndex) in scoreLists[semesterIndex]"
+                    :key="scoreIndex"
+                  >
+                    <td>{{ scoreIndex + 1 }}</td>
+                    <td>{{ score.subjectName }}</td>
+                    <td>{{ score.credit }}</td>
+                    <td>
+                      <span v-if="score.scoreDto && score.scoreDto.length > 0">
+                        <span
+                          v-if="
+                            score.scoreDto[0].scoreColumnName === 'Quá trình'
+                          "
+                        >
+                          {{ score.scoreDto[0].scoreValue || "-" }}
+                        </span>
                       </span>
-                    </span>
-                  </td>
-                  <td>
-                    <span v-if="score.scoreDto && score.scoreDto.length > 1">
-                      <span
-                        v-if="score.scoreDto[1].scoreColumnName === 'Giữa kì'"
-                      >
-                        {{ score.scoreDto[1].scoreValue || "-" }}
+                    </td>
+                    <td>
+                      <span v-if="score.scoreDto && score.scoreDto.length > 1">
+                        <span
+                          v-if="score.scoreDto[1].scoreColumnName === 'Giữa kì'"
+                        >
+                          {{ score.scoreDto[1].scoreValue || "-" }}
+                        </span>
                       </span>
-                    </span>
-                  </td>
-                  <td>
-                    <span v-if="score.scoreDto && score.scoreDto.length > 2">
-                      <span
-                        v-if="score.scoreDto[2].scoreColumnName === 'Cuối kì'"
-                      >
-                        {{ score.scoreDto[2].scoreValue || "-" }}
+                    </td>
+                    <td>
+                      <span v-if="score.scoreDto && score.scoreDto.length > 2">
+                        <span
+                          v-if="score.scoreDto[2].scoreColumnName === 'Cuối kì'"
+                        >
+                          {{ score.scoreDto[2].scoreValue || "-" }}
+                        </span>
                       </span>
-                    </span>
-                  </td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
+                    </td>
+                    <td>
+                      <span v-if="score.scoreDto && score.scoreDto.length > 3">
+                        <span
+                          v-if="score.scoreDto[3].scoreColumnName === 'Điểm TK'"
+                        >
+                          {{ score.scoreDto[3].scoreValue || "-" }}
+                        </span>
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -120,6 +132,7 @@ export default {
           scoreListsValue.push(scoreResponse.data);
         }
         this.scoreLists = scoreListsValue;
+        console.log("scoreListsValue", scoreListsValue)
       } catch (err) {
         err.value = true;
       }
@@ -150,5 +163,12 @@ export default {
   right: 0;
   bottom: 0;
   margin: auto;
+}
+
+@media (max-width: 767px) {
+  .title_content {
+    font-size: 20px !important;
+    margin-bottom: 15px !important;
+  }
 }
 </style>

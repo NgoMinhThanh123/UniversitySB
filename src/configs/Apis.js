@@ -3,6 +3,7 @@ import VueCookies from "vue-cookies";
 
 const SERVER_CONTEXT = "";
 const SERVER = "http://localhost:8082";
+// const SERVER = "http://13.212.10.201";
 // const SERVER = "http://universitysb-env.eba-nnscwuyq.ap-southeast-2.elasticbeanstalk.com";
 
 export const endpoints = {
@@ -19,6 +20,7 @@ export const endpoints = {
   classes: `${SERVER_CONTEXT}/api/classes/`,
   "get-subject-by-facultyId": `${SERVER_CONTEXT}/api/subjects/facultyId/`,
   "semester-student": `${SERVER_CONTEXT}/api/semesters/student/`,
+  "get-semesters": `${SERVER_CONTEXT}/api/semesters/student/`,
   "semester-lecturer-subject": `${SERVER_CONTEXT}/api/semesters/lecturer-subject/`,
   "current-user": `${SERVER_CONTEXT}/api/current-user/`,
   "get-user": `${SERVER_CONTEXT}/api/users/{username}/`,
@@ -45,7 +47,6 @@ export const endpoints = {
   "course-register": `${SERVER_CONTEXT}/api/course-register/`,
   "temporary-course-register": `${SERVER_CONTEXT}/api/temporary-course-register/`,
   "get-subjects-temporary-course-register": `${SERVER_CONTEXT}/api/subjects/temporary-course/`,
-  "get-semesters": `${SERVER_CONTEXT}/api/semesters/student/`,
   "delete-course": `${SERVER_CONTEXT}/api/delete_student_subject/{studentSubjectId}`,
   "get-firebase-config": `${SERVER_CONTEXT}/api/firebase/config`,
   "get-student-by-parents": `${SERVER_CONTEXT}/api/get-student-parents/`,
@@ -58,7 +59,7 @@ export const endpoints = {
   "get-temporary-courses": `${SERVER_CONTEXT}/api/get-temporary-course/`,
   "get-already-course": `${SERVER_CONTEXT}/api/get-already-course/`,
   "get-tuition-fee": `${SERVER_CONTEXT}/api/tuition_fee/student/`,
-  "get-subjects-tuition-fee": `${SERVER_CONTEXT}/api/subjects/tuituion-fee/`,
+  "get-subjects-tuition-fee": `${SERVER_CONTEXT}/api/subjects/tuition-fee/`,
   "get-education-program": `${SERVER_CONTEXT}/api/subjects/education-program/`,
   "payment": `${SERVER_CONTEXT}/pay`
 };

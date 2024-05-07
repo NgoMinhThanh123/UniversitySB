@@ -62,7 +62,7 @@
       </div>
 
       <div class="foroum">
-        <table class="table table-responsive-xl" v-if="post.length > 0">
+        <table class="table table-responsive-xl table-container" v-if="post.length > 0">
           <thead>
             <tr>
               <th>Tên bài post</th>

@@ -1,6 +1,13 @@
 <template>
   <div class="container-fluid" style="padding-bottom: 50px">
-    <div class="row"> 
+    <div v-if="isLoading" style="position: absolute; width: 100%; height: 50%">
+      <div class="loader">
+        <div class="ball"></div>
+        <div class="ball"></div>
+        <div class="ball"></div>
+      </div>
+    </div>
+    <div v-else class="row">
       <table class="table">
         <thead>
           <tr>
@@ -14,12 +21,15 @@
           <tr v-for="p in listPost" :key="p.id">
             <td>
               <router-link
-                  :to="'/student/detailForum/' + p.id"
-                  class="post-link"
-                >
-                  {{ p.title }}
-                </router-link>
-              <div v-if="isEditMode && editedPost && editedPost.id === p.id" style="margin: 10px">
+                :to="'/student/detailForum/' + p.id"
+                class="post-link"
+              >
+                {{ p.title }}
+              </router-link>
+              <div
+                v-if="isEditMode && editedPost && editedPost.id === p.id"
+                style="margin: 10px"
+              >
                 <textarea
                   class="form-control"
                   rows="2"
@@ -44,7 +54,7 @@
                 </div>
               </div>
             </td>
-            <td>{{p.content}}</td>
+            <td>{{ p.content }}</td>
             <td>{{ formatDate(p.postTime) }}</td>
           </tr>
         </tbody>
@@ -68,6 +78,7 @@ export default {
       isEditMode: false,
       content: "",
       editedPost: null,
+      isLoading: false,
     };
   },
   created() {
@@ -91,11 +102,13 @@ export default {
     },
     async getListPostByUser() {
       try {
+        this.isLoading = true;
         const userId = this.getUser.id;
         const response = await authApi().get(
           endpoints["get-list-post-by-userId"].replace("{userId}", userId)
         );
         this.listPost = response.data;
+        this.isLoading = false;
       } catch (error) {
         console.error(error);
       }
@@ -103,18 +116,23 @@ export default {
 
     async updatePosted(postId) {
       try {
-        const response = await authApi().put(endpoints["update-post"].replace("{postId}", postId), {
-          content: this.content,
-        });
-         const updatedPostIndex = this.listPost.findIndex((post) => post.id === postId);
+        const response = await authApi().put(
+          endpoints["update-post"].replace("{postId}", postId),
+          {
+            content: this.content,
+          }
+        );
+        const updatedPostIndex = this.listPost.findIndex(
+          (post) => post.id === postId
+        );
 
-    // Nếu tìm thấy bài viết, cập nhật nội dung của nó
-    if (updatedPostIndex !== -1) {
-      this.listPost[updatedPostIndex].content = response.data.content;
-    }
+        // Nếu tìm thấy bài viết, cập nhật nội dung của nó
+        if (updatedPostIndex !== -1) {
+          this.listPost[updatedPostIndex].content = response.data.content;
+        }
         this.content = "";
         this.isEditMode = false;
-         this.getListPostByUser();
+        this.getListPostByUser();
       } catch (error) {
         console.error("Error submitting post:", error);
       }
@@ -124,7 +142,7 @@ export default {
         const response = await authApi().delete(
           endpoints["delete-post"].replace("{postId}", postId)
         );
-      
+
         this.isEditMode = false;
         this.getListPostByUser();
       } catch (error) {
@@ -132,11 +150,13 @@ export default {
       }
     },
     async confirmDelete(postId) {
-    const confirmDelete = window.confirm('Bạn có chắc chắn muốn xóa bài đăng này không?');
-    if (confirmDelete) {
-      await this.deletePost(postId);
-    }
-  },
+      const confirmDelete = window.confirm(
+        "Bạn có chắc chắn muốn xóa bài đăng này không?"
+      );
+      if (confirmDelete) {
+        await this.deletePost(postId);
+      }
+    },
 
     formatDate(date) {
       if (!date) return ""; // Tránh xử lý ngày null hoặc undefined
@@ -155,3 +175,46 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.loader {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: 0.5s linear;
+}
+
+.ball {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  animation: bounce6135 1s alternate infinite;
+  transition: 0.5s linear;
+}
+
+.ball {
+  background: #000;
+}
+
+.ball:nth-child(2) {
+  animation-delay: 0.25s;
+}
+
+.ball:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+@keyframes bounce6135 {
+  from {
+    transform: scale(2);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+</style>

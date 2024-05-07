@@ -1,7 +1,7 @@
 <template>
   <section>
-    <div class="d-flex">
-      <div style="width: 30%; margin-bottom: 20px">
+    <div class="d-lg-flex d-md-flex d-sm-block">
+      <div class="form-group-item" style="width: 30%; margin-bottom: 20px">
         <div
           class="form-group"
           :class="{ 'has-error': !selectSemester }"
@@ -20,7 +20,7 @@
           </select>
         </div>
       </div>
-      <div style="width: 50%; margin-bottom: 20px">
+      <div class="form-group-item" style="width: 50%; margin-bottom: 20px">
         <div
           class="form-group"
           :class="{ 'has-error': !selecetMajor }"
@@ -47,7 +47,7 @@
     </div>
     <div v-if="courses.length > 0">
       <p>Danh sách môn học mở đăng ký:</p>
-      <table class="table table-hover table-bordered">
+      <table class="table table-hover table-bordered table-container">
         <thead>
           <tr>
             <th></th>
@@ -86,7 +86,7 @@
     <div v-else-if="courses === null">
       <p>Danh sách môn học mở đăng ký:</p>
 
-      <table class="table table-hover table-bordered">
+      <table class="table table-hover table-bordered table-container">
         <thead>
           <tr>
             <th></th>
@@ -104,7 +104,7 @@
     <div v-else>
       <p>Danh sách môn học mở đăng ký:</p>
 
-      <table class="table table-hover table-bordered">
+      <table class="table table-hover table-bordered table-container">
         <thead>
           <tr>
             <th></th>
@@ -121,7 +121,7 @@
     </div>
     <div>
       <p>Danh sách môn học đã đăng kí:</p>
-      <table class="table table-hover table-bordered">
+      <table class="table table-hover table-bordered table-container">
         <thead>
           <tr>
             <th></th>
@@ -148,7 +148,7 @@
       </table>
 
       <p>Danh sách môn học đã chọn:</p>
-      <table class="table table-hover table-bordered">
+      <table class="table table-hover table-bordered table-container">
         <thead>
           <tr>
             <th></th>
@@ -522,3 +522,11 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@media (max-width: 767px) {
+  .form-group-item {
+    width: 100% !important;
+  }
+}
+</style>

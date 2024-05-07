@@ -2,23 +2,23 @@
   <section>
     <div class="container">
       <select
-        class="form-control"
+        class="form-control form-width"
         id="selectSemester"
         v-model="selectSemester"
         style="width: 40%"
       >
         <option value="">Tổng hợp học phí tất cả học kỳ</option>
         <option
-          v-for="(semester, index) in semesters"
+          v-for="(semester, index) in listTuitionFee"
           :key="index"
-          :value="semester.id"
+          :value="semester.semesterId.id"
         >
-          {{ semester.name }} - Năm học:
-          {{ semester.schoolYear }}
+          {{ semester.semesterId.name }} - Năm học:
+          {{ semester.semesterId.schoolYear }}
         </option>
       </select>
-      <div v-if="isTuitionFeeSuccess">
-        <table class="table">
+      <div v-if="isTuitionFeeSuccess" class="table-container">
+        <table class="table" style="width: 100%; ">
           <thead>
             <tr class="table-title">
               <th scope="col" class="text-center" style="width: 5%">STT</th>
@@ -78,19 +78,6 @@
                 </button>
               </td>
             </tr>
-            <!-- <tr>
-              <th scope="row" style="width: 10%">2</th>
-              <td>Jacob</td>
-              <td>Thornton</td>
-              <td>@fat</td>
-              <td>@fat</td>
-            </tr>
-            <tr>
-              <th scope="row" style="width: 10%">3</th>
-              <td>Larry the Bird</td>
-              <td>@twitter</td>
-              <td>@twitter</td>
-            </tr> -->
           </tbody>
         </table>
       </div>
@@ -128,13 +115,13 @@
                 style="width: 25%; vertical-align: middle"
                 class="text-center"
               >
-                {{ subjectTuitionFee.subjectId.id }}
+                {{ subjectTuitionFee.subjectId }}
               </td>
               <td style="width: 20%; vertical-align: middle" class="text-end">
-                {{ subjectTuitionFee.subjectId.name }}
+                {{ subjectTuitionFee.name }}
               </td>
               <td style="width: 20%; vertical-align: middle" class="text-end">
-                {{ subjectTuitionFee.subjectId.credit }}
+                {{ subjectTuitionFee.credit }}
               </td>
               <td style="width: 15%; vertical-align: middle" class="text-end">
                 {{ subjectTuitionFee.price }}
@@ -327,5 +314,11 @@ export default {
 .button:active:before,
 .button:active:after {
   background: teal;
+}
+
+@media (max-width: 768px) {
+  .form-width {
+    width: 100% !important;
+  }
 }
 </style>

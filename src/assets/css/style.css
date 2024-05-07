@@ -327,10 +327,14 @@ label {
   margin-top: 20px;
 }
 
+.table-container {
+  overflow-x: auto;
+}
+
 .score-table {
   width: 100%;
   border-collapse: collapse;
-  table-layout: fixed;
+  /* overflow-x: auto; */
   /* Sử dụng kích thước cố định cho các cột */
 }
 
@@ -339,9 +343,17 @@ label {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: center;
-  min-width: 100px;
+  /* min-width: 200px; */
   /* Đặt kích thước tối thiểu cho cột và hàng */
 }
+
+/* .score-table th:nth-child(1) {
+  min-width: 100px !important;
+}
+
+.score-table tr:nth-child(1) {
+  min-width: 100px !important;
+} */
 
 .score-table th {
   background-color: #f2f2f2;

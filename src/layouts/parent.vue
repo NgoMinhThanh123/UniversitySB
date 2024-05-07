@@ -2,13 +2,14 @@
   <TheHeader />
   <div id="parent">
     <div class="container">
+      <h2 class="title_content">Phụ huynh</h2>
       <form
         class="formParent"
         method="get"
         @submit.prevent="getStudentByParent"
       >
         <div class="row">
-          <div class="col">
+          <div class="col-lg col-sm-block">
             <label>Mã số sinh viên</label>
             <input
               v-model="student.studentId"
@@ -18,7 +19,7 @@
               required
             />
           </div>
-          <div class="col">
+          <div class="col-lg col-sm-block mt-3">
             <label>Họ và tên</label>
             <input
               v-model="student.studentName"
@@ -28,7 +29,7 @@
               required
             />
           </div>
-          <div class="col">
+          <div class="col-lg col-sm-block mt-3">
             <label>Ngày sinh</label>
             <input
               v-model="student.studentBirthday"
@@ -40,7 +41,7 @@
           </div>
         </div>
         <div class="row" style="margin-top: 20px">
-          <div class="col">
+          <div class="col-lg col-sm-block mt-3">
             <label>Mã lớp</label>
             <input
               v-model="student.classId"
@@ -50,7 +51,7 @@
               required
             />
           </div>
-          <div class="col">
+          <div class="col-lg col-sm-block mt-3">
             <label>CCCD</label>
             <input
               v-model="student.studentIdentification"
@@ -60,7 +61,7 @@
               required
             />
           </div>
-          <div class="col">
+          <div class="col col-sm-block mt-3">
             <!-- <input type="text" class="form-control" placeholder="Last name" /> -->
           </div>
         </div>
@@ -82,6 +83,7 @@
             <th scope="col">Ngày sinh</th>
             <th scope="col">Số CCCD</th>
             <th scope="col">Xem điểm</th>
+            <th scope="col">Học phí</th>
           </tr>
         </thead>
         <tbody>
@@ -91,7 +93,14 @@
             <td>{{ studentList.birthday }}</td>
             <td>{{ studentList.identification }}</td>
             <td>
-            <router-link :to="`/parent/scoreStudent/${studentList.id}`">Xem điểm</router-link>
+              <router-link :to="`/parent/scoreStudent/${studentList.id}`"
+                >Xem điểm</router-link
+              >
+            </td>
+            <td>
+              <router-link :to="`/parent/payment/${studentList.id}`"
+                >Học Phí</router-link
+              >
             </td>
           </tr>
         </tbody>
@@ -136,19 +145,6 @@ export default {
         );
         this.studentList = response.data;
         this.isSearch = true;
-        console.log("get student by parent", response);
-        console.log("this.student.studentId", this.student.studentId);
-        console.log("this.student.studentName", this.student.studentName);
-        console.log(
-          "this.student.studentBirthday",
-          this.student.studentBirthday
-        );
-        console.log("this.student.classId", this.student.classId);
-        console.log(
-          "this.student.studentIdentification",
-          this.student.studentIdentification
-        );
-        console.log("this.studentList", this.studentList);
       } catch (e) {
         this.errorMessage = "Không tìm thấy sinh viên";
         this.isSearch = false;
@@ -167,7 +163,7 @@ export default {
   min-height: 60.7vh;
   margin-top: 50px;
   margin-bottom: 50px;
-  /* background: #d3d3d3; */
+  box-sizing: border-box !important;
 }
 
 .container {
@@ -188,4 +184,36 @@ export default {
   justify-content: flex-end;
 }
 
+.title_content {
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 32px;
+  color: #dfb36f;
+  text-transform: uppercase;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+.title_content::after {
+  content: "";
+  width: 190px;
+  height: 1px;
+  background: #dfb36f;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+@media (max-width: 767px) {
+  .title_content {
+    font-size: 20px !important;
+    margin-bottom: 15px !important;
+  }
+
+  .container {
+    width: 100%;
+  }
+}
 </style>

@@ -3,7 +3,10 @@
     <div class="containter-fluid">
       <div>
         <!-- Footer -->
-        <footer class="text-center text-lg-start text-white" style="background-color: #070758;">
+        <footer
+          class="text-center text-lg-start text-white"
+          style="background-color: #070758"
+        >
           <!-- Grid container -->
           <div class="container p-4">
             <!--Grid row-->
@@ -15,7 +18,6 @@
                 >
                   <img
                     src="../assets/logoSchool_1.png"
-                    
                     width="100%"
                     alt=""
                     loading="lazy"
@@ -51,43 +53,17 @@
 
               <!--Grid column-->
               <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <h5 class="text-uppercase mb-4">Animals</h5>
+                <h5 class="text-uppercase mb-4">Giới thiệu</h5>
 
                 <ul class="list-unstyled">
                   <li class="mb-2">
                     <a href="#!" class="text-white"
-                      ><i class="fas fa-paw pe-3"></i>When your pet is
-                      missing</a
+                      ><i class="fa-solid fa-shield pe-3"></i>Về chúng tôi</a
                     >
                   </li>
                   <li class="mb-2">
                     <a href="#!" class="text-white"
-                      ><i class="fas fa-paw pe-3"></i>Recently found</a
-                    >
-                  </li>
-                  <li class="mb-2">
-                    <a href="#!" class="text-white"
-                      ><i class="fas fa-paw pe-3"></i>How to adopt?</a
-                    >
-                  </li>
-                  <li class="mb-2">
-                    <a href="#!" class="text-white"
-                      ><i class="fas fa-paw pe-3"></i>Pets for adoption</a
-                    >
-                  </li>
-                  <li class="mb-2">
-                    <a href="#!" class="text-white"
-                      ><i class="fas fa-paw pe-3"></i>Material gifts</a
-                    >
-                  </li>
-                  <li class="mb-2">
-                    <a href="#!" class="text-white"
-                      ><i class="fas fa-paw pe-3"></i>Help with walks</a
-                    >
-                  </li>
-                  <li class="mb-2">
-                    <a href="#!" class="text-white"
-                      ><i class="fas fa-paw pe-3"></i>Volunteer activities</a
+                      ><i class="fa-solid fa-shield pe-3"></i>Liên hệ</a
                     >
                   </li>
                 </ul>
@@ -96,37 +72,22 @@
 
               <!--Grid column-->
               <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <h5 class="text-uppercase mb-4">Animals</h5>
+                <h5 class="text-uppercase mb-4">Theo dỗi</h5>
 
                 <ul class="list-unstyled">
                   <li class="mb-2">
                     <a href="#!" class="text-white"
-                      ><i class="fas fa-paw pe-3"></i>General information</a
+                      ><i class="fa-solid fa-shield pe-3"></i>Facebook</a
                     >
                   </li>
                   <li class="mb-2">
                     <a href="#!" class="text-white"
-                      ><i class="fas fa-paw pe-3"></i>About the shelter</a
+                      ><i class="fa-solid fa-shield pe-3"></i>Tiktok</a
                     >
                   </li>
                   <li class="mb-2">
                     <a href="#!" class="text-white"
-                      ><i class="fas fa-paw pe-3"></i>Statistic data</a
-                    >
-                  </li>
-                  <li class="mb-2">
-                    <a href="#!" class="text-white"
-                      ><i class="fas fa-paw pe-3"></i>Job</a
-                    >
-                  </li>
-                  <li class="mb-2">
-                    <a href="#!" class="text-white"
-                      ><i class="fas fa-paw pe-3"></i>Tenders</a
-                    >
-                  </li>
-                  <li class="mb-2">
-                    <a href="#!" class="text-white"
-                      ><i class="fas fa-paw pe-3"></i>Contact</a
+                      ><i class="fa-solid fa-shield pe-3"></i>Instagram</a
                     >
                   </li>
                 </ul>
@@ -135,22 +96,21 @@
 
               <!--Grid column-->
               <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-                <h5 class="text-uppercase mb-4">Contact</h5>
+                <h5 class="text-uppercase mb-4">Thông tin liên hệ</h5>
 
                 <ul class="list-unstyled">
                   <li>
                     <p>
-                      <i class="fas fa-map-marker-alt pe-2"></i>Warsaw, 57
-                      Street, Poland
+                      <i class="fas fa-map-marker-alt pe-2"></i> 35 – 37 Hồ Hảo
+                      Hớn, Phường Cô Giang, Quận 1, TP. HCM.
                     </p>
                   </li>
                   <li>
-                    <p><i class="fas fa-phone pe-2"></i>+ 01 234 567 89</p>
+                    <p><i class="fas fa-phone pe-2"></i>028-38364748.</p>
                   </li>
                   <li>
                     <p>
-                      <i class="fas fa-envelope pe-2 mb-0"></i
-                      >contact@example.com
+                      <i class="fas fa-envelope pe-2 mb-0"></i>ou@ou.edu.vn.
                     </p>
                   </li>
                 </ul>
@@ -188,5 +148,9 @@
   background-color: #0c713d;
   color: white;
   text-align: center;
+}
+
+a {
+  text-decoration: none !important;
 }
 </style>
