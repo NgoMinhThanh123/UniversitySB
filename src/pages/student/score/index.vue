@@ -164,6 +164,7 @@ export default {
         this.isLoading = false;
         console.log("semesterData", this.semesterData);
       } catch (err) {
+        this.isLoading = false;
         err.value = true;
       }
     },
