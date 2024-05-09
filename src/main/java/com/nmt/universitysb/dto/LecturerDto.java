@@ -14,23 +14,17 @@ import java.util.Date;
 @AllArgsConstructor
 public class LecturerDto {
     private String id;
-
     private String name;
-
     private Date birthday;
-
-    private short gender;
-
+    private boolean gender;
     private String identification;
-
     private String phone;
-
     private String address;
-
+    private String email;
+    private String degree;
+    private String position;
     private Faculty facultyId;
-
     private User userId;
-
     private Classes classesId;
 
 }

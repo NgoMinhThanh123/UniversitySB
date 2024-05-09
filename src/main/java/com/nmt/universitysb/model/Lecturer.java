@@ -32,7 +32,7 @@ public class Lecturer implements Serializable {
     private Date birthday;
     @Basic(optional = false)
     @Column(name = "gender")
-    private short gender;
+    private boolean gender;
     @Column(name = "identification")
     private String identification;
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
@@ -46,10 +46,10 @@ public class Lecturer implements Serializable {
     @NotBlank(message = "Email không được để trống")
     @Column(name = "email")
     private String email;
-    @JoinColumn(name = "faculty_id", referencedColumnName = "id", columnDefinition = "VARCHAR(10)")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Faculty facultyId;
+    @Column(name = "degree")
+    private String degree;
+    @Column(name = "position")
+    private String position;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnore
@@ -58,6 +58,10 @@ public class Lecturer implements Serializable {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JsonIgnore
     private Classes classesId;
+    @JoinColumn(name = "faculty_id", referencedColumnName = "id", columnDefinition = "VARCHAR(10)")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Faculty facultyId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "lecturerId")
     @JsonIgnore
     private Set<LecturerSubject> lecturerSubjectSet;

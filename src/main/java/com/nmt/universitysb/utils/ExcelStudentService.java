@@ -65,7 +65,11 @@ public class ExcelStudentService {
                 student.setPhone(currentRow.getCell(5).getStringCellValue());
                 student.setAddress(currentRow.getCell(6).getStringCellValue());
                 student.setUserId(null);
-                student.setClassesId(classes.get());
+                if (classes.isPresent()) {
+                    student.setClassesId(classes.get());
+                } else {
+                    System.out.println(classes.get());
+                }
                 student.setFacultyId(faculty.get());
                 student.setMajorId(major.get());
 
