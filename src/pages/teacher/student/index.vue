@@ -132,7 +132,7 @@ export default {
     this.fetchLecturerInfo().then((lecturerInfo) => {
       if (lecturerInfo && lecturerInfo.id) {
         const lecturerId = lecturerInfo.id;
-        console.log("lecturerId", lecturerId);
+        // console.log("lecturerId", lecturerId);
         this.fetchSubjectsByLecturerId(lecturerId);
       }
     });

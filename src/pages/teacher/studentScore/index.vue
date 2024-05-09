@@ -445,6 +445,7 @@ export default {
 
         if (response.data) {
           this.studentList = response.data;
+          console.log("this.studentList = ", this.studentList)
           this.hasError = false;
           this.notFoundMessage = false;
         }
