@@ -23,6 +23,6 @@ public interface StudentService {
     StudentDto getListStudentForParents(String studentId, String studentName, Date studentBirthday, String classId, String studentIdentification);
     List<StudentDto> getStudentByHomeroomTeacher(String lecturerId);
     List<StuScoreDto> getListStudent(String lectureId, String classId, String subjectId, String semesterId);
-    List<String> getAllMailOfStudent(String lecturerId, String subjectId, String semesterId);
+    List<String> getAllMailOfStudent(String lecturerId, String classesId, String subjectId, String semesterId);
 
 }

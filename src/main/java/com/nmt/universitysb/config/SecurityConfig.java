@@ -7,13 +7,17 @@ import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -27,6 +31,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.io.IOException;
+import java.util.Properties;
 
 @Configuration
 @EnableWebSecurity
@@ -65,14 +70,15 @@ public class SecurityConfig implements WebMvcConfigurer {
                                     .requestMatchers("/test").permitAll()
                                     .requestMatchers("/pay").permitAll()
                                     .requestMatchers("/pay/success").permitAll()
-                                    .requestMatchers("/pay/cancel").permitAll()
                                     .requestMatchers("/pay/error").permitAll()
+                                    .requestMatchers("/pay/cancel").permitAll()
                                     .requestMatchers("/api/scores/list/for-parent").permitAll()
                                     .requestMatchers("/api/tuition_fee/student/").permitAll()
                                     .requestMatchers("/api/semesters/student/").permitAll()
                                     .requestMatchers("/api/subjects/tuition-fee/").permitAll()
                                     .requestMatchers("/api/tuition_fee/student-semester/").permitAll()
                                     .requestMatchers("/api/tuition_fee/total/").permitAll()
+                                    .requestMatchers("/api/students/mails/").permitAll()
                                     .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                                     .requestMatchers(HttpMethod.POST, "/api/**").hasAnyRole("GIAOVU", "GIANGVIEN", "SINHVIEN")
 //                                    .requestMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole("GIAOVU")
@@ -106,7 +112,7 @@ public class SecurityConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/update_faculty/**", "/update_class/**", "/update_lecturer/**", "/update_major/**", "/update_score/**", "/update_score_column/**", "/update_score_value/**", "/update_semester/**", "/update_student/**", "/update_student_subject/**"
-                        , "/update_subject/**", "/update_user/**", "/update_credit_price/**", "/update_score_percent/**", "/update_tuition_fee/**", "/update_education_program/**")
+                        , "/update_subject/**", "/update_user/**", "/update_credit_price/**", "/update_score_percent/**", "/update_tuition_fee/**", "/update_education_program/**", "/pay/success/**", "/pay/error/**", "/pay/cancel/**")
                 .addResourceLocations("classpath:/static/");
     }
 

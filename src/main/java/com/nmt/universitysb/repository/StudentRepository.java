@@ -51,16 +51,17 @@ public interface StudentRepository extends JpaRepository<Student, String> {
             "WHERE s.id = :studentId and s.name = :studentName and s.birthday = :studentBirthday and cl.id = :classId and s.identification = :studentIdentification")
     StudentDto getListStudentForParents(@Param("studentId") String studentId, @Param("studentName") String studentName, @Param("studentBirthday") Date studentBirthday, @Param("classId") String classId, @Param("studentIdentification") String studentIdentification);
 
-    @Query(value ="SELECT user.email \n"
-            + "FROM student \n"
-            + "JOIN user ON student.user_id = user.id\n"
-            + "join student_subject on student_subject.student_id = student.id\n"
-            + "join subject on student_subject.subject_id = subject.id\n"
-            + "join education_program on education_program.subject_id = subject.id\n"
-            + "join semester on subject_semester.semester_id = semester.id\n"
-            + "join lecturer_subject on lecturer_subject.subject_id = subject.id\n"
-            + "join lecturer on lecturer_subject.lecturer_id = lecturer.id\n"
-            + "where lecturer.id = :lecturerId and classes.id = :classId and subject.id = :subjectId and semester.id = :semesterId",nativeQuery = true)
-    List<String> getAllMailOfStudent(@Param("lecturerId") String lecturerId, @Param("subjectId") String subjectId, @Param("semesterId") String semesterId);
+    @Query(value ="SELECT u.email\n" +
+            "FROM student s\n" +
+            "JOIN user u ON s.user_id = u.id\n" +
+            "join classes cl on cl.id = s.classes_id \n" +
+            "join student_subject ss on ss.student_id = s.id\n" +
+            "join subject su on ss.subject_id = su.id\n" +
+            "join education_program ep on ep.subject_id = su.id\n" +
+            "join semester se on ep.semester_id = se.id\n" +
+            "join lecturer_subject ls on ls.subject_id = su.id\n" +
+            "join lecturer l on ls.lecturer_id = l.id\n" +
+            "where l.id = :lecturerId and cl.id = :classesId and su.id = :subjectId and se.id = :semesterId ",nativeQuery = true)
+    List<String> getAllMailOfStudent(@Param("lecturerId") String lecturerId, @Param("classesId") String classesId, @Param("subjectId") String subjectId, @Param("semesterId") String semesterId);
 
 }

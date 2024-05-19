@@ -35,6 +35,11 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
+    public SubjectDto findSubjectById(String id) {
+        return this.subjectRepo.findSubjectById(id);
+    }
+
+    @Override
     public Page<Subject> findAllByNameContaining(String keyword, Pageable pageable) {
         return this.subjectRepo.findAllByNameContaining(keyword, pageable);
     }
@@ -81,8 +86,8 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public List<SubjectDto> getSubjectByEducationProgram(String studentId, String semesterId, String majorId) {
-        return this.subjectRepo.getSubjectByEducationProgram(studentId, semesterId, majorId);
+    public List<SubjectDto> getSubjectByEducationProgram(String semesterId, String majorId) {
+        return this.subjectRepo.getSubjectByEducationProgram(semesterId, majorId);
     }
 
     @Override

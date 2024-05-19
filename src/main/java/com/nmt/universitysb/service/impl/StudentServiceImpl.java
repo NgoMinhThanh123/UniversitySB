@@ -56,7 +56,7 @@ public class StudentServiceImpl implements StudentService {
     public Student saveAndCreateUser(Student s) {
         User u = new User();
         u.setUsername(s.getId());
-        u.setPassword(encoder.encode(s.getIdentification()));
+        u.setPassword(encoder.encode(s.getId()));
         u.setEmail(s.getId()+"@ou.edu.vn");
         u.setRole("ROLE_SINHVIEN");
         u.setAvatar("https://res.cloudinary.com/dp1am0vsj/image/upload/v1696605996/u2bgxhndtzwzvxfv6zzg.webp");
@@ -72,7 +72,7 @@ public class StudentServiceImpl implements StudentService {
             Student s = students.get(i);
             User u = new User();
             u.setUsername(s.getId());
-            u.setPassword(encoder.encode(s.getIdentification()));
+            u.setPassword(encoder.encode(s.getId()));
             u.setEmail(s.getId()+"@ou.edu.vn");
             u.setRole("ROLE_SINHVIEN");
             u.setAvatar("https://res.cloudinary.com/dp1am0vsj/image/upload/v1696605996/u2bgxhndtzwzvxfv6zzg.webp");
@@ -127,8 +127,8 @@ public class StudentServiceImpl implements StudentService {
 
 
     @Override
-    public List<String> getAllMailOfStudent(String lecturerId, String subjectId, String semesterId) {
-        return this.studentRepo.getAllMailOfStudent(lecturerId, subjectId, semesterId);
+    public List<String> getAllMailOfStudent(String lecturerId, String classesId, String subjectId, String semesterId) {
+        return this.studentRepo.getAllMailOfStudent(lecturerId, classesId, subjectId, semesterId);
     }
 
     @Override

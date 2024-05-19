@@ -11,6 +11,7 @@ public interface SubjectService {
     List<Subject> findAll();
     Page<Subject> findAll(Pageable pageable);
     Optional<Subject> findById(String id);
+    SubjectDto findSubjectById(String id);
     Page<Subject> findAllByNameContaining(String keyword, Pageable pageable);
     Subject save(Subject f);
     boolean deleteSubject(String id);
@@ -20,6 +21,6 @@ public interface SubjectService {
     List<SubjectDto> getSubjectByMajorId(String majorId, String semesterId);
     List<SubjectDto> getSubjectByStudentAndSemesterId(String studentId, String semesterId);
     List<SubjectDto> getSubjectTemporaryCourse(String studentId, String semesterId);
-    List<SubjectDto> getSubjectByEducationProgram(String studentId, String semesterId, String majorId);
+    List<SubjectDto> getSubjectByEducationProgram(String semesterId, String majorId);
     List<TuitionFeeAndSubjectDto> getTuitionFeeOfSemester(String studentId, String semesterId);
 }

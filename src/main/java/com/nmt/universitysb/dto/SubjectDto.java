@@ -12,5 +12,5 @@ public class SubjectDto {
     private String id;
     private String name;
     private int credit;
-    private Major majorId;
+    private String majorId;
 }

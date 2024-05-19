@@ -39,8 +39,8 @@ public class PaypalController {
         model.addAttribute(tuitionFee);
         try {
             Payment payment = service.createPayment(tuitionfeeTransfer, "USD", "paypal",
-                    "sale", "Pay tuition fee", "http://13.212.10.201/" + CANCEL_URL,
-                    "http://13.212.10.201/" + SUCCESS_URL + "?tuitionFeeId=" + tuitionFeeId);
+                    "sale", "Pay tuition fee", "https://snt.io.vn/" + CANCEL_URL,
+                    "https://snt.io.vn/" + SUCCESS_URL + "?tuitionFeeId=" + tuitionFeeId);
             for(Links link:payment.getLinks()) {
                 if(link.getRel().equals("approval_url")) {
                     return link.getHref();
@@ -51,7 +51,7 @@ public class PaypalController {
 
             e.printStackTrace();
         }
-        return "redirect:" + ERROR_URL;
+        return "https://snt.io.vn/" + ERROR_URL;
     }
 
     @GetMapping(value = CANCEL_URL)

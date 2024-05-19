@@ -5,6 +5,7 @@ import java.time.format.DateTimeFormatter;
 
 import com.nmt.universitysb.dto.StuScoreDto;
 import com.nmt.universitysb.dto.StudentDto;
+import com.nmt.universitysb.dto.SubjectDto;
 import com.nmt.universitysb.model.Student;
 import com.nmt.universitysb.model.Subject;
 import com.nmt.universitysb.requests.MailRequest;
@@ -108,13 +109,14 @@ public class ApiStudentController {
     @PostMapping("/students/mails/")
     public ResponseEntity<?> sendMailToStudent(
             @RequestParam String lecturerId,
+            @RequestParam String classesId,
             @RequestParam String subjectId,
             @RequestParam String semesterId) {
-        Optional<Subject> s = this.subjectService.findById(subjectId);
+        SubjectDto s = this.subjectService.findSubjectById(subjectId);
         String subject = "Đã có điểm môn học";
-        String body = "Đã có điểm môn học " + s.get().getName() + ", các em vào xem nhé!!!";
+        String body = "Đã có điểm môn học " + s.getName() + ", các em vào xem nhé!!!";
         String from = "2051052127thanh@ou.edu.vn";
-        List<String> listMail = studentService.getAllMailOfStudent(lecturerId, subjectId, semesterId);
+        List<String> listMail = studentService.getAllMailOfStudent(lecturerId, classesId, subjectId, semesterId);
         listMail.stream().forEach(m -> {
             MailRequest mailRequest = MailRequest.builder()
                     .date(LocalDate.now().format(DateTimeFormatter.ofPattern(YYYY_MM_DD)))

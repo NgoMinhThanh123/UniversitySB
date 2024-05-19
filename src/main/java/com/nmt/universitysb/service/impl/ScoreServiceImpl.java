@@ -122,11 +122,11 @@ public class ScoreServiceImpl implements ScoreService {
                 if (scoreDto.getScoreColumnName().equals("Giữa kì") || scoreDto.getScoreColumnName().equals("Cuối kì")) {
                     Double scoreValue = scoreDto.getScoreValue();
                     if (scoreValue != null && scoreValue < 4 && !warningAddedForSubject) {
-                        academicWarningList.add("Cần chú ý Điểm môn học " + score.getSubjectName() + " thấp, nguy cơ rớt môn, hãy cố gắng cải thiện điểm nhé!");
+                        academicWarningList.add("Cần chú ý Điểm môn học " + score.getSubjectName() + " có cột đểm " + scoreDto.getScoreColumnName()  + " thấp, nguy cơ rớt môn, hãy cố gắng cải thiện điểm nhé!");
                         addedWarnings.add(score.getSubjectName()); // Đánh dấu rằng đã thêm thông báo cảnh báo cho môn học này
                         warningAddedForSubject = true;
                     } else if (scoreValue != null && scoreValue < 7 && !warningAddedForSubject) {
-                        academicWarningList.add("Môn học " + score.getSubjectName() + " có mức điểm trung bình, cần cải thiện thêm điểm số!");
+                        academicWarningList.add("Môn học " + score.getSubjectName() + " có cột đểm " + scoreDto.getScoreColumnName()  + " có mức điểm trung bình, cần cải thiện thêm điểm số!");
                         addedWarnings.add(score.getSubjectName()); // Đánh dấu rằng đã thêm thông báo cảnh báo cho môn học này
                         warningAddedForSubject = true;
                     }
