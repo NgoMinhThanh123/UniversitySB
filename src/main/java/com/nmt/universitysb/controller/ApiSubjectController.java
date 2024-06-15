@@ -32,6 +32,11 @@ public class ApiSubjectController {
         return new ResponseEntity<>(this.subjectService.findAll(), HttpStatus.OK);
     }
 
+    @GetMapping("/subjects/subjectId/")
+    public ResponseEntity<SubjectDto> getSubjectById(@RequestParam String subjectId) {
+        return new ResponseEntity<>(this.subjectService.findSubjectById(subjectId), HttpStatus.OK);
+    }
+
     @GetMapping(path = "/subjects/{lecturerId}/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<SubjectDto>> getSubjectByLecturerId(@PathVariable(value = "lecturerId") String lecturerId) {
         List<SubjectDto> list = subjectService.getSubjectByLecturerId(lecturerId);

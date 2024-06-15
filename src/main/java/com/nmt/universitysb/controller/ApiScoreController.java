@@ -1,9 +1,6 @@
 package com.nmt.universitysb.controller;
 
-import com.nmt.universitysb.dto.ScoreDto;
-import com.nmt.universitysb.dto.ScoreListDto;
-import com.nmt.universitysb.dto.Score_ScoreValueDto;
-import com.nmt.universitysb.dto.StudentScoreDTO;
+import com.nmt.universitysb.dto.*;
 import com.nmt.universitysb.service.ScoreService;
 import com.nmt.universitysb.utils.ExcelScoreService;
 import com.nmt.universitysb.utils.ExcelUtils;
@@ -181,7 +178,7 @@ public class ApiScoreController {
 
     @PostMapping("/score/excel-add/")
     @CrossOrigin
-    public ResponseEntity<?> addScoreByExcel(@RequestParam("file") MultipartFile file) throws IOException {
+    public ResponseEntity<Information> addScoreByExcel(@RequestParam("file") MultipartFile file) throws IOException {
         try {
             Path tempDir = Files.createTempDirectory("upload-dir");
 
@@ -189,17 +186,17 @@ public class ApiScoreController {
 
             Files.write(tempFile, file.getBytes());
 
-            List<Score_ScoreValueDto> scoreScoreValueDtos = excelScoreService.readScoreFromExcelFile(tempFile.toFile());
+            Information scoreScoreValueDtos = excelScoreService.readScoreFromExcelFile(tempFile.toFile());
 
             // Xóa thư mục tạm thời và tất cả các tệp tin bên trong sau khi đã xử lý xong
             Files.walk(tempDir)
                     .sorted(Comparator.reverseOrder())
                     .map(Path::toFile)
                     .forEach(File::delete);
-            return ResponseEntity.ok("File uploaded successfully!");
+            return new ResponseEntity<>(scoreScoreValueDtos, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing the file.");
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

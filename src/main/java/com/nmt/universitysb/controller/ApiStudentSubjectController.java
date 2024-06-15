@@ -38,6 +38,18 @@ public class ApiStudentSubjectController {
         return new ResponseEntity<>(studentSubject, HttpStatus.OK);
     }
 
+    @GetMapping(path = "/get_student_subject_by_stu_sub_se/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StudentSubjectDto> getStudentSubjectByStudentSubjectSemester(
+            @RequestParam String studentId,
+            @RequestParam String subjectId,
+            @RequestParam String semesterId) {
+        StudentSubjectDto studentSubject = studentSubjectService.getStudentSubjectByStudentSubjectSemester(studentId, subjectId, semesterId);
+        if (studentSubject == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(studentSubject, HttpStatus.OK);
+    }
+
     @GetMapping(path = "/get-temporary-course/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<StudentSubjectDto>> getTemporaryCourse(
             @RequestParam String studentId,

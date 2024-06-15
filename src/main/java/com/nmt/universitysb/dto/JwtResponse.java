@@ -13,4 +13,6 @@ public class JwtResponse {
     private String accessToken;
     private String refreshToken;
     private String typeToken;
+    private String accessTokenExpiration;
+    private String refreshTokenExpiration;
 }

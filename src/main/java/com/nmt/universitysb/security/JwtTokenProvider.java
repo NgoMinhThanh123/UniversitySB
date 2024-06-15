@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.security.Key;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Component
@@ -35,14 +36,15 @@ public class JwtTokenProvider implements Serializable {
         User user = userRepository.getUserByUsername(username);
         Date currentDate = new Date();
 
-        Date expireDate = new Date(currentDate.getTime() + JwtExpirationDate);
+        Date accessTokenExpireDate = new Date(currentDate.getTime() + JwtExpirationDate);
+        Date refreshTokenExpireDate = new Date(currentDate.getTime() + REFRESH_TOKEN_EXPIRATION_DATE);
 
         String accessToken = Jwts.builder()
                 .setSubject(username)
                 .claim("email", user.getEmail())
                 .claim("userName", user.getUsername())
-                .setIssuedAt(new Date())
-                .setExpiration(expireDate)
+                .setIssuedAt(currentDate)
+                .setExpiration(accessTokenExpireDate)
                 .signWith(key())
                 .compact();
 
@@ -51,12 +53,17 @@ public class JwtTokenProvider implements Serializable {
                 .claim("email", user.getEmail())
                 .claim("userName", user.getUsername())
                 .setIssuedAt(currentDate)
-                .setExpiration(new Date(currentDate.getTime() + REFRESH_TOKEN_EXPIRATION_DATE))
+                .setExpiration(refreshTokenExpireDate)
                 .signWith(key())
                 .compact();
 
-        JwtResponse jwtResponse = new JwtResponse(accessToken, refreshToken, "Bearer");
-
+        JwtResponse jwtResponse = JwtResponse.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .typeToken("Bearer")
+                .accessTokenExpiration(String.valueOf(accessTokenExpireDate.getTime()))
+                .refreshTokenExpiration(String.valueOf(refreshTokenExpireDate.getTime()))
+                .build();
 
         return jwtResponse;
     }
@@ -114,7 +121,7 @@ public class JwtTokenProvider implements Serializable {
     public JwtResponse refreshToken(String refreshToken) {
         Date currentDate = new Date();
 
-        Date expireDate = new Date(currentDate.getTime() + JwtExpirationDate);
+        Date accessTokenExpireDate = new Date(currentDate.getTime() + JwtExpirationDate);
         if (validateToken(refreshToken)) {
             try {
                 String username = getUsername(refreshToken);
@@ -123,12 +130,25 @@ public class JwtTokenProvider implements Serializable {
                         .setSubject(username)
                         .claim("email", user.getEmail())
                         .claim("usename", user.getUsername())
-                        .setIssuedAt(new Date())
-                        .setExpiration(expireDate)
+                        .setIssuedAt(currentDate)
+                        .setExpiration(accessTokenExpireDate)
                         .signWith(key())
                         .compact();
 
-                JwtResponse jwtResponse = new JwtResponse(accessToken, refreshToken, "Bearer");
+                JwtResponse jwtResponse = JwtResponse.builder()
+                        .accessToken(accessToken)
+                        .refreshToken(refreshToken)
+                        .typeToken("Bearer")
+                        .accessTokenExpiration(String.valueOf(accessTokenExpireDate.getTime()))
+                        .refreshTokenExpiration(String.valueOf(Jwts.parserBuilder()
+                                .setSigningKey(key())
+                                .build()
+                                .parseClaimsJws(refreshToken)
+                                .getBody()
+                                .getExpiration()
+                                .getTime()))
+                        .build();
+
                 return jwtResponse;
             } catch (Exception e) {
                 e.printStackTrace();

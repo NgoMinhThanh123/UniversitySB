@@ -49,4 +49,7 @@ public class Semester implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "semesterId", fetch = FetchType.LAZY)
     private Set<CreditPrice> creditPriceSet;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "semesterId", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<StudentSubject> studentSubjectSet;
 }

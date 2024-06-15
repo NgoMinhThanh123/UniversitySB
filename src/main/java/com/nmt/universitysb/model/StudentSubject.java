@@ -30,6 +30,10 @@ public class StudentSubject implements Serializable {
     @JsonIgnore
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Subject subjectId;
+    @JoinColumn(name = "semester_id", referencedColumnName = "id", columnDefinition = "VARCHAR(5)")
+    @JsonIgnore
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Semester semesterId;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "studentSubjectId")
     @JsonIgnore
     private Set<Score> scoreSet;

@@ -79,6 +79,8 @@ public class SecurityConfig implements WebMvcConfigurer {
                                     .requestMatchers("/api/tuition_fee/student-semester/").permitAll()
                                     .requestMatchers("/api/tuition_fee/total/").permitAll()
                                     .requestMatchers("/api/students/mails/").permitAll()
+                                    .requestMatchers("/api/notification/token").permitAll()
+                                    .requestMatchers("/api/score/excel-add/").hasAnyRole("GIAOVU", "GIANGVIEN")
                                     .requestMatchers(HttpMethod.GET, "/api/**").permitAll()
                                     .requestMatchers(HttpMethod.POST, "/api/**").hasAnyRole("GIAOVU", "GIANGVIEN", "SINHVIEN")
 //                                    .requestMatchers(HttpMethod.DELETE, "/api/**").hasAnyRole("GIAOVU")

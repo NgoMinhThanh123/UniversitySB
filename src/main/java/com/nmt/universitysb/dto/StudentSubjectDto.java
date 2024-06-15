@@ -1,5 +1,6 @@
 package com.nmt.universitysb.dto;
 
+import com.nmt.universitysb.model.Semester;
 import com.nmt.universitysb.model.Student;
 import com.nmt.universitysb.model.Subject;
 import lombok.AllArgsConstructor;
@@ -14,4 +15,5 @@ public class StudentSubjectDto {
     private Boolean status;
     private Student studentId;
     private Subject subjectId;
+    private Semester semesterId;
 }

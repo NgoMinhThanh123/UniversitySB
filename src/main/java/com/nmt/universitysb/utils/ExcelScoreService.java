@@ -1,5 +1,6 @@
 package com.nmt.universitysb.utils;
 
+import com.nmt.universitysb.dto.Information;
 import com.nmt.universitysb.dto.ScoreDto;
 import com.nmt.universitysb.dto.Score_ScoreValueDto;
 import com.nmt.universitysb.dto.SubjectDto;
@@ -30,7 +31,8 @@ public class ExcelScoreService {
     @Autowired
     private ScoreColumnRepository scoreColumnRepository;
 
-    public List<Score_ScoreValueDto> readScoreFromExcelFile(File file) {
+    public Information readScoreFromExcelFile(File file) {
+        Information information = new Information();
         List<Score_ScoreValueDto> scoreScoreValueDtos = new ArrayList<>();
         try {
             FileInputStream excelFile = new FileInputStream(file);
@@ -44,6 +46,11 @@ public class ExcelScoreService {
             SubjectDto subject = subjectRepository.getSubjectByName(subjectName);
             String semesterName = infoRow.getCell(3).getStringCellValue();
             Optional<Semester> semester = semesterRepository.findById(semesterName);
+            String classId = infoRow.getCell(5).getStringCellValue();
+
+            information.setSubjectId(subject.getId());
+            information.setSemesterId(semester.get().getId());
+            information.setClassId(classId);
 
             while (iterator.hasNext()) {
                 Row currentRow = iterator.next();
@@ -101,6 +108,6 @@ public class ExcelScoreService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return scoreScoreValueDtos;
+        return information;
     }
 }

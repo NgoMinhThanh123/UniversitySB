@@ -69,9 +69,10 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
             studentSubject.setStudentId(student.get());
             studentSubject.setSubjectId(subject.get());
             studentSubject.setStatus(true);
+            studentSubject.setSemesterId(semester.get());
 
-            Optional<StudentSubject> existingStudentSubject = studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.get().getId(), subject.get().getId());
-            if (!existingStudentSubject.isPresent()) {
+           StudentSubjectDto existingStudentSubject = studentSubjectRepository.getStudentSubjectByStudentSubjectSemester(student.get().getId(), subject.get().getId(), semester.get().getId());
+            if (existingStudentSubject == null) {
                 StudentSubject studentSubject1 = this.studentSubjectRepository.save(studentSubject);
 
                 // Tính toán tuitionFee
@@ -101,7 +102,12 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
 
                 }
             } else {
-                StudentSubject studentSubject2 = existingStudentSubject.get();
+
+                StudentSubject studentSubject2 = new StudentSubject();
+                studentSubject2.setId(existingStudentSubject.getId());
+                studentSubject2.setStudentId(existingStudentSubject.getStudentId());
+                studentSubject2.setSubjectId(existingStudentSubject.getSubjectId());
+                studentSubject2.setSemesterId(existingStudentSubject.getSemesterId());
                 studentSubject2.setStatus(true);
                 this.studentSubjectRepository.save(studentSubject2);
 
@@ -172,6 +178,7 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
             StudentSubject studentSubject = new StudentSubject();
             studentSubject.setStudentId(student.get());
             studentSubject.setSubjectId(subject.get());
+            studentSubject.setSemesterId(semester.get());
             studentSubject.setStatus(false);
 
             Optional<StudentSubject> existingStudentSubject = studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.get().getId(), subject.get().getId());
@@ -200,6 +207,11 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
     @Override
     public Optional<StudentSubject> getStudentSubjectByStudentAndSubjectId(String studentId, String subjectId) {
         return this.studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(studentId, subjectId);
+    }
+
+    @Override
+    public StudentSubjectDto getStudentSubjectByStudentSubjectSemester(String studentId, String subjectId, String semesterId) {
+        return this.studentSubjectRepository.getStudentSubjectByStudentSubjectSemester(studentId, subjectId, semesterId);
     }
 
     @Override
