@@ -18,7 +18,7 @@
 ```
 chọn src -> main -> java -> com.nmt.universitysb -> chuột phải vào UniversitySbApplicaiton -> Run UniversitySbApplicaiton
 ```
-## Bước 5. Mở trình duyệt và gõ đường dẫn "http://localhost:8082"
+## Bước 5. Mở trình duyệt và gõ đường dẫn "http://localhost:8080"
 ## Bước 6. Đăng nhập với thông tin sau để test các chức năng
 ```
 tài khoản: giaovu
@@ -27,7 +27,7 @@ tài khoản: giaovu
 mật khẩu: 123456
 ```
 # Hướng dẫn chạy hệ thống University Backend đã được đưa lên AWS (Amazon Web Serivce)
-## Bước 1: Truy cập đường dẫn "http://universitysb-env.eba-nnscwuyq.ap-southeast-2.elasticbeanstalk.com/"
+## Bước 1: Truy cập đường dẫn "https:/snt.io.vn/"
 ## Bước 2. Đăng nhập với thông tin sau để test các chức năng
 ```
 tài khoản: giaovu
