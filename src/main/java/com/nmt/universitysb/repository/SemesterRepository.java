@@ -14,6 +14,7 @@ import java.util.Optional;
 @Repository
 public interface SemesterRepository extends JpaRepository<Semester, String> {
     Optional<Semester> findById(String id);
+
     Semester save(Semester f);
     void deleteById(String id);
     Page<Semester> findAllBySchoolYearContaining(String keyword, Pageable pageable);

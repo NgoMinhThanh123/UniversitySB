@@ -91,9 +91,10 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
                     Score score1 = this.scoreRepo.save(score);
 
                     StudentSubjectDto studentSubjectDto = new StudentSubjectDto();
+                    studentSubjectDto.setStatus(true);
                     studentSubjectDto.setStudentId(student.get());
                     studentSubjectDto.setSubjectId(subject.get());
-                    studentSubjectDto.setStatus(true);
+                    studentSubjectDto.setSemesterId(semester.get());
 
                     studentSubjects.add(studentSubjectDto);
 
@@ -148,7 +149,6 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
             TuitionFee tuitionFee1 = new TuitionFee();
             tuitionFee1.setTuitionFee(totalTuitionFee);
             tuitionFee1.setDone(false);
-//            tuitionFee1.setDateCreated(new Date());
 
             Optional<Student> student1 = this.studentRepo.findById(studentId);
             if (student1.isPresent()) {
@@ -181,7 +181,7 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
             studentSubject.setSemesterId(semester.get());
             studentSubject.setStatus(false);
 
-            Optional<StudentSubject> existingStudentSubject = studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.get().getId(), subject.get().getId());
+            Optional<StudentSubject> existingStudentSubject = studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.get().getId(), subject.get().getId(), semester.get().getId());
             if (!existingStudentSubject.isPresent()) {
                 StudentSubject studentSubject1 = this.studentSubjectRepository.save(studentSubject);
 
@@ -205,8 +205,8 @@ public class StudentSubjectServiceImpl implements StudentSubjectService {
     }
 
     @Override
-    public Optional<StudentSubject> getStudentSubjectByStudentAndSubjectId(String studentId, String subjectId) {
-        return this.studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(studentId, subjectId);
+    public Optional<StudentSubject> getStudentSubjectByStudentAndSubjectId(String studentId, String subjectId, String semesterId) {
+        return this.studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(studentId, subjectId, semesterId);
     }
 
     @Override

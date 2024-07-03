@@ -81,20 +81,18 @@ public interface SubjectRepository extends JpaRepository<Subject, String> {
             "where ss.status = false and st.id = :studentId and sr.id = :semesterId")
     List<SubjectDto> getSubjectTemporaryCourse(@Param("studentId") String studentId, @Param("semesterId") String semesterId);
 
-    @Query("select distinct new com.nmt.universitysb.dto.SubjectDto(s.id, s.name, s.credit, s.majorId.id ) " +
+    @Query("select new com.nmt.universitysb.dto.SubjectDto(s.id, s.name, s.credit, s.majorId.id) \n" +
             "from Subject s \n" +
-            "join StudentSubject ss on s.id = ss.subjectId.id \n" +
             "join EducationProgram ed on s.id = ed.subjectId.id " +
             "where ed.semesterId.id = :semesterId and ed.majorId.id = :majorId ")
     List<SubjectDto> getSubjectByEducationProgram(@Param("semesterId") String semesterId, @Param("majorId") String majorId);
 
-    @Query(value ="select new com.nmt.universitysb.dto.TuitionFeeAndSubjectDto(s.id, s.name, s.credit, cp.price*s.credit)\n" +
-            "FROM Subject s\n" +
-            "JOIN StudentSubject ss ON s.id = ss.subjectId.id\n" +
-            "JOIN Student st ON st.id = ss.studentId.id\n" +
-            "JOIN EducationProgram ed ON s.id = ed.subjectId.id\n" +
-            "JOIN Semester sr ON sr.id = ed.semesterId.id \n" +
-            "JOIN CreditPrice cp ON cp.majorId.id = s.majorId.id\n" +
-            "WHERE st.id = :studentId and sr.id = :semesterId AND cp.semesterId.id = :semesterId \n")
+    @Query(value ="select distinct new com.nmt.universitysb.dto.TuitionFeeAndSubjectDto(s.id, s.name, s.credit, cp.price*s.credit) \n" +
+            "FROM Subject s \n" +
+            "JOIN StudentSubject ss ON s.id = ss.subjectId.id \n" +
+            "JOIN Student st ON st.id = ss.studentId.id \n" +
+            "JOIN TuitionFee tf on tf.studentId.id = ss.studentId.id \n" +
+            "JOIN CreditPrice cp ON cp.majorId.id = s.majorId.id \n" +
+            "WHERE st.id = :studentId and ss.semesterId.id = :semesterId AND cp.semesterId.id = :semesterId \n")
     List<TuitionFeeAndSubjectDto> getTuitionFeeOfSemester(@Param("studentId") String studentId, @Param("semesterId") String semesterId);
 }

@@ -85,6 +85,7 @@ public class ScoreServiceImpl implements ScoreService {
                 List<ScoreDto> scoreDtos = this.scoreRepo.getScoreByStudentId(studentId, subject.getId(), semesterId);
 
                 ScoreDto scoreDto = getFinalScoreForSubject(studentId, subject.getId(), semesterId);
+                boolean passFailStatus = scoreDto.getScoreValue() >= 4.0 ? true : false;
                 scoreDtos.add(scoreDto);
                 ScoreListDto scoreListDto = new ScoreListDto();
                 scoreListDto.setScoreDto(scoreDtos);
@@ -95,6 +96,7 @@ public class ScoreServiceImpl implements ScoreService {
                 scoreListDto.setFromDate(semester.getFromDate());
                 scoreListDto.setToDate(semester.getToDate());
                 scoreListDto.setSchoolYear(String.valueOf(schoolYear));
+                scoreListDto.setStatus(passFailStatus);
                 scoreListDtos.add(scoreListDto);
             }
         }
@@ -122,11 +124,11 @@ public class ScoreServiceImpl implements ScoreService {
                 if (scoreDto.getScoreColumnName().equals("Giữa kì") || scoreDto.getScoreColumnName().equals("Cuối kì")) {
                     Double scoreValue = scoreDto.getScoreValue();
                     if (scoreValue != null && scoreValue < 4 && !warningAddedForSubject) {
-                        academicWarningList.add("Cần chú ý Điểm môn học " + score.getSubjectName() + " có cột đểm " + scoreDto.getScoreColumnName()  + " thấp, nguy cơ rớt môn, hãy cố gắng cải thiện điểm nhé!");
+                        academicWarningList.add("Cần chú ý Điểm môn học " + score.getSubjectName() + " có cột điểm " + scoreDto.getScoreColumnName()  + " thấp, nguy cơ rớt môn, hãy cố gắng cải thiện điểm nhé!");
                         addedWarnings.add(score.getSubjectName()); // Đánh dấu rằng đã thêm thông báo cảnh báo cho môn học này
                         warningAddedForSubject = true;
                     } else if (scoreValue != null && scoreValue < 7 && !warningAddedForSubject) {
-                        academicWarningList.add("Môn học " + score.getSubjectName() + " có cột đểm " + scoreDto.getScoreColumnName()  + " có mức điểm trung bình, cần cải thiện thêm điểm số!");
+                        academicWarningList.add("Môn học " + score.getSubjectName() + " có cột điểm " + scoreDto.getScoreColumnName()  + " có mức điểm trung bình, cần cải thiện thêm điểm số!");
                         addedWarnings.add(score.getSubjectName()); // Đánh dấu rằng đã thêm thông báo cảnh báo cho môn học này
                         warningAddedForSubject = true;
                     }
@@ -146,12 +148,39 @@ public class ScoreServiceImpl implements ScoreService {
             Optional<Semester> semester = this.semesterRepository.findById(params.get("semesterId"));
             Optional<Student> student = this.studentRepository.findById(params.get("studentId"));
             Optional<ScoreColumn> scoreColumn = this.scoreColumnRepository.findById(Integer.parseInt(params.get("scoreColumnId")));
-            Optional<StudentSubject> studentSubject = this.studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.get().getId(), subject.get().getId());
+            Optional<StudentSubject> studentSubject = this.studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.get().getId(), subject.get().getId(), semester.get().getId());
 
             Optional<Score> existingScore = scoreRepo.findByStudentSubjectIdAndSemesterId(
                     studentSubject.get().getId(),
                     semester.get().getId()
             );
+            if (existingScore.isPresent()) {
+                ScoreValue scoreValue = new ScoreValue();
+                String scoreValueStr = params.get("scoreValue");
+                if (scoreValueStr != null) {
+                    scoreValue.setValue(Double.parseDouble(scoreValueStr));
+                } else {
+                    scoreValue.setValue(0.0);
+                }
+                scoreValue.setScoreColumnId(scoreColumn.get());
+                scoreValue.setScoreId(existingScore.get());
+
+                ScoreValue scoreValue1 = this.scoreValueRepository.save(scoreValue);
+
+                Score_ScoreValueDto scoreValueDto = new Score_ScoreValueDto();
+
+                scoreValueDto.setSubjectId(existingScore.get().getStudentSubjectId().getSubjectId().getId());
+                scoreValueDto.setSemesterId(existingScore.get().getSemesterId().getId());
+                scoreValueDto.setStudentId(existingScore.get().getStudentSubjectId().getStudentId().getId());
+                scoreValueDto.setColumnId(scoreValue1.getScoreColumnId().getId());
+                scoreValueDto.setValue(Double.parseDouble(String.valueOf(scoreValue1.getValue())));
+
+                scoreValueDtoList.add(scoreValueDto);
+            } else {
+                Score score = new Score();
+                score.setSemesterId(semester.get());
+                score.setStudentSubjectId(studentSubject.get());
+                this.scoreRepo.save(score);
 
                 ScoreValue scoreValue = new ScoreValue();
                 String scoreValueStr = params.get("scoreValue");
@@ -174,7 +203,7 @@ public class ScoreServiceImpl implements ScoreService {
                 scoreValueDto.setValue(Double.parseDouble(String.valueOf(scoreValue1.getValue())));
 
                 scoreValueDtoList.add(scoreValueDto);
-
+            }
         }
 
         return scoreValueDtoList;
@@ -190,7 +219,7 @@ public class ScoreServiceImpl implements ScoreService {
         Subject subject = subjectOptional.orElse(null);
         Semester semester = semesterOptional.orElse(null);
         if (student != null && subject != null && semester != null) {
-            Optional<StudentSubject> studentSubjectOptional = this.studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.getId(), subject.getId());
+            Optional<StudentSubject> studentSubjectOptional = this.studentSubjectRepository.getStudentSubjectByStudentAndSubjectId(student.getId(), subject.getId(), semester.getId());
             if (studentSubjectOptional.isPresent()) {
                 StudentSubject studentSubject = studentSubjectOptional.get();
                 Optional<Score> existingScore = scoreRepo.findByStudentSubjectIdAndSemesterId(

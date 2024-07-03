@@ -30,8 +30,9 @@ public class ApiStudentSubjectController {
     @GetMapping(path = "/get_student_subject/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Optional<StudentSubject>> getStudentSubject(
             @RequestParam String studentId,
-            @RequestParam String subjectId) {
-        Optional<StudentSubject> studentSubject = studentSubjectService.getStudentSubjectByStudentAndSubjectId(studentId, subjectId);
+            @RequestParam String subjectId,
+            @RequestParam String semesterId) {
+        Optional<StudentSubject> studentSubject = studentSubjectService.getStudentSubjectByStudentAndSubjectId(studentId, subjectId, semesterId);
         if (studentSubject.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

@@ -23,4 +23,5 @@ public class ScoreListDto {
     private Date fromDate;
     private Date toDate;
     private List<ScoreDto> scoreDto;
+    private boolean status;
 }

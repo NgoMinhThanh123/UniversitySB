@@ -18,10 +18,10 @@ public interface StudentSubjectRepository extends JpaRepository<StudentSubject, 
     StudentSubject save(StudentSubject f);
     void deleteById(int id);
     @Query("select a" +
-            " from StudentSubject a where a.studentId.id = :studentId AND a.subjectId.id = :subjectId")
-    Optional<StudentSubject> getStudentSubjectByStudentAndSubjectId(@Param("studentId") String studentId, @Param("subjectId") String subjectId);
+            " from StudentSubject a where a.studentId.id = :studentId AND a.subjectId.id = :subjectId and a.semesterId.id = :semesterId ")
+    Optional<StudentSubject> getStudentSubjectByStudentAndSubjectId(@Param("studentId") String studentId, @Param("subjectId") String subjectId, @Param("semesterId") String semesterId);
 
-    @Query("select new com.nmt.universitysb.dto.StudentSubjectDto(ss.id, ss.status, ss.studentId, ss.subjectId, ss.semesterId) " +
+    @Query("select distinct new com.nmt.universitysb.dto.StudentSubjectDto(ss.id, ss.status, ss.studentId, ss.subjectId, ss.semesterId) " +
             "from StudentSubject ss " +
             "where ss.studentId.id = :studentId AND ss.subjectId.id = :subjectId AND ss.semesterId.id = :semesterId")
     StudentSubjectDto getStudentSubjectByStudentSubjectSemester(@Param("studentId") String studentId, @Param("subjectId") String subjectId, @Param("semesterId") String semesterId);

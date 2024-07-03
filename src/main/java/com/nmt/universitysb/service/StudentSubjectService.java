@@ -19,7 +19,7 @@ public interface StudentSubjectService{
     List<StudentSubjectDto> courseRegister(List<Map<String, String>> paramsList);
     List<StudentSubjectDto> temporaryCourseRegister(List<Map<String, String>> paramsList);
     boolean deleteStudentSubject(int id);
-    Optional<StudentSubject> getStudentSubjectByStudentAndSubjectId(String studentId, String subjectId);
+    Optional<StudentSubject> getStudentSubjectByStudentAndSubjectId(String studentId, String subjectId, String semesterId);
     StudentSubjectDto getStudentSubjectByStudentSubjectSemester(String studentId, String subjectId, String semesterId);
     List<StudentSubjectDto> getTemporaryCourse(String studentId, String semesterId);
     List<StudentSubjectDto> getAlreadyCourse(String studentId, String semesterId);

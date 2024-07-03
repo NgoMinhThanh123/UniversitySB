@@ -67,7 +67,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                                     .requestMatchers("/api/login/", "/api/users/").permitAll()
                                     .requestMatchers("/api/firebase/config").permitAll()
                                     .requestMatchers("/home").permitAll()
-                                    .requestMatchers("/test").permitAll()
+                                    .requestMatchers("/api/update_student/**").permitAll()
                                     .requestMatchers("/pay").permitAll()
                                     .requestMatchers("/pay/success").permitAll()
                                     .requestMatchers("/pay/error").permitAll()
